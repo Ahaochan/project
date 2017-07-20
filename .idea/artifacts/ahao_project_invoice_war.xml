@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ahao-project-invoice:war">
+    <output-path>$PROJECT_DIR$/ahao-project-invoice/target</output-path>
+    <root id="archive" name="ahao-project-invoice-1.0.war">
+      <element id="artifact" artifact-name="ahao-project-invoice:war exploded" />
+    </root>
+  </artifact>
+</component>

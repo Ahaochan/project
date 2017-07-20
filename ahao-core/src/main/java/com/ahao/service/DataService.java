@@ -1,0 +1,46 @@
+package com.ahao.service;
+
+
+import com.ahao.entity.BaseDO;
+
+/**
+ * Created by Ahaochan on 2017/6/20.
+ *
+ * 访问持久化层的Service
+ * 包含基本的增删查改
+ */
+public interface DataService<T extends BaseDO> {
+    /**
+     * 插入一条数据
+     * @param obj 数据
+     * @return
+     */
+    int insert(T obj);
+
+    /**
+     * 删除一条数据
+     * @param key 删除数据的主键
+     * @return
+     */
+    int deleteByKey(Object key);
+
+    /**
+     * 获得所有数据的数量
+     * @return 所有数据的数量
+     */
+    int getAllCount();
+
+    /**
+     * 根据主键 查找一条数据
+     * @param key 数据的主键
+     * @return
+     */
+    T selectByKey(Object key);
+
+    /**
+     * 更新一条数据
+     * @param obj 更新的数据
+     * @return
+     */
+    int update(T obj);
+}

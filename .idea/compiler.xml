@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ahao-core" />
+        <module name="ahao-project-invoice" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ahao-all" target="1.8" />
+      <module name="ahao-core" target="1.8" />
+      <module name="ahao-project-invoice" target="1.8" />
+      <module name="ahao-protect-admin" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

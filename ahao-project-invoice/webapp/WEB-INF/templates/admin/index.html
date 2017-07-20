@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{index.title}">#{index.title}</title>
+    <div th:replace="base/head"></div>
+</head>
+
+<body>
+<div th:replace="base/nav"></div>
+<div id="wrapper" th:fragment="content">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header" th:text="#{index.title}">#{index.title}</h1>
+                </div>
+            </div>
+            <div class="jumbotron">
+                <h1 th:text="#{index.welcome(${indexView.username})}">欢迎你</h1>
+                <p th:text="#{index.last.date(${#dates.format(indexView.nowDate, 'yyyy-MM-dd')})}">上次登录时间: </p>
+                <p th:text="#{index.last.ip(${indexView.loginIp})}">上次登录Ip: </p>
+                <!--<br/>-->
+                <!--<p th:text="'上次登录时间是: '+${#dates.format(user.getLastLoginTime(), 'yyyy-MM-dd')}">上次登录时间: </p>-->
+                <!--<p th:text="'上次登录Ip地址是:  '+${user.getLastLoginIp()}">上次登录Ip: </p>-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:replace="base/script"></div>
+</html>
+

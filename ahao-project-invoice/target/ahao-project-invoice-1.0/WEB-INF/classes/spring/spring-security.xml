@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+        xmlns="http://www.springframework.org/schema/security"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/security
+              http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http auto-config="true" use-expressions="true">
+        <form-login login-page="/admin/login"
+                    authentication-failure-url="/admin/login?error=true"
+                    default-target-url="/admin/index"
+                    login-processing-url="/login_check"/>
+        <logout logout-url="/logout" logout-success-url="/admin/login?logout=true"/>
+        <http-basic/>
+
+        <intercept-url pattern="/*" access="permitAll"/>
+        <intercept-url pattern="/admin/login" access="permitAll"/>
+        <intercept-url pattern="/admin/**" access="hasAuthority('auth.index.view')"/>
+
+        <!-- 尝试访问没有权限的页面时跳转的页面 -->
+        <!--<access-denied-handler error-page="/403.jsp"/>-->
+
+        <session-management session-authentication-error-url="/frame.expired">
+            <!-- max-sessions只容许一个账号登录，error-if-maximum-exceeded 后面账号登录后踢出前一个账号，expired-url session过期跳转界面 -->
+            <concurrency-control max-sessions="1"
+                                 error-if-maximum-exceeded="false"
+                                 expired-url="/admin/login"/>
+        </session-management>
+
+    </http>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="springSecurityService">
+            <!--<password-encoder hash="md5"/>-->
+        </authentication-provider>
+    </authentication-manager>
+
+
+</beans:beans>

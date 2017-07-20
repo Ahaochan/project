@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.invoice.admin.auth.dao.AuthDAO">
+    <resultMap type="com.ahao.invoice.admin.auth.entity.AuthDO" id="authResult">
+        <result column="id" property="id" jdbcType="BIGINT" javaType="long"/>
+        <result column="name" property="name" jdbcType="VARCHAR" javaType="string"/>
+        <result column="description" property="description" jdbcType="VARCHAR" javaType="string"/>
+        <result column="enabled" property="enabled" jdbcType="TINYINT" javaType="boolean"/>
+        <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="date"/>
+        <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="date"/>
+    </resultMap>
+    <select id="selectNameByUserId" resultMap="authResult" parameterType="long">
+        SELECT a.id, a.name
+        FROM invoice_auth a
+        LEFT JOIN invoice_role_auth ra ON ra.auth_id = a.id
+        LEFT JOIN invoice_user_role ur ON ur.role_id = ra.role_id
+        WHERE ur.user_id = #{userId}
+    </select>
+
+    <select id="selectPage" resultMap="authResult">
+        SELECT a1.id, a1.name, a1.description, a1.enabled,
+          a1.gmt_create, a1.gmt_modify
+        FROM invoice_auth a1
+        INNER JOIN (
+          SELECT id
+          FROM invoice_auth
+          ORDER BY #{sort}
+          <if test="order.equals('desc')">
+             #{order}
+          </if>
+          LIMIT #{start}, #{pageSize}) a2
+        ON a1.id = a2.id
+    </select>
+
+    <select id="selectAllNameAndEnabled" resultMap="authResult">
+        SELECT id, name, enabled FROM invoice_auth
+    </select>
+
+    <select id="selectNameByRoleId" resultMap="authResult">
+        SELECT a.id, a.name
+        FROM invoice_auth a
+        LEFT JOIN invoice_role_auth ra ON r.id = ra.role_id
+        WHERE ra.role_id = #{roleId}
+    </select>
+
+
+    <insert id="addRelate">
+        DELETE FROM invoice_role_auth WHERE role_id = #{roleId};
+        INSERT INTO invoice_role_auth(role_id, auth_id, gmt_create, gmt_modify)
+        VALUES
+        <foreach collection="authIds" item="item" separator=",">
+            (#{roleId}, #{item}, current_timestamp, current_timestamp)
+        </foreach>
+    </insert>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-setting>
+    <!-- =================================================================== -->
+    <!-- 核心：系统核心配置 -->
+    <!-- =================================================================== -->
+    <system description="系统配置">
+        <encoding value="UTF-8" description="默认的文件编码"/>
+        <language value="zh" description="语言版本"/>
+        <to-big value="false" description="语言版本"/>
+    </system>
+
+    <!-- =================================================================== -->
+    <!--微信红包配置 -->
+    <!-- =================================================================== -->
+    <redpack>
+        <isopen description="是否开放发送红包" value="true"/>
+    </redpack>
+
+    <!--接口参数（正式环境）ACCESS_TOKEN:BpGCKKSWeSBtAW09SCqB3VRRaRGMg/Lx -->
+    <access-token description="ACCESS_TOKEN" value="BpGCKKSWeSBtAW09SCqB3VRRaRGMg/Lx" />
+
+</application-setting>

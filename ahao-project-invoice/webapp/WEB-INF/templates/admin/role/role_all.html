@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title data-th-text="#{role.title.manager}">角色管理</title>
+    <div data-th-replace="base/head"></div>
+    <!--<script data-th-src="@{/resource/custom/user/role.js}"></script>-->
+</head>
+
+<body>
+<nav data-th-replace="base/nav"></nav>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{role.title.manager}">角色管理</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 margin">
+                    <span data-th-text="#{table.show}">显示</span>
+                    <button type="button" class="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span data-th-text="${size.defaultItem.text}"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li data-th-each="item:${size.items}">
+                            <a data-th-href="${item.url}" data-th-text="${item.text}"></a>
+                        </li>
+                    </ul>
+                    <span data-th-text="#{table.size.record}">条记录</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="alert" id="notification" style="display: none">
+                </div>
+            </div>
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th data-th-each="header:${table.header}">
+                                <span data-th-text="${header}"></span>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-th-each="role:${table.cell}" data-th-with="df=#{date.format}"
+                            data-th-class="!${role.enabled}?'danger'">
+                            <td data-th-text="${role.id}"></td>
+                            <td data-th-text="${role.name}"></td>
+                            <td data-th-text="${role.description}"></td>
+                            <td data-th-text="${#dates.format(role.createTime, df)}"></td>
+                            <td data-th-text="${#dates.format(role.modifyTime, df)}"></td>
+                            <td>
+                                <a type="button" class="btn btn-primary btn-circle btn-sm"
+                                   th:href="'/admin/role/'+${role.id}">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </a>
+                                <button type="button" class="btn btn-warning btn-circle btn-sm"
+                                        data-th-onclick="'showDeleteModal('+${role.id}+')'">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <span data-th-text="#{table.size.all(${page.count})}">共---条记录</span>
+                </div>
+                <div class="col-md-6">
+                    <nav aria-label="Page navigation" class="navbar-right">
+                        <ul class="pagination">
+                            <li data-th-class="${page.pre.index==-1}?'disabled'">
+                                <a aria-label="Previous" data-th-href="${page.pre.url}">
+                                    <span aria-hidden="true" data-th-text="${page.pre.name}">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li data-th-each="item:${page.head}" data-th-class="${item.active}?'active'">
+                                <a data-th-href="${item.active?'javascript:void(0)':item.url}"
+                                   data-th-text="${item.name}">1</a>
+                            </li>
+
+                            <li data-th-if="${page.hasPreMiss()}">
+                                <a data-th-href="'javascript:void(0);'"
+                                   data-th-text="...">...</a>
+                            </li>
+
+                            <li data-th-each="item:${page.mid}" data-th-class="${item.active}?'active'">
+                                <a data-th-href="${item.active?'javascript:void(0)':item.url}"
+                                   data-th-text="${item.name}">1</a>
+                            </li>
+
+                            <li data-th-if="${page.hasLastMiss()}">
+                                <a data-th-href="'javascript:void(0);'"
+                                   data-th-text="...">...</a>
+                            </li>
+
+                            <li data-th-each="item:${page.tail}" data-th-class="${item.active}?'active'">
+                                <a data-th-href="${item.active?'javascript:void(0)':item.url}"
+                                   data-th-text="${item.name}">1</a>
+                            </li>
+
+                            <li data-th-class="${page.next.index==-1}?'disabled'">
+                                <a aria-label="Next" data-th-href="${page.next.url}">
+                                    <span aria-hidden="true" data-th-text="${page.next.name}">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div data-th-replace="base/script"></div>
+</html>

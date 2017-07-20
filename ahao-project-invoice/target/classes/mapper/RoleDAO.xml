@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ahao.invoice.admin.role.dao.RoleDAO">
+    <resultMap type="com.ahao.invoice.admin.role.entity.RoleDO" id="roleResult">
+        <result column="id" property="id" jdbcType="BIGINT" javaType="long"/>
+        <result column="name" property="name" jdbcType="VARCHAR" javaType="string"/>
+        <result column="description" property="description" jdbcType="VARCHAR" javaType="string"/>
+        <result column="enabled" property="enabled" jdbcType="TINYINT" javaType="boolean"/>
+        <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="date"/>
+        <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="date"/>
+    </resultMap>
+
+    <select id="selectPage" resultMap="roleResult">
+        SELECT r1.id, r1.name, r1.description, r1.enabled,
+          r1.gmt_create, r1.gmt_modify
+        FROM invoice_role r1
+        INNER JOIN (
+          SELECT id
+          FROM invoice_role
+          ORDER BY #{sort}
+          <if test="order.equals('desc')">
+              #{order}
+          </if>
+          LIMIT #{start}, #{pageSize}) r2
+        ON r1.id = r2.id
+    </select>
+
+    <select id="selectAllNameAndEnabled" resultMap="roleResult">
+        SELECT id, name, enabled FROM invoice_role
+    </select>
+
+    <select id="selectNameByUserId" resultMap="roleResult">
+        SELECT r.id, r.name
+        FROM invoice_role r
+        LEFT JOIN invoice_user_role ur ON r.id = ur.role_id
+        WHERE ur.user_id = #{userId}
+    </select>
+
+    <insert id="addRelate">
+        DELETE FROM invoice_user_role WHERE user_id = #{userId};
+        INSERT INTO invoice_user_role(user_id, role_id, gmt_create, gmt_modify)
+        VALUES
+        <foreach collection="roleIds" item="item" separator=",">
+            (#{userId}, #{item}, current_timestamp, current_timestamp)
+        </foreach>
+    </insert>
+
+
+</mapper>
