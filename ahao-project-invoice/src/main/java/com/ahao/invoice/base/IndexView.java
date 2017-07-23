@@ -1,7 +1,6 @@
 package com.ahao.invoice.base;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import com.ahao.util.CloneHelper;
 
 import java.util.Date;
 
@@ -21,17 +20,17 @@ public class IndexView {
     }
 
     public IndexView(Date nowDate, String username, String loginIp) {
-        this.nowDate = (Date) nowDate.clone();
+        this.nowDate = CloneHelper.clone(nowDate);
         this.username = username;
         this.loginIp = loginIp;
     }
 
     public Date getNowDate() {
-        return (Date) nowDate.clone();
+        return CloneHelper.clone(nowDate);
     }
 
     public void setNowDate(Date nowDate) {
-        this.nowDate = (Date) nowDate.clone();
+        this.nowDate = CloneHelper.clone(nowDate);
     }
 
     public String getUsername() {
@@ -48,30 +47,6 @@ public class IndexView {
 
     public void setLoginIp(String loginIp) {
         this.loginIp = loginIp;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        IndexView indexView = (IndexView) o;
-
-        return new EqualsBuilder()
-                .append(nowDate, indexView.nowDate)
-                .append(username, indexView.username)
-                .append(loginIp, indexView.loginIp)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(nowDate)
-                .append(username)
-                .append(loginIp)
-                .toHashCode();
     }
 
     @Override

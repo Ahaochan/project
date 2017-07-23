@@ -19,6 +19,8 @@ import java.util.stream.Stream;
 
 /**
  * Created by Avalon on 2017/6/3.
+ *
+ * 角色的Service层接口默认实现类
  */
 @Service
 public class RoleServiceImpl extends PageServiceImpl<RoleDO> implements RoleService {

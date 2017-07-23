@@ -8,7 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +23,17 @@ import java.util.Date;
 public class AppController {
     private UserService userService;
 
+    @Autowired
+    public AppController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/admin/index")
     public ModelAndView index(){
         ModelAndView mv = new ModelAndView("admin/index");
         String loginUsername = SecurityUtils.loginUsername();
         String loginIp = SecurityUtils.getClientIp();
+
 
         IndexView view = new IndexView(new Date(), loginUsername, loginIp);
         mv.addObject(IndexView.TAG, view);
@@ -62,10 +69,5 @@ public class AppController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/admin/login?logout";
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
     }
 }

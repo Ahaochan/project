@@ -1,10 +1,9 @@
 package com.ahao.util;
 
-import org.apache.commons.lang3.Range;
-import org.apache.commons.lang3.math.NumberUtils;
-
 /**
  * Created by Avalon on 2017/5/23.
+ *
+ * 数学的工具类
  */
 public class MathUtils {
     private MathUtils() {
@@ -18,7 +17,7 @@ public class MathUtils {
      */
     public static int between(int min, int max, int number) {
         if(min>max){
-            throw new IndexOutOfBoundsException(min+"必须大于"+max);
+            max = min;
         }
 
         if (number < min) {

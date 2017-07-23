@@ -19,16 +19,16 @@
 
     <select id="selectPage" resultMap="authResult">
         SELECT a1.id, a1.name, a1.description, a1.enabled,
-          a1.gmt_create, a1.gmt_modify
+        a1.gmt_create, a1.gmt_modify
         FROM invoice_auth a1
         INNER JOIN (
-          SELECT id
-          FROM invoice_auth
-          ORDER BY #{sort}
-          <if test="order.equals('desc')">
-             #{order}
-          </if>
-          LIMIT #{start}, #{pageSize}) a2
+        SELECT id
+        FROM invoice_auth
+        ORDER BY #{sort}
+        <if test="order.equals('desc')">
+            #{order}
+        </if>
+        LIMIT #{start}, #{pageSize}) a2
         ON a1.id = a2.id
     </select>
 
@@ -39,7 +39,7 @@
     <select id="selectNameByRoleId" resultMap="authResult">
         SELECT a.id, a.name
         FROM invoice_auth a
-        LEFT JOIN invoice_role_auth ra ON r.id = ra.role_id
+        LEFT JOIN invoice_role_auth ra ON a.id = ra.auth_id
         WHERE ra.role_id = #{roleId}
     </select>
 
@@ -52,5 +52,10 @@
             (#{roleId}, #{item}, current_timestamp, current_timestamp)
         </foreach>
     </insert>
+
+    <delete id="deleteByKey">
+        DELETE FROM invoice_auth WHERE id=#{authId};
+        DELETE FROM invoice_role_auth WHERE auth_id=#{authId}
+    </delete>
 
 </mapper>

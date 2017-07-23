@@ -5,17 +5,20 @@ import com.ahao.util.MathUtils;
 import com.ahao.util.PageUrlBuilder;
 import com.ahao.util.UrlBuilder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * Created by Ahaochan on 2017/7/15.
+ *
+ * 分页器的Data Transfer Object
  */
 public class PageDTO {
-    public static final int RANGE_HEAD = 2;
-    public static final int RANGE_MID = 5;
-    public static final int RANGE_TAIL = 2;
+    private static final int RANGE_HEAD = 2;
+    private static final int RANGE_MID = 5;
+    private static final int RANGE_TAIL = 2;
 
 
     private int current;
@@ -35,7 +38,7 @@ public class PageDTO {
         this.pageSize = PageContext.getPageSize();
 
         this.pageNum = (int) Math.ceil(this.count*1.0/pageSize);
-        this.current = MathUtils.between(1, Math.max(1, this.pageNum), current);
+        this.current = MathUtils.between(1, this.pageNum, current);
 
         if(this.current > 1 && this.current <= pageNum){
             int i = this.current-1;
@@ -61,7 +64,7 @@ public class PageDTO {
     }
 
     private void initMid(){
-        int start = MathUtils.between(1, Math.max(pageNum-RANGE_MID+1, 1), current-RANGE_MID/2);
+        int start = MathUtils.between(1, pageNum - RANGE_MID + 1, current - RANGE_MID / 2);
 
         mid = Stream.iterate(start, i->i+1)
                 .limit(RANGE_MID)
@@ -125,7 +128,7 @@ public class PageDTO {
         private final String url;
         private final boolean active;
 
-        public Item(int index, String name, String url, boolean active) {
+        Item(int index, String name, String url, boolean active) {
             this.index = index;
             this.name = name;
             this.url = url;
@@ -216,52 +219,6 @@ public class PageDTO {
 
     public void setNext(Item next) {
         this.next = next;
-    }
-
-    /**
-     * 1: | 1 2 3 4 5 | ... 99 100
-     * 2: | 1 2 3 4 5 | ... 99 100
-     * 3: | 1 2 3 4 5 | ... 99 100
-     * 4: 1 | 2 3 4 5 6 |  ... 99 100
-     * 5: 1 2 | 3 4 5 6 7 |  ... 99 100
-     * 6: 1 2 | ... 4 5 6 7 8 |  ... 99 100
-     * 95: 1 2 |  ... 93 94 95 96 97 |  ... 99 100
-     * 96: 1 2 |  ... 94 95 96 97 98 |  99 100
-     * 97: 1 2 |  ... 95 96 97 98 99 |  100
-     * 98 : 1 2 |  ... 96 97 98 99 100 |
-     * 99 : 1 2 |  ... 96 97 98 99 100 |
-     * 100: 1 2 |  ... 96 97 98 99 100 |
-     * 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
-     */
-    public static void main(String[] args) {
-        test(-1);
-        test(0);
-        test(1);
-        test(2);
-        test(3);
-        test(4);
-        test(5);
-        test(6);
-        test(95);
-        test(96);
-        test(97);
-        test(98);
-        test(99);
-        test(100);
-        test(101);
-
-    }
-
-    public static void test(int page){
-        PageDTO dto = new PageDTO(25*100, page, "/admin/users");
-        StringBuilder sb = new StringBuilder();
-        sb.append(page+" : "+Arrays.toString(dto.head.toArray())+"|" +
-                Arrays.toString(dto.mid.toArray())+"|"+
-                Arrays.toString(dto.tail.toArray()));
-
-        sb.append(",前一页:"+(dto.pre==null?"null":dto.pre.index));
-        sb.append(",后一页:"+(dto.next==null?"null":dto.next.index));
-        System.out.println(sb.toString());
     }
 
 }

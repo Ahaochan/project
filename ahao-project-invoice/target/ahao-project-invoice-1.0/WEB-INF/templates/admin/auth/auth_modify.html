@@ -17,10 +17,7 @@
                     <h1 class="page-header" data-th-text="#{auth.title.modify}">编辑用户</h1>
                 </div>
             </div>
-            <div data-th-if="${tip}" class="row alert"
-                 data-th-classappend="${tip.result == tip.SUCCESS}?'alert-success':'alert-danger'">
-                <span data-th-text="${tip.msg}"></span>
-            </div>
+            <div data-th-replace="base/tip"></div>
             <form class="form-horizontal" method="post" action="#"
                   data-th-object="${authDO}" data-th-action="'/admin/auth/'+${authDO.id}">
                 <div class="form-group" data-th-classappend="${#fields.hasErrors('id')}?'has-error'">

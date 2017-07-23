@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/html">
+<html lang="zh-CN">
 <head>
-    <title data-th-text="#{role.title.modify}">编辑用户</title>
+    <title data-th-text="#{role.title.modify}">编辑角色</title>
     <div data-th-replace="base/head"></div>
     <script data-th-src="@{/resource/custom/role/role.js}"></script>
 </head>
@@ -14,13 +13,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8">
-                    <h1 class="page-header" data-th-text="#{role.title.modify}">编辑用户</h1>
+                    <h1 class="page-header" data-th-text="#{role.title.modify}">编辑角色</h1>
                 </div>
             </div>
-            <div data-th-if="${tip}" class="row alert"
-                 data-th-classappend="${tip.result == tip.SUCCESS}?'alert-success':'alert-danger'">
-                <span data-th-text="${tip.msg}"></span>
-            </div>
+            <div data-th-replace="base/tip"></div>
             <form class="form-horizontal" method="post" action="#"
                   data-th-object="${roleDO}" data-th-action="'/admin/role/'+${roleDO.id}">
                 <div class="form-group" data-th-classappend="${#fields.hasErrors('id')}?'has-error'">

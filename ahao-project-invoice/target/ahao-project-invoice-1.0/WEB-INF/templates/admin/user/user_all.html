@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{user.title.manager}">用户管理</title>
-    <div th:replace="base/head"></div>
-    <script th:src="@{/static/custom/user/user.js}"></script>
+    <title data-th-text="#{user.title.manager}">用户管理</title>
+    <div data-th-replace="base/head"></div>
+    <script data-th-src="@{/static/custom/user/user.js}"></script>
 </head>
 
 <body>
-<nav th:replace="base/nav"></nav>
+<nav data-th-replace="base/nav"></nav>
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8">
-                    <h1 class="page-header" th:text="#{user.title.manager}">用户管理</h1>
+                    <h1 class="page-header" data-th-text="#{user.title.manager}">用户管理</h1>
                 </div>
+            </div>
+            <div data-th-replace="base/tip"></div>
+            <div class="row alert" id="ajaxTipBox" style="display: none">
             </div>
             <div class="row">
                 <div class="col-md-6 margin">
-                    <th:block th:text="#{table.show}">显示</th:block>
+                    <span data-th-text="#{table.show}">显示</span>
                     <button type="button" class="btn btn-default dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <th:block th:text="${size.defaultItem.text}"/>
+                        <span data-th-text="${size.defaultItem.text}"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li th:each="item:${size.items}">
-                            <a th:href="${item.url}" th:text="${item.text}"></a>
+                        <li data-th-each="item:${size.items}">
+                            <a data-th-href="${item.url}" data-th-text="${item.text}"></a>
                         </li>
                     </ul>
-                    <th:block th:text="#{table.size.record}">条记录</th:block>
+                    <span data-th-text="#{table.size.record}">条记录</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="alert" id="notification" style="display: none">
+                <div class="col-md-6 margin">
+                    <a type="button" class="btn btn-outline btn-info navbar-right"
+                       data-th-text="#{user.title.add}"
+                       data-th-href="@{/admin/user}">添加用户
+                    </a>
                 </div>
             </div>
             <div class="row">
@@ -41,31 +46,32 @@
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th th:each="header:${table.header}">
-                                <th:block th:text="${header}"/>
+                            <th data-th-each="header:${table.header}">
+                                <span data-th-text="${header}"></span>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user:${table.cell}" th:with="df=#{date.format}"
-                            th:class="${!user.enabled || user.accountExpired ||
+                        <tr data-th-each="user:${table.cell}" data-th-with="df=#{date.format}"
+                            data-th-id="'user'+${user.id}"
+                            data-th-class="${!user.enabled || user.accountExpired ||
                                     user.credentialsExpired || user.accountLocked}?'danger'">
-                            <td th:text="${user.id}"></td>
-                            <td th:text="${user.username}"></td>
-                            <td th:text="${#dates.format(user.lastLoginTime, df)}"></td>
-                            <td th:text="${user.lastLoginIp}"></td>
-                            <td th:text="${user.email}"></td>
-                            <td th:text="${#dates.format(user.createTime, df)}"></td>
-                            <td th:text="${#dates.format(user.modifyTime, df)}"></td>
+                            <td data-th-text="${user.id}"></td>
+                            <td data-th-text="${user.username}"></td>
+                            <td data-th-text="${#dates.format(user.lastLoginTime, df)}"></td>
+                            <td data-th-text="${user.lastLoginIp}"></td>
+                            <td data-th-text="${user.email}"></td>
+                            <td data-th-text="${#dates.format(user.createTime, df)}"></td>
+                            <td data-th-text="${#dates.format(user.modifyTime, df)}"></td>
                             <td>
                                 <a type="button" class="btn btn-primary btn-circle btn-sm"
-                                   th:href="'/admin/user/'+${user.id}">
+                                   data-th-href="'/admin/user/'+${user.id}">
                                     <i class="fa fa-pencil-square-o"></i>
                                 </a>
-                                <a type="button" class="btn btn-warning btn-circle btn-sm"
-                                   th:onclick="'showDeleteModal('+${user.id}+')'">
+                                <button type="button" class="btn btn-warning btn-circle btn-sm"
+                                        data-th-onclick="'deleteByKey('+${user.id}+')'">
                                     <i class="fa fa-times"></i>
-                                </a>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -75,45 +81,45 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <th:block th:text="#{table.size.all(${page.count})}">共---条记录</th:block>
+                    <span data-th-text="#{table.size.all(${page.count})}">共---条记录</span>
                 </div>
                 <div class="col-md-6">
                     <nav aria-label="Page navigation" class="navbar-right">
                         <ul class="pagination">
-                            <li th:class="${page.pre.index==-1}?'disabled'">
-                                <a aria-label="Previous" th:href="${page.pre.url}">
-                                    <span aria-hidden="true" th:text="${page.pre.name}">&laquo;</span>
+                            <li data-th-class="${page.pre.index==-1}?'disabled'">
+                                <a aria-label="Previous" data-th-href="${page.pre.url}">
+                                    <span aria-hidden="true" data-th-text="${page.pre.name}">&laquo;</span>
                                 </a>
                             </li>
 
-                            <li th:each="item:${page.head}" th:class="${item.active}?'active'">
-                                <a th:href="${item.active?'javascript:void(0)':item.url}"
-                                   th:text="${item.name}">1</a>
+                            <li data-th-each="item:${page.head}" data-th-class="${item.active}?'active'">
+                                <a data-th-href="${item.active?'javascript:void(0)':item.url}"
+                                   data-th-text="${item.name}">1</a>
                             </li>
 
-                            <li th:if="${page.hasPreMiss()}">
-                                <a th:href="'javascript:void(0);'"
-                                   th:text="...">...</a>
+                            <li data-th-if="${page.hasPreMiss()}">
+                                <a data-th-href="'javascript:void(0);'"
+                                   data-th-text="...">...</a>
                             </li>
 
-                            <li th:each="item:${page.mid}" th:class="${item.active}?'active'">
-                                <a th:href="${item.active?'javascript:void(0)':item.url}"
-                                   th:text="${item.name}">1</a>
+                            <li data-th-each="item:${page.mid}" data-th-class="${item.active}?'active'">
+                                <a data-th-href="${item.active?'javascript:void(0)':item.url}"
+                                   data-th-text="${item.name}">1</a>
                             </li>
 
-                            <li th:if="${page.hasLastMiss()}">
-                                <a th:href="'javascript:void(0);'"
-                                   th:text="...">...</a>
+                            <li data-th-if="${page.hasLastMiss()}">
+                                <a data-th-href="'javascript:void(0);'"
+                                   data-th-text="...">...</a>
                             </li>
 
-                            <li th:each="item:${page.tail}" th:class="${item.active}?'active'">
-                                <a th:href="${item.active?'javascript:void(0)':item.url}"
-                                   th:text="${item.name}">1</a>
+                            <li data-th-each="item:${page.tail}" data-th-class="${item.active}?'active'">
+                                <a data-th-href="${item.active?'javascript:void(0)':item.url}"
+                                   data-th-text="${item.name}">1</a>
                             </li>
 
-                            <li th:class="${page.next.index==-1}?'disabled'">
-                                <a aria-label="Next" th:href="${page.next.url}">
-                                    <span aria-hidden="true" th:text="${page.next.name}">&raquo;</span>
+                            <li data-th-class="${page.next.index==-1}?'disabled'">
+                                <a aria-label="Next" data-th-href="${page.next.url}">
+                                    <span aria-hidden="true" data-th-text="${page.next.name}">&raquo;</span>
                                 </a>
                             </li>
                         </ul>
@@ -124,5 +130,36 @@
     </div>
 </div>
 </body>
-<div th:replace="base/script"></div>
+<div data-th-replace="base/script"></div>
+<script data-th-inline="javascript">
+    function deleteByKey(id) {
+        if(!confirm([[#{delete.confirm}]])){
+            return;
+        }
+        $('#thymeleafTipBox').css('display', 'none');
+        $.ajax({
+            type: 'DELETE',
+            url: '/admin/user/' + id,
+            dataType: 'json',//返回的数据类型
+            success: function (data) {
+                $('#ajaxTipBox')
+                    .empty()
+                    .removeClass()
+                    .css('display', 'block')
+                    .addClass('row alert alert-success')
+                    .append(data.msg);
+                $('#user'+id).remove();
+            },
+            error: function (xhr) {
+                $('#ajaxTipBox')
+                    .empty()
+                    .removeClass()
+                    .css('display', 'block')
+                    .addClass('row alert alert-danger')
+                    .append('异常: '+xhr.status);
+                console.log('异常: '+xhr.responseText)
+            }//传入XMLHttpRequest对象
+        });
+    }
+</script>
 </html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <title data-th-text="#{auth.title.add}">增加权限</title>
+    <div data-th-replace="base/head"></div>
+    <script data-th-src="@{/resource/custom/auth/auth.js}"></script>
+</head>
+
+<body>
+<nav data-th-replace="base/nav"></nav>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{auth.title.add}">增加权限</h1>
+                </div>
+            </div>
+            <div data-th-replace="base/tip"></div>
+            <form class="form-horizontal" method="post" action="#"
+                  data-th-object="${authDO}" data-th-action="'/test'">
+                <div class="form-group" data-th-classappend="${#fields.hasErrors('id')}?'has-error'">
+                    <label for="authIdInput" class="col-md-1 control-label" data-th-text="#{auth.id}">权限Id</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="authIdInput" placeholder="authId"
+                               readonly="readonly" data-th-field="*{id}"
+                               aria-describedby="authIdSpan"/>
+                    </div>
+                    <span id="authIdSpan" class="col-md-6 help-block"
+                          data-th-if="${#fields.hasErrors('id')}"
+                          data-th-errors="*{id}">Ajax提示</span>
+                </div>
+                <div class="form-group" data-th-classappend="${#fields.hasErrors('name')}?'has-error'">
+                    <label for="nameInput" class="col-md-1 control-label" data-th-text="#{auth.name}">权限名</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="nameInput" placeholder="name"
+                               data-th-field="*{name}"
+                               aria-describedby="nameSpan"/>
+                    </div>
+                    <span id="nameSpan" class="col-md-6 help-block"
+                          data-th-if="${#fields.hasErrors('name')}"
+                          data-th-errors="*{name}">Ajax提示</span>
+                </div>
+                <div class="form-group" data-th-classappend="${#fields.hasErrors('description')}?'has-error'">
+                    <label for="descriptionInput" class="col-md-1 control-label"
+                           data-th-text="#{auth.description}">描述</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="descriptionInput" placeholder="description"
+                               data-th-field="*{description}"
+                               aria-describedby="descriptionSpan"/>
+                    </div>
+                    <span id="descriptionSpan" class="col-md-6 help-block"
+                          data-th-if="${#fields.hasErrors('description')}"
+                          data-th-errors="*{description}">Ajax提示</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" data-th-text="#{auth.enabled.label}">可用</label>
+                    <div class="row">
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" data-th-text="#{auth.enabled}"
+                                       data-th-field="*{enabled}"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <button type="submit" class="btn btn-default" data-th-text="#{form.submit}">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<div data-th-replace="base/script"></div>
+</html>

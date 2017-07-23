@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+<html lang="zh-CN"
       xmlns="http://www.w3.org/1999/html">
 <head>
     <title data-th-text="#{user.title.modify}">编辑用户</title>
@@ -17,10 +17,7 @@
                     <h1 class="page-header" data-th-text="#{user.title.modify}">编辑用户</h1>
                 </div>
             </div>
-            <div data-th-if="${tip}" class="row alert"
-                 data-th-classappend="${tip.result==tip.SUCCESS}?'alert-success':'alert-danger'">
-                <span data-th-text="${tip.msg}"></span>
-            </div>
+            <div data-th-replace="base/tip"></div>
             <form class="form-horizontal" method="post" action="#"
                   data-th-object="${userDO}" data-th-action="'/admin/user/'+${userDO.id}">
                 <div class="form-group" data-th-classappend="${#fields.hasErrors('id')}?'has-error'">

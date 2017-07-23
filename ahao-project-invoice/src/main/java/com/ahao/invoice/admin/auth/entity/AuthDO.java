@@ -1,8 +1,6 @@
 package com.ahao.invoice.admin.auth.entity;
 
 import com.ahao.entity.BaseDO;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -12,6 +10,8 @@ import java.util.Date;
 
 /**
  * Created by Avalon on 2017/5/9.
+ *
+ * invoice_auth表的实体类
  */
 @Alias("AuthDO")
 @Table(name = "invoice_auth")
@@ -58,28 +58,6 @@ public class AuthDO extends BaseDO {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AuthDO data = (AuthDO) o;
-
-        return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(getId(), data.getId())
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .appendSuper(super.hashCode())
-                .append(getId())
-                .toHashCode();
     }
 
     @Override

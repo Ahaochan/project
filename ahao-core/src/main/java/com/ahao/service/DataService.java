@@ -13,14 +13,14 @@ public interface DataService<T extends BaseDO> {
     /**
      * 插入一条数据
      * @param obj 数据
-     * @return
+     * @return 返回受影响的记录数
      */
     int insert(T obj);
 
     /**
      * 删除一条数据
      * @param key 删除数据的主键
-     * @return
+     * @return 返回受影响的记录数
      */
     int deleteByKey(Object key);
 
@@ -33,14 +33,14 @@ public interface DataService<T extends BaseDO> {
     /**
      * 根据主键 查找一条数据
      * @param key 数据的主键
-     * @return
+     * @return 返回查找的数据
      */
     T selectByKey(Object key);
 
     /**
      * 更新一条数据
      * @param obj 更新的数据
-     * @return
+     * @return 返回受影响的记录数
      */
     int update(T obj);
 }

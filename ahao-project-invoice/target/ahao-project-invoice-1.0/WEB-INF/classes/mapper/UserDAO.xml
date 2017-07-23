@@ -26,17 +26,17 @@
 
     <select id="selectPage" resultMap="userResult">
         SELECT u1.id, u1.username, u1.last_login_time, u1.last_login_ip, u1.email,
-          u1.enabled, u1.account_expired, u1.credentials_expired, u1.account_locked,
-          u1.gmt_create, u1.gmt_modify
+        u1.enabled, u1.account_expired, u1.credentials_expired, u1.account_locked,
+        u1.gmt_create, u1.gmt_modify
         FROM invoice_user u1
         INNER JOIN (
-          SELECT id
-          FROM invoice_user
-          ORDER BY #{sort}
-          <if test="order.equals('desc')">
+        SELECT id
+        FROM invoice_user
+        ORDER BY #{sort}
+        <if test="order.equals('desc')">
             #{order}
-          </if>
-          LIMIT #{start}, #{pageSize}) u2
+        </if>
+        LIMIT #{start}, #{pageSize}) u2
         ON u1.id = u2.id
     </select>
 
@@ -46,5 +46,11 @@
         SET last_login_time = #{lastLoginTime}, last_login_ip = #{lastLoginIp}
         WHERE username = #{username}
     </update>
+
+
+    <delete id="deleteByKey">
+      DELETE FROM invoice_user WHERE id = #{userId};
+      DELETE FROM invoice_user_role WHERE user_id = #{userId};
+    </delete>
 
 </mapper>

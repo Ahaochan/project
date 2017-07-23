@@ -45,4 +45,12 @@ public interface UserDAO extends Mapper<UserDO> {
     boolean updateLastLoginMsg(@Param("username") String username,
                                @Param("lastLoginTime") Date lastLoginTime,
                                @Param("lastLoginIp") String lastLoginIp);
+
+    /**
+     * 删除用户, 级联删除
+     *
+     * @param userId
+     * @return
+     */
+    int deleteByKey(Long userId);
 }

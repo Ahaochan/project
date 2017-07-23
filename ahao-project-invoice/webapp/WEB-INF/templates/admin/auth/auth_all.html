@@ -16,6 +16,9 @@
                     <h1 class="page-header" data-th-text="#{auth.title.manager}">权限管理</h1>
                 </div>
             </div>
+            <div data-th-replace="base/tip"></div>
+            <div class="row alert" id="ajaxTipBox" style="display: none">
+            </div>
             <div class="row">
                 <div class="col-md-6 margin">
                     <span data-th-text="#{table.show}">显示</span>
@@ -31,9 +34,11 @@
                     </ul>
                     <span data-th-text="#{table.size.record}">条记录</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="alert" id="notification" style="display: none">
+                <div class="col-md-6 margin">
+                    <a type="button" class="btn btn-outline btn-info navbar-right"
+                       data-th-text="#{auth.title.add}"
+                       data-th-href="@{/admin/auth}">添加权限
+                    </a>
                 </div>
             </div>
             <div class="row">
@@ -48,6 +53,7 @@
                         </thead>
                         <tbody>
                         <tr data-th-each="auth:${table.cell}" data-th-with="df=#{date.format}"
+                            data-th-id="'auth'+${auth.id}"
                             data-th-class="!${auth.enabled}?'danger'">
                             <td data-th-text="${auth.id}"></td>
                             <td data-th-text="${auth.name}"></td>
@@ -60,7 +66,7 @@
                                     <i class="fa fa-pencil-square-o"></i>
                                 </a>
                                 <button type="button" class="btn btn-warning btn-circle btn-sm"
-                                        data-th-onclick="'showDeleteModal('+${auth.id}+')'">
+                                        data-th-onclick="'deleteByKey('+${auth.id}+')'">
                                     <i class="fa fa-times"></i>
                                 </button>
                             </td>
@@ -122,4 +128,35 @@
 </div>
 </body>
 <div data-th-replace="base/script"></div>
+<script th:inline="javascript">
+    function deleteByKey(id) {
+        if (!confirm([[#{delete.confirm}]])) {
+            return;
+        }
+        $('#thymeleafTipBox').css('display', 'none');
+        $.ajax({
+            type: 'DELETE',
+            url: '/admin/auth/' + id,
+            dataType: 'json',//返回的数据类型
+            success: function (data) {
+                $('#ajaxTipBox')
+                    .empty()
+                    .removeClass()
+                    .css('display', 'block')
+                    .addClass('row alert alert-success')
+                    .append(data.msg);
+                $('#auth' + id).remove();
+            },
+            error: function (xhr) {
+                $('#ajaxTipBox')
+                    .empty()
+                    .removeClass()
+                    .css('display', 'block')
+                    .addClass('row alert alert-danger')
+                    .append('异常: ' + xhr.status);
+                console.log('异常: ' + xhr.responseText)
+            }//传入XMLHttpRequest对象
+        });
+    }
+</script>
 </html>

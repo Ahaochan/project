@@ -1,7 +1,6 @@
 package com.ahao.invoice.admin.auth.dao;
 
 import com.ahao.invoice.admin.auth.entity.AuthDO;
-import com.ahao.invoice.admin.role.entity.RoleDO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -11,6 +10,8 @@ import java.util.Set;
 
 /**
  * Created by Avalon on 2017/5/9.
+ *
+ * 权限的DAO层
  */
 @Repository
 public interface AuthDAO extends Mapper<AuthDO> {
@@ -49,8 +50,15 @@ public interface AuthDAO extends Mapper<AuthDO> {
 
     /**
      * 修改角色权限表, 增加多对多关系, 用于角色详情页面
-     * @param roleId
-     * @param authIds
+     * @param roleId 角色的id
+     * @param authIds 角色所拥有的权限的id
      */
     void addRelate(@Param("roleId") Long roleId, @Param("authIds") Long[] authIds);
+
+    /**
+     * 删除权限, 级联删除
+     *
+     * @param authId 权限id
+     */
+    int deleteByKey(@Param("authId") Long authId);
 }

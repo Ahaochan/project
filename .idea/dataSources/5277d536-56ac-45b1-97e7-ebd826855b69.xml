@@ -77,7 +77,7 @@
     <column id="21" parent="9" name="name">
       <Position>2</Position>
       <Comment>角色名</Comment>
-      <DataType>varchar(20)|0</DataType>
+      <DataType>varchar(50)|0</DataType>
     </column>
     <column id="22" parent="9" name="description">
       <Position>3</Position>

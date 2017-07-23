@@ -2,16 +2,18 @@ package com.ahao.entity;
 
 /**
  * Created by Ahaochan on 2017/7/18.
+ *
+ * 传递Ajax的Data Transfer Object
  */
 public class AjaxDTO {
-    public static final int FAILURE = 0;
-    public static final int SUCCESS = 1;
+    private static final int FAILURE = 0;
+    private static final int SUCCESS = 1;
 
-    public static AjaxDTO getFailure(String msg){
+    public static AjaxDTO failure(String msg) {
         return new AjaxDTO(FAILURE, msg, null);
     }
 
-    public static AjaxDTO getSuccess(String msg){
+    public static AjaxDTO success(String msg) {
         return new AjaxDTO(SUCCESS, msg, null);
     }
 

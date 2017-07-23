@@ -1,11 +1,11 @@
 package com.ahao.entity;
 
+import com.ahao.util.CloneHelper;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public abstract class BaseDO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "JDBC")
     private Long id;
     @Column(name = "gmt_create", updatable = false)
     private Date createTime;
@@ -29,8 +29,8 @@ public abstract class BaseDO {
 
     public BaseDO(Long id, Date createTime, Date modifyTime) {
         this.id = id;
-        this.createTime = (Date) createTime.clone();
-        this.modifyTime = (Date) modifyTime.clone();
+        this.createTime = CloneHelper.clone(createTime);
+        this.modifyTime = CloneHelper.clone(modifyTime);
     }
 
     public Long getId() {
@@ -42,19 +42,19 @@ public abstract class BaseDO {
     }
 
     public Date getCreateTime() {
-        return (Date) createTime.clone();
+        return CloneHelper.clone(createTime);
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime = (Date) createTime.clone();
+        this.createTime = CloneHelper.clone(createTime);
     }
 
     public Date getModifyTime() {
-        return (Date) modifyTime.clone();
+        return CloneHelper.clone(modifyTime);
     }
 
     public void setModifyTime(Date modifyTime) {
-        this.modifyTime = (Date) modifyTime.clone();
+        this.modifyTime = CloneHelper.clone(modifyTime);
     }
 
     @Override

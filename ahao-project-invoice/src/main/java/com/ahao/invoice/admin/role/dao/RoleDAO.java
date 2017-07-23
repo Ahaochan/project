@@ -10,6 +10,8 @@ import java.util.Set;
 
 /**
  * Created by Avalon on 2017/6/3.
+ *
+ * 角色的DAO层
  */
 @Repository
 public interface RoleDAO extends Mapper<RoleDO> {
@@ -45,4 +47,12 @@ public interface RoleDAO extends Mapper<RoleDO> {
      * @param roleIds 角色id
      */
     void addRelate(@Param("userId") Long userId, @Param("roleIds") Long[] roleIds);
+
+    /**
+     * 删除角色, 级联删除
+     *
+     * @param roleId 角色的id
+     * @return 返回受影响的记录数
+     */
+    int deleteByKey(Long roleId);
 }

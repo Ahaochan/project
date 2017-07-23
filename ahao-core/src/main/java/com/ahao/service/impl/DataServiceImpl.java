@@ -15,7 +15,7 @@ public abstract class DataServiceImpl<T extends BaseDO> implements DataService<T
 
     @Override
     public int insert(T record) {
-        return dao().insert(record);
+        return dao().insertSelective(record);
     }
 
     @Override
@@ -35,6 +35,7 @@ public abstract class DataServiceImpl<T extends BaseDO> implements DataService<T
 
     @Override
     public int update(T obj) {
+        // TODO updateByExampleSelective不能更新enable对象
         Example example = new Example(obj.getClass());
         example.createCriteria().andEqualTo("id", obj.getId());
         return dao().updateByExample(obj, example);

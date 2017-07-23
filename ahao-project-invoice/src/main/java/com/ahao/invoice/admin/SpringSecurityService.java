@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 
 /**
  * Created by Ahaochan on 2017/7/12.
+ *
+ * Spring Security权限验证Service层
  */
 @Service
 public class SpringSecurityService implements UserDetailsService {

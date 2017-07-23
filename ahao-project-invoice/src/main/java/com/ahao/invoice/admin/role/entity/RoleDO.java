@@ -1,8 +1,6 @@
 package com.ahao.invoice.admin.role.entity;
 
 import com.ahao.entity.BaseDO;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -12,6 +10,8 @@ import java.util.Date;
 
 /**
  * Created by Avalon on 2017/6/3.
+ *
+ * invoice_role表的实体类
  */
 @Alias("RoleDO")
 @Table(name = "invoice_role")
@@ -59,28 +59,6 @@ public class RoleDO extends BaseDO {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        RoleDO roleDO = (RoleDO) o;
-
-        return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(name, roleDO.name)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .appendSuper(super.hashCode())
-                .append(name)
-                .toHashCode();
     }
 
     @Override

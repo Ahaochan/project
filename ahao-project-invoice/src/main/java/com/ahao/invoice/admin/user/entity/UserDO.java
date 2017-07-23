@@ -1,20 +1,19 @@
 package com.ahao.invoice.admin.user.entity;
 
 import com.ahao.entity.BaseDO;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import com.ahao.util.CloneHelper;
 import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
  * Created by Avalon on 2017/6/6.
+ *
+ * invoice_user表的实体类
  */
 @Alias("UserDO")
 @Table(name = "invoice_user")
@@ -48,7 +47,7 @@ public class UserDO extends BaseDO {
         super(id, createTime, modifyTime);
         this.username = username;
         this.password = password;
-        this.lastLoginTime = (Date) lastLoginTime.clone();
+        this.lastLoginTime = CloneHelper.clone(lastLoginTime);
         this.lastLoginIp = lastLoginIp;
         this.email = email;
         this.accountExpired = accountExpired;
@@ -81,11 +80,11 @@ public class UserDO extends BaseDO {
     }
 
     public Date getLastLoginTime() {
-        return (Date) lastLoginTime.clone();
+        return CloneHelper.clone(lastLoginTime);
     }
 
     public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = (Date) lastLoginTime.clone();
+        this.lastLoginTime = CloneHelper.clone(lastLoginTime);
     }
 
     public String getLastLoginIp() {
@@ -134,30 +133,6 @@ public class UserDO extends BaseDO {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserDO userDO = (UserDO) o;
-
-        return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(username, userDO.username)
-                .append(password, userDO.password)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .appendSuper(super.hashCode())
-                .append(username)
-                .append(password)
-                .toHashCode();
     }
 
     @Override

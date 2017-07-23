@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title data-th-text="#{user.title.add}">增加用户</title>
+    <div data-th-replace="base/head"></div>
+    <script data-th-src="@{/resource/custom/user/user.js}"></script>
+</head>
+
+<body>
+<nav data-th-replace="base/nav"></nav>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{user.title.add}">增加用户</h1>
+                </div>
+            </div>
+            <div data-th-replace="base/tip"></div>
+            <form class="form-horizontal" method="post" action="#"
+                  data-th-object="${userDO}" data-th-action="'/admin/user'">
+                <div class="form-group" data-th-classappend="${#fields.hasErrors('username')}?'has-error'">
+                    <label for="usernameInput" class="col-md-1 control-label"
+                           data-th-text="#{user.username}">用户名</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="usernameInput" placeholder="username"
+                               data-th-field="*{username}"
+                               aria-describedby="usernameSpan"/>
+                    </div>
+                    <span id="usernameSpan" class="col-md-6 help-block"
+                          data-th-if="${#fields.hasErrors('username')}"
+                          data-th-errors="*{username}">Ajax提示</span>
+                </div>
+                <div class="form-group" data-th-classappend="${#fields.hasErrors('password')}?'has-error'">
+                    <label for="passwordInput" class="col-md-1 control-label" data-th-text="#{user.password}">密码</label>
+                    <div class="col-md-3">
+                        <input type="password" class="form-control" id="passwordInput" placeholder="password"
+                               data-th-field="*{password}"
+                               aria-describedby="passwordSpan"/>
+                    </div>
+                    <span id="passwordSpan" class="col-md-6 help-block"
+                          data-th-if="${#fields.hasErrors('password')}"
+                          data-th-errors="*{password}">Ajax提示</span>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPasswordInput" class="col-md-1 control-label"
+                           data-th-text="#{user.password.confirm}">确认密码</label>
+                    <div class="col-md-3">
+                        <input type="password" class="form-control" id="confirmPasswordInput" placeholder="password"
+                               aria-describedby="confirmPasswordSpan"/>
+                    </div>
+                    <span id="confirmPasswordSpan" class="col-md-6 help-block"></span>
+                </div>
+                <div class="form-group" data-th-classappend="${#fields.hasErrors('email')}?'has-error'">
+                    <label for="emailInput" class="col-md-1 control-label" data-th-text="#{user.email}">电子邮箱</label>
+                    <div class="col-md-3">
+                        <input type="email" class="form-control" id="emailInput" placeholder="email"
+                               data-th-field="*{email}"
+                               aria-describedby="emailSpan"/>
+                    </div>
+                    <span id="emailSpan" class="col-md-6 help-block"
+                          data-th-if="${#fields.hasErrors('email')}"
+                          data-th-errors="*{email}">Ajax提示</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" data-th-text="#{user.enabled.label}">可用</label>
+                    <div class="row">
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" data-th-text="#{user.enabled}"
+                                       data-th-field="*{enabled}"/>
+                            </label>
+                        </div>
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" data-th-text="#{user.account.expired}"
+                                       data-th-field="*{accountExpired}"/>
+                            </label>
+                        </div>
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" data-th-text="#{user.credentials.expired}"
+                                       data-th-field="*{credentialsExpired}"/>
+                            </label>
+                        </div>
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" data-th-text="#{user.account.locked}"
+                                       data-th-field="*{accountLocked}"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" data-th-text="#{user.role}">用户角色</label>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" data-th-text="#{user.role}"
+                                       href="#rolePanel">用户角色</a>
+                                </h4>
+                            </div>
+                            <div id="rolePanel" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="checkbox" data-th-each="item : ${role}"
+                                         data-th-classappend="!${item.key.enabled}?'has-error'">
+                                        <label>
+                                            <input type="checkbox" data-th-value="${item.key.id}" data-th-name="role"
+                                                   data-th-checked="${item.value}"
+                                                   data-th-disabled="!${item.key.enabled}">
+                                            <span data-th-text="#{${item.key.name}}"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <button type="submit" class="btn btn-default" data-th-text="#{form.submit}">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<div data-th-replace="base/script"></div>
+</html>
