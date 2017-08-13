@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{login.title}">登录</title>
-    <div th:replace="base/head" ></div>
-    <link rel="stylesheet" th:href="@{/css/login/login.css}"/>
-    <script th:href="@{/js/login.js}"></script>
+    <th:block th:include="/base/head :: headFragment(#{login.title})"/>
+    <link rel="stylesheet" data-th-href="@{/css/login/login.css}"/>
+    <script data-th-href="@{/js/login.js}"></script>
 </head>
 <body>
 <!-- Top content -->
@@ -14,9 +12,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong th:text="#{project.name.main}">企业增值税发票</strong> <th:block th:text="#{project.name.sub}"/></h1>
+                    <h1><strong data-th-text="#{project.name.main}">企业增值税发票</strong>
+                        <data-th-block data-th-text="#{project.name.sub}"/>
+                    </h1>
                     <div class="description">
-                        <p th:text="#{project.description}">
+                        <p data-th-text="#{project.description}">
                             企业数据分析系统是以企业的进、销项发票信息为基础，对企业的经营数据进行比对分析，有利于企业根据分析报表适时进行税收筹划，调整经营策略。
                         </p>
                     </div>
@@ -26,33 +26,37 @@
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3 th:text="#{login.form.title}">登录</h3>
-                            <p th:text="#{login.form.tip}">输入你的帐号和密码进行登录:</p>
+                            <h3 data-th-text="#{login.form.title}">登录</h3>
+                            <p data-th-text="#{login.form.tip}">输入你的帐号和密码进行登录:</p>
                         </div>
                         <div class="form-top-right">
                             <i class="fa fa-key"></i>
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <div class="alert alert-danger" th:if="${error!=null || logout!=null}">
-                            <p th:text="${error}"></p><p th:text="${logout}"></p>
+                        <div class="alert alert-danger" data-th-if="${error!=null || logout!=null}">
+                            <p data-th-text="${error}"></p>
+                            <p data-th-text="${logout}"></p>
                         </div>
-                        <form th:action="@{/login_check}" method="post">
+                        <form data-th-action="@{/login_check}" method="post">
                             <div class="input-group form-group">
                                 <label class="input-group-addon" for="form-username"><i
                                         class="glyphicon glyphicon-user"></i></label>
-                                <input type="text" id="form-username"
-                                       name="username" th:placeholder="#{login.form.username}"
-                                       class="form-control" required="required" autofocus="autofocus"/>
+                                <input id="form-username"
+                                       name="username" data-th-placeholder="#{login.form.username}"
+                                       value="admin1"
+                                       class="form-control"/>
                             </div>
                             <div class="input-group form-group">
                                 <label class="input-group-addon" for="form-password"><i
                                         class="glyphicon glyphicon-lock"></i></label>
                                 <input type="password" id="form-password"
-                                       name="password" th:placeholder="#{login.form.password}"
-                                       class="form-control" required="required"/>
+                                       name="password" data-th-placeholder="#{login.form.password}"
+                                       value="admin1"
+                                       class="form-control"/>
                             </div>
-                            <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.form.submit}">登录</button>
+                            <button class="btn btn-lg btn-primary btn-block" data-th-text="#{login.form.submit}">登录
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -61,5 +65,5 @@
     </div>
 </div>
 </body>
-<div th:replace="base/script"></div>
+<th:block th:include="/base/script :: scriptFragment"/>
 </html>

@@ -11,10 +11,10 @@ import java.util.Date;
 /**
  * Created by Avalon on 2017/5/9.
  *
- * invoice_auth表的实体类
+ * admin_auth表的实体类
  */
 @Alias("AuthDO")
-@Table(name = "invoice_auth")
+@Table(name = "admin_auth")
 public class AuthDO extends BaseDO {
     public static final String TAG =  "authDO";
 
@@ -24,7 +24,7 @@ public class AuthDO extends BaseDO {
     @NotEmpty(message="{auth.description.not.null}")
     @Size(max = 100, message = "{auth.description.length.illegal}")
     private String description;
-    private Boolean enabled;
+    private Boolean enabled = false;
 
     public AuthDO(){
     }

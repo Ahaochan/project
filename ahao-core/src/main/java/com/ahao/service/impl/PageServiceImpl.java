@@ -4,6 +4,7 @@ import com.ahao.context.PageContext;
 import com.ahao.entity.BaseDO;
 import com.ahao.entity.DropDownListDTO;
 import com.ahao.service.PageService;
+import com.ahao.util.NumberHelper;
 import com.ahao.util.UrlBuilder;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -32,11 +33,11 @@ public abstract class PageServiceImpl<T extends BaseDO> extends DataServiceImpl<
 
     @Override
     public final Collection<T> getByPage(Integer page) {
-        int p = page == null? 1 : page;
+        int p = NumberHelper.unBoxing(page);
         int pageSize = PageContext.getPageSize();
         String sort = PageContext.getSort();
         String order = PageContext.getOrder();
-        return getByPage((p-1)*pageSize, pageSize, sort, order);
+        return getByPage(p * pageSize, pageSize, sort, order);
     }
 
 

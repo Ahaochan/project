@@ -1,20 +1,40 @@
-<script data-th-src="@{/plugins/jquery/jquery.min.js}"></script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="../../../plugins/bootstrap-table/bootstrap-table-locale-all.js"></script>
+<body>
+</body>
+<div th:fragment="scriptFragment">
+    <!-- jquery -->
+    <script data-th-src="@{/plugins/jquery/jquery.js}"></script>
 
-<script data-th-src="@{/plugins/bootstrap/bootstrap.min.js}"></script>
+    <!-- Bootstrap 3 前端框架 -->
+    <script data-th-src="@{/plugins/bootstrap/bootstrap.js}"></script>
 
-<script data-th-src="@{/plugins/metisMenu/metisMenu.min.js}"></script>
+    <!-- Bootstrap Table 表格 -->
+    <script data-th-src="@{/plugins/bootstrap-table/bootstrap-table.js}"></script>
+    <script data-th-src="@{/plugins/bootstrap-table/bootstrap-table-locale-all.js}"></script>
 
-<script data-th-src="@{/plugins/raphael/raphael.min.js}"></script>
-<script data-th-src="@{/plugins/morris/morris.min.js}"></script>
+    <!-- 依赖jquery的日期格式化js -->
+    <script data-th-src="@{/plugins/jquery-dateFormat/jquery-dateFormat.js}"></script>
 
-<script data-th-src="@{/plugins/sb-admin-2/sb-admin-2.min.js}"></script>
+    <!-- 依赖jquery 前端验证 -->
+    <script data-th-src="@{/plugins/jquery-validation/jquery.validate.js}"></script>
 
-<script type="text/javascript">
-    $(function () {
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-        $(document).ajaxSend(function (e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-        });
-    });
-</script> 
+    <!-- 依赖jquery的国际化js -->
+    <script data-th-src="@{/plugins/jquery-i18n-properties/jquery.i18n.properties.js}"></script>
+
+    <!-- sweetalert 提示框 -->
+    <script data-th-src="@{/plugins/sweetalert/sweetalert.js}"></script>
+
+
+    <script data-th-src="@{/plugins/metisMenu/metisMenu.js}"></script>
+
+    <script data-th-src="@{/plugins/raphael/raphael.min.js}"></script>
+    <script data-th-src="@{/plugins/morris/morris.js}"></script>
+
+    <script data-th-src="@{/plugins/sb-admin-2/sb-admin-2.js}"></script>
+
+    <!-- 自定义核心js -->
+    <script data-th-src="@{/js/core.js}"></script>
+</div>
+</html>

@@ -2,38 +2,43 @@ package com.ahao.invoice.admin.auth.service;
 
 import com.ahao.invoice.admin.auth.entity.AuthDO;
 import com.ahao.service.PageService;
+import com.alibaba.fastjson.JSONArray;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 /**
  * Created by Avalon on 2017/6/7.
- *
+ * <p>
  * 权限Service层接口
  */
 @Service
 public interface AuthService extends PageService<AuthDO> {
 
-
     /**
-     * 获取所有权限, 根据权限id, 对角色拥有的权限集合标记为true
+     * 检查权限名是否存在
      *
-     * @param authIds 选择的权限id
-     * @return key为权限信息, value为是否角色的权限
+     * @param name 权限名
+     * @return 存在为true
      */
-    Map<AuthDO, Boolean> getSelectedAuth(String... authIds);
+    boolean existName(String name);
 
     /**
-     * 获取所有权限, 根据角色id, 对角色拥有的权限集合标记为true
+     * 获取所有权限id、name、enable, 根据用户id, 对用户拥有的角色集合标记为true
+     * 所有角色: data.auths
+     * 角色id: data.auths[i].id
+     * 角色名称: data.auths[i].name
+     * 角色是否可用: data.auths[i].enabled
+     * 角色是否被用户选中: data.auths[i].selected
+     *
      * @param roleId 角色id
-     * @return key为权限信息, value为是否角色的权限
+     * @return
      */
-    Map<AuthDO, Boolean> getSelectedAuth(Long roleId);
+    JSONArray getSelectedAuth(Long roleId);
 
     /**
      * 修改角色权限表, 增加多对多关系, 用于角色详情页面
-     * @param roleId 角色id
+     *
+     * @param roleId  角色id
      * @param authIds 权限id
      */
-    void addRelate(Long roleId, String[] authIds);
+    void addRelate(Long roleId, Long[] authIds);
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="common(type, label, name, value)">
+    <th:block th:include="/base/input :: readonly(${type}, ${label}, ${name}, ${value}, false)"/>
+</div>
+
+<div th:fragment="readonly(type, label, name, value, readonly)">
+    <div data-th-id="'form-group-'+${name}" class="form-group">
+        <label data-th-for="'input-'+${name}" class="col-md-1 control-label"
+               data-th-text="${label}">标签名</label>
+        <div class="col-md-3">
+            <input data-th-type="${type}" class="form-control" data-th-id="'input-'+${name}"
+                   data-th-placeholder="${name}" data-th-name="${name}"
+                   data-th-readonly="${readonly}" data-th-value="${value}"
+                   data-th-aria-describedby="'error-'+${name}"/>
+        </div>
+        <span data-th-id="'error-'+${name}" class="col-md-6 help-block" style="display: none">Ajax提示</span>
+    </div>
+</div>
+
+
+<div th:fragment="password(label, confirmLabel, name)">
+    <th:block th:include="/base/input :: common('password', ${label}, 'password', '')"/>
+    <div class="form-group">
+        <label data-th-for="'input-'+${name}+'-confirm'" class="col-md-1 control-label"
+               data-th-text="${confirmLabel}">确认密码</label>
+        <div class="col-md-3">
+            <input type="password" class="form-control" data-th-id="'input-'+${name}+'-confirm'"
+                   data-th-placeholder="${name}" data-th-name="${name}+'Confirm'"
+                   data-th-aria-describedby="'error-'+${name}+'-confirm'"/>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

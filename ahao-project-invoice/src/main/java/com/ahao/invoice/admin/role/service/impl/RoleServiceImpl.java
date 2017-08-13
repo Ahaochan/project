@@ -1,10 +1,13 @@
 package com.ahao.invoice.admin.role.service.impl;
 
+import com.ahao.config.SpringConfig;
 import com.ahao.invoice.admin.role.dao.RoleDAO;
 import com.ahao.invoice.admin.role.entity.RoleDO;
 import com.ahao.invoice.admin.role.service.RoleService;
 import com.ahao.service.impl.PageServiceImpl;
-import org.apache.commons.lang3.ArrayUtils;
+import com.ahao.util.StringHelper;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +15,12 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by Avalon on 2017/6/3.
- *
+ * <p>
  * 角色的Service层接口默认实现类
  */
 @Service
@@ -38,44 +39,45 @@ public class RoleServiceImpl extends PageServiceImpl<RoleDO> implements RoleServ
     }
 
     @Override
+    protected Class<RoleDO> clazz() {
+        return RoleDO.class;
+    }
+
+    @Override
     protected Collection<RoleDO> getByPage(int start, int pageSize, String sort, String order) {
         return roleDAO.selectPage(start, pageSize, sort, order);
     }
 
     @Override
-    public Map<RoleDO, Boolean> getSelectedRole(String... roleIds) {
-        Long[] ids = Stream.of(roleIds).map(Long::parseLong).toArray(Long[]::new);
-        Set<RoleDO> allRole = roleDAO.selectAllNameAndEnabled();
-        Map<RoleDO, Boolean> roles = allRole.stream()
-                .collect(Collectors.toMap(r -> r, r -> ArrayUtils.contains(ids, r.getId())));
-        return roles;
-    }
-
-    @Override
-    public Map<RoleDO, Boolean> getSelectedRole(Long userId) {
-        if(userId==null) {
-            logger.warn("用户id不能为空");
-            return null;
+    public boolean existName(String name) {
+        if (StringHelper.isEmpty(name)) {
+            return false;
         }
-        Set<RoleDO> allRole = roleDAO.selectAllNameAndEnabled();
-        Set<RoleDO> selectRole = roleDAO.selectNameByUserId(userId);
-        Map<RoleDO, Boolean> roles = allRole.stream()
-                .collect(Collectors.toMap(r->r, r->!selectRole.add(r)));
-        return roles;
+
+        return roleDAO.existName(name);
     }
 
     @Override
-    public void addRelate(Long userId, String[] roleIds) {
-        if(userId == null || roleIds==null || roleIds.length<=0){
-            logger.warn("用户角色表添加失败, 用户id或角色id为空");
+    public JSONArray getSelectedRole(Long userId) {
+        JSONArray json = new JSONArray();
+        List<Map<String, Object>> list = roleDAO.selectNameByUserId(userId);
+        for (Map<String, Object> data : list) {
+            JSONObject item = new JSONObject();
+            item.put("id", data.get("id"));
+            item.put("name", SpringConfig.getString(data.get("name").toString()));
+            item.put("enabled", data.get("enabled"));
+            item.put("selected", data.get("selected"));
+            json.add(item);
+        }
+        return json;
+    }
+
+    @Override
+    public void addRelate(Long userId, Long[] roleIds) {
+        if (userId == null) {
+            logger.warn("用户角色表添加失败, 用户id为空");
             return;
         }
-        Long[] ids = Stream.of(roleIds).map(Long::parseLong).toArray(Long[]::new);
-        roleDAO.addRelate(userId, ids);
-    }
-
-    @Override
-    public int deleteByKey(Object roleId) {
-        return roleDAO.deleteByKey((Long) roleId);
+        roleDAO.addRelate(userId, roleIds);
     }
 }

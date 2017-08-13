@@ -16,7 +16,7 @@
         <isopen description="是否开放发送红包" value="true"/>
     </redpack>
 
-    <!--接口参数（正式环境）ACCESS_TOKEN:BpGCKKSWeSBtAW09SCqB3VRRaRGMg/Lx -->
-    <access-token description="ACCESS_TOKEN" value="BpGCKKSWeSBtAW09SCqB3VRRaRGMg/Lx" />
+    <provinceUrl description="行政区划代码url"
+                 value="http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201703/t20170310_1471429.html"/>
 
 </application-setting>

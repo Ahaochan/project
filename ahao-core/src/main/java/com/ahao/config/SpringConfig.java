@@ -1,9 +1,9 @@
 package com.ahao.config;
 
+import com.ahao.util.RequestHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.cglib.core.Local;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -103,24 +103,23 @@ public class SpringConfig {
     /**
      * 获取国际化字符串
      * @param code properties中的key
-     * @param request 用于获取locale的request
      * @return 国际化字符串
      */
-    public static String getString(String code, HttpServletRequest request){
-        return getString(code, null, request);
+    public static String getString(String code) {
+        return getString(code, new Object());
     }
 
     /**
      * 获取国际化字符串
      * @param code properties中的key
      * @param args 传入参数
-     * @param request 用于获取locale的request
      * @return 国际化字符串
      */
-    public static String getString(String code, Object[] args, HttpServletRequest request){
+    public static String getString(String code, Object... args) {
         if(instance == null){
             instance = new SpringConfig();
         }
+        HttpServletRequest request = RequestHelper.getRequest();
         Locale locale = RequestContextUtils.getLocaleResolver(request).resolveLocale(request);
         return context.getMessage(code, args, locale);
     }

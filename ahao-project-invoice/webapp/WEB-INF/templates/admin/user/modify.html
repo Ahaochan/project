@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment(#{user.title.modify})"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{user.title.modify}">编辑用户</h1>
+                </div>
+            </div>
+            <form class="form-horizontal" action="#">
+                <th:block th:include="/base/input :: readonly('text', #{user.id}, 'id', ${userDO.id}, true)"/>
+
+                <th:block th:include="/base/input :: common('text', #{user.username}, 'username', ${userDO.username})"/>
+                <th:block th:include="/base/input :: password(#{user.password}, #{user.password.confirm}, 'password')"/>
+                <th:block th:include="/base/input :: common('email', #{user.email}, 'email', ${userDO.email})"/>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" data-th-text="#{user.enabled.label}">可用</label>
+                    <div class="row">
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" id="input-enabled" name="enabled"
+                                       data-th-checked="${userDO.enabled}"
+                                       data-th-text="#{user.enabled}"/>
+                            </label>
+                        </div>
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" id="input-account-expired" name="accountExpired"
+                                       data-th-checked="${userDO.accountExpired}"
+                                       data-th-text="#{user.account.expired}"/>
+                            </label>
+                        </div>
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" id="input-credentials-expired" name="credentialsExpired"
+                                       data-th-checked="${userDO.credentialsExpired}"
+                                       data-th-text="#{user.credentials.expired}"/>
+                            </label>
+                        </div>
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" id="input-account-locked" name="accountLocked"
+                                       data-th-checked="${userDO.accountLocked}"
+                                       data-th-text="#{user.account.locked}"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" data-th-text="#{user.role}">用户角色</label>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" data-th-text="#{user.role}"
+                                       href="#panel-role">用户角色</a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse in">
+                                <div id="panel-role" class="panel-body">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/js/user/user-core.js}"></script>
+<script data-th-src="@{/js/user/user-modify.js}"></script>
+</html>

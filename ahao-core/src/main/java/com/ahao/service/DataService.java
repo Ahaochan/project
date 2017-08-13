@@ -18,11 +18,11 @@ public interface DataService<T extends BaseDO> {
     int insert(T obj);
 
     /**
-     * 删除一条数据
+     * 删除多条数据
      * @param key 删除数据的主键
      * @return 返回受影响的记录数
      */
-    int deleteByKey(Object key);
+    boolean deleteByKey(Object... key);
 
     /**
      * 获得所有数据的数量
@@ -31,11 +31,19 @@ public interface DataService<T extends BaseDO> {
     int getAllCount();
 
     /**
+     * 根据record中非null字段进行and查询
+     *
+     * @param record 查询的实体
+     * @return 是否存在record
+     */
+    boolean isExist(T record);
+
+    /**
      * 根据主键 查找一条数据
      * @param key 数据的主键
      * @return 返回查找的数据
      */
-    T selectByKey(Object key);
+    T selectByKey(Long key);
 
     /**
      * 更新一条数据

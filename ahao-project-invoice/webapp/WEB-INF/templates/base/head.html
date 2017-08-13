@@ -1,28 +1,40 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="_csrf" data-th-content="${_csrf.token}"/>
-<meta name="_csrf_header" data-th-content="${_csrf.headerName}"/>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headFragment(title)">
+    <title data-th-text="${title}"></title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="_csrf" data-th-content="${_csrf.token}"/>
+    <meta name="_csrf_header" data-th-content="${_csrf.headerName}"/>
+
+    <!-- Bootstrap 3 前端框架 -->
+    <link rel="stylesheet" data-th-href="@{/plugins/bootstrap/bootstrap.min.css}"/>
+    <!-- font-awesome 网页字体图标库 -->
+    <link rel="stylesheet" data-th-href="@{/plugins/font-awesome/font-awesome.min.css}"/>
+
+    <!-- Bootstrap Table 表格 -->
+    <link rel="stylesheet" data-th-href="@{/plugins/bootstrap-table/bootstrap-table.css}"/>
+
+    <!-- sweetalert 提示框 -->
+    <link rel="stylesheet" data-th-href="@{/plugins/sweetalert/sweetalert.css}"/>
+
+    <link rel="stylesheet" data-th-href="@{/plugins/metisMenu/metisMenu.min.css}"/>
+    <link rel="stylesheet" data-th-href="@{/plugins/morris/morris.css}"/>
 
 
-<link rel="stylesheet" data-th-href="@{/plugins/bootstrap/bootstrap.min.css}"/>
-<link rel="stylesheet" data-th-href="@{/plugins/font-awesome/font-awesome.min.css}"/>
+    <link rel="stylesheet" data-th-href="@{/plugins/sb-admin-2/sb-admin-2.css}"/>
 
-<link rel="stylesheet" data-th-href="@{/plugins/metisMenu/metisMenu.min.css}"/>
-<link rel="stylesheet" data-th-href="@{/plugins/morris/morris.css}"/>
+    <!-- 通用核心css -->
+    <link rel="stylesheet" data-th-href="@{/css/core.css}"/>
 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
 
-<link rel="stylesheet" data-th-href="@{/plugins/sb-admin-2/sb-admin-2.css}"/>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-<!--</head>-->
-<!--</html>-->
+</head>
+</html>

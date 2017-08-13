@@ -17,7 +17,8 @@ import java.util.stream.Stream;
  */
 public final class StringHelper {
     private static final Logger logger = LoggerFactory.getLogger(StringHelper.class);
-    private StringHelper(){
+
+    private StringHelper() {
 
     }
 
@@ -44,13 +45,14 @@ public final class StringHelper {
 
     /**
      * 把字符数组，转化为一个字符
+     *
      * @param seperator 字符分隔符
-     * @param strings 数组对象
+     * @param strings   数组对象
      * @return 字符串
      */
     public static String join(String seperator, String... strings) {
         return Stream.of(strings)
-                        .collect(Collectors.joining(seperator));
+                .collect(Collectors.joining(seperator));
     }
 
     /**
@@ -131,22 +133,58 @@ public final class StringHelper {
     }
 
 
-    public static boolean isNumeric(String num){
+    public static boolean isNumeric(String num) {
         return StringUtils.isNumeric(num);
     }
 
-    public static boolean isEmpty(String... str){
+    public static boolean isEmpty(String... str) {
         return StringUtils.isAnyEmpty(str);
     }
 
-    public static boolean isNotEmpty(String... str){
+    public static boolean isNotEmpty(String... str) {
         return StringUtils.isNoneEmpty(str);
     }
 
-    public static boolean endsWith(CharSequence sequence, CharSequence... searchStrings){
+    public static boolean endsWith(CharSequence sequence, CharSequence... searchStrings) {
         return Stream.of(searchStrings)
-                .anyMatch(s->StringUtils.endsWithIgnoreCase(sequence, s));
-
+                .anyMatch(s -> StringUtils.endsWithIgnoreCase(sequence, s));
     }
 
+    public static boolean equals(String string, String... searchStrings) {
+        return StringUtils.equalsAny(string, searchStrings);
+    }
+
+    /**
+     * 去除字符串首尾空格
+     * 32 为 普通空格
+     * 160 为 html的空格 &nbsp;
+     * 12288 为 一个汉字宽度的空格
+     *
+     * @param str
+     * @return
+     */
+    public static String trim(String str) {
+        if (str == null) {
+            return null;
+        }
+        char[] val = str.toCharArray();
+        int len = val.length;
+        int st = 0;
+
+        while ((st < len) &&
+                StringUtils.equalsAny(val[st] + "",
+                        (char) (32) + "",
+                        (char) (160) + "",
+                        (char) (12288) + "")) {
+            st++;
+        }
+        while ((st < len) &&
+                StringUtils.equalsAny(val[len - 1] + "",
+                        (char) (32) + "",
+                        (char) (160) + "",
+                        (char) (12288) + "")) {
+            len--;
+        }
+        return ((st > 0) || (len < val.length)) ? str.substring(st, len) : str;
+    }
 }

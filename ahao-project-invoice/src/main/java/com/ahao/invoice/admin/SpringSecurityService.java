@@ -49,6 +49,7 @@ public class SpringSecurityService implements UserDetailsService {
             logger.debug("登录用户: "+dbUser.getUsername());
             Set<GrantedAuthority> auth = authDAO.selectNameByUserId(dbUser.getId())
                     .stream()
+                    .distinct() // 去重
                     .peek(a -> logger.debug("拥有权限: "+a.getName()))
                     .map(a -> new SimpleGrantedAuthority(a.getName()))
                     .collect(Collectors.toSet());

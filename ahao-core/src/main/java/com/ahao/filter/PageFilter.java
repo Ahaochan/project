@@ -5,7 +5,6 @@ import com.ahao.context.PageContext;
 import com.ahao.util.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -19,20 +18,15 @@ public class PageFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
-
         if (!StringHelper.endsWith(request.getRequestURI(),
-                "css", "js", "png", "jpg", "woff2")) {
+                ".css", ".js", ".png", ".jpg", ".woff2", ".map", ".ico")) {
             logger.debug("请求路径: " + request.getRequestURL());
-
             initPageSize(req);
             initOrder(req);
             initSort(req);
         }
         chain.doFilter(req, resp);
-
-
     }
-
 
     @Override
     public void init(FilterConfig cfg) throws ServletException {
@@ -51,6 +45,7 @@ public class PageFilter implements Filter {
      */
     private void initPageSize(ServletRequest request) {
         String pageSize = request.getParameter(PageContext.PAGE_SIZE);
+        logger.debug("分页大小:" + pageSize);
         if (StringHelper.isNumeric(pageSize)) {
             PageContext.setPageSize(Integer.parseInt(pageSize));
         } else {
@@ -65,6 +60,7 @@ public class PageFilter implements Filter {
      */
     private void initOrder(ServletRequest request) {
         String order = request.getParameter(PageContext.ORDER);
+        logger.debug("排序方式:" + order);
         if (StringHelper.isNotEmpty(order)) {
             PageContext.setOrder(order);
         } else {
@@ -79,7 +75,7 @@ public class PageFilter implements Filter {
      */
     private void initSort(ServletRequest request) {
         String sort = request.getParameter(PageContext.SORT);
-
+        logger.debug("排序字段:" + sort);
         if (StringHelper.isNotEmpty(sort)) {
             PageContext.setSort(sort);
         } else {

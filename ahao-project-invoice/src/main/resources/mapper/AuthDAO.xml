@@ -9,53 +9,50 @@
         <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="date"/>
         <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="date"/>
     </resultMap>
-    <select id="selectNameByUserId" resultMap="authResult" parameterType="long">
-        SELECT a.id, a.name
-        FROM invoice_auth a
-        LEFT JOIN invoice_role_auth ra ON ra.auth_id = a.id
-        LEFT JOIN invoice_user_role ur ON ur.role_id = ra.role_id
-        WHERE ur.user_id = #{userId}
+
+    <select id="existName" resultType="java.lang.Boolean">
+        SELECT count(*) FROM admin_auth WHERE name = #{name}
     </select>
 
     <select id="selectPage" resultMap="authResult">
         SELECT a1.id, a1.name, a1.description, a1.enabled,
         a1.gmt_create, a1.gmt_modify
-        FROM invoice_auth a1
+        FROM admin_auth a1
         INNER JOIN (
         SELECT id
-        FROM invoice_auth
-        ORDER BY #{sort}
+        FROM admin_auth
+        ORDER BY ${sort}
         <if test="order.equals('desc')">
-            #{order}
+            ${order}
         </if>
         LIMIT #{start}, #{pageSize}) a2
         ON a1.id = a2.id
     </select>
 
-    <select id="selectAllNameAndEnabled" resultMap="authResult">
-        SELECT id, name, enabled FROM invoice_auth
+    <select id="selectNameByRoleId" resultType="java.util.Map">
+        SELECT a.id, a.name, a.enabled, ra.id selected
+        FROM admin_auth a
+        LEFT JOIN admin_role_auth ra ON ra.user_id = #{userId} AND ra.role_id = a.id
     </select>
-
-    <select id="selectNameByRoleId" resultMap="authResult">
-        SELECT a.id, a.name
-        FROM invoice_auth a
-        LEFT JOIN invoice_role_auth ra ON a.id = ra.auth_id
-        WHERE ra.role_id = #{roleId}
-    </select>
-
 
     <insert id="addRelate">
-        DELETE FROM invoice_role_auth WHERE role_id = #{roleId};
-        INSERT INTO invoice_role_auth(role_id, auth_id, gmt_create, gmt_modify)
+        DELETE FROM admin_role_auth WHERE role_id = #{roleId};
+        INSERT INTO admin_role_auth(role_id, auth_id, gmt_create, gmt_modify)
         VALUES
         <foreach collection="authIds" item="item" separator=",">
             (#{roleId}, #{item}, current_timestamp, current_timestamp)
         </foreach>
     </insert>
 
-    <delete id="deleteByKey">
-        DELETE FROM invoice_auth WHERE id=#{authId};
-        DELETE FROM invoice_role_auth WHERE auth_id=#{authId}
-    </delete>
+    <select id="selectNameByUserId" resultMap="authResult" parameterType="long">
+        SELECT
+            a.id,
+            a.name
+        FROM admin_auth a
+            LEFT JOIN admin_role_auth ra ON ra.auth_id = a.id
+            LEFT JOIN admin_user_role ur ON ur.role_id = ra.role_id
+        WHERE ur.user_id = #{userId}
+    </select>
+
 
 </mapper>

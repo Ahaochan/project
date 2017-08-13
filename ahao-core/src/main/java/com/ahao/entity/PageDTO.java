@@ -1,7 +1,7 @@
 package com.ahao.entity;
 
 import com.ahao.context.PageContext;
-import com.ahao.util.MathUtils;
+import com.ahao.util.MathHelper;
 import com.ahao.util.PageUrlBuilder;
 import com.ahao.util.UrlBuilder;
 
@@ -38,7 +38,7 @@ public class PageDTO {
         this.pageSize = PageContext.getPageSize();
 
         this.pageNum = (int) Math.ceil(this.count*1.0/pageSize);
-        this.current = MathUtils.between(1, this.pageNum, current);
+        this.current = MathHelper.between(1, this.pageNum, current);
 
         if(this.current > 1 && this.current <= pageNum){
             int i = this.current-1;
@@ -64,7 +64,7 @@ public class PageDTO {
     }
 
     private void initMid(){
-        int start = MathUtils.between(1, pageNum - RANGE_MID + 1, current - RANGE_MID / 2);
+        int start = MathHelper.between(1, pageNum - RANGE_MID + 1, current - RANGE_MID / 2);
 
         mid = Stream.iterate(start, i->i+1)
                 .limit(RANGE_MID)

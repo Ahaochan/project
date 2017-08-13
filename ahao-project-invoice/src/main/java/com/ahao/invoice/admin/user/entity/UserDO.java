@@ -13,10 +13,10 @@ import java.util.Date;
 /**
  * Created by Avalon on 2017/6/6.
  *
- * invoice_user表的实体类
+ * admin_user表的实体类
  */
 @Alias("UserDO")
-@Table(name = "invoice_user")
+@Table(name = "admin_user")
 public class UserDO extends BaseDO {
     public static final String TAG =  "userDO";
 

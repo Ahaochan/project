@@ -2,12 +2,10 @@ package com.ahao.config;
 
 import com.ahao.exception.ConfigException;
 import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.XMLPropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
-import org.apache.commons.configuration2.builder.fluent.XMLBuilderParameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -99,7 +97,7 @@ public class SystemConfig {
      * @return Map<String, String> Key元素下的所有属性值
      */
     public Map<String, String> getAllString(String key) {
-        return getString(key, new String[]{VALUE_ATTR, DESCRIPTION_ATTR});
+        return getString(key, VALUE_ATTR, DESCRIPTION_ATTR);
     }
 
     /**
@@ -214,7 +212,7 @@ public class SystemConfig {
         XMLPropertiesConfiguration xmlConfiguration = null;
         try {
             FileBasedConfigurationBuilder<XMLPropertiesConfiguration> builder =
-                    new ReloadingFileBasedConfigurationBuilder<XMLPropertiesConfiguration>(XMLPropertiesConfiguration.class)
+                    new ReloadingFileBasedConfigurationBuilder<>(XMLPropertiesConfiguration.class)
                             .configure(new Parameters()
                                     .xml()
                                     .setFile(xmlFileObj)

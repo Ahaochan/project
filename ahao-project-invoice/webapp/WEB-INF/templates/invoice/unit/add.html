@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment(#{invoice.unit.title.add})"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{invoice.unit.title.add}">增加购销单位</h1>
+                </div>
+            </div>
+            <form class="form-horizontal" action="#">
+
+                <th:block th:include="/base/input :: common('text', #{invoice.unit.name}, 'name', '')"/>
+                <th:block th:include="/base/input :: common('text', #{invoice.unit.tax.id}, 'texId', '')"/>
+                <div class="form-group">
+                    <label for="input-address-auto" class="col-md-1 control-label"
+                           data-th-text="#{invoice.unit.address}">详细地址</label>
+                    <div class="col-md-3">
+                        <input class="form-control" id="input-address-auto" disabled="disabled"/>
+                    </div>
+                </div>
+                <th:block th:include="/base/input :: common('text', #{invoice.unit.address}, 'address', '')"/>
+                <th:block th:include="/base/input :: common('tel', #{invoice.unit.tel}, 'tel', '')"/>
+                <th:block th:include="/base/input :: common('tel', #{invoice.unit.account}, 'account', '')"/>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" data-th-text="#{auth.enabled.label}">可用</label>
+                    <div class="row">
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" id="input-enabled" name="enabled"
+                                       data-th-text="#{auth.enabled}"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/js/auth/auth-core.js}"></script>
+<script data-th-src="@{/js/auth/auth-add.js}"></script>
+</html>

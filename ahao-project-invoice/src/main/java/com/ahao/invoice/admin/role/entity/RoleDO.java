@@ -11,10 +11,10 @@ import java.util.Date;
 /**
  * Created by Avalon on 2017/6/3.
  *
- * invoice_role表的实体类
+ * admin_role表的实体类
  */
 @Alias("RoleDO")
-@Table(name = "invoice_role")
+@Table(name = "admin_role")
 public class RoleDO extends BaseDO {
     public static final String TAG =  "roleDO";
 
@@ -25,7 +25,7 @@ public class RoleDO extends BaseDO {
     @NotEmpty(message="{role.description.not.null}")
     @Size(max = 100, message = "{role.description.length.illegal}")
     private String description;
-    private Boolean enabled;
+    private Boolean enabled = false;
 
     public RoleDO(){
     }

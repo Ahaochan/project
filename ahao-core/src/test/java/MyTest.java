@@ -1,10 +1,7 @@
-import com.ahao.util.ArrayUtils;
+import com.ibm.icu.text.NumberFormat;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Locale;
 
 /**
  * Created by Ahaochan on 2017/7/11.
@@ -12,16 +9,8 @@ import java.util.stream.Stream;
 public class MyTest {
     @Test
     public void test(){
-        Collection c = Stream.of(1,2,3,4).collect(Collectors.toList());
-
-        System.out.println("测试:"+ Arrays.toString(ArrayUtils.toArray(c, 1, 2)));
-        System.out.println("测试:"+ Arrays.toString(ArrayUtils.toArray(c, 2, 2)));
-        System.out.println("测试:"+ Arrays.toString(ArrayUtils.toArray(c, -2, 2)));
-
-        System.out.println("测试:"+ Arrays.toString(ArrayUtils.toArray(c, 3, 2)));
-        System.out.println("测试:"+ Arrays.toString(ArrayUtils.toArray(c, 4, 2)));
-        System.out.println("测试:"+ Arrays.toString(ArrayUtils.toArray(c, 5, 2)));
-        System.out.println("测试:"+ Arrays.toString(ArrayUtils.toArray(c, 1, -1)));
-
+        Locale chineseNumbers = new Locale("C@numbers=hansfin");
+        NumberFormat formatter = NumberFormat.getInstance(chineseNumbers);
+        System.out.println(formatter.format(61305));
     }
 }
