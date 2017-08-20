@@ -40,6 +40,24 @@ public abstract class CollectionHelper {
     }
 
     /**
+     * 打印输出集合中的元素
+     *
+     * @param collection 集合
+     */
+    public static <T> void print(Collection<T> collection) {
+        if (isEmpty(collection)) {
+            return;
+        }
+        System.out.println("元素类型为:" + collection.iterator().next().getClass());
+        StringBuilder sb = new StringBuilder();
+        for (T item : collection) {
+            sb.append(item).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        System.out.println(sb.toString());
+    }
+
+    /**
      * 往 collection 集合中添加元素elements
      *
      * @param collection 集合
