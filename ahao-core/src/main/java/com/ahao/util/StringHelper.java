@@ -129,4 +129,148 @@ public abstract class StringHelper {
         }
         return ((st > 0) || (len < val.length)) ? str.substring(st, len) : str;
     }
+
+
+    /**
+     * 字符串 search 中包含任意一个字符 match, 则返回true
+     * @param search 字符串
+     * @param match 待匹配的字符
+     * @return 包含任意一个字符 match, 则返回true
+     */
+    public static boolean containsAny(String search, int... match) {
+        for (char c : search.toCharArray()) {
+            if (equalsAny(c, match)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 如果 字符串 的 末尾 位置的元素为 ch, 则删除
+     *
+     * @param str 字符串
+     * @param ch  待匹配的字符
+     * @return 是否删除成功
+     */
+    public static boolean deleteStartIf(StringBuilder str, char ch) {
+        return deleteIf(str, 0, ch);
+    }
+
+    /**
+     * 如果 字符串 的 末尾 位置的元素为 ch, 则删除
+     *
+     * @param str 字符串
+     * @param ch  待匹配的字符
+     * @return 是否删除成功
+     */
+    public static boolean deleteEndIf(StringBuilder str, char ch) {
+        return deleteIf(str, str.length() - 1, ch);
+    }
+
+    /**
+     * 如果 字符串 的 index 位置的元素为 ch, 则删除
+     *
+     * @param str   字符串
+     * @param index 位置
+     * @param ch    待匹配的字符
+     * @return 是否删除成功
+     */
+    public static boolean deleteIf(StringBuilder str, int index, char ch) {
+        if (str.length() <= index) {
+            return false;
+        }
+        if (str.charAt(index) == ch) {
+            str.deleteCharAt(index);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 有一个 match 等于 search 则返回true
+     *
+     * @param search 原字符
+     * @param match  待匹配的字符
+     * @return 有一个 match 等于 search 则返回true
+     */
+    public static boolean equalsAny(char search, int... match) {
+        for (int m : match) {
+            if (search == m) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 有一个 match 等于 search 则返回true
+     *
+     * @param string        原字符串
+     * @param searchStrings 待匹配的字符串
+     * @return 有一个 match 等于 search 则返回true
+     */
+    public static boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
+        for (CharSequence search : searchStrings) {
+            if (StringUtils.equals(search, string)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 有一个 match 等于 search 则返回true
+     *
+     * @param string        原字符串
+     * @param searchStrings 待匹配的字符串
+     * @return 有一个 match 等于 search 则返回true
+     */
+    public static boolean equalsAnyIgnoreCase(final CharSequence string, final CharSequence... searchStrings) {
+        for (CharSequence search : searchStrings) {
+            if (StringUtils.equalsIgnoreCase(search, string)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 以 searchStrings 中任意一个元素开头的字符串返回true
+     *
+     * @param string        字符串
+     * @param searchStrings 待匹配字符串
+     * @return 以 searchStrings 中任意一个元素开头的字符串返回true
+     */
+    public static boolean startsWithAny(final CharSequence string, final CharSequence... searchStrings) {
+        return StringUtils.startsWithAny(string, searchStrings);
+    }
+
+    /**
+     * 以 searchStrings 中任意一个元素结尾的字符串返回true
+     *
+     * @param string        字符串
+     * @param searchStrings 待匹配字符串
+     * @return 以 searchStrings 中任意一个元素结尾的字符串返回true
+     */
+    public static boolean endsWithAny(final CharSequence string, final CharSequence... searchStrings) {
+        return StringUtils.endsWithAny(string, searchStrings);
+    }
+
+    /**
+     * 以 searchStrings 中任意一个元素结尾的字符串返回true, 忽略大小写
+     *
+     * @param string        字符串
+     * @param searchStrings 待匹配字符串
+     * @return 以 searchStrings 中任意一个元素结尾的字符串返回true
+     */
+    public static boolean endsWithAnyIgnoreCase(final CharSequence string, final CharSequence... searchStrings) {
+        for (CharSequence search : searchStrings) {
+            if (StringUtils.endsWithIgnoreCase(string, search)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

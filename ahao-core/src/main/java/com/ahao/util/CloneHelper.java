@@ -7,19 +7,22 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by Ahaochan on 2017/7/20.
  * <p>
- * Clone工具类
+ * 对未实现复制构造函数的jdk的类进行clone
  */
 public abstract class CloneHelper {
     private static final Logger logger = LoggerFactory.getLogger(CloneHelper.class);
 
-    public static <T> T clone(T obj) {
+    private CloneHelper() {
+    }
+
+    public static <T extends Cloneable> T clone(T instance) {
         try {
-            return CloneUtils.cloneObject(obj);
+            return CloneUtils.cloneObject(instance);
         } catch (CloneNotSupportedException e) {
-            logger.warn(obj.getClass().getSimpleName() + "未实现Cloneable接口," +
+            e.printStackTrace();
+            logger.warn(instance.getClass().getSimpleName() + "未实现Cloneable接口," +
                     " 若为自定义类, 建议使用复制构造函数");
             return null;
         }
     }
-
 }
