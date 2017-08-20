@@ -39,7 +39,7 @@
 
     <insert id="addRelate">
         DELETE FROM admin_user_role WHERE user_id = #{userId};
-        <if test="roleIds != null">
+        <if test="roleIds != null and roleIds.length>0">
             INSERT INTO admin_user_role(user_id, role_id, gmt_create, gmt_modify)
             VALUES
             <foreach collection="roleIds" item="item" separator=",">

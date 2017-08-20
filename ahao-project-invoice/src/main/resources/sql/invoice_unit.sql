@@ -53,7 +53,7 @@ INSERT INTO `invoice_unit` VALUES
   ('2', '广州大学', '124401007348911139', '广州市广州市番禺区大学城外环西路230号', '39366177', '3602114819100000192', current_timestamp,
    current_timestamp);
 INSERT INTO `invoice_unit` VALUES
-  ('3', '武汉极意网络科技有限公司', '91420100055714019Q', '武汉市东湖开发区大学园路武汉大学科技园内兴业楼2单元2楼204室-020号', '无', '无', current_timestamp,
+  ('3', '武汉极意网络科技有限公司', '91420100055714019Q', '武汉市东湖开发区大学园路武汉大学科技园内兴业楼2单元2楼204室-020号', '无', '6228480402564890018', current_timestamp,
    current_timestamp);
 
 SET FOREIGN_KEY_CHECKS = 1;

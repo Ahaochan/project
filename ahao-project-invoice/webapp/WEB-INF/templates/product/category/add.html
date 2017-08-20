@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment(#{product.category.title.add})"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{product.category.title.add}">增加货物类别</h1>
+                </div>
+            </div>
+            <form class="form-horizontal" action="#">
+
+                <th:block th:include="/base/input :: common('text', #{auth.name}, 'name', '')"/>
+                <th:block th:include="/base/input :: common('text', #{auth.description}, 'description', '')"/>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/js/admin/auth/auth-core.js}"></script>
+<script data-th-src="@{/js/admin/auth/auth-add.js}"></script>
+</html>

@@ -19,7 +19,7 @@
                     <a class="btn btn-default" href="/invoice/unit">
                         <span class="glyphicon glyphicon-plus"></span>新增
                     </a>
-                    <button id="btn_delete" type="button" class="btn btn-default">
+                    <button id="btn_delete_list" type="button" class="btn btn-default">
                         <span class="glyphicon glyphicon-remove"></span>删除
                     </button>
                 </div>
@@ -32,6 +32,6 @@
 </div>
 </body>
 <th:block th:include="/base/script :: scriptFragment"/>
-<script data-th-src="@{/js/unit/unit-core.js}"></script>
-<script data-th-src="@{/js/unit/unit-list.js}"></script>
+<script data-th-src="@{/js/ahao-table.js}"></script>
+<script data-th-src="@{/js/invoice/unit/unit-table.js}"></script>
 </html>

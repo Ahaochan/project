@@ -38,31 +38,46 @@
                     <tr>
                         <td class="col-md-1 text-center">
                             <span class="text-vertical">购贷单位</span>
-                            <span class="btn btn-default">增加</span>
+                            <span class="btn btn-primary" data-toggle="modal"
+                                  data-target="#modal-unit-select"
+                                  data-title="购贷单位"
+                                  data-name="purchase">增加</span>
                         </td>
                         <td class="col-md-6" colspan="5">
+                            <input type="hidden" id="input-unit-purchase-id"/>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">名称</label>
-                                <div class="col-md-6">
-                                    <input class="form-control" placeholder="名称">
+                                <div class="col-md-8">
+                                    <input class="form-control" placeholder="名称" disabled="disabled"
+                                           id="input-unit-purchase-name" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">纳税人识别号</label>
-                                <div class="col-md-6">
-                                    <input class="form-control" placeholder="纳税人识别号">
+                                <div class="col-md-8">
+                                    <input class="form-control" placeholder="纳税人识别号" disabled="disabled"
+                                           id="input-unit-purchase-tax"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">地址、电话</label>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="地址、电话">
+                                <div class="col-md-5">
+                                    <input class="form-control" placeholder="地址" disabled="disabled"
+                                           id="input-unit-purchase-address"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="tel" class="form-control" placeholder="电话" disabled="disabled"
+                                           id="input-unit-purchase-tel"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">发票号码</label>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="开户行及帐号">
+                                <label class="col-md-3 control-label">开户行及帐号</label>
+                                <div class="col-md-5">
+                                    <input class="form-control" placeholder="开户行及帐号" disabled="disabled"
+                                           id="input-unit-purchase-bank-account"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <img id="input-unit-purchase-bank-img" src="" />
                                 </div>
                             </div>
                         </td>
@@ -103,30 +118,46 @@
                     <tr>
                         <td class="col-md-1 text-center">
                             <span class="text-vertical">销贷单位</span>
+                            <span class="btn btn-primary" data-toggle="modal"
+                                  data-target="#modal-unit-select"
+                                  data-title="销贷单位"
+                                  data-name="sales">增加</span>
                         </td>
                         <td class="col-md-6" colspan="5">
+                            <input type="hidden" id="input-unit-sales-id"/>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">名称</label>
-                                <div class="col-md-6">
-                                    <input class="form-control" placeholder="名称">
+                                <div class="col-md-8">
+                                    <input class="form-control" placeholder="名称" disabled="disabled"
+                                           id="input-unit-sales-name" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">纳税人识别号</label>
-                                <div class="col-md-6">
-                                    <input type="number" class="form-control" placeholder="纳税人识别号">
+                                <div class="col-md-8">
+                                    <input class="form-control" placeholder="纳税人识别号" disabled="disabled"
+                                           id="input-unit-sales-tax"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">地址、电话</label>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="地址、电话">
+                                <div class="col-md-5">
+                                    <input class="form-control" placeholder="地址" disabled="disabled"
+                                           id="input-unit-sales-address"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="tel" class="form-control" placeholder="电话" disabled="disabled"
+                                           id="input-unit-sales-tel"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">发票号码</label>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="开户行及帐号">
+                                <label class="col-md-3 control-label">开户行及帐号</label>
+                                <div class="col-md-5">
+                                    <input type="email" class="form-control" placeholder="开户行及帐号" disabled="disabled"
+                                           id="input-unit-sales-bank-account"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <img id="input-unit-sales-bank-img" src="" />
                                 </div>
                             </div>
                         </td>
@@ -164,5 +195,75 @@
     </div>
 </div>
 </body>
+
+<div class="modal fade" id="modal-unit-select" tabindex="-1" role="dialog" aria-labelledby="modal-unit-title">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-unit-select-title">New message</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group col-md-12">
+                    <label for="input-tax" class="control-label"
+                           data-th-text="#{invoice.unit.tax.id}">统一社会信用代码:</label>
+                    <input type="text" class="form-control" id="input-tax" name="tax" autocomplete="off">
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                    <!-- /btn-group -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/js/invoice/unit/provience.js}"></script>
+<script data-th-src="@{/plugins/bootstrap-suggest/bootstrap-suggest.js}"></script>
+<script>
+    $('#modal-unit-select').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+
+        let title = button.data('title');
+        $('#modal-unit-select-title').text('请选择' + title);
+
+        let name  = button.data('name');
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
+        $('#input-tax').val('')
+            .off('onDataRequestSuccess')
+            .off('onSetSelectValue')
+            .off('onUnsetSelectValue')
+            .on('onSetSelectValue', function (e, keyword, data) {
+                $('#modal-unit-select').modal('hide');
+                $('#input-unit-'+name+'-id').val(data.taxId);
+                $('#input-unit-'+name+'-name').val(data.name);
+                $('#input-unit-'+name+'-tax').val(data.taxId);
+                $('#input-unit-'+name+'-address').val($.province(data.taxId)+data.address);
+                $('#input-unit-'+name+'-tel').val(data.tel);
+                $('#input-unit-'+name+'-bank-account').val(data.account);
+            })
+    });
+
+    $('#input-tax').bsSuggest({
+        url: '/invoice/unit/tax/',
+        getDataMethod: 'url',
+        allowNoKeyword: false,
+        effectiveFields: ['id', 'taxId', 'name', 'account'],
+        effectiveFieldsAlias:{taxId: '社会统一信用代码', name: '单位名称', account: '银行帐号'},
+        showHeader: true,
+        autoSelect: true,
+//        showBtn: true,
+        idField: "id",
+        keyField: "taxId",
+        fnAdjustAjaxParam: function (keyword, options) {
+            return {
+                type: 'POST',
+                data: {
+                    taxId: $('#input-tax').val()
+                }
+            }
+        }
+    });
+</script>
 </html>

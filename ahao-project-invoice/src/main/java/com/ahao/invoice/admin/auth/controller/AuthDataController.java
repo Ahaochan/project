@@ -43,9 +43,9 @@ public class AuthDataController {
             ajax.setObj(ValidUtils.paraseErrors(result));
             return ajax;
         }
-        AjaxDTO ajax = AjaxDTO.success(SpringConfig.getString("insert.success", validAuth.getId()));
         authService.insert(validAuth);
-        return ajax;
+        Long id = validAuth.getId();
+        return AjaxDTO.success(SpringConfig.getString("insert.success", id), id);
     }
 
     @DeleteMapping(value = "/admin/auths")

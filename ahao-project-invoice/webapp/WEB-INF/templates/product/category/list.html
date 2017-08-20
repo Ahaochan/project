@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment(#{product.category.title.manager})"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{product.category.title.manager}">货物类别管理</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div id="toolbar" class="btn-group">
+                    <a class="btn btn-default" href="/product/category">
+                        <span class="glyphicon glyphicon-plus"></span>新增
+                    </a>
+                    <button id="btn_delete" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove"></span>删除
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <table id="table-category"></table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/js/admin/auth/auth-core.js}"></script>
+<script data-th-src="@{/js/admin/auth/auth-table.js}"></script>
+</html>

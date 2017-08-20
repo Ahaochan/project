@@ -1,28 +1,50 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bootstrap 101 Template</title>
-
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <th:block th:include="/base/head :: headFragment(#{invoice.unit.title.add})"/>
 </head>
-<body>
-<h1>你好，世界！</h1>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{invoice.unit.title.add}">增加购销单位</h1>
+                </div>
+            </div>
+            <form class="form-horizontal" action="#">
+                <th:block th:include="/base/input :: readonly('text', #{invoice.unit.id}, 'id', ${unitDO.id}, true)"/>
+                <th:block th:include="/base/input :: common('text', #{invoice.unit.name}, 'name', ${unitDO.name})"/>
+                <th:block th:include="/base/input :: common('text', #{invoice.unit.tax.id}, 'tax', ${unitDO.taxId})"/>
+                <div class="form-group">
+                    <label for="input-address" class="col-md-2 control-label"
+                           data-th-text="#{invoice.unit.address}">详细地址</label>
+                    <div class="col-md-3">
+                        <input class="form-control" id="input-address-auto" disabled="disabled"/>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" id="input-address"
+                               placeholder="address" name="address"
+                               data-th-value="${unitDO.address}"
+                               aria-describedby="error-address"/>
+                    </div>
+                    <span id="error-address" class="col-md-6 help-block" style="display: none">Ajax提示</span>
+                </div>
+                <th:block th:include="/base/input :: common('tel', #{invoice.unit.tel}, 'tel', ${unitDO.tel})"/>
+                <th:block th:include="/base/input :: common('tel', #{invoice.unit.account}, 'account', ${unitDO.account})"/>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/js/invoice/unit/unit-detail.js}"></script>
 </html>

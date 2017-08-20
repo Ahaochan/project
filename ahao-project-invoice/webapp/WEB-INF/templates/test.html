@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment(#{invoice.title.add})"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+
+            <button type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#modal-unit-select" data-name="购贷单位" data-unit-id="purchase">购贷按钮
+            </button>
+            <button type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#modal-unit-select" data-name="销贷单位" data-unit-id="sales">销贷按钮
+            </button>
+
+            <h1 id="input-unit-purchase-id">购贷单位id</h1>
+            <h1 id="input-unit-sales-id">销贷单位id</h1>
+
+            <div class="modal fade" id="modal-unit-select" tabindex="-1" role="dialog" aria-labelledby="modal-unit-title">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="modal-unit-select-title">New message</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group col-md-12">
+                                <label for="input-tax" class="control-label"
+                                       data-th-text="#{invoice.unit.tax.id}">统一社会信用代码:</label>
+                                <input type="text" class="form-control" id="input-tax" name="tax" autocomplete="off">
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                                <!-- /btn-group -->
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Send message</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/js/invoice/unit/provience.js}"></script>
+<script src="../../plugins/bootstrap-suggest/bootstrap-suggest.js"></script>
+<script>
+    $('#modal-unit-select').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var name = button.data('name'); // Extract info from data-* attributes
+        let $inputSelector = $('#input-unit-'+button.data('unit-id')+'-id');
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this);
+        $('#modal-unit-select-title').text('请选择' + name);
+        $('#input-tax').val('')
+            .off('onDataRequestSuccess')
+            .off('onSetSelectValue')
+            .off('onUnsetSelectValue')
+            .on('onSetSelectValue', function (e, keyword, data) {
+                console.log('测试:'+$inputSelector.id);
+                $inputSelector.text('onSetSelectValue: '+data.taxId);
+                console.log('onSetSelectValue: ', keyword, data);
+            })
+    });
+
+    $('#input-tax').bsSuggest({
+        url: '/invoice/unit/tax/',
+        getDataMethod: 'url',
+        allowNoKeyword: false,
+        effectiveFields: ['id', 'taxId', 'name', 'account'],
+        effectiveFieldsAlias:{taxId: '社会统一信用代码', name: '单位名称', account: '银行帐号'},
+        showHeader: true,
+        autoSelect: true,
+//        showBtn: true,
+        idField: "id",
+        keyField: "taxId",
+        fnAdjustAjaxParam: function (keyword, options) {
+            return {
+                type: 'POST',
+                data: {
+                    taxId: $('#input-tax').val()
+                }
+            }
+        }
+    });
+
+</script>
+</html>

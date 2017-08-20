@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,8 @@ public class RoleServiceImpl extends PageServiceImpl<RoleDO> implements RoleServ
             logger.warn("用户角色表添加失败, 用户id为空");
             return;
         }
+
+        System.out.println("测试:"+userId+","+ Arrays.toString(roleIds));
         roleDAO.addRelate(userId, roleIds);
     }
 }

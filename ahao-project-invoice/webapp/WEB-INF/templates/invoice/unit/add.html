@@ -17,31 +17,37 @@
             <form class="form-horizontal" action="#">
 
                 <th:block th:include="/base/input :: common('text', #{invoice.unit.name}, 'name', '')"/>
-                <th:block th:include="/base/input :: common('text', #{invoice.unit.tax.id}, 'texId', '')"/>
+                <th:block th:include="/base/input :: common('text', #{invoice.unit.tax.id}, 'tax', '')"/>
                 <div class="form-group">
-                    <label for="input-address-auto" class="col-md-1 control-label"
+                    <label for="input-address" class="col-md-2 control-label"
                            data-th-text="#{invoice.unit.address}">详细地址</label>
                     <div class="col-md-3">
                         <input class="form-control" id="input-address-auto" disabled="disabled"/>
                     </div>
+                    <div class="col-md-3">
+                        <input class="form-control" id="input-address"
+                               placeholder="address" name="address"
+                               aria-describedby="error-address"/>
+                    </div>
+                    <span id="error-address" class="col-md-6 help-block" style="display: none">Ajax提示</span>
                 </div>
-                <th:block th:include="/base/input :: common('text', #{invoice.unit.address}, 'address', '')"/>
                 <th:block th:include="/base/input :: common('tel', #{invoice.unit.tel}, 'tel', '')"/>
-                <th:block th:include="/base/input :: common('tel', #{invoice.unit.account}, 'account', '')"/>
+                <div class="form-group">
+                    <label for="input-account" class="col-md-2 control-label"
+                           data-th-text="#{invoice.unit.account}">银行账户</label>
+                    <div class="col-md-3">
+                        <input class="form-control" id="input-account"
+                               placeholder="account" name="account"
+                               aria-describedby="error-account"/>
+                    </div>
+                    <div class="col-md-3">
+                        <img id="img-account" src=""/>
+                    </div>
+                    <span id="error-account" class="col-md-6 help-block" style="display: none">Ajax提示</span>
+                </div>
 
                 <div class="form-group">
-                    <label class="col-md-1 control-label" data-th-text="#{auth.enabled.label}">可用</label>
-                    <div class="row">
-                        <div class="col-md-2 checkbox">
-                            <label>
-                                <input type="checkbox" id="input-enabled" name="enabled"
-                                       data-th-text="#{auth.enabled}"/>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-offset-2 col-md-10">
                         <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
                     </div>
                 </div>
@@ -51,6 +57,5 @@
 </div>
 </body>
 <th:block th:include="/base/script :: scriptFragment"/>
-<script data-th-src="@{/js/auth/auth-core.js}"></script>
-<script data-th-src="@{/js/auth/auth-add.js}"></script>
+<script data-th-src="@{/js/invoice/unit/unit-detail.js}"></script>
 </html>

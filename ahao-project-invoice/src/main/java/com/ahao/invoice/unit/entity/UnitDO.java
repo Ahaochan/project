@@ -2,6 +2,7 @@ package com.ahao.invoice.unit.entity;
 
 import com.ahao.entity.BaseDO;
 import org.apache.ibatis.type.Alias;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Table;
 import java.util.Date;
@@ -16,10 +17,14 @@ import java.util.Date;
 public class UnitDO extends BaseDO {
     public static final String TAG = "unitDO";
 
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String taxId;
+    @NotEmpty
     private String address;
     private String tel;
+    @NotEmpty
     private String account;
 
     public UnitDO() {

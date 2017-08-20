@@ -7,7 +7,7 @@
 
 <div th:fragment="readonly(type, label, name, value, readonly)">
     <div data-th-id="'form-group-'+${name}" class="form-group">
-        <label data-th-for="'input-'+${name}" class="col-md-1 control-label"
+        <label data-th-for="'input-'+${name}" class="col-md-2 control-label"
                data-th-text="${label}">标签名</label>
         <div class="col-md-3">
             <input data-th-type="${type}" class="form-control" data-th-id="'input-'+${name}"
@@ -23,7 +23,7 @@
 <div th:fragment="password(label, confirmLabel, name)">
     <th:block th:include="/base/input :: common('password', ${label}, 'password', '')"/>
     <div class="form-group">
-        <label data-th-for="'input-'+${name}+'-confirm'" class="col-md-1 control-label"
+        <label data-th-for="'input-'+${name}+'-confirm'" class="col-md-2 control-label"
                data-th-text="${confirmLabel}">确认密码</label>
         <div class="col-md-3">
             <input type="password" class="form-control" data-th-id="'input-'+${name}+'-confirm'"

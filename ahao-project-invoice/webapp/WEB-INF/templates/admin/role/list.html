@@ -19,7 +19,7 @@
                     <a class="btn btn-default" href="/admin/role">
                         <span class="glyphicon glyphicon-plus"></span>新增
                     </a>
-                    <button id="btn_delete" type="button" class="btn btn-default">
+                    <button id="btn_delete_list" type="button" class="btn btn-default">
                         <span class="glyphicon glyphicon-remove"></span>删除
                     </button>
                 </div>
@@ -32,6 +32,6 @@
 </div>
 </body>
 <th:block th:include="/base/script :: scriptFragment"/>
-<script data-th-src="@{/js/role/role-core.js}"></script>
-<script data-th-src="@{/js/role/role-list.js}"></script>
+<script data-th-src="@{/js/ahao-table.js}"></script>
+<script data-th-src="@{/js/admin/role/role-table.js}"></script>
 </html>

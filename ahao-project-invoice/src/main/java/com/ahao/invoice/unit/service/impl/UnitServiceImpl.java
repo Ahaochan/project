@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Ahaochan on 2017/8/13.
@@ -41,4 +43,11 @@ public class UnitServiceImpl extends PageServiceImpl<UnitDO> implements UnitServ
         return unitDAO.selectPage(start, pageSize, sort, order);
     }
 
+    @Override
+    public List<UnitDO> selectByTaxId(String taxId) {
+        Example example = new Example(UnitDO.class);
+        example.selectProperties("id", "taxId", "name", "address", "tel", "account")
+                .createCriteria().andLike("taxId", taxId+"%");
+        return unitDAO.selectByExample(example);
+    }
 }

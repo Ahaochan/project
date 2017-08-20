@@ -12,7 +12,6 @@ function parseCode(code) {
                 showFailAjaxTip('错误的发票代码, 请检查发票');
                 return;
             }
-            console.log(json);
             $('#invoiceTitle').text(json.msg.city + json.msg.type);
         },
         error: function (xhr) {

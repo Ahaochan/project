@@ -49,17 +49,17 @@ public class UserDataController {
             ajax.setObj(ValidUtils.paraseErrors(result));
             return ajax;
         }
-        AjaxDTO ajax = AjaxDTO.success(SpringConfig.getString("insert.success", validUser.getId()));
         userService.insert(validUser);
         roleService.addRelate(validUser.getId(), roleIds);
-        return ajax;
+
+        Long id = validUser.getId();
+        return AjaxDTO.success(SpringConfig.getString("insert.success", id), id);
     }
 
     @DeleteMapping(value = "/admin/users")
     @Transactional
     public AjaxDTO delete(@RequestBody MultiValueMap<String, String> formData) {
         List<String> ids = formData.get("userIds[]");
-
         boolean success = userService.deleteByKey(ids);
         int flag = NumberHelper.parse(success);
         String msg = SpringConfig.getString(success ? "delete.success" : "delete.failure");

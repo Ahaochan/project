@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +77,7 @@ public class AuthServiceImpl extends PageServiceImpl<AuthDO> implements AuthServ
             logger.warn("角色权限表添加失败, 角色id为空");
             return;
         }
+        System.out.println(roleId+","+Arrays.toString(authIds));
         authDAO.addRelate(roleId, authIds);
     }
 }

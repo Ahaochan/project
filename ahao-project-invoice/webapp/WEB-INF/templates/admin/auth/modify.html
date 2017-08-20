@@ -17,12 +17,9 @@
             <form class="form-horizontal" action="#">
                 <th:block th:include="/base/input :: readonly('text', #{auth.id}, 'id', ${authDO.id}, true)"/>
                 <th:block th:include="/base/input :: common('text', #{auth.name}, 'name', ${authDO.name})"/>
-                <th:block
-                        th:include="/base/input :: common('text', #{auth.description}, 'description', ${authDO.description})"/>
-
-
+                <th:block th:include="/base/input :: common('text', #{auth.description}, 'description', ${authDO.description})"/>
                 <div class="form-group">
-                    <label class="col-md-1 control-label" data-th-text="#{role.enabled.label}">可用</label>
+                    <label class="col-md-2 control-label" data-th-text="#{role.enabled.label}">可用</label>
                     <div class="row">
                         <div class="col-md-2 checkbox">
                             <label>
@@ -34,7 +31,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-offset-2 col-md-10">
                         <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
                     </div>
                 </div>
@@ -44,6 +41,5 @@
 </div>
 </body>
 <th:block th:include="/base/script :: scriptFragment"/>
-<script data-th-src="@{/js/auth/auth-core.js}"></script>
-<script data-th-src="@{/js/auth/auth-modify.js}"></script>
+<script data-th-src="@{/js/admin/auth/auth-detail.js}"></script>
 </html>

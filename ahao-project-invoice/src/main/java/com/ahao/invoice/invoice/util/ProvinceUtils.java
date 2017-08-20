@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Ahaochan on 2017/7/30.
@@ -20,15 +22,15 @@ import java.util.HashMap;
  */
 public abstract class ProvinceUtils {
     private static final Logger logger = LoggerFactory.getLogger(ProvinceUtils.class);
-    private static final HashMap<String, String> codes = new HashMap<>(100);
+    private static final Map<String, String> codes;
 
 
     static {
+        Map<String, String> jsoup = new HashMap<>(100);
         try {
             String url = Setter.getString("provinceUrl");
             Document doc = Jsoup.connect(url).get();
             Elements msoNormals = doc.getElementsByClass("MsoNormal");
-//            JSONArray array = new JSONArray(msoNormals.size());
             for (Element msoNormal : msoNormals) {
                 Elements spans = msoNormal.getElementsByTag("span");
                 JSONObject province = new JSONObject();
@@ -45,13 +47,14 @@ public abstract class ProvinceUtils {
                         });
                 if (province.containsKey("code") && !StringHelper.equals(province.getString("city"),
                         "市辖区", "省直辖县级行政区划")) {
-                    codes.put(province.getString("code"), province.getString("city"));
+                    jsoup.put(province.getString("code"), province.getString("city"));
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
             logger.error("获取行政区划代码错误! ");
         }
+        codes = Collections.unmodifiableMap(jsoup);
     }
 
     public static String getCity(String code) {

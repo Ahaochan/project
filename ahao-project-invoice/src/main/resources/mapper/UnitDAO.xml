@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.invoice.unit.dao.UnitDAO">
+    <resultMap type="com.ahao.invoice.unit.entity.UnitDO" id="unitResult">
+        <result column="id" property="id" jdbcType="BIGINT" javaType="long"/>
+        <result column="name" property="name" jdbcType="VARCHAR" javaType="string"/>
+        <result column="tax_id" property="taxId" jdbcType="VARCHAR" javaType="string"/>
+        <result column="address" property="address" jdbcType="VARCHAR" javaType="string"/>
+        <result column="tel" property="tel" jdbcType="VARCHAR" javaType="string"/>
+        <result column="account" property="account" jdbcType="VARCHAR" javaType="string"/>
+        <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="date"/>
+        <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="date"/>
+    </resultMap>
+
+    <select id="selectPage" resultMap="unitResult">
+        SELECT u1.id, u1.name, u1.tax_id, u1.address, u1.tel, u1.account, u1.gmt_create, u1.gmt_modify
+        FROM invoice_unit u1
+        INNER JOIN (
+        SELECT id
+        FROM invoice_unit
+        ORDER BY ${sort}
+        <if test="order.equals('desc')">
+            ${order}
+        </if>
+        LIMIT #{start}, #{pageSize}) u2
+        ON u1.id = u2.id
+    </select>
+
+
+</mapper>

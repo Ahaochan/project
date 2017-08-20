@@ -36,7 +36,7 @@ public class UnitViewController {
 
     @GetMapping("/invoice/unit/{unitId}")
     public ModelAndView modify(@PathVariable(value = "unitId") Long unitId) {
-        ModelAndView mv = new ModelAndView("admin/user/modify");
+        ModelAndView mv = new ModelAndView("invoice/unit/modify");
         UnitDO user = unitService.selectByKey(unitId);
         mv.addObject(UnitDO.TAG, user);
         return mv;

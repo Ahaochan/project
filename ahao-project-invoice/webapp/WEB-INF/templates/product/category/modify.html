@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment(#{auth.title.modify})"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{auth.title.modify}">编辑角色</h1>
+                </div>
+            </div>
+            <form class="form-horizontal" action="#">
+                <th:block th:include="/base/input :: readonly('text', #{auth.id}, 'id', ${authDO.id}, true)"/>
+                <th:block th:include="/base/input :: common('text', #{auth.name}, 'name', ${authDO.name})"/>
+                <th:block th:include="/base/input :: common('text', #{auth.description}, 'description', ${authDO.description})"/>
+                <div class="form-group">
+                    <label class="col-md-2 control-label" data-th-text="#{role.enabled.label}">可用</label>
+                    <div class="row">
+                        <div class="col-md-2 checkbox">
+                            <label>
+                                <input type="checkbox" id="input-enabled" name="enabled"
+                                       data-th-checked="${authDO.enabled}"
+                                       data-th-text="#{auth.enabled}"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/js/admin/auth/auth-core.js}"></script>
+<script data-th-src="@{/js/admin/auth/auth-detail.js}"></script>
+</html>

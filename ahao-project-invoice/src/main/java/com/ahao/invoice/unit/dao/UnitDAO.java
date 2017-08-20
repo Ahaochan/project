@@ -25,13 +25,4 @@ public interface UnitDAO extends Mapper<UnitDO> {
                                   @Param("pageSize") Integer pageSize,
                                   @Param("sort") String sort,
                                   @Param("order") String order);
-
-    /**
-     * 删除购销单位, 级联删除
-     *
-     * @param ids
-     * @return
-     */
-    int deleteAllByKey(@Param("ids") Long... ids);
-
 }

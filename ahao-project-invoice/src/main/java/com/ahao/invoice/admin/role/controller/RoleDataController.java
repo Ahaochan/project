@@ -50,10 +50,12 @@ public class RoleDataController {
             ajax.setObj(ValidUtils.paraseErrors(result));
             return ajax;
         }
-        AjaxDTO ajax = AjaxDTO.success(SpringConfig.getString("insert.success", validRole.getId()));
+
         roleService.insert(validRole);
         authService.addRelate(validRole.getId(), authIds);
-        return ajax;
+
+        Long id = validRole.getId();
+        return AjaxDTO.success(SpringConfig.getString("insert.success", id), id);
     }
 
     @DeleteMapping(value = "/admin/roles")
@@ -91,6 +93,7 @@ public class RoleDataController {
         }
 
         AjaxDTO ajax = AjaxDTO.success(SpringConfig.getString("insert.success", validRole.getId()));
+
         roleService.update(validRole);
         authService.addRelate(validRole.getId(), authIds);
         return ajax;
