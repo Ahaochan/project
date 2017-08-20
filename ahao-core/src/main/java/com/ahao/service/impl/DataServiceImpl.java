@@ -2,12 +2,11 @@ package com.ahao.service.impl;
 
 import com.ahao.entity.BaseDO;
 import com.ahao.service.DataService;
-import com.ahao.util.ArrayHelper;
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Ahaochan on 2017/6/20.
@@ -24,11 +23,9 @@ public abstract class DataServiceImpl<T extends BaseDO> implements DataService<T
     }
 
     @Override
-    public boolean deleteByKey(Object... key) {
-        List<Object> list = ArrayHelper.toList(key);
-
+    public boolean deleteByKey(Collection<?> key) {
         Example example = new Example(clazz());
-        example.createCriteria().andIn("id", list);
+        example.createCriteria().andIn("id", key);
         return dao().deleteByExample(example) > 0;
     }
 
@@ -49,7 +46,6 @@ public abstract class DataServiceImpl<T extends BaseDO> implements DataService<T
 
     @Override
     public int update(T obj) {
-        // TODO updateByExampleSelective不能更新enable对象
         obj.setModifyTime(new Date());
 
         Example example = new Example(obj.getClass());

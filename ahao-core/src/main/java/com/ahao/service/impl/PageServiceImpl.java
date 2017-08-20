@@ -45,5 +45,4 @@ public abstract class PageServiceImpl<T extends BaseDO> extends DataServiceImpl<
 
     @Override
     protected abstract Mapper<T> dao();
-
 }

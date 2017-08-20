@@ -3,6 +3,8 @@ package com.ahao.service;
 
 import com.ahao.entity.BaseDO;
 
+import java.util.Collection;
+
 /**
  * Created by Ahaochan on 2017/6/20.
  *
@@ -22,7 +24,7 @@ public interface DataService<T extends BaseDO> {
      * @param key 删除数据的主键
      * @return 返回受影响的记录数
      */
-    boolean deleteByKey(Object... key);
+    boolean deleteByKey(Collection<?> key);
 
     /**
      * 获得所有数据的数量
