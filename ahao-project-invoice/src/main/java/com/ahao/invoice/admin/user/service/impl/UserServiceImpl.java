@@ -4,7 +4,7 @@ import com.ahao.invoice.admin.user.dao.UserDAO;
 import com.ahao.invoice.admin.user.entity.UserDO;
 import com.ahao.invoice.admin.user.service.UserService;
 import com.ahao.service.impl.PageServiceImpl;
-import com.ahao.util.SecurityUtils;
+import com.ahao.util.SecurityHelper;
 import com.ahao.util.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +57,6 @@ public class UserServiceImpl extends PageServiceImpl<UserDO> implements UserServ
     @Override
     public boolean updateLoginMsg(String username) {
         return userDAO.updateLastLoginMsg(username,
-                new Date(), SecurityUtils.getClientIp());
+                new Date(), SecurityHelper.getClientIp());
     }
 }

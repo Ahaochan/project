@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * 时间帮助类
- * Created by 罗遂汉 on 2017/8/21.
+ * Created by Ahaochan on 2017/8/21.
  */
 public abstract class DateHelper {
     private static final Logger logger = LoggerFactory.getLogger(DateHelper.class);

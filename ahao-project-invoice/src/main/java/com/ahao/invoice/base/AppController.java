@@ -1,7 +1,7 @@
 package com.ahao.invoice.base;
 
 import com.ahao.invoice.admin.user.service.UserService;
-import com.ahao.util.SecurityUtils;
+import com.ahao.util.SecurityHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,8 +31,8 @@ public class AppController {
     @GetMapping("/admin/index")
     public ModelAndView index(){
         ModelAndView mv = new ModelAndView("admin/index");
-        String loginUsername = SecurityUtils.loginUsername();
-        String loginIp = SecurityUtils.getClientIp();
+        String loginUsername = SecurityHelper.loginUsername();
+        String loginIp = SecurityHelper.getClientIp();
 
 
         IndexView view = new IndexView(new Date(), loginUsername, loginIp);
@@ -47,7 +47,7 @@ public class AppController {
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
                               @RequestParam(value = "logout", required = false) String logout){
         ModelAndView mv = new ModelAndView();
-        User user = SecurityUtils.loginUser();
+        User user = SecurityHelper.loginUser();
         if(user!=null) {
             mv.setViewName("redirect:/admin/index");
         } else {

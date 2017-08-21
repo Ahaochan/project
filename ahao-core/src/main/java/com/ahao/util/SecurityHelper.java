@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by Avalon on 2017/5/9.
  */
-public class SecurityUtils {
-    private SecurityUtils() {
+public class SecurityHelper {
+    private SecurityHelper() {
 
     }
 
