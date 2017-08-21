@@ -21,7 +21,6 @@ import java.util.Map;
  * 系统配置操作
  */
 public class SystemConfig {
-    // TODO 改造
     private static final Logger logger = LoggerFactory.getLogger(SystemConfig.class);
 
     /**

@@ -10,12 +10,9 @@ import java.util.Map;
 /**
  * 系统配置文件操作。<br>
  * 可以从系统配置文件中读取指定属性的值。
- * 
- * @author 邓坤
+ *
  */
 public class Setter {
-	// TODO 改造
-
 	public Setter() {
 
 	}
