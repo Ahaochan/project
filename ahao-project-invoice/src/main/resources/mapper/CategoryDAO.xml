@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.invoice.product.category.dao.CategoryDAO">
+    <resultMap type="com.ahao.invoice.product.category.entity.CategoryDO" id="categoryResult">
+        <result column="id" property="id" jdbcType="BIGINT" javaType="long"/>
+        <result column="name" property="name" jdbcType="VARCHAR" javaType="string"/>
+        <result column="description" property="description" jdbcType="VARCHAR" javaType="string"/>
+        <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="date"/>
+        <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="date"/>
+    </resultMap>
+
+    <select id="selectPage" resultMap="categoryResult">
+        SELECT c1.id, c1.name, c1.description, c1.gmt_create, c1.gmt_modify
+        FROM goods_category c1
+        INNER JOIN (
+        SELECT id
+        FROM goods_category
+        ORDER BY ${sort}
+        <if test="order.equals('desc')">
+            ${order}
+        </if>
+        LIMIT #{start}, #{pageSize}) c2
+        ON c1.id = c2.id
+    </select>
+
+</mapper>

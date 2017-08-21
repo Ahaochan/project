@@ -26,8 +26,7 @@ $(document).ready(function () {
                 field: 'address',
                 title: '地址',
                 formatter: function (value, row) {
-                    // TODO 格式化地址
-                    return value;
+                    return $.province(row['taxId'])+value;
                 }
             },
             {
@@ -66,7 +65,7 @@ $(document).ready(function () {
                         '<i class="fa fa-pencil-square-o"></i>' +
                         '</a> &nbsp;' +
                         '<a class="btn btn-warning btn-circle btn-sm btn-delete" ' +
-                        'data-id="'+value+'">' +
+                        'data-id="' + value + '">' +
                         '<i class="fa fa-times"></i>' +
                         '</a>';
                 }
@@ -77,7 +76,7 @@ $(document).ready(function () {
     $('#btn_delete_list').click(function () {
         $.deleteTable('list', {
             url: '/invoice/units',
-            key : 'unitIds',
+            key: 'unitIds',
             table: '#table-unit'
         })
     });
@@ -85,7 +84,7 @@ $(document).ready(function () {
     $('body').on('click', '.btn-delete', function () {
         $.deleteTable('one', {
             url: '/invoice/units',
-            key : 'unitIds',
+            key: 'unitIds',
             id: $(this).attr('data-id')
         });
     })
