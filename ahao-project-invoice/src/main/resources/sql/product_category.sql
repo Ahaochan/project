@@ -18,8 +18,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for goods_category
 -- ----------------------------
-DROP TABLE IF EXISTS `goods_category`;
-CREATE TABLE `goods_category` (
+DROP TABLE IF EXISTS `product_category`;
+CREATE TABLE `product_category` (
   `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '货物类别ID',
   `name` VARCHAR(50) DEFAULT NULL COMMENT '货物类别名',
   `description` VARCHAR(100) DEFAULT NULL COMMENT '货物类别描述',
@@ -31,9 +31,9 @@ CREATE TABLE `goods_category` (
 -- ----------------------------
 -- Records of goods_category
 -- ----------------------------
-INSERT INTO `goods_category` VALUES ('1', '电脑配件', '电脑硬件相关', current_timestamp, current_timestamp);
-INSERT INTO `goods_category` VALUES ('2', '书籍', '纸制品书籍', current_timestamp, current_timestamp);
-INSERT INTO `goods_category` VALUES ('3', '办公用品', '办公用的东西', current_timestamp, current_timestamp);
+INSERT INTO `product_category` VALUES ('1', '电脑配件', '电脑硬件相关', current_timestamp, current_timestamp);
+INSERT INTO `product_category` VALUES ('2', '书籍', '纸制品书籍', current_timestamp, current_timestamp);
+INSERT INTO `product_category` VALUES ('3', '办公用品', '办公用的东西', current_timestamp, current_timestamp);
 
 
 SET FOREIGN_KEY_CHECKS = 1;

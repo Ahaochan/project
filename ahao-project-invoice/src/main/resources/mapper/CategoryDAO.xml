@@ -11,10 +11,10 @@
 
     <select id="selectPage" resultMap="categoryResult">
         SELECT c1.id, c1.name, c1.description, c1.gmt_create, c1.gmt_modify
-        FROM goods_category c1
+        FROM product_category c1
         INNER JOIN (
         SELECT id
-        FROM goods_category
+        FROM product_category
         ORDER BY ${sort}
         <if test="order.equals('desc')">
             ${order}

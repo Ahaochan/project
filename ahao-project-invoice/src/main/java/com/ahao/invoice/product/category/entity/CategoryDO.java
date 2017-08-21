@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by Ahaochan on 2017/8/21.
  */
 @Alias("CategoryDO")
-@Table(name = "goods_category")
+@Table(name = "product_category")
 public class CategoryDO extends BaseDO {
     public static final String TAG =  "categoryDO";
 
