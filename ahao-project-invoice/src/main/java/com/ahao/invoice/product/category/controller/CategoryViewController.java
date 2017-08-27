@@ -39,7 +39,6 @@ public class CategoryViewController {
         ModelAndView mv = new ModelAndView("product/category/modify");
         CategoryDO category = categoryService.selectByKey(categoryId);
         mv.addObject(CategoryDO.TAG, category);
-        mv.addObject("ce","ce1");
         return mv;
     }
 }

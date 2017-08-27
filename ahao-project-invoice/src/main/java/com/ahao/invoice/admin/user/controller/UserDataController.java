@@ -86,6 +86,7 @@ public class UserDataController {
             return ajax;
         }
         if (validUser.getId() == null) {
+            // ID不能为空, 否则会更新全部数据
             return AjaxDTO.failure(SpringConfig.getString("update.failure", validUser.getId()));
         }
 

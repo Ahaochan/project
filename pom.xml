@@ -48,11 +48,11 @@
         </dependency>
 
         <!-- apache通用工具 -->
-        <!--<dependency>-->
-        <!--<groupId>commons-beanutils</groupId>-->
-        <!--<artifactId>commons-beanutils</artifactId>-->
-        <!--<version>1.9.3</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.3</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>

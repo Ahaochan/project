@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Ahaochan on 2017/8/21.
@@ -38,5 +40,14 @@ public class CategoryServiceImpl extends PageServiceImpl<CategoryDO> implements 
     @Override
     protected Collection<CategoryDO> getByPage(int start, int pageSize, String sort, String order) {
         return categoryDAO.selectPage(start, pageSize, sort, order);
+    }
+
+    @Override
+    public List<CategoryDO> selectByName(String name) {
+
+        Example example = new Example(CategoryDO.class);
+        example.selectProperties("id", "name", "description")
+                .createCriteria().andLike("name", name+"%");
+        return categoryDAO.selectByExample(example);
     }
 }

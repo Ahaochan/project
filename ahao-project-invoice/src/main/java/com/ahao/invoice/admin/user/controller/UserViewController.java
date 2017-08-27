@@ -44,9 +44,4 @@ public class UserViewController {
         mv.addObject(UserDO.TAG, user);
         return mv;
     }
-
-    @GetMapping("/test")
-    public String hello(){
-        return "test";
-    }
 }

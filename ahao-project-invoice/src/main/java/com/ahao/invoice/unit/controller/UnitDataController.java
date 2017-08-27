@@ -75,12 +75,12 @@ public class UnitDataController {
             return ajax;
         }
         if (validUnit.getId() == null) {
+            // ID不能为空, 否则会更新全部数据
             return AjaxDTO.failure(SpringConfig.getString("update.failure", validUnit.getId()));
         }
 
-        AjaxDTO ajax = AjaxDTO.success(SpringConfig.getString("insert.success", validUnit.getId()));
         unitService.update(validUnit);
-        return ajax;
+        return AjaxDTO.success(SpringConfig.getString("insert.success", validUnit.getId()));
     }
 
     @PostMapping("/invoice/unit/tax")

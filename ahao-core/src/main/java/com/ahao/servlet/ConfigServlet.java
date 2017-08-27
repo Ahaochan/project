@@ -48,9 +48,10 @@ public class ConfigServlet extends HttpServletBean {
             ApplicationContext.setSystemRoot(config.getServletContext().getRealPath("/"));
             // 载入系统配置信息
             initSystemConfig();
-        } catch (Exception ex) {
-            logger.error("初始化系统参数出错", ex);
-            throw new ServletException(ex.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("初始化系统参数出错", e);
+            throw new ServletException(e.getMessage());
         }
     }
 

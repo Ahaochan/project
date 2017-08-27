@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.invoice.product.goods.dao.GoodsDAO">
+    <resultMap type="com.ahao.invoice.product.goods.entity.GoodsDO" id="goodsResult">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="long"/>
+        <result column="name" property="name" jdbcType="VARCHAR" javaType="string"/>
+        <result column="category_id" property="categoryId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="specification" property="specification" jdbcType="VARCHAR" javaType="string"/>
+        <result column="unite_price" property="unitePrice" jdbcType="DECIMAL" javaType="Double"/>
+        <result column="tax_rate" property="taxRate" jdbcType="VARCHAR" javaType="string"/>
+        <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="date"/>
+        <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="date"/>
+    </resultMap>
+
+    <select id="selectPage" resultType="DataSet">
+        SELECT g1.id, g1.name, c.name category, g1.specification, g1.unit, g1.unite_price unitePrice, g1.tax_rate taxRate,
+        g1.gmt_create createTime, g1.gmt_modify modifyTime
+        FROM product_goods g1
+        LEFT JOIN product_category c on g1.category_id = c.id
+        INNER JOIN (
+        SELECT id
+        FROM product_goods
+        ORDER BY ${sort}
+        <if test="order.equals('desc')">
+            ${order}
+        </if>
+        LIMIT #{start}, #{pageSize}) g2 ON g1.id = g2.id
+    </select>
+
+    <select id="selectCategoryByKey" resultType="DataSet">
+        SELECT c.id, c.name
+        FROM product_goods g
+        LEFT JOIN product_category c on g.category_id = c.id
+        WHERE g.id = #{goodId}
+    </select>
+
+</mapper>

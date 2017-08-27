@@ -78,11 +78,19 @@ public class CategoryDataController {
             return ajax;
         }
         if (validCategory.getId() == null) {
+            // ID不能为空, 否则会更新全部数据
             return AjaxDTO.failure(SpringConfig.getString("update.failure", validCategory.getId()));
         }
 
-        AjaxDTO ajax = AjaxDTO.success(SpringConfig.getString("insert.success", validCategory.getId()));
         categoryService.update(validCategory);
-        return ajax;
+        return AjaxDTO.success(SpringConfig.getString("insert.success", validCategory.getId()));
+    }
+
+    @PostMapping("/product/category/searchByName")
+    public JSONObject getCategory(@RequestParam("name") String name){
+        List<CategoryDO> list = categoryService.selectByName(name);
+        JSONObject json = new JSONObject();
+        json.put("value", list);
+        return json;
     }
 }

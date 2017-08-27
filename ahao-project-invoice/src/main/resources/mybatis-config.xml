@@ -3,22 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!--配置全局属性 -->
-	<settings>
-		<!--使用jdbc的getGeneratekeys获取自增主键值 -->
-		<setting name="useGeneratedKeys" value="true" />
-		<!--使用列别名替换别名 默认true select name as title form table; -->
-		<setting name="useColumnLabel" value="true" />
+    <!--配置全局属性 -->
+    <settings>
+        <!--使用jdbc的getGeneratekeys获取自增主键值 -->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!--使用列别名替换别名 默认true select name as title form table; -->
+        <setting name="useColumnLabel" value="true"/>
 
-		<!--开启驼峰命名转换Table:create_time到 Entity(createTime) -->
-		<setting name="mapUnderscoreToCamelCase" value="true" />
-	</settings>
+        <!--开启驼峰命名转换Table:create_time到 Entity(createTime) -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="DataSet" type="com.ahao.entity.DataSet"/>
+    </typeAliases>
 
     <plugins>
         <plugin interceptor="com.ahao.interceptor.MybatisSqlInterceptor"/>
     </plugins>
-
-	<!--<typeAliases>-->
-		<!--<typeAlias alias="IDataSet" type="com.nine.rivers.galcom.ahao.invoice.dto.dto.DataSet" />-->
-	<!--</typeAliases>-->
 </configuration>

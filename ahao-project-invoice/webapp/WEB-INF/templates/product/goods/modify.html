@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment(#{product.goods.title.modify})"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{product.goods.title.modify}">增加货物</h1>
+                </div>
+            </div>
+            <form class="form-horizontal" action="#">
+                <th:block th:include="/base/input :: readonly('text', #{product.category.id}, 'id', ${goodsDO.id}, true)"/>
+
+                <th:block th:include="/base/input :: common('text', #{product.goods.name}, 'name', ${goodsDO.name})"/>
+                <div id="'form-group-category" class="form-group">
+                    <label for="input-category-name" class="col-md-2 control-label"
+                           data-th-text="#{product.category.name}">货物类别</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="hidden" class="form-control" id="input-category-id" data-th-value="${category.id}"/>
+                            <input type="text" class="form-control" id="input-category-name" disabled="disabled" data-th-value="${category.name}"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-toggle="modal"
+                                        data-target="#modal-category-select">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <span id="error-category" class="col-md-6 help-block" style="display: none">Ajax提示</span>
+                </div>
+                <th:block th:include="/base/input :: common('text', #{product.goods.specification}, 'specification', ${goodsDO.specification})"/>
+                <th:block th:include="/base/input :: common('text', #{product.goods.unit}, 'unit', ${goodsDO.unit})"/>
+                <th:block th:include="/base/input :: common('text', #{product.goods.unite.price}, 'unitePrice', ${goodsDO.unitePrice})"/>
+                <div id="form-group-taxRate" class="form-group">
+                    <label for="input-taxRate" class="col-md-2 control-label"
+                           data-th-text="#{product.goods.tax.rate}">税率</label>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" id="input-taxRate"
+                               placeholder="taxRate" name="taxRate" data-th-value="${goodsDO.taxRate}"
+                               aria-describedby="error-taxRate"/>
+                    </div>
+                    <span id="error-taxRate" class="col-md-6 help-block" style="display: none">Ajax提示</span>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-category-select" tabindex="-1" role="dialog" aria-labelledby="modal-category-title">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-category-select-title">选择货物类别</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group col-md-12">
+                    <label for="input-category-select" class="control-label"
+                           data-th-text="#{product.category.name}">货物类别名称:</label>
+                    <input type="text" class="form-control" id="input-category-select" autocomplete="off">
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                    <!-- /btn-group -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/plugins/bootstrap-suggest/bootstrap-suggest.js}"></script>
+<script data-th-src="@{/js/product/goods/goods-detail.js}"></script>
+<script>
+    $('#modal-category-select').on('show.bs.modal', function (event) {
+        $('#input-category-select').val('')
+            .off('onDataRequestSuccess')
+            .off('onSetSelectValue')
+            .off('onUnsetSelectValue')
+            .on('onSetSelectValue', function (e, keyword, data) {
+                $('#modal-category-select').modal('hide');
+                $('#input-category-id').val(data.id);
+                $('#input-category-name').val(data.name);
+            })
+    });
+
+    $('#input-category-select').bsSuggest({
+        url: '/product/category/searchByName',
+        getDataMethod: 'url',
+        allowNoKeyword: false,
+        effectiveFields: ['id', 'name', 'description'],
+        effectiveFieldsAlias:{name: '类别名称', description: '类别描述'},
+        showHeader: true,
+        autoSelect: true,
+//        showBtn: true,
+        idField: "id",
+        keyField: "name",
+        fnAdjustAjaxParam: function (keyword, options) {
+            return {
+                type: 'POST',
+                data: {
+                    name: $('#input-category-select').val()
+                }
+            }
+        }
+    });
+</script>
+</html>

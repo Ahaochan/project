@@ -89,14 +89,13 @@ public class RoleDataController {
             return ajax;
         }
         if (validRole.getId() == null) {
+            // ID不能为空, 否则会更新全部数据
             return AjaxDTO.failure(SpringConfig.getString("update.failure", validRole.getId()));
         }
 
-        AjaxDTO ajax = AjaxDTO.success(SpringConfig.getString("insert.success", validRole.getId()));
-
         roleService.update(validRole);
         authService.addRelate(validRole.getId(), authIds);
-        return ajax;
+        return AjaxDTO.success(SpringConfig.getString("insert.success", validRole.getId()));
     }
 
     @PostMapping("/admin/role/checkName")

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.invoice.product.category.dao.CategoryDAO">
     <resultMap type="com.ahao.invoice.product.category.entity.CategoryDO" id="categoryResult">
-        <result column="id" property="id" jdbcType="BIGINT" javaType="long"/>
+        <id column="id" property="id" jdbcType="BIGINT" javaType="long"/>
         <result column="name" property="name" jdbcType="VARCHAR" javaType="string"/>
         <result column="description" property="description" jdbcType="VARCHAR" javaType="string"/>
         <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="date"/>

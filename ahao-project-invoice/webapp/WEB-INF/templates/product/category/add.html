@@ -16,8 +16,8 @@
             </div>
             <form class="form-horizontal" action="#">
 
-                <th:block th:include="/base/input :: common('text', #{auth.name}, 'name', '')"/>
-                <th:block th:include="/base/input :: common('text', #{auth.description}, 'description', '')"/>
+                <th:block th:include="/base/input :: common('text', #{product.category.name}, 'name', '')"/>
+                <th:block th:include="/base/input :: common('text', #{product.category.description}, 'description', '')"/>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">

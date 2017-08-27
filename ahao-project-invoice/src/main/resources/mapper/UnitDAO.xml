@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.invoice.unit.dao.UnitDAO">
     <resultMap type="com.ahao.invoice.unit.entity.UnitDO" id="unitResult">
-        <result column="id" property="id" jdbcType="BIGINT" javaType="long"/>
+        <id column="id" property="id" jdbcType="BIGINT" javaType="long"/>
         <result column="name" property="name" jdbcType="VARCHAR" javaType="string"/>
         <result column="tax_id" property="taxId" jdbcType="VARCHAR" javaType="string"/>
         <result column="address" property="address" jdbcType="VARCHAR" javaType="string"/>
