@@ -20,23 +20,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_role`;
 CREATE TABLE `admin_role` (
-  `id`          BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT
-  COMMENT '角色ID',
-  `name`        VARCHAR(50)         NOT NULL
-  COMMENT '角色名',
-  `description` VARCHAR(100)                 DEFAULT NULL
-  COMMENT '角色描述',
-  `enabled`     TINYINT(1)                   DEFAULT NULL
-  COMMENT '角色可用',
-  `gmt_create`  TIMESTAMP           NOT NULL DEFAULT '0000-00-00 00:00:00'
-  COMMENT '创建时间',
-  `gmt_modify`  TIMESTAMP           NOT NULL DEFAULT '0000-00-00 00:00:00'
-  COMMENT '修改时间',
+  `id`          BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `name`        VARCHAR(50) NOT NULL COMMENT '角色名',
+  `description` VARCHAR(100)  DEFAULT NULL COMMENT '角色描述',
+  `enabled`     TINYINT(1)    DEFAULT NULL COMMENT '角色可用',
+  `gmt_create`  TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `gmt_modify`  TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-)
-  ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
-  COMMENT ='角色表';
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COMMENT ='角色表';
 
 -- ----------------------------
 -- Records of admin_role

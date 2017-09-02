@@ -26,7 +26,8 @@ $(document).ready(function () {
                 field: 'address',
                 title: '地址',
                 formatter: function (value, row) {
-                    return $.province(row['taxId'])+value;
+                    var taxId = row['taxId'];
+                    return $.province({taxId: taxId})+value;
                 }
             },
             {

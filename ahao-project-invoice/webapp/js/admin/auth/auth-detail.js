@@ -1,9 +1,9 @@
-let oldName;
+var oldName;
 
 $(document).ready(function () {
     oldName = $('#input-name').val();
 
-    let id = $('#input-id').val();
+    var id = $('#input-id').val();
     $.submitDetail({
         url: '/admin/auth/' + ((id === undefined) ? "" : id),
         go: '/admin/auths',

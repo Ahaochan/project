@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let id = $('#input-id').val();
+    var id = $('#input-id').val();
     $.submitDetail({
         url: '/product/category/' + ((id === undefined) ? "" : id),
         go: '/product/categorys',

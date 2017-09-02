@@ -34,13 +34,13 @@
     <select id="selectNameByUserId" resultType="java.util.Map">
         SELECT r.id, r.name, r.enabled, ur.id selected
         FROM admin_role r
-        LEFT JOIN admin_user_role ur ON ur.user_id = #{userId} AND ur.role_id = r.id
+        LEFT JOIN admin_user__role ur ON ur.user_id = #{userId} AND ur.role_id = r.id
     </select>
 
     <insert id="addRelate">
-        DELETE FROM admin_user_role WHERE user_id = #{userId};
+        DELETE FROM admin_user__role WHERE user_id = #{userId};
         <if test="roleIds != null and roleIds.length>0">
-            INSERT INTO admin_user_role(user_id, role_id, gmt_create, gmt_modify)
+            INSERT INTO admin_user__role(user_id, role_id, gmt_create, gmt_modify)
             VALUES
             <foreach collection="roleIds" item="item" separator=",">
                 (#{userId}, #{item}, current_timestamp, current_timestamp)

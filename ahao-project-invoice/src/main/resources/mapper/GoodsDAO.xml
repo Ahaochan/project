@@ -7,7 +7,7 @@
         <result column="category_id" property="categoryId" jdbcType="BIGINT" javaType="Long"/>
         <result column="specification" property="specification" jdbcType="VARCHAR" javaType="string"/>
         <result column="unite_price" property="unitePrice" jdbcType="DECIMAL" javaType="Double"/>
-        <result column="tax_rate" property="taxRate" jdbcType="VARCHAR" javaType="string"/>
+        <result column="tax_rate" property="taxRate" jdbcType="DECIMAL" javaType="Double"/>
         <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="date"/>
         <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="date"/>
     </resultMap>

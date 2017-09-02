@@ -32,7 +32,10 @@ $(document).ready(function () {
             },
             {
                 field: 'taxRate',
-                title: '税率'
+                title: '税率',
+                formatter: function (value) {
+                    return $.percentage(value);
+                }
             },
             {
                 field: 'createTime',

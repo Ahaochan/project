@@ -1,4 +1,4 @@
-let oldUsername;
+var oldUsername;
 
 $(document).ready(function () {
     oldUsername = $('#input-username').val();
@@ -12,7 +12,7 @@ $(document).ready(function () {
         inputName: 'role'
     });
 
-    let id = $('#input-id').val();
+    var id = $('#input-id').val();
     $.submitDetail({
         url: '/admin/user/' + ((id === undefined) ? "" : id),
         go: '/admin/users',
@@ -34,7 +34,7 @@ $(document).ready(function () {
                 return $('input[name="accountLocked"]:checked').val();
             },
             role: function () {
-                let ids = []
+                var ids = []
                 $('input[name="role"]:checked').each(function () {
                     ids.push($(this).val());
                 });

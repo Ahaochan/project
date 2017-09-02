@@ -25,6 +25,14 @@
         <listener-class>com.ahao.listener.SpringConfigInitListener</listener-class>
     </listener>
 
+    <listener>
+        <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>logbackConfigLocation</param-name>
+        <param-value>classpath:logback.xml</param-value>
+    </context-param>
+
     <!-- =================================================================== -->
     <!-- 系统编码过滤器设置 -->
     <!-- =================================================================== -->

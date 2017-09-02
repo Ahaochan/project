@@ -19,13 +19,13 @@ public class GoodsDO extends BaseDO{
     private String specification;
     private String unit;
     private Double unitePrice;
-    private String taxRate;
+    private Double taxRate;
 
     public GoodsDO(){
 
     }
 
-    public GoodsDO(Long id, Date createTime, Date modifyTime, String name, Long categoryId, String specification, String unit, Double unitePrice, String taxRate) {
+    public GoodsDO(Long id, Date createTime, Date modifyTime, String name, Long categoryId, String specification, String unit, Double unitePrice, Double taxRate) {
         super(id, createTime, modifyTime);
         this.name = name;
         this.categoryId = categoryId;
@@ -75,11 +75,11 @@ public class GoodsDO extends BaseDO{
         this.unitePrice = unitePrice;
     }
 
-    public String getTaxRate() {
+    public Double getTaxRate() {
         return taxRate;
     }
 
-    public void setTaxRate(String taxRate) {
+    public void setTaxRate(Double taxRate) {
         this.taxRate = taxRate;
     }
 

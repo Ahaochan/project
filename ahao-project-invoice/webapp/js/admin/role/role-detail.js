@@ -1,4 +1,4 @@
-let oldName;
+var oldName;
 
 $(document).ready(function () {
     oldName = $('#input-name').val();
@@ -12,7 +12,7 @@ $(document).ready(function () {
         inputName: 'auth'
     });
 
-    let id = $('#input-id').val();
+    var id = $('#input-id').val();
     $.submitDetail({
         url: '/admin/role/' + ((id === undefined) ? "" : id),
         go: '/admin/roles',
@@ -23,7 +23,7 @@ $(document).ready(function () {
             enabled: function () {
                 return $('input[name="enabled"]:checked').val();
             },
-            auth: function () {let ids = []
+            auth: function () {var ids = []
                 $('input[name="auth"]:checked').each(function () {
                     ids.push($(this).val());
                 });

@@ -4,8 +4,8 @@ $(document).ready(function () {
         url: '/admin/users/page',                 //请求后台的URL（*）
         toolbar: '#toolbar',                //工具按钮用哪个容器
         rowStyle: function (row) {
-            if (!$.isTrue(row.enabled) || $.isTrue(row.accountExpired) ||
-                $.isTrue(row.accountExpired) || $.isTrue(row.credentialsExpired)) {
+            if (!row.enabled || !!row.accountExpired ||
+                !!row.accountExpired || !!row.credentialsExpired) {
                 return {classes: 'danger'};
             }
             return '';

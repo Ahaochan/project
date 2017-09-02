@@ -15,6 +15,7 @@
                 </div>
             </div>
             <form class="form-horizontal" action="#">
+                <!--/*@thymesVar id="goodsDO" type="com.ahao.invoice.product.goods.entity.GoodsDO"*/-->
                 <th:block th:include="/base/input :: readonly('text', #{product.category.id}, 'id', ${goodsDO.id}, true)"/>
 
                 <th:block th:include="/base/input :: common('text', #{product.goods.name}, 'name', ${goodsDO.name})"/>
@@ -38,16 +39,8 @@
                 <th:block th:include="/base/input :: common('text', #{product.goods.specification}, 'specification', ${goodsDO.specification})"/>
                 <th:block th:include="/base/input :: common('text', #{product.goods.unit}, 'unit', ${goodsDO.unit})"/>
                 <th:block th:include="/base/input :: common('text', #{product.goods.unite.price}, 'unitePrice', ${goodsDO.unitePrice})"/>
-                <div id="form-group-taxRate" class="form-group">
-                    <label for="input-taxRate" class="col-md-2 control-label"
-                           data-th-text="#{product.goods.tax.rate}">税率</label>
-                    <div class="col-md-3">
-                        <input type="number" class="form-control" id="input-taxRate"
-                               placeholder="taxRate" name="taxRate" data-th-value="${goodsDO.taxRate}"
-                               aria-describedby="error-taxRate"/>
-                    </div>
-                    <span id="error-taxRate" class="col-md-6 help-block" style="display: none">Ajax提示</span>
-                </div>
+                <th:block th:include="/base/input :: common('text', #{product.goods.tax.rate}, 'taxRate', ${goodsDO.taxRate})"/>
+
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">

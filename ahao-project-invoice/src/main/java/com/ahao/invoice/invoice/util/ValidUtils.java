@@ -23,7 +23,7 @@ public abstract class ValidUtils {
      */
     public static Map<String, List<String>> paraseErrors(BindingResult result) {
         return result.getFieldErrors().stream()
-                .peek(e -> logger.debug("验证错误: " + e.getField() + ":" + e.getDefaultMessage()))
+                .peek(e -> logger.error("验证错误: " + e.getField() + ":" + e.getDefaultMessage()))
                 // 以field进行分组
                 .collect(Collectors.groupingBy(FieldError::getField,
                         // 将分组后的 List<FieldError> 转化为 List<String> , 存储 错误信息

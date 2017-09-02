@@ -1,12 +1,12 @@
 $(document).ready(function () {
 
     $('#input-tax').blur(function () {
-        $('#input-address-auto').val($.province($(this).val()));
-    })
+        var taxId = $(this).val();
+        var province = $.province({taxId: taxId});
+        $('#input-address-auto').val(province);
+    }).blur();
 
-    $('#input-tax').blur();
-
-    let id = $('#input-id').val();
+    var id = $('#input-id').val();
     $.submitDetail({
         url: '/invoice/unit/' + ((id === undefined) ? "" : id),
         go: '/invoice/units',

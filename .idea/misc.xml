@@ -4,7 +4,7 @@
     <file type="web" url="file://$PROJECT_DIR$/ahao-project-invoice" />
   </component>
   <component name="JavaScriptSettings">
-    <option name="languageLevel" value="ES6" />
+    <option name="languageLevel" value="JS_1_5" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

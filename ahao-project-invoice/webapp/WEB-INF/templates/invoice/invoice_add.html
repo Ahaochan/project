@@ -17,31 +17,17 @@
             <form class="form-horizontal" action="#">
                 <div class="form-group">
                     <div class="col-md-11">
-                        <h2 class="text-center" id="title-invoice">上海增值税普通发票</h2>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-2">
-                        <input class="form-control col-md-1" id="input-code"
-                               name="code" placeholder="发票代码"/>
-                    </div>
-                    <div class="col-md-2">
-                        <input class="form-control col-md-1" id="input-number"
-                               name="input-number" placeholder="发票号码"/>
-                    </div>
-                    <div class="col-md-3 col-md-offset-5">
-                        <input type="date" class="form-control col-md-6" id="input-date"
-                               name="date" placeholder="开票日期"/>
+                        <h2 class="text-center" id="title-invoice">增值税发票</h2>
                     </div>
                 </div>
                 <table class="table table-bordered table-responsive">
                     <tr>
                         <td class="col-md-1 text-center">
-                            <span class="text-vertical">购贷单位</span>
+                            <span class="text-vertical">购销单位</span>
                             <span class="btn btn-primary" data-toggle="modal"
                                   data-target="#modal-unit-select"
-                                  data-title="购贷单位"
-                                  data-name="purchase">增加</span>
+                                  data-title="购销单位"
+                                  data-name="purchase">选择</span>
                         </td>
                         <td class="col-md-6" colspan="5">
                             <input type="hidden" id="input-unit-purchase-id"/>
@@ -82,16 +68,41 @@
                             </div>
                         </td>
                         <td class="col-md-1 text-center">
-                            <span class="text-vertical">密码区</span>
-
+                            <span class="text-vertical">发票信息</span>
                         </td>
                         <td class="col-md-3" colspan="2">
                             <label>
-                                <textarea class="form-control" rows="10"></textarea>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input class="form-control col-md-1" id="input-code"
+                                               name="code" placeholder="发票代码"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input class="form-control col-md-1" id="input-number"
+                                               name="input-number" placeholder="发票号码"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="date" class="form-control col-md-6" id="input-date"
+                                               name="date" placeholder="开票日期"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <select class="form-control">
+                                            <option>请选择发票类型</option>
+                                            <option value="0">进项发票</option>
+                                            <option value="1">销项发票</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </label>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="tr-goods">
                         <td class="col-md-2" colspan="2">货物或应税劳务名称</td>
                         <td class="col-md-1">规格型号</td>
                         <td class="col-md-1">单位</td>
@@ -102,89 +113,18 @@
                         <td class="col-md-1">税额</td>
                     </tr>
                     <tr>
-                        <td class="col-md-2" colspan="2">货物或应税劳务名称</td>
-                        <td class="col-md-1">规格型号</td>
-                        <td class="col-md-1">单位</td>
-                        <td class="col-md-1">数量</td>
-                        <td class="col-md-1">单价</td>
-                        <td class="col-md-1">金额</td>
-                        <td class="col-md-1">税率</td>
-                        <td class="col-md-1">税额</td>
+                        <td colspan="9" class="text-center">
+                            <span class="btn btn-primary" data-toggle="modal"
+                                  data-target="#modal-unit-select"
+                                  data-title="销贷单位"
+                                  data-name="sales">增加货物</span>
+                        </td>
                     </tr>
                     <tr>
                         <td>价税合计(大写)</td>
                         <td class="text-center" colspan="8">一百</td>
                     </tr>
-                    <tr>
-                        <td class="col-md-1 text-center">
-                            <span class="text-vertical">销贷单位</span>
-                            <span class="btn btn-primary" data-toggle="modal"
-                                  data-target="#modal-unit-select"
-                                  data-title="销贷单位"
-                                  data-name="sales">增加</span>
-                        </td>
-                        <td class="col-md-6" colspan="5">
-                            <input type="hidden" id="input-unit-sales-id"/>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">名称</label>
-                                <div class="col-md-8">
-                                    <input class="form-control" placeholder="名称" disabled="disabled"
-                                           id="input-unit-sales-name" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">纳税人识别号</label>
-                                <div class="col-md-8">
-                                    <input class="form-control" placeholder="纳税人识别号" disabled="disabled"
-                                           id="input-unit-sales-tax"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">地址、电话</label>
-                                <div class="col-md-5">
-                                    <input class="form-control" placeholder="地址" disabled="disabled"
-                                           id="input-unit-sales-address"/>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="tel" class="form-control" placeholder="电话" disabled="disabled"
-                                           id="input-unit-sales-tel"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">开户行及帐号</label>
-                                <div class="col-md-5">
-                                    <input type="email" class="form-control" placeholder="开户行及帐号" disabled="disabled"
-                                           id="input-unit-sales-bank-account"/>
-                                </div>
-                                <div class="col-md-3">
-                                    <img id="input-unit-sales-bank-img" src="" />
-                                </div>
-                            </div>
-                        </td>
-                        <td class="col-md-1 text-center">
-                            <span class="text-vertical">备注</span>
-                        </td>
-                        <td class="col-md-3" colspan="2">
-                            <label>
-                                <textarea class="form-control" rows="10"></textarea>
-                            </label>
-                        </td>
-                    </tr>
                 </table>
-                <div class="form-group">
-                    <div class="col-md-2">
-                        <input class="form-control col-md-1" placeholder="收款人"/>
-                    </div>
-                    <div class="col-md-2">
-                        <input class="form-control col-md-1" placeholder="复核人"/>
-                    </div>
-                    <div class="col-md-2">
-                        <input class="form-control col-md-6" placeholder="开票人"/>
-                    </div>
-                    <div class="col-md-2 col-md-offset-2">
-                        <span>销贷单位(章)</span>
-                    </div>
-                </div>
                 <div class="form-group">
                     <div class="col-md-3">
                         <button class="btn btn-default" data-th-text="#{form.submit}">保存</button>
@@ -220,13 +160,19 @@
 <script data-th-src="@{/js/invoice/unit/provience.js}"></script>
 <script data-th-src="@{/plugins/bootstrap-suggest/bootstrap-suggest.js}"></script>
 <script>
-    $('#modal-unit-select').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget);
+    $('#input-code').on('blur', function () {
+        var $code = $(this).val();
+         
+    });
 
-        let title = button.data('title');
+
+    $('#modal-unit-select').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+
+        var title = button.data('title');
         $('#modal-unit-select-title').text('请选择' + title);
 
-        let name  = button.data('name');
+        var name  = button.data('name');
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 
@@ -239,7 +185,7 @@
                 $('#input-unit-'+name+'-id').val(data.taxId);
                 $('#input-unit-'+name+'-name').val(data.name);
                 $('#input-unit-'+name+'-tax').val(data.taxId);
-                $('#input-unit-'+name+'-address').val($.province(data.taxId)+data.address);
+                $('#input-unit-'+name+'-address').val($.province({taxId: data.taxId})+data.address);
                 $('#input-unit-'+name+'-tel').val(data.tel);
                 $('#input-unit-'+name+'-bank-account').val(data.account);
             })

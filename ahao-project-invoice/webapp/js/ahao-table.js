@@ -1,6 +1,6 @@
 (function ($) {
 
-    let deleteAjax = function (url, queryParams) {
+    var deleteAjax = function (url, queryParams) {
         swal({
                 title: '确认删除记录?',
                 type: 'warning',
@@ -30,25 +30,25 @@
             });
     }
 
-    let methods = {
+    var methods = {
         one: function (option) {
             console.log(option);
-            let url = option.url, key = option.key,
+            var url = option.url, key = option.key,
                 id = option.id;
 
-            let queryParams = {};
+            var queryParams = {};
             queryParams[key] = [id];
             deleteAjax(url, queryParams);
         },
         list: function (option) {
-            let url = option.url, key = option.key, name = option.name,
+            var url = option.url, key = option.key, name = option.name,
                 ids = $.getSelectIds($(option.table));
 
             if (ids.length === 0) {
                 sweetAlert('错误', '请选择要删除的'+name, 'error');
                 return;
             }
-            let queryParams = {};
+            var queryParams = {};
             queryParams[key] = ids;
             deleteAjax(url, queryParams);
         }
@@ -56,15 +56,15 @@
 
     $.extend({
         getSelectIds : function ($table) {
-            let selected = $table.bootstrapTable('getSelections');
-            let ids = [];
+            var selected = $table.bootstrapTable('getSelections');
+            var ids = [];
             $.each(selected, function (index, value) {
                 ids.push(value.id);
             });
             return ids;
         },
         deleteTable: function (method, option) {
-            let options = $.extend({
+            var options = $.extend({
                 url: undefined,
                 key: 'ids',
                 ids: [],

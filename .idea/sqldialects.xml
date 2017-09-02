@@ -6,11 +6,11 @@
     <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/UserDAO.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/admin_auth.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/admin_role.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/admin_role_auth.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/admin_role__auth.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/admin_user.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/admin_user_role.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/admin_user__role.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice_goods.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice__goods.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice_unit.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/product_category.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/product_goods.sql" dialect="MySQL" />

@@ -1,14 +1,14 @@
 (function ($) {
     $.extend({
         initPanel: function (option) {
-            let options = $.extend({
+            var options = $.extend({
                 url: undefined,
                 data: {},
                 panel: '#panel',
                 inputName: ''
             }, option);
 
-            let url = options.url, data = options.data;
+            var url = options.url, data = options.data;
 
             $.ajax({
                 type: 'GET',
@@ -18,21 +18,21 @@
                 url: url,
                 dataType: 'json',
                 success: function (data) {
-                    let panel = options.panel, name = options.inputName;
+                    var panel = options.panel, name = options.inputName;
 
-                    let $panel = $(panel);
+                    var $panel = $(panel);
                     $.each(data.obj, function (index, entry) {
-                        let $div = $('<div class="checkbox"></div>');
+                        var $div = $('<div class="checkbox"></div>');
 
-                        if (!$.isTrue(entry.enabled)) {
+                        if (!entry.enabled) {
                             $div.addClass('has-error');
                         }
 
-                        let $checkbox = $('<input type="checkbox" name="' + name + '" value="' + entry.id + '"/>');
-                        if (!$.isTrue(entry.enabled)) {
+                        var $checkbox = $('<input type="checkbox" name="' + name + '" value="' + entry.id + '"/>');
+                        if (!entry.enabled) {
                             $checkbox.attr('disabled', 'disabled');
                         }
-                        if ($.isTrue(entry.selected)) {
+                        if (!!entry.selected) {
                             $checkbox.attr('checked', 'checked');
                         }
 

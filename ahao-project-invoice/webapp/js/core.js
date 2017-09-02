@@ -2,9 +2,9 @@
 
     // AJAX请求的CSRF配置, Form表单的CSRF配置使用data-th-action替代action即可
     (function () {
-        let token = $('meta[name="_csrf"]').attr('content');
-        let header = $('meta[name="_csrf_header"]').attr('content');
-        $(document).ajaxSend(function (e, xhr, options) {
+        var token = $('meta[name="_csrf"]').attr('content');
+        var header = $('meta[name="_csrf_header"]').attr('content');
+        $(document).ajaxSend(function (e, xhr) {
             xhr.setRequestHeader(header, token);
         });
     })();
@@ -20,7 +20,7 @@
     // 扩展验证信息
     (function () {
         // 验证统一社会信用代码
-        $.validator.addMethod("unifiedSocialCreditCode", function (value, element, param) {
+        $.validator.addMethod("unifiedSocialCreditCode", function (value, element) {
             $(element).val(value.toUpperCase());
 
             if (!$.isString(value) || value.length !== 18) {
@@ -28,9 +28,9 @@
             }
             value = value.toUpperCase();
 
-            let valid = false;
-            let array = [];
-            let dist = {
+            var valid = false;
+            var array = [];
+            var dist = {
                 '0': 0,
                 '1': 1,
                 '2': 2,
@@ -84,10 +84,10 @@
                 '29': 'X',
                 '30': 'Y'
             };
-            let power = [1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28];
+            var power = [1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28];
 
-            for (let i = 0, len = value.length - 1; i < len; i++) {
-                let num = dist[value[i]];
+            for (var i = 0, len = value.length - 1; i < len; i++) {
+                var num = dist[value[i]];
                 if (num === undefined) {
                     return false;
                 }
@@ -95,8 +95,8 @@
             }
             // 91350100M000100Y43
             // 12440200455904030C
-            let sum = 0;
-            for (let i = 0, len = array.length; i < len; i++) {
+            var sum = 0;
+            for (var i = 0, len = array.length; i < len; i++) {
                 sum += array[i] * power[i];
             }
             if (dist[31 - sum % 31] + '' === value.charAt(value.length - 1)) {
@@ -183,7 +183,7 @@
 
     })();
 
-    let province = {
+    var province = {
         '110000': '北京市',
         '120000': '天津市',
         '130000': '河北省',
@@ -555,42 +555,67 @@
         '820000': '澳门特别行政区'
     };
     $.extend({
-        province: function (taxId) {
-            return province[taxId.substring(2, 8)];
+        // 根据社会统一信用代码或发票代码获取行政区划名称
+        province: function (option) {
+            var options = $.extend({
+                taxId: undefined,
+                invoiceCode: undefined
+            }, option);
+
+            var taxId = options.taxId, invoiceCode = options.invoiceCode;
+
+            if (!!taxId) {
+                return province[taxId.substring(2, 8)];
+            }
+            if (!!invoiceCode) {
+                return province[invoiceCode.substring(0, 4) + '00'];
+            }
         },
+        // 如果有分母, 则获取 分子/分母 的百分数形式, 如果没有分母, 则获取 分子的百分数形式
+        percentage: function (portion, total) {
+            if (!!total) {
+                return ((portion / total) * 100).toFixed(2) + '%';
+            } else {
+                return (portion * 100) + '%'
+            }
+        },
+        // 获取url中参数
         getUrlParam: function (key) {
-            let url = window.location.search.substring(1);
-            let params = url.split('&');
-            for (let i = 0; i < params.length; i++) {
-                let keyValue = params[i].split('=');
+            var url = window.location.search.substring(1);
+            var params = url.split('&');
+            for (var i = 0; i < params.length; i++) {
+                var keyValue = params[i].split('=');
                 if (keyValue[0] === String(key)) {
                     return keyValue[1];
                 }
             }
         },
+        // 跳转url
         goUrl: function (url) {
             setTimeout(function () {
                 window.location.href = url;
             }, 1000);
         },
-        isTrue: function (val) {
-            if (val === null || val === undefined || val === 'false' || val === false) {
-                return false;
-            }
-            return true;
-        },
+        // 判断是否为string
         isString: function (val) {
             return (typeof val === 'string') && val.constructor === String;
         },
+        // 打印输出obj
         logObj: function (obj) {
-            for (let i in obj) {
+            for (var i in obj) {
                 if (obj.hasOwnProperty(i)) {
-                    console.log(i + ":" + obj[i]);
+                    var value = obj[i];
+                    if (typeof value === 'object') {
+                        $.logObj(value);
+                    } else {
+                        console.log(value);
+                    }
                 }
             }
         },
+        // 提交验证表单数据
         submitDetail: function (option) {
-            let options = $.extend({
+            var options = $.extend({
                 form: 'form',
                 rules: {},
                 messages: undefined,
@@ -601,7 +626,7 @@
                 data: {}
             }, option);
 
-            let form = options.form, rules = options.rules, messages = options.messages;
+            var form = options.form, rules = options.rules, messages = options.messages;
 
             $(form).validate({
                 rules: rules,
@@ -619,20 +644,20 @@
                     $(element).parent().parent().attr('class', 'form-group has-success');
                 },
                 submitHandler: function () {
-                    let title = options.title, url = options.url, go = options.go;
-                    let data = {};
-                    for (let i in options.data) {
+                    var title = options.title, url = options.url, go = options.go;
+                    var data = {};
+                    for (var i in options.data) {
                         if (options.data.hasOwnProperty(i)) {
-                            let value = options.data[i];
+                            var value = options.data[i];
 
-                            if(typeof value === 'function'){
+                            if (typeof value === 'function') {
                                 data[i] = value();
-                            } else if(typeof value === 'string'){
-                                let $element = $(value);
-                                if(value.indexOf('#') > -1){
+                            } else if (typeof value === 'string') {
+                                var $element = $(value);
+                                if (value.indexOf('#') > -1) {
                                     data[i] = $element.val();
                                 } else {
-                                    let values = [];
+                                    var values = [];
                                     $element.each(function () {
                                         values.push($(this).val());
                                     });
@@ -660,13 +685,13 @@
                                 dataType: 'json',
                                 data: data,
                                 success: function (data) {
-                                    const json = data;
+                                    var json = data;
                                     if (json.result === 0) {
                                         swal('失败', json.msg, 'error');
-                                        let fields = json.obj;
-                                        for (let property in fields) {
+                                        var fields = json.obj;
+                                        for (var property in fields) {
                                             if (fields.hasOwnProperty(property)) {
-                                                let errorMsg = fields[property].join("<br/>");
+                                                var errorMsg = fields[property].join("<br/>");
                                                 $('#error-' + property).css('display', 'block').html(errorMsg);
                                                 $('#form-group-' + property).attr('class', 'form-group has-error');
                                             }
@@ -684,6 +709,7 @@
         }
     });
 
+    // 通用ajax错误提示
     $(document).ajaxError(function (event, xhr, options, exc) {
         swal('错误', '服务器代码:' + xhr.status, 'error');
     })

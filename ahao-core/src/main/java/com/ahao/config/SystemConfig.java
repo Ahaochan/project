@@ -2,10 +2,7 @@ package com.ahao.config;
 
 import com.ahao.exception.ConfigException;
 import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.XMLPropertiesConfiguration;
-import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
-import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
-import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -208,21 +205,14 @@ public class SystemConfig {
             return null;
         }
         logger.debug("加载系统配置文件: " + filePath);
-        XMLPropertiesConfiguration xmlConfiguration = null;
+
         try {
-            FileBasedConfigurationBuilder<XMLPropertiesConfiguration> builder =
-                    new ReloadingFileBasedConfigurationBuilder<>(XMLPropertiesConfiguration.class)
-                            .configure(new Parameters()
-                                    .xml()
-                                    .setFile(xmlFileObj)
-                                    .setThrowExceptionOnMissing(true)
-                                    .setValidating(true)
-                                    .setEncoding("UTF-8"));
-            xmlConfiguration = builder.getConfiguration();
+            Configurations configs = new Configurations();
+            return configs.xml(xmlFileObj);
         } catch (ConfigurationException e) {
             e.printStackTrace();
         }
-        return xmlConfiguration;
+        return null;
     }
 
 }

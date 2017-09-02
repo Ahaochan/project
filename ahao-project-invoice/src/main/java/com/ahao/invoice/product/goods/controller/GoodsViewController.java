@@ -38,7 +38,7 @@ public class GoodsViewController {
     public ModelAndView modify(@PathVariable(value = "goodId") Long goodId) {
         ModelAndView mv = new ModelAndView("product/goods/modify");
         GoodsDO goods = goodsService.selectByKey(goodId);
-        goods.setTaxRate(goods.getTaxRate().substring(0, goods.getTaxRate().length()-1));
+        goods.setTaxRate(goods.getTaxRate());
         mv.addObject(GoodsDO.TAG, goods);
         mv.addObject("category", goodsService.selectCategoryByKey(goodId));
         return mv;

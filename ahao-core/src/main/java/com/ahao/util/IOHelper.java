@@ -19,7 +19,7 @@ public class IOHelper {
 
     public static String toString(InputStream inputStream) {
         try {
-            return IOUtils.toString(inputStream);
+            return IOUtils.toString(inputStream, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
             logger.warn("InputStream转换String时发生IO异常:" + e.getMessage());

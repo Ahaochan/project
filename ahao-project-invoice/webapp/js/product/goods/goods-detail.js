@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let id = $('#input-id').val();
+    var id = $('#input-id').val();
     $.submitDetail({
         url: '/product/good/' + ((id === undefined) ? "" : id),
         go: '/product/goods',
@@ -11,9 +11,7 @@ $(document).ready(function () {
             specification: '#input-specification',
             unit: '#input-unit',
             unitePrice: '#input-unitePrice',
-            taxRate: function () {
-                return $('#input-taxRate').val()+'%';
-            },
+            taxRate: '#input-taxRate'
 
         },
         rules: {
@@ -30,7 +28,8 @@ $(document).ready(function () {
             },
             taxRate:{
                 required: true,
-                number: true
+                number: true,
+                max: 1
             }
         },
         messages: {
@@ -44,7 +43,8 @@ $(document).ready(function () {
             },
             taxRate: {
                 required: "税率不能为空",
-                number: "税率必须为纯数字"
+                number: "税率必须为纯数字",
+                max: "最大值不能超过{0}"
             }
         }
     });

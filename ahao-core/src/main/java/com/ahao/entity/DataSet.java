@@ -77,7 +77,7 @@ public class DataSet implements IDataSet, Serializable {
     public int getInt(String key) {
         Object obj = dataMap.get(key);
         try {
-            return Integer.valueOf(obj == null ? "0" : obj.toString());
+            return Integer.parseInt(obj == null ? "0" : obj.toString());
         } catch (NumberFormatException e) {
             e.printStackTrace();
             logger.error("数据集获取int错误:" + e.getMessage());
@@ -96,7 +96,6 @@ public class DataSet implements IDataSet, Serializable {
         }
         return 0L;
     }
-
 
     @Override
     public String getString(String key) {

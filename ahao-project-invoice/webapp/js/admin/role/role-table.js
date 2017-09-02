@@ -4,7 +4,7 @@ $(document).ready(function () {
         url: '/admin/roles/page',                 //请求后台的URL（*）
         toolbar: '#toolbar',                //工具按钮用哪个容器
         rowStyle: function (row) {
-            if (!$.isTrue(row.enabled)) {
+            if (!row.enabled) {
                 return {classes: 'danger'};
             }
             return '';
@@ -28,7 +28,7 @@ $(document).ready(function () {
                 field: 'enabled',
                 title: '是否可用',
                 formatter: function (value) {
-                    return $.isTrue(value) ? '可用' : '禁用';
+                    return !!value ? '可用' : '禁用';
                 }
             },
             {
