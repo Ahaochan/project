@@ -31,9 +31,9 @@ CREATE TABLE `product_category` (
 -- ----------------------------
 -- Records of goods_category
 -- ----------------------------
-INSERT INTO `product_category` VALUES ('1', '电脑配件', '电脑硬件相关', current_timestamp, current_timestamp);
-INSERT INTO `product_category` VALUES ('2', '书籍', '纸制品书籍', current_timestamp, current_timestamp);
-INSERT INTO `product_category` VALUES ('3', '办公用品', '办公用的东西', current_timestamp, current_timestamp);
+INSERT INTO `product_category` VALUES ('1', '肉类', '食物', current_timestamp, current_timestamp);
+INSERT INTO `product_category` VALUES ('2', '罐头', '产品', current_timestamp, current_timestamp);
+INSERT INTO `product_category` VALUES ('3', '无机物', '加工原料', current_timestamp, current_timestamp);
 
 
 SET FOREIGN_KEY_CHECKS = 1;

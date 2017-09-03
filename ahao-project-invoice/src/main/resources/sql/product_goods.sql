@@ -35,21 +35,18 @@ CREATE TABLE `product_goods` (
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `product_goods` VALUES ('1', '雷柏无线光学鼠标', '1', '3600', '个', '99.00', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('2', '雷柏三模无线激光鼠标', '1', 'MT750', '个', '299.00', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('3', '雷柏光学无线鼠标', '1', '3500PRO', '个', '99.00', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('4', '雷柏无线办公机械键盘', '1', 'KX', '个', '299.00', 0.17, current_timestamp, current_timestamp);
+INSERT INTO `product_goods` VALUES ('1', '鸡肉罐头', '2', null, '个', '8.00' , 0.17, current_timestamp, current_timestamp);
+INSERT INTO `product_goods` VALUES ('2', '鱼肉罐头', '2', null, '个', '9.00' , 0.17, current_timestamp, current_timestamp);
+INSERT INTO `product_goods` VALUES ('3', '猪肉罐头', '2', null, '个', '10.00', 0.17, current_timestamp, current_timestamp);
 
-INSERT INTO `product_goods` VALUES ('5', '三国演义', '2', '', '本', '100.00', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('6', '西游记', '2', '', '本', '110.00', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('7', '隋唐演义', '2', '', '本', '120.00', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('8', '水浒传', '2', '', '本', '130.00', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('9', '红楼梦', '2', '', '本', '140.00', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('10', '格林童话', '2', '', '本', '150.00', 0.17, current_timestamp, current_timestamp);
+INSERT INTO `product_goods` VALUES ('4', '鸡肉', '1', null, '斤', '0.80', 0.17, current_timestamp, current_timestamp);
+INSERT INTO `product_goods` VALUES ('5', '鱼肉', '1', null, '斤', '1.30', 0.17, current_timestamp, current_timestamp);
+INSERT INTO `product_goods` VALUES ('6', '猪肉', '1', null, '斤', '2.60', 0.17, current_timestamp, current_timestamp);
 
-INSERT INTO `product_goods` VALUES ('11', '订书钉', '3', '得力0012', '盒', '0.96', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('12', '液体胶水', '3', '得力7303', '支', '4.03', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('13', '笔筒', '3', '史泰博B101', '个', '8.80', 0.17, current_timestamp, current_timestamp);
-INSERT INTO `product_goods` VALUES ('14', '塑包面纸', '3', '200抽双层', '3包/提', '19.80', 0.17, current_timestamp, current_timestamp);
+INSERT INTO `product_goods` VALUES ('8' , '玻璃'  , '3', null, '块', '10.00', 0.17, current_timestamp, current_timestamp);
+INSERT INTO `product_goods` VALUES ('9' , '铁皮'  , '3', null, '斤', '50.00', 0.17, current_timestamp, current_timestamp);
+INSERT INTO `product_goods` VALUES ('10', '包装纸', '3', null, '盒', '29.80', 0.17, current_timestamp, current_timestamp);
+INSERT INTO `product_goods` VALUES ('11', '纯净水', '3', null, '升', '4.30' , 0.17, current_timestamp, current_timestamp);
+
 
 SET FOREIGN_KEY_CHECKS = 1;
