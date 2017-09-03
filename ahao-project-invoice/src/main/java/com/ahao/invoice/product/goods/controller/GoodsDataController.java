@@ -26,6 +26,7 @@ public class GoodsDataController {
     private static final Logger logger = LoggerFactory.getLogger(GoodsDataController.class);
 
     private GoodsService goodsService;
+
     @Autowired
     public GoodsDataController(GoodsService goodsService) {
         this.goodsService = goodsService;
@@ -82,5 +83,13 @@ public class GoodsDataController {
 
         goodsService.update(validGoods);
         return AjaxDTO.success(SpringConfig.getString("insert.success", validGoods.getId()));
+    }
+
+    @PostMapping("/product/good/searchByName")
+    public JSONObject getCategory(@RequestParam("name") String name) {
+        List<GoodsDO> list = goodsService.selectByName(name);
+        JSONObject json = new JSONObject();
+        json.put("value", list);
+        return json;
     }
 }

@@ -75,7 +75,6 @@
     $('#input-tax').bsSuggest({
         url: '/invoice/unit/tax/',
         getDataMethod: 'url',
-        allowNoKeyword: false,
         effectiveFields: ['id', 'taxId', 'name', 'account'],
         effectiveFieldsAlias:{taxId: '社会统一信用代码', name: '单位名称', account: '银行帐号'},
         showHeader: true,

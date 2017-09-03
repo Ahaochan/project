@@ -2,55 +2,93 @@ package com.ahao.invoice.invoice.controller;
 
 import com.ahao.config.SpringConfig;
 import com.ahao.entity.AjaxDTO;
-import com.ahao.invoice.invoice.util.ProvinceUtils;
+import com.ahao.invoice.invoice.entity.InvoiceDO;
+import com.ahao.invoice.invoice.service.InvoiceService;
+import com.ahao.invoice.invoice.util.ValidUtils;
+import com.ahao.util.NumberHelper;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Ahaochan on 2017/7/30.
  */
 @RestController
 public class InvoiceDataController {
-    private static final String[] LANGUAGE = new String[]{"",
-            "invoice.language.chinese", // 中文
-            "invoice.language.english", // 中英文
-            "invoice.language.tibetan", // 藏汉文
-            "invoice.language.uyghur"}; // 维汉文
-    private static final String[] MONEY_VERSION = new String[]{"",
-            "invoice.money-version.10_000",         // 万元版
-            "invoice.money-version.100_000",        // 十万元版
-            "invoice.money-version.1_000_000",      // 百万元版
-            "invoice.money-version.10_000_000"};    // 千万元版
+    private static final Logger logger = LoggerFactory.getLogger(InvoiceDataController.class);
+    private InvoiceService invoiceService;
 
-    @PostMapping("/parseCode")
-    public AjaxDTO parseCode(@RequestParam("code") String code) {
-        if (code.length() != 10) {
-            return AjaxDTO.failure(SpringConfig.getString("invoice.code.illegal"));
+    @Autowired
+    public InvoiceDataController(InvoiceService invoiceService) {
+        this.invoiceService = invoiceService;
+    }
+
+    @PostMapping("/invoice")
+    @Transactional
+    public AjaxDTO add(@RequestParam(name = "auth[]", defaultValue = "") Long[] authIds,
+                       @Valid InvoiceDO validInvoice, BindingResult result) {
+        // 后端验证是否出错
+        if (result.hasErrors()) {
+            AjaxDTO ajax = AjaxDTO.failure(SpringConfig.getString("insert.failure", validInvoice.getId()));
+            // 返回以field为键, List<错误信息> 为值的Map集合
+            ajax.setObj(ValidUtils.paraseErrors(result));
+            return ajax;
         }
 
+        invoiceService.insert(validInvoice);
+        // TODO 添加货物
+//        authService.addRelate(validRole.getId(), authIds);
+
+        Long id = validInvoice.getId();
+        return AjaxDTO.success(SpringConfig.getString("insert.success", id), id);
+    }
+
+    @DeleteMapping("/invoice")
+    @Transactional
+    public AjaxDTO delete(@RequestBody MultiValueMap<String, String> formData) {
+        List<String> ids = formData.get("invoiceIds[]");
+
+        boolean success = invoiceService.deleteByKey(ids);
+        int flag = NumberHelper.parse(success);
+        String msg = SpringConfig.getString(success ? "delete.success" : "delete.failure");
+        return AjaxDTO.get(flag, msg);
+    }
+
+    @GetMapping("/invoice/page")
+    public JSONObject getByPage(Integer page) {
         JSONObject json = new JSONObject();
-        json.put("city", ProvinceUtils.getCity(code.substring(0, 4) + "00"));
-        json.put("year", code.substring(4, 6));
-        json.put("print", code.charAt(6));
+        json.put("total", invoiceService.getAllCount());
+        json.put("rows", invoiceService.getByPage(page));
+        return json;
+    }
 
-        boolean isPro = (code.charAt(7) - '0') == 6;
-        json.put("type", SpringConfig.getString(isPro ? "invoice.value-added.pro" : "invoice.value-added.normal"));
-        if (isPro) {
-            json.put("language", SpringConfig.getString(LANGUAGE[code.charAt(7) - '0']));
+    @PostMapping("/invoice/{invoiceId}")
+    @Transactional
+    public AjaxDTO modify(@RequestParam(name = "auth[]", defaultValue = "") Long[] authIds,
+                          @Valid InvoiceDO validInvoice, BindingResult result) {
+        // 后端验证是否出错
+        if (result.hasErrors()) {
+            AjaxDTO ajax = AjaxDTO.failure(SpringConfig.getString("insert.failure", validInvoice.getId()));
+            // 返回以field为键, List<错误信息> 为值的Map集合
+            ajax.setObj(ValidUtils.paraseErrors(result));
+            return ajax;
+        }
+        if (validInvoice.getId() == null) {
+            // ID不能为空, 否则会更新全部数据
+            return AjaxDTO.failure(SpringConfig.getString("update.failure", validInvoice.getId()));
         }
 
-        json.put("num", SpringConfig.getString("invoice.num", code.charAt(8)));
-
-
-        int code_9 = code.charAt(9) - '0';
-        if (code_9 == 0) {
-            json.put("computer", true);
-        } else {
-            json.put("moneyVersion", MONEY_VERSION[code_9]);
-        }
-
-        return AjaxDTO.success(json);
+        invoiceService.update(validInvoice);
+        // TODO 修改联系
+//        authService.addRelate(validRole.getId(), authIds);
+        return AjaxDTO.success(SpringConfig.getString("insert.success", validInvoice.getId()));
     }
 }

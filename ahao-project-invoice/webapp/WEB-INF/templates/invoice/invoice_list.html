@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment(#{invoice.title.manager})"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{invoice.title.manager}">发票管理</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div id="toolbar" class="btn-group">
+                    <a class="btn btn-default" href="/invoice">
+                        <span class="glyphicon glyphicon-plus"></span>新增
+                    </a>
+                    <button id="btn_delete_list" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove"></span>删除
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <table id="table-invoice"></table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/js/ahao-table.js}"></script>
+<script data-th-src="@{/js/invoice/invoice-table.js}"></script>
+</html>

@@ -75,38 +75,4 @@
 <th:block th:include="/base/script :: scriptFragment"/>
 <script data-th-src="@{/plugins/bootstrap-suggest/bootstrap-suggest.js}"></script>
 <script data-th-src="@{/js/product/goods/goods-detail.js}"></script>
-<script>
-    $('#modal-category-select').on('show.bs.modal', function (event) {
-        $('#input-category-select').val('')
-            .off('onDataRequestSuccess')
-            .off('onSetSelectValue')
-            .off('onUnsetSelectValue')
-            .on('onSetSelectValue', function (e, keyword, data) {
-                $('#modal-category-select').modal('hide');
-                $('#input-category-id').val(data.id);
-                $('#input-category-name').val(data.name);
-            })
-    });
-
-    $('#input-category-select').bsSuggest({
-        url: '/product/category/searchByName',
-        getDataMethod: 'url',
-        allowNoKeyword: false,
-        effectiveFields: ['id', 'name', 'description'],
-        effectiveFieldsAlias:{name: '类别名称', description: '类别描述'},
-        showHeader: true,
-        autoSelect: true,
-//        showBtn: true,
-        idField: "id",
-        keyField: "name",
-        fnAdjustAjaxParam: function (keyword, options) {
-            return {
-                type: 'POST',
-                data: {
-                    name: $('#input-category-select').val()
-                }
-            }
-        }
-    });
-</script>
 </html>

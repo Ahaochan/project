@@ -64,7 +64,6 @@ $(document).ready(function () {
     $('#input-category-select').bsSuggest({
         url: '/product/category/searchByName',
         getDataMethod: 'url',
-        allowNoKeyword: false,
         effectiveFields: ['id', 'name', 'description'],
         effectiveFieldsAlias:{name: '类别名称', description: '类别描述'},
         showHeader: true,
@@ -79,6 +78,9 @@ $(document).ready(function () {
                     name: $('#input-category-select').val()
                 }
             }
+        },
+        fnProcessData: function () {
+
         }
     });
 });

@@ -94,3 +94,8 @@ INSERT INTO `invoice__goods` VALUES ('52', '52', '1', '6', current_timestamp, cu
 INSERT INTO `invoice__goods` VALUES ('53', '53', '3', '6', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('54', '54', '3', '10', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('55', '55', '2', '5', current_timestamp, current_timestamp);
+INSERT INTO `invoice__goods` VALUES ('56', '48', '3', '9', current_timestamp, current_timestamp);
+INSERT INTO `invoice__goods` VALUES ('57', '49', '3', '9', current_timestamp, current_timestamp);
+INSERT INTO `invoice__goods` VALUES ('58', '50', '2', '11', current_timestamp, current_timestamp);
+INSERT INTO `invoice__goods` VALUES ('59', '51', '3', '12', current_timestamp, current_timestamp);
+INSERT INTO `invoice__goods` VALUES ('60', '52', '1', '6', current_timestamp, current_timestamp);

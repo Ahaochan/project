@@ -43,6 +43,7 @@ INSERT INTO `product_goods` VALUES ('4', '鸡肉', '1', null, '斤', '0.80', 0.1
 INSERT INTO `product_goods` VALUES ('5', '鱼肉', '1', null, '斤', '1.30', 0.17, current_timestamp, current_timestamp);
 INSERT INTO `product_goods` VALUES ('6', '猪肉', '1', null, '斤', '2.60', 0.17, current_timestamp, current_timestamp);
 
+INSERT INTO `product_goods` VALUES ('7' , '面粉'  , '3', null, '斤', '11.00', 0.17, current_timestamp, current_timestamp);
 INSERT INTO `product_goods` VALUES ('8' , '玻璃'  , '3', null, '块', '10.00', 0.17, current_timestamp, current_timestamp);
 INSERT INTO `product_goods` VALUES ('9' , '铁皮'  , '3', null, '斤', '50.00', 0.17, current_timestamp, current_timestamp);
 INSERT INTO `product_goods` VALUES ('10', '包装纸', '3', null, '盒', '29.80', 0.17, current_timestamp, current_timestamp);

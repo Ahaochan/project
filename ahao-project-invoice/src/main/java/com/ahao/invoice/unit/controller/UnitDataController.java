@@ -45,7 +45,7 @@ public class UnitDataController {
         return AjaxDTO.success(SpringConfig.getString("insert.success", id), id);
     }
 
-    @DeleteMapping(value = "/invoice/units")
+    @DeleteMapping("/invoice/units")
     @Transactional
     public AjaxDTO delete(@RequestBody MultiValueMap<String, String> formData) {
         List<String> ids = formData.get("unitIds[]");
@@ -56,7 +56,7 @@ public class UnitDataController {
         return AjaxDTO.get(flag, msg);
     }
 
-    @GetMapping(value = "/invoice/units/page")
+    @GetMapping("/invoice/units/page")
     public JSONObject getByPage(Integer page) {
         JSONObject json = new JSONObject();
         json.put("total", unitService.getAllCount());

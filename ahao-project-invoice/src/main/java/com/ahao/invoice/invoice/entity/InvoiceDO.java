@@ -1,23 +1,24 @@
 package com.ahao.invoice.invoice.entity;
 
 import com.ahao.entity.BaseDO;
-import com.ahao.util.CloneHelper;
+import org.apache.ibatis.type.Alias;
 
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * Created by Ahaochan on 2017/7/29.
  */
+@Alias("InvoiceDO")
+@Table(name = "invoice")
 public class InvoiceDO extends BaseDO {
+    public static final String TAG =  "invoiceDO";
+
     private String code;
     private String number;
     private Date date;
-    private String verifyCode;
-    private Long purchasesUnitId;
-    private Long salesUnitId;
-    private String passwordArea;
-    private String mema;
-    private Long payeeId;
+    private Boolean sell;
+    private Long unitId;
     private Long reviewId;
     private Long drawerId;
 
@@ -25,17 +26,13 @@ public class InvoiceDO extends BaseDO {
 
     }
 
-    public InvoiceDO(Long id, Date createTime, Date modifyTime, String code, String number, Date date, String verifyCode, Long purchasesUnitId, Long salesUnitId, String passwordArea, String mema, Long payeeId, Long reviewId, Long drawerId) {
+    public InvoiceDO(Long id, Date createTime, Date modifyTime, String code, String number, Date date, Boolean sell, Long unitId, Long reviewId, Long drawerId) {
         super(id, createTime, modifyTime);
         this.code = code;
         this.number = number;
-        this.date = CloneHelper.clone(date);
-        this.verifyCode = verifyCode;
-        this.purchasesUnitId = purchasesUnitId;
-        this.salesUnitId = salesUnitId;
-        this.passwordArea = passwordArea;
-        this.mema = mema;
-        this.payeeId = payeeId;
+        this.date = date;
+        this.sell = sell;
+        this.unitId = unitId;
         this.reviewId = reviewId;
         this.drawerId = drawerId;
     }
@@ -57,59 +54,27 @@ public class InvoiceDO extends BaseDO {
     }
 
     public Date getDate() {
-        return CloneHelper.clone(date);
+        return date;
     }
 
     public void setDate(Date date) {
-        this.date = CloneHelper.clone(date);
+        this.date = date;
     }
 
-    public String getVerifyCode() {
-        return verifyCode;
+    public Boolean getSell() {
+        return sell;
     }
 
-    public void setVerifyCode(String verifyCode) {
-        this.verifyCode = verifyCode;
+    public void setSell(Boolean sell) {
+        this.sell = sell;
     }
 
-    public Long getPurchasesUnitId() {
-        return purchasesUnitId;
+    public Long getUnitId() {
+        return unitId;
     }
 
-    public void setPurchasesUnitId(Long purchasesUnitId) {
-        this.purchasesUnitId = purchasesUnitId;
-    }
-
-    public Long getSalesUnitId() {
-        return salesUnitId;
-    }
-
-    public void setSalesUnitId(Long salesUnitId) {
-        this.salesUnitId = salesUnitId;
-    }
-
-    public String getPasswordArea() {
-        return passwordArea;
-    }
-
-    public void setPasswordArea(String passwordArea) {
-        this.passwordArea = passwordArea;
-    }
-
-    public String getMema() {
-        return mema;
-    }
-
-    public void setMema(String mema) {
-        this.mema = mema;
-    }
-
-    public Long getPayeeId() {
-        return payeeId;
-    }
-
-    public void setPayeeId(Long payeeId) {
-        this.payeeId = payeeId;
+    public void setUnitId(Long unitId) {
+        this.unitId = unitId;
     }
 
     public Long getReviewId() {
@@ -134,12 +99,8 @@ public class InvoiceDO extends BaseDO {
                 "code='" + code + '\'' +
                 ", number='" + number + '\'' +
                 ", date=" + date +
-                ", verifyCode='" + verifyCode + '\'' +
-                ", purchasesUnitId=" + purchasesUnitId +
-                ", salesUnitId=" + salesUnitId +
-                ", passwordArea='" + passwordArea + '\'' +
-                ", mema='" + mema + '\'' +
-                ", payeeId=" + payeeId +
+                ", sell=" + sell +
+                ", unitId=" + unitId +
                 ", reviewId=" + reviewId +
                 ", drawerId=" + drawerId +
                 '}';

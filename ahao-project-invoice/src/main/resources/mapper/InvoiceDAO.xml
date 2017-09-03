@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.invoice.invoice.dao.InvoiceDAO">
+    <resultMap type="com.ahao.invoice.invoice.entity.InvoiceDO" id="invoiceResult">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="long"/>
+        <result column="invoice_code" property="code" jdbcType="VARCHAR" javaType="String"/>
+        <result column="invoice_number" property="number" jdbcType="VARCHAR" javaType="String"/>
+        <result column="date" property="date" jdbcType="TIMESTAMP" javaType="Date"/>
+        <result column="is_sell" property="sell" jdbcType="TINYINT" javaType="Boolean"/>
+        <result column="unit_id" property="unitId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="review_id" property="reviewId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="drawer_id" property="drawerId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="Date"/>
+        <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="Date"/>
+    </resultMap>
+
+    <select id="selectPage" resultMap="invoiceResult">
+        <!-- TODO 获取 id, 货物名称, 价钱, 开票日期 -->
+        SELECT i1.id, i1.invoice_code, i1.invoice_number, i1.date, i1.is_sell
+        FROM invoice i1
+        INNER JOIN (
+        SELECT id
+        FROM invoice
+        ORDER BY ${sort}
+        <if test="order.equals('desc')">
+            ${order}
+        </if>
+        LIMIT #{start}, #{pageSize}) i2
+        ON i1.id = i2.id
+    </select>
+
+
+</mapper>

@@ -58,7 +58,7 @@ public class RoleDataController {
         return AjaxDTO.success(SpringConfig.getString("insert.success", id), id);
     }
 
-    @DeleteMapping(value = "/admin/roles")
+    @DeleteMapping("/admin/roles")
     @Transactional
     public AjaxDTO delete(@RequestBody MultiValueMap<String, String> formData) {
         List<String> ids = formData.get("roleIds[]");
@@ -69,7 +69,7 @@ public class RoleDataController {
         return AjaxDTO.get(flag, msg);
     }
 
-    @GetMapping(value = "/admin/roles/page")
+    @GetMapping("/admin/roles/page")
     public JSONObject getByPage(Integer page) {
         JSONObject json = new JSONObject();
         json.put("total", roleService.getAllCount());

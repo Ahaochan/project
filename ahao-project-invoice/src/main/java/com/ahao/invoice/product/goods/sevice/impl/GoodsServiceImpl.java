@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Ahaochan on 2017/8/22.
@@ -48,5 +50,13 @@ public class GoodsServiceImpl extends PageServiceImpl<GoodsDO> implements GoodsS
             return null;
         }
         return goodsDAO.selectCategoryByKey(goodId);
+    }
+
+    @Override
+    public List<GoodsDO> selectByName(String name) {
+        Example example = new Example(GoodsDO.class);
+        example.selectProperties("id", "name", "specification", "unit", "unitePrice", "taxRate", "createTime")
+                .createCriteria().andLike("name", name+"%");
+        return goodsDAO.selectByExample(example);
     }
 }

@@ -59,7 +59,7 @@ public class CategoryDataController {
         return AjaxDTO.get(flag, msg);
     }
 
-    @GetMapping(value = "/product/categorys/page")
+    @GetMapping("/product/categorys/page")
     public JSONObject getByPage(Integer page) {
         JSONObject json = new JSONObject();
         json.put("total", categoryService.getAllCount());
