@@ -1,5 +1,6 @@
 package com.ahao.invoice.invoice.dao;
 
+import com.ahao.entity.DataSet;
 import com.ahao.invoice.invoice.entity.InvoiceDO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -22,10 +23,10 @@ public interface InvoiceDAO extends Mapper<InvoiceDO> {
      * @param order    order为asc为正序, order为desc为逆序
      * @return 数据集合
      */
-    Collection<InvoiceDO> selectPage(@Param("start") Integer start,
-                                     @Param("pageSize") Integer pageSize,
-                                     @Param("sort") String sort,
-                                     @Param("order") String order);
+    Collection<DataSet> selectPage(@Param("start") Integer start,
+                                   @Param("pageSize") Integer pageSize,
+                                   @Param("sort") String sort,
+                                   @Param("order") String order);
 
 
 }

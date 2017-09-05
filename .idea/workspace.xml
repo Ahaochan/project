@@ -7,44 +7,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a0f88714-d0a3-4a62-bc3c-211f4632ee75" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/dao/InvoiceDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/InvoiceDAO.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice/invoice-table.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.cn.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.cn.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.hk.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.hk.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/5277d536-56ac-45b1-97e7-ebd826855b69.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/5277d536-56ac-45b1-97e7-ebd826855b69.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/controller/AuthDataController.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/controller/AuthDataController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/controller/RoleDataController.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/controller/RoleDataController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/config/SpringConfig.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/config/SpringConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/config/SystemConfig.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/config/SystemConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/entity/DataSet.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/entity/DataSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/entity/IDataSet.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/entity/IDataSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/net/method/BaseMethod.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/net/method/BaseMethod.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/service/PageService.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/service/PageService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/service/impl/PageServiceImpl.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/service/impl/PageServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/servlet/ConfigServlet.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/servlet/ConfigServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/ArrayHelper.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/ArrayHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/CloneHelper.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/CloneHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/DateHelper.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/DateHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/IOHelper.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/IOHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/NumberHelper.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/NumberHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/ReflectHelper.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/ReflectHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/RequestHelper.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/RequestHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/SecurityHelper.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/SecurityHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/UrlBuilder.java" afterPath="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/UrlBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/dao/AuthDAO.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/dao/AuthDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/service/impl/AuthServiceImpl.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/service/impl/AuthServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/controller/RoleViewController.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/controller/RoleViewController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/controller/UserDataController.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/controller/UserDataController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/dao/RoleDAO.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/dao/RoleDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/service/impl/RoleServiceImpl.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/service/impl/RoleServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/dao/UserDAO.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/dao/UserDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/service/impl/UserServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceDataController.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceDataController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceViewController.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceViewController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/dao/InvoiceDAO.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/dao/InvoiceDAO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/entity/InvoiceDO.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/entity/InvoiceDO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/InvoiceService.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/InvoiceService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/impl/InvoiceServiceImpl.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/impl/InvoiceServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/category/controller/CategoryDataController.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/category/controller/CategoryDataController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/controller/GoodsDataController.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/controller/GoodsDataController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/sevice/GoodsService.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/sevice/GoodsService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/util/ProvinceUtils.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/util/ProvinceUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/sevice/impl/GoodsServiceImpl.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/sevice/impl/GoodsServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/unit/controller/UnitDataController.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/unit/controller/UnitDataController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/i18n/message.properties" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/i18n/message.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice.sql" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/AuthDAO.xml" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/AuthDAO.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/CategoryDAO.xml" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/CategoryDAO.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/GoodsDAO.xml" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/GoodsDAO.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/InvoiceDAO.xml" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/InvoiceDAO.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/RoleDAO.xml" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/RoleDAO.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/UnitDAO.xml" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/UnitDAO.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/UserDAO.xml" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/UserDAO.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mybatis-config.xml" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mybatis-config.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice__goods.sql" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice__goods.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/product_goods.sql" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/product_goods.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/base/nav.html" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/base/nav.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/src/test/java/RoleDAOTest.java" afterPath="$PROJECT_DIR$/ahao-project-invoice/src/test/java/RoleDAOTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_add.html" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_add.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/product/goods/add.html" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/product/goods/add.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/product/goods/modify.html" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/product/goods/modify.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/test.html" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/test.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/webapp/js/core.js" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/js/core.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice.js" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/webapp/js/product/goods/goods-detail.js" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/js/product/goods/goods-detail.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice/invoice-table.js" afterPath="$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice/invoice-table.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -71,6 +78,17 @@
         <item name="" type="eadb38e5:DatabaseStructure$Root" />
         <item name="invoice@localhost" type="e3449647:DbNodeDescriptor" />
       </path>
+      <path>
+        <item name="" type="eadb38e5:DatabaseStructure$Root" />
+        <item name="invoice@localhost" type="e3449647:DbNodeDescriptor" />
+        <item name="invoice" type="e3449647:DbNodeDescriptor" />
+      </path>
+      <path>
+        <item name="" type="eadb38e5:DatabaseStructure$Root" />
+        <item name="invoice@localhost" type="e3449647:DbNodeDescriptor" />
+        <item name="invoice" type="e3449647:DbNodeDescriptor" />
+        <item name="invoice" type="e3449647:DbNodeDescriptor" />
+      </path>
     </expand>
     <select />
   </component>
@@ -79,29 +97,90 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="InvoiceViewController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceViewController.java">
+      <file leaf-file-name="InvoiceDataController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceDataController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="27" column="36" lean-forward="false" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+            <state relative-caret-position="445">
+              <caret line="98" column="45" lean-forward="true" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
               <folding>
-                <element signature="e#913#914#0" expanded="true" />
-                <element signature="e#958#959#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InvoiceDataController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceDataController.java">
+      <file leaf-file-name="invoice_add.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_add.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1064">
-              <caret line="68" column="46" lean-forward="false" selection-start-line="68" selection-start-column="46" selection-end-line="68" selection-end-column="46" />
+            <state relative-caret-position="91">
+              <caret line="371" column="42" lean-forward="false" selection-start-line="371" selection-start-column="42" selection-end-line="371" selection-end-column="42" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1052#1053#0" expanded="true" />
-                <element signature="e#1104#1105#0" expanded="true" />
+                <element signature="n#div#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#1;n#html#0;n#!!top" expanded="false" />
+                <element signature="e#10855#12467#0" expanded="false" />
+                <element signature="e#16686#16879#0" expanded="false" />
+                <element signature="e#16901#17781#0" expanded="false" />
+                <marker date="1504628291918" expanded="true" signature="134:151" ph="录入发票" />
+                <marker date="1504628291918" expanded="true" signature="437:454" ph="录入发票" />
+                <marker date="1504628291918" expanded="true" signature="990:1008" ph="购销单位" />
+                <marker date="1504628291918" expanded="true" signature="1527:1544" ph="单位名称" />
+                <marker date="1504628291918" expanded="true" signature="1702:1719" ph="单位名称" />
+                <marker date="1504628291918" expanded="true" signature="2021:2040" ph="统一社会信用代码" />
+                <marker date="1504628291918" expanded="true" signature="2202:2221" ph="统一社会信用代码" />
+                <marker date="1504628291918" expanded="true" signature="2522:2546" ph="地址、电话" />
+                <marker date="1504628291918" expanded="true" signature="2705:2725" ph="详细地址" />
+                <marker date="1504628291918" expanded="true" signature="3009:3025" ph="联系电话" />
+                <marker date="1504628291918" expanded="true" signature="3326:3346" ph="开户行帐号" />
+                <marker date="1504628291918" expanded="true" signature="3505:3525" ph="开户行帐号" />
+                <marker date="1504628291918" expanded="true" signature="4025:4042" ph="发票信息" />
+                <marker date="1504628291918" expanded="true" signature="4494:4506" ph="发票代码" />
+                <marker date="1504628291918" expanded="true" signature="4912:4926" ph="发票号码" />
+                <marker date="1504628291918" expanded="true" signature="5338:5350" ph="开票日期" />
+                <marker date="1504628291918" expanded="true" signature="5751:5770" ph="请选择发票类型" />
+                <marker date="1504628291918" expanded="true" signature="5868:5884" ph="进项发票" />
+                <marker date="1504628291918" expanded="true" signature="5979:5996" ph="销项发票" />
+                <marker date="1504628291918" expanded="true" signature="6336:6354" ph="货物名称" />
+                <marker date="1504628291918" expanded="true" signature="6428:6455" ph="规格型号" />
+                <marker date="1504628291918" expanded="true" signature="6529:6547" ph="单位" />
+                <marker date="1504628291918" expanded="true" signature="6619:6636" ph="数量" />
+                <marker date="1504628291918" expanded="true" signature="6708:6733" ph="单价" />
+                <marker date="1504628291918" expanded="true" signature="6805:6824" ph="金额" />
+                <marker date="1504628291918" expanded="true" signature="6896:6918" ph="税率" />
+                <marker date="1504628291918" expanded="true" signature="6990:7013" ph="税额" />
+                <marker date="1504628291918" expanded="true" signature="8106:8117" ph="保存" />
+                <marker date="1504628291918" expanded="true" signature="9001:9020" ph="统一社会信用代码" />
+                <marker date="1504628291918" expanded="true" signature="10051:10069" ph="货物名称" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InvoiceService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/InvoiceService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InvoiceServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/impl/InvoiceServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="52" column="24" lean-forward="true" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Example.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/tk/mybatis/mapper/3.4.0/mapper-3.4.0-sources.jar!/tk/mybatis/mapper/entity/Example.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="368">
+              <caret line="294" column="27" lean-forward="false" selection-start-line="294" selection-start-column="16" selection-end-line="294" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -109,22 +188,9 @@
       <file leaf-file-name="InvoiceDO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/entity/InvoiceDO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="18" />
+            <state relative-caret-position="171">
+              <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InvoiceDAO.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/InvoiceDAO.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
-              <folding>
-                <marker date="1504456956843" expanded="true" signature="1320:1639" ph="SELECT i1.id... invoice" />
-                <marker date="1504456956843" expanded="true" signature="1443:1610" ph="SELECT id FR... invoice" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -148,12 +214,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>role_auth</find>
-      <find>DEFAULT</find>
-      <find>user_role</find>
-      <find>invoice_goods</find>
-      <find>${log.pattern}</find>
-      <find>17%</find>
       <find>'0.17'</find>
       <find>isTrue</find>
       <find>验证错误</find>
@@ -178,6 +238,12 @@
       <find>value = &quot;</find>
       <find>auth</find>
       <find>''</find>
+      <find>exist</find>
+      <find>rules</find>
+      <find>e.print</find>
+      <find>logger.warn</find>
+      <find>System.out</find>
+      <find>addRelate</find>
     </findStrings>
     <replaceStrings>
       <replace>span</replace>
@@ -224,57 +290,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/GoodsDAO.xml" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/entity/GoodsDO.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/controller/GoodsViewController.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/util/ValidUtils.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/logback.xml" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/ahao-table.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/admin/admin.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/product/category/category-detail.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/admin/user/user-detail.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/admin/role/role-detail.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/admin/auth/auth-detail.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice/unit/unit-table.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice/unit/unit-detail.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/product/goods/modify.html" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/product/goods/add.html" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/core.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/i18n/message.properties" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/controller/GoodsDataController.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/sevice/GoodsService.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/test.html" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/product/goods/goods-detail.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/bootstrap-suggest/bootstrap-suggest.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/sevice/impl/GoodsServiceImpl.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.cn.min.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.cn.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.min.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.hk.min.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.hk.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_add.html" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/InvoiceService.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/impl/InvoiceServiceImpl.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/dao/InvoiceDAO.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/product_category.sql" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/controller/RoleViewController.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice.js" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/controller/RoleDataController.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/controller/UserDataController.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/category/controller/CategoryDataController.java" />
         <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/controller/AuthDataController.java" />
         <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/unit/controller/UnitDataController.java" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceDataController.java" />
         <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_list.html" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice/invoice-table.js" />
         <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceViewController.java" />
         <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/base/nav.html" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice__goods.sql" />
         <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice.sql" />
         <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/product_goods.sql" />
-        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/entity/InvoiceDO.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/dao/InvoiceDAO.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice/invoice-table.js" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/service/impl/PageServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/service/PageService.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice__goods.sql" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceDataController.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/InvoiceService.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/dao/AuthDAO.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/AuthDAO.xml" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/entity/IDataSet.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mybatis-config.xml" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/RoleDAO.xml" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/dao/RoleDAO.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/CategoryDAO.xml" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/GoodsDAO.xml" />
         <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/InvoiceDAO.xml" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/UnitDAO.xml" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/dao/UserDAO.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/UserDAO.xml" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/service/impl/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/test/java/RoleDAOTest.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/js/core.js" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/entity/DataSet.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/util/ProvinceUtils.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/RequestHelper.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/config/SystemConfig.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/config/SpringConfig.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/DateHelper.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/servlet/ConfigServlet.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/ReflectHelper.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/CloneHelper.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/NumberHelper.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/IOHelper.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/SecurityHelper.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/sevice/impl/GoodsServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/net/method/BaseMethod.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/UrlBuilder.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/controller/RoleViewController.java" />
+        <option value="$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/ArrayHelper.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/service/impl/RoleServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/service/impl/AuthServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/entity/InvoiceDO.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/impl/InvoiceServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_add.html" />
       </list>
     </option>
   </component>
@@ -335,8 +401,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -398,7 +462,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="invoice" type="462c0819:PsiDirectoryNode" />
               <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="auth" type="462c0819:PsiDirectoryNode" />
+              <item name="role" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ahao-all" type="b2602c69:ProjectViewProjectNode" />
@@ -409,8 +473,21 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="invoice" type="462c0819:PsiDirectoryNode" />
               <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="auth" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="role" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ahao-all" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ahao-all" type="462c0819:PsiDirectoryNode" />
+              <item name="ahao-project-invoice" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="invoice" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="role" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ahao-all" type="b2602c69:ProjectViewProjectNode" />
@@ -460,15 +537,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="mapper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ahao-all" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ahao-all" type="462c0819:PsiDirectoryNode" />
-              <item name="ahao-project-invoice" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="sql" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ahao-all" type="b2602c69:ProjectViewProjectNode" />
@@ -537,34 +605,6 @@
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ahao-all" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ahao-all" type="462c0819:PsiDirectoryNode" />
-              <item name="ahao-project-invoice" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ahao-all" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ahao-all" type="462c0819:PsiDirectoryNode" />
-              <item name="ahao-project-invoice" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ahao-all" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ahao-all" type="462c0819:PsiDirectoryNode" />
-              <item name="ahao-project-invoice" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="invoice" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -580,6 +620,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -600,12 +642,12 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\js\admin" />
-      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\WEB-INF\templates\base" />
-      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\WEB-INF\templates\admin" />
-      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\WEB-INF\templates\admin\auth\base" />
-      <recent name="F:\Java\ahao-all\ahao-project-invoice\src\main\resources\sql" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\js\invoice" />
+      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\WEB-INF\templates\invoice" />
+      <recent name="F:\Java\ahao-all\ahao-project-invoice\src\main\resources\mapper" />
+      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\WEB-INF\templates\product\goods" />
+      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\js\product\goods" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.ahao.invoice.admin.user.controller" />
@@ -614,12 +656,12 @@
       <recent name="com.ahao.util" />
       <recent name="com.ahao.exception" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\js\invoice" />
-      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\WEB-INF\templates\invoice" />
-      <recent name="F:\Java\ahao-all\ahao-project-invoice\src\main\resources\mapper" />
-      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\WEB-INF\templates\product\goods" />
-      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\js\product\goods" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\js\admin" />
+      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\WEB-INF\templates\base" />
+      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\WEB-INF\templates\admin" />
+      <recent name="F:\Java\ahao-all\ahao-project-invoice\webapp\WEB-INF\templates\admin\auth\base" />
+      <recent name="F:\Java\ahao-all\ahao-project-invoice\src\main\resources\sql" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1149,7 +1191,9 @@
       <workItem from="1504271993948" duration="2838000" />
       <workItem from="1504325116100" duration="1593000" />
       <workItem from="1504330089677" duration="24221000" />
-      <workItem from="1504413053539" duration="25723000" />
+      <workItem from="1504413053539" duration="25809000" />
+      <workItem from="1504531299316" duration="8102000" />
+      <workItem from="1504620306428" duration="4052000" />
     </task>
     <task id="LOCAL-00001" summary="完成权限验证, 添加增删功能">
       <created>1500811320468</created>
@@ -1263,7 +1307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504453643414</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="进行发票列表页开发">
+      <created>1504457022828</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1504457022828</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1299,7 +1350,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="606122000" />
+    <option name="totallyTimeSpent" value="618362000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1320,10 +1371,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746956" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="JRebel Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32837838" sideWeight="0.5028653" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25286534" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33829498" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26251692" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Tail" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11891118" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16332377" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1332,12 +1383,12 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20703654" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746956" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="1458" y="92" width="1256" height="676" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24221921" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34912044" sideWeight="0.49546143" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06495264" sideWeight="0.49546143" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746956" sideWeight="0.49713466" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746956" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10419486" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1704871" sideWeight="0.77286136" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21489972" sideWeight="0.77286136" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21203439" sideWeight="0.43529412" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -1348,6 +1399,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10419486" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1405,7 +1457,8 @@
     <MESSAGE value="新增产品货物模块" />
     <MESSAGE value="sql优化" />
     <MESSAGE value="初始化sql测试数据" />
-    <option name="LAST_COMMIT_MESSAGE" value="初始化sql测试数据" />
+    <MESSAGE value="进行发票列表页开发" />
+    <option name="LAST_COMMIT_MESSAGE" value="进行发票列表页开发" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1429,472 +1482,481 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/bootstrap-suggest/bootstrap-suggest.min.js">
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="3886" lean-forward="false" selection-start-line="7" selection-start-column="3886" selection-end-line="7" selection-end-column="3886" />
-          <folding />
+        <state relative-caret-position="640">
+          <caret line="35" column="39" lean-forward="false" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/unit/service/UnitService.java">
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice/invoice-table.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/unit/service/impl/UnitServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="48" column="45" lean-forward="false" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/js/product/goods/goods-detail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="49" column="7" lean-forward="true" selection-start-line="49" selection-start-column="7" selection-end-line="49" selection-end-column="7" />
-          <folding />
+        <state relative-caret-position="399">
+          <caret line="21" column="28" lean-forward="false" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/js/admin/auth/auth-detail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="8" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/js/admin/auth/auth-table.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="37" column="71" lean-forward="true" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="71" />
-          <folding>
-            <marker date="1504341774198" expanded="true" signature="1725:1731" ph="&amp;nbsp;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/bootstrap-suggest/bootstrap-suggest.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="462" column="55" lean-forward="false" selection-start-line="462" selection-start-column="49" selection-end-line="462" selection-end-column="55" />
-          <folding>
-            <marker date="1504414524344" expanded="true" signature="8352:8372" ph="..." />
-            <marker date="1504414524344" expanded="true" signature="8774:8782" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/entity/GoodsDO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="19" column="23" lean-forward="false" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/sevice/impl/GoodsServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="58" column="94" lean-forward="false" selection-start-line="58" selection-start-column="87" selection-end-line="58" selection-end-column="94" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="79" column="47" lean-forward="false" selection-start-line="79" selection-start-column="47" selection-end-line="79" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.cn.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="5570" lean-forward="false" selection-start-line="5" selection-start-column="5570" selection-end-line="5" selection-end-column="5570" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.cn.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="433" column="14" lean-forward="false" selection-start-line="433" selection-start-column="14" selection-end-line="433" selection-end-column="14" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="6161" lean-forward="false" selection-start-line="5" selection-start-column="6161" selection-end-line="5" selection-end-column="6161" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.hk.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="5568" lean-forward="false" selection-start-line="5" selection-start-column="5568" selection-end-line="5" selection-end-column="5568" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.hk.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="67" column="13" lean-forward="false" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/nzh/nzh.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="30" column="19" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="19" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#2118#2960#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/admin/auth/add.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="34" column="26" lean-forward="true" selection-start-line="32" selection-start-column="20" selection-end-line="34" selection-end-column="26" />
-          <folding>
-            <marker date="1503241647446" expanded="true" signature="134:148" ph="增加权限" />
-            <marker date="1503241647446" expanded="true" signature="434:448" ph="增加权限" />
-            <marker date="1503241647446" expanded="true" signature="628:637" ph="权限名" />
-            <marker date="1503241647446" expanded="true" signature="725:741" ph="描述" />
-            <marker date="1503241647446" expanded="true" signature="881:899" ph="可用" />
-            <marker date="1503241647446" expanded="true" signature="1187:1199" ph="权限可用" />
-            <marker date="1503241647446" expanded="true" signature="1525:1536" ph="保存" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/i18n/message.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_add.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="322" column="0" lean-forward="false" selection-start-line="322" selection-start-column="0" selection-end-line="322" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/controller/AuthViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="41" column="5" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="41" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/dao/AuthDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="40" column="64" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="40" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/UnitDAO.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1503411409592" expanded="true" signature="1063:1417" ph="SELECT u1.id... invoice_unit" />
-            <marker date="1503411409592" expanded="true" signature="1216:1388" ph="SELECT id FR... invoice_unit" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/service/impl/DataServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
-          <folding>
-            <element signature="e#982#983#0" expanded="false" />
-            <element signature="e#1055#1056#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/service/DataService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="47" column="6" lean-forward="false" selection-start-line="47" selection-start-column="6" selection-end-line="47" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/RoleDAO.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-456">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1504280260127" expanded="true" signature="919:987" ph="SELECT count... admin_role" />
-            <marker date="1504280260127" expanded="true" signature="1063:1406" ph="SELECT r1.id... admin_role" />
-            <marker date="1504280260127" expanded="true" signature="1207:1377" ph="SELECT id FR... admin_role" />
-            <marker date="1504280260127" expanded="true" signature="1494:1652" ph="SELECT r.id,... admin_role" />
-            <marker date="1504280260127" expanded="true" signature="1704:1758" ph="DELETE FROM " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/dao/InvoiceDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/js/core.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="426" column="9" lean-forward="true" selection-start-line="426" selection-start-column="9" selection-end-line="426" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/impl/InvoiceServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
-          <caret line="22" column="26" lean-forward="false" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
-          <folding>
-            <element signature="e#682#683#0" expanded="true" />
-            <element signature="e#726#727#0" expanded="true" />
-            <element signature="e#781#782#0" expanded="true" />
-            <element signature="e#814#815#0" expanded="true" />
-            <element signature="e#870#871#0" expanded="true" />
-            <element signature="e#908#909#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/product_category.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="35" column="97" lean-forward="false" selection-start-line="35" selection-start-column="97" selection-end-line="35" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/controller/RoleViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/controller/RoleDataController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="892">
-          <caret line="71" column="16" lean-forward="false" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/controller/UserDataController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="68" column="16" lean-forward="false" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/category/controller/CategoryDataController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
+        <state relative-caret-position="470">
+          <caret line="50" column="9" lean-forward="true" selection-start-line="17" selection-start-column="8" selection-end-line="50" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/controller/AuthDataController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
+        <state relative-caret-position="366">
+          <caret line="89" column="38" lean-forward="true" selection-start-line="89" selection-start-column="38" selection-end-line="89" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/unit/controller/UnitDataController.java">
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/dao/AuthDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="64" column="5" lean-forward="true" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
+        <state relative-caret-position="-69">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/service/impl/PageServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/entity/IDataSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        <state relative-caret-position="133">
+          <caret line="7" column="7" lean-forward="false" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_list.html">
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mybatis-config.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="35" column="48" lean-forward="false" selection-start-line="35" selection-start-column="48" selection-end-line="35" selection-end-column="48" />
+        <state relative-caret-position="342">
+          <caret line="18" column="66" lean-forward="false" selection-start-line="18" selection-start-column="66" selection-end-line="18" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/dao/RoleDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="40" column="40" lean-forward="true" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/AuthDAO.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-209">
+          <caret line="19" column="28" lean-forward="true" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
           <folding>
-            <marker date="1504455023602" expanded="true" signature="134:155" ph="发票管理" />
-            <marker date="1504455023602" expanded="true" signature="441:462" ph="发票管理" />
+            <marker date="1504540074019" expanded="true" signature="913:1284" ph="SELECT a1.id... admin_auth" />
+            <marker date="1504540074019" expanded="true" signature="1061:1255" ph="SELECT id FR... admin_auth" />
+            <marker date="1504540074019" expanded="true" signature="1372:1530" ph="SELECT a.id,... admin_auth" />
+            <marker date="1504540074019" expanded="true" signature="1582:1636" ph="DELETE FROM " />
+            <marker date="1504540074019" expanded="true" signature="2082:2288" ph="SELECT a.id,... admin_auth" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/base/nav.html">
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/CategoryDAO.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="62" column="32" lean-forward="false" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/entity/AuthDO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/admin_user__role.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-342">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="879">
-          <caret line="105" column="59" lean-forward="false" selection-start-line="105" selection-start-column="59" selection-end-line="105" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/js/invoice/invoice-table.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="62" column="30" lean-forward="false" selection-start-line="62" selection-start-column="30" selection-end-line="62" selection-end-column="30" />
+        <state relative-caret-position="418">
+          <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
           <folding>
-            <marker date="1504455308946" expanded="true" signature="1316:1322" ph="&amp;nbsp;" />
+            <marker date="1504540074574" expanded="true" signature="849:1212" ph="SELECT c1.id... product_category" />
+            <marker date="1504540074574" expanded="true" signature="983:1183" ph="SELECT id FR... product_category" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/invoice__goods.sql">
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/GoodsDAO.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="24" column="53" lean-forward="false" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/sql/product_goods.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/service/PageService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="13" column="18" lean-forward="false" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="27" column="36" lean-forward="false" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+        <state relative-caret-position="76">
+          <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
           <folding>
-            <element signature="e#913#914#0" expanded="true" />
-            <element signature="e#958#959#0" expanded="true" />
+            <marker date="1504540073980" expanded="true" signature="1117:1634" ph="SELECT g1.id... product_goods" />
+            <marker date="1504540073980" expanded="true" signature="1358:1551" ph="SELECT id FR... product_goods" />
+            <marker date="1504540073980" expanded="true" signature="1717:1857" ph="SELECT c.id,... product_goods" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/InvoiceService.java">
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/InvoiceDAO.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        <state relative-caret-position="99">
+          <caret line="16" column="49" lean-forward="false" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
+          <folding>
+            <marker date="1504540074482" expanded="true" signature="1271:1640" ph="SELECT i1.id... invoice" />
+            <marker date="1504540074482" expanded="true" signature="1271:1757" ph="SELECT i1.id... invoice" />
+            <marker date="1504540074482" expanded="true" signature="1419:1610" ph="SELECT id FR... invoice" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/RoleDAO.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="26" column="55" lean-forward="false" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/UnitDAO.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="17" column="20" lean-forward="true" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+          <folding>
+            <marker date="1504540074455" expanded="true" signature="1063:1445" ph="SELECT u1.id... invoice_unit" />
+            <marker date="1504540074455" expanded="true" signature="1220:1416" ph="SELECT id FR... invoice_unit" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/service/impl/UserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="60" column="52" lean-forward="false" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/SpringSecurityService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="44" column="36" lean-forward="false" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/user/dao/UserDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="46" column="20" lean-forward="true" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/UserDAO.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+          <folding>
+            <marker date="1504540074413" expanded="true" signature="1534:2028" ph="SELECT u1.id... admin_user" />
+            <marker date="1504540074413" expanded="true" signature="1805:1999" ph="SELECT id FR... admin_user" />
+            <marker date="1504540074413" expanded="true" signature="2132:2285" ph="SELECT id, u... admin_user" />
+            <marker date="1504540074413" expanded="true" signature="2346:2479" ph="UPDATE admin... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/plugins/jquery-validation/jquery.validate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28975">
+          <caret line="1532" column="30" lean-forward="false" selection-start-line="1532" selection-start-column="26" selection-end-line="1532" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/js/core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-594">
+          <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <folding>
+            <element signature="e#829#2494#0" expanded="false" />
+            <element signature="e#2627#5715#0" expanded="false" />
+            <element signature="e#5763#16464#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/entity/DataSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-491">
+          <caret line="109" column="9" lean-forward="true" selection-start-line="109" selection-start-column="9" selection-end-line="109" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/util/ProvinceUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="53" column="43" lean-forward="false" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/config/SystemConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="206" column="17" lean-forward="false" selection-start-line="206" selection-start-column="17" selection-end-line="206" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/config/SpringConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="44" column="18" lean-forward="true" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/DateHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="65" column="46" lean-forward="false" selection-start-line="65" selection-start-column="46" selection-end-line="65" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/servlet/ConfigServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="51" column="29" lean-forward="false" selection-start-line="51" selection-start-column="29" selection-end-line="51" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/CloneHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="20" column="48" lean-forward="false" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/NumberHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="453" column="45" lean-forward="false" selection-start-line="453" selection-start-column="45" selection-end-line="453" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/IOHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="43" column="21" lean-forward="true" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/net/method/BaseMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="107" column="25" lean-forward="false" selection-start-line="107" selection-start-column="25" selection-end-line="107" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/UrlBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="64" column="24" lean-forward="false" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/ReflectHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="27" column="24" lean-forward="false" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/test/java/RoleDAOTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="35" column="38" lean-forward="true" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Java/jdk1.8.0_112/src.zip!/java/util/Arrays.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="4559" column="25" lean-forward="false" selection-start-line="4559" selection-start-column="25" selection-end-line="4559" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6-sources.jar!/org/apache/commons/lang3/ArrayUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="175" column="25" lean-forward="false" selection-start-line="175" selection-start-column="25" selection-end-line="175" selection-end-column="25" />
+          <folding>
+            <element signature="e#5756#5757#0" expanded="false" />
+            <element signature="e#5800#5801#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/ArrayHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="167" column="18" lean-forward="false" selection-start-line="167" selection-start-column="18" selection-end-line="167" selection-end-column="18" />
+          <folding>
+            <element signature="e#3513#3514#0" expanded="false" />
+            <element signature="e#3561#3562#0" expanded="false" />
+            <element signature="e#4446#4447#0" expanded="false" />
+            <element signature="e#4498#4499#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/CollectionHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="133" column="34" lean-forward="false" selection-start-line="133" selection-start-column="34" selection-end-line="133" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/auth/service/impl/AuthServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="82" column="19" lean-forward="true" selection-start-line="82" selection-start-column="19" selection-end-line="82" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/service/impl/RoleServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="86" column="90" lean-forward="true" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/RequestHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="224" column="8" lean-forward="false" selection-start-line="224" selection-start-column="8" selection-end-line="224" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/admin/role/controller/RoleViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="43" column="5" lean-forward="false" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/util/SecurityHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="34" column="25" lean-forward="false" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/product/goods/sevice/impl/GoodsServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="48" column="25" lean-forward="false" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/controller/InvoiceDataController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1064">
-          <caret line="68" column="46" lean-forward="false" selection-start-line="68" selection-start-column="46" selection-end-line="68" selection-end-column="46" />
+        <state relative-caret-position="445">
+          <caret line="98" column="45" lean-forward="true" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1052#1053#0" expanded="true" />
-            <element signature="e#1104#1105#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5277d536-56ac-45b1-97e7-ebd826855b69/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-core/src/main/java/com/ahao/entity/BaseDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="16" column="22" lean-forward="false" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/entity/InvoiceDO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="18" />
+        <state relative-caret-position="171">
+          <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/resources/mapper/InvoiceDAO.xml">
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/InvoiceService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+        <state relative-caret-position="190">
+          <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/tk/mybatis/mapper/3.4.0/mapper-3.4.0-sources.jar!/tk/mybatis/mapper/entity/Example.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="294" column="27" lean-forward="false" selection-start-line="294" selection-start-column="16" selection-end-line="294" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/src/main/java/com/ahao/invoice/invoice/service/impl/InvoiceServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="52" column="24" lean-forward="true" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ahao-project-invoice/webapp/WEB-INF/templates/invoice/invoice_add.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="371" column="42" lean-forward="false" selection-start-line="371" selection-start-column="42" selection-end-line="371" selection-end-column="42" />
           <folding>
-            <marker date="1504456956843" expanded="true" signature="1320:1639" ph="SELECT i1.id... invoice" />
-            <marker date="1504456956843" expanded="true" signature="1443:1610" ph="SELECT id FR... invoice" />
+            <element signature="n#div#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#10855#12467#0" expanded="false" />
+            <element signature="e#16686#16879#0" expanded="false" />
+            <element signature="e#16901#17781#0" expanded="false" />
+            <marker date="1504628291918" expanded="true" signature="134:151" ph="录入发票" />
+            <marker date="1504628291918" expanded="true" signature="437:454" ph="录入发票" />
+            <marker date="1504628291918" expanded="true" signature="990:1008" ph="购销单位" />
+            <marker date="1504628291918" expanded="true" signature="1527:1544" ph="单位名称" />
+            <marker date="1504628291918" expanded="true" signature="1702:1719" ph="单位名称" />
+            <marker date="1504628291918" expanded="true" signature="2021:2040" ph="统一社会信用代码" />
+            <marker date="1504628291918" expanded="true" signature="2202:2221" ph="统一社会信用代码" />
+            <marker date="1504628291918" expanded="true" signature="2522:2546" ph="地址、电话" />
+            <marker date="1504628291918" expanded="true" signature="2705:2725" ph="详细地址" />
+            <marker date="1504628291918" expanded="true" signature="3009:3025" ph="联系电话" />
+            <marker date="1504628291918" expanded="true" signature="3326:3346" ph="开户行帐号" />
+            <marker date="1504628291918" expanded="true" signature="3505:3525" ph="开户行帐号" />
+            <marker date="1504628291918" expanded="true" signature="4025:4042" ph="发票信息" />
+            <marker date="1504628291918" expanded="true" signature="4494:4506" ph="发票代码" />
+            <marker date="1504628291918" expanded="true" signature="4912:4926" ph="发票号码" />
+            <marker date="1504628291918" expanded="true" signature="5338:5350" ph="开票日期" />
+            <marker date="1504628291918" expanded="true" signature="5751:5770" ph="请选择发票类型" />
+            <marker date="1504628291918" expanded="true" signature="5868:5884" ph="进项发票" />
+            <marker date="1504628291918" expanded="true" signature="5979:5996" ph="销项发票" />
+            <marker date="1504628291918" expanded="true" signature="6336:6354" ph="货物名称" />
+            <marker date="1504628291918" expanded="true" signature="6428:6455" ph="规格型号" />
+            <marker date="1504628291918" expanded="true" signature="6529:6547" ph="单位" />
+            <marker date="1504628291918" expanded="true" signature="6619:6636" ph="数量" />
+            <marker date="1504628291918" expanded="true" signature="6708:6733" ph="单价" />
+            <marker date="1504628291918" expanded="true" signature="6805:6824" ph="金额" />
+            <marker date="1504628291918" expanded="true" signature="6896:6918" ph="税率" />
+            <marker date="1504628291918" expanded="true" signature="6990:7013" ph="税额" />
+            <marker date="1504628291918" expanded="true" signature="8106:8117" ph="保存" />
+            <marker date="1504628291918" expanded="true" signature="9001:9020" ph="统一社会信用代码" />
+            <marker date="1504628291918" expanded="true" signature="10051:10069" ph="货物名称" />
           </folding>
         </state>
       </provider>

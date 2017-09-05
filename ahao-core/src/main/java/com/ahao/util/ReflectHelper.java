@@ -23,11 +23,9 @@ public abstract class ReflectHelper {
         try {
             return clazz.newInstance();
         } catch (InstantiationException e) {
-            e.printStackTrace();
-            logger.warn("不能实例化" + clazz.getName() + ", 请查看该类是否为无法被实例化的类, 如接口, 抽象类, 或者没有无参构造函数.");
+            logger.error("不能实例化" + clazz.getName() + ", 请查看该类是否为无法被实例化的类, 如接口, 抽象类, 或者没有无参构造函数: ", e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            logger.warn("不能访问" + clazz.getName() + ", 请查看该类的构造函数是否为private");
+            logger.error("不能访问" + clazz.getName() + ", 请查看该类的构造函数是否为private: ", e);
         }
         return null;
     }

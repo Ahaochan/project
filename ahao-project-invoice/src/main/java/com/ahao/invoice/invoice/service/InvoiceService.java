@@ -10,4 +10,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface InvoiceService extends PageService<InvoiceDO> {
 
+    boolean existName(String code, String number);
 }

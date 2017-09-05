@@ -46,7 +46,7 @@ public class GoodsServiceImpl extends PageServiceImpl<GoodsDO> implements GoodsS
     @Override
     public DataSet selectCategoryByKey(Long goodId) {
         if(goodId == null){
-            logger.warn("货物id为空");
+            logger.error("货物id为空");
             return null;
         }
         return goodsDAO.selectCategoryByKey(goodId);

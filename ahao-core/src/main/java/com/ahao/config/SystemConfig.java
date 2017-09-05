@@ -201,7 +201,7 @@ public class SystemConfig {
     private Configuration loadSetting(String filePath) throws ConfigException {
         File xmlFileObj = new File(filePath);
         if (!xmlFileObj.exists()) {
-            logger.warn("系统配置文件不存在，无法装载: " + filePath);
+            logger.error("系统配置文件不存在，无法装载: " + filePath);
             return null;
         }
         logger.debug("加载系统配置文件: " + filePath);
@@ -210,7 +210,7 @@ public class SystemConfig {
             Configurations configs = new Configurations();
             return configs.xml(xmlFileObj);
         } catch (ConfigurationException e) {
-            e.printStackTrace();
+            logger.error("读取配置文件异常: ", e);
         }
         return null;
     }

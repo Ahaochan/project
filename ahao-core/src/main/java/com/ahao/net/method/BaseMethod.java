@@ -102,12 +102,10 @@ public abstract class BaseMethod<M extends BaseMethod> {
                 // 将返回的 byte[] 封装到 Response 中, 用于格式化.
                 return new Response(data);
             } catch (IOException e) {
-                e.printStackTrace();
-                logger.warn("IO异常: " + e.getMessage());
+                logger.error("IO异常: ", e);
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            logger.warn("IO异常: " + e.getMessage());
+            logger.error("IO异常: ",e );
         }
         return null;
     }

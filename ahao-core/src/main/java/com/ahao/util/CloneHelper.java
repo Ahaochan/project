@@ -19,9 +19,8 @@ public abstract class CloneHelper {
         try {
             return CloneUtils.cloneObject(instance);
         } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            logger.warn(instance.getClass().getSimpleName() + "未实现Cloneable接口," +
-                    " 若为自定义类, 建议使用复制构造函数");
+            logger.error(instance.getClass().getSimpleName() + "未实现Cloneable接口," +
+                    " 若为自定义类, 建议使用复制构造函数: ",e);
             return null;
         }
     }

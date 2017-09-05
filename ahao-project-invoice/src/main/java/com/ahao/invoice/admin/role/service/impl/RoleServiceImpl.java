@@ -1,10 +1,12 @@
 package com.ahao.invoice.admin.role.service.impl;
 
 import com.ahao.config.SpringConfig;
+import com.ahao.entity.DataSet;
 import com.ahao.invoice.admin.role.dao.RoleDAO;
 import com.ahao.invoice.admin.role.entity.RoleDO;
 import com.ahao.invoice.admin.role.service.RoleService;
 import com.ahao.service.impl.PageServiceImpl;
+import com.ahao.util.ArrayHelper;
 import com.ahao.util.StringHelper;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -13,11 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.mapper.entity.Example;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Avalon on 2017/6/3.
@@ -54,15 +55,17 @@ public class RoleServiceImpl extends PageServiceImpl<RoleDO> implements RoleServ
         if (StringHelper.isEmpty(name)) {
             return false;
         }
-
-        return roleDAO.existName(name);
+        Example example = new Example(RoleDO.class);
+        example.createCriteria().andEqualTo("name", name);
+        int count = roleDAO.selectCountByExample(example);
+        return count>0;
     }
 
     @Override
     public JSONArray getSelectedRole(Long userId) {
         JSONArray json = new JSONArray();
-        List<Map<String, Object>> list = roleDAO.selectNameByUserId(userId);
-        for (Map<String, Object> data : list) {
+        List<DataSet> list = roleDAO.selectNameByUserId(userId);
+        for (DataSet data : list) {
             JSONObject item = new JSONObject();
             item.put("id", data.get("id"));
             item.put("name", SpringConfig.getString(data.get("name").toString()));
@@ -79,8 +82,7 @@ public class RoleServiceImpl extends PageServiceImpl<RoleDO> implements RoleServ
             logger.warn("用户角色表添加失败, 用户id为空");
             return;
         }
-
-        System.out.println("测试:"+userId+","+ Arrays.toString(roleIds));
+        logger.debug("添加用户角色表关联: 用户id:["+userId+"], 角色id"+ ArrayHelper.toString(roleIds));
         roleDAO.addRelate(userId, roleIds);
     }
 }

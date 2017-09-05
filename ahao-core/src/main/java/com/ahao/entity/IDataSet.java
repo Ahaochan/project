@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by Ahaochan on 2017/8/22.
  */
-interface IDataSet extends Map<String, Object> {
+public interface IDataSet extends Map<String, Object> {
 
     @Override
     Object put(String key, Object value);

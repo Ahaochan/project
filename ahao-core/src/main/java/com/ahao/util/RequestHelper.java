@@ -202,8 +202,7 @@ public abstract class RequestHelper {
         try {
             request.getRequestDispatcher(url).forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
-            logger.warn("转发失败:" + e.getMessage());
+            logger.error("转发失败:" , e);
         }
     }
 

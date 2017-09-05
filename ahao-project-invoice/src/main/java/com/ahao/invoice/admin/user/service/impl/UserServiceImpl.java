@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Collection;
 import java.util.Date;
@@ -50,8 +51,10 @@ public class UserServiceImpl extends PageServiceImpl<UserDO> implements UserServ
         if (StringHelper.isEmpty(username)) {
             return false;
         }
-
-        return userDAO.existUsername(username);
+        Example example = new Example(UserDO.class);
+        example.createCriteria().andEqualTo("username", username);
+        int count = userDAO.selectCountByExample(example);
+        return count > 0;
     }
 
     @Override

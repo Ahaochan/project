@@ -10,22 +10,18 @@
         <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="date"/>
     </resultMap>
 
-    <select id="existName" resultType="java.lang.Boolean">
-        SELECT count(*) FROM admin_auth WHERE name = #{name}
-    </select>
-
     <select id="selectPage" resultMap="authResult">
         SELECT a1.id, a1.name, a1.description, a1.enabled,
         a1.gmt_create, a1.gmt_modify
         FROM admin_auth a1
         INNER JOIN (
-        SELECT id
-        FROM admin_auth
-        ORDER BY ${sort}
-        <if test="order.equals('desc')">
-            ${order}
-        </if>
-        LIMIT #{start}, #{pageSize}) a2
+            SELECT id
+            FROM admin_auth
+            ORDER BY ${sort}
+            <if test="order.equals('desc')">
+                ${order}
+            </if>
+            LIMIT #{start}, #{pageSize}) a2
         ON a1.id = a2.id
     </select>
 
@@ -47,12 +43,10 @@
     </insert>
 
     <select id="selectNameByUserId" resultMap="authResult" parameterType="long">
-        SELECT
-            a.id,
-            a.name
+        SELECT a.id, a.name
         FROM admin_auth a
-            LEFT JOIN admin_role__auth ra ON ra.auth_id = a.id
-            LEFT JOIN admin_user__role ur ON ur.role_id = ra.role_id
+        LEFT JOIN admin_role__auth ra ON ra.auth_id = a.id
+        LEFT JOIN admin_user__role ur ON ur.role_id = ra.role_id
         WHERE ur.user_id = #{userId}
     </select>
 

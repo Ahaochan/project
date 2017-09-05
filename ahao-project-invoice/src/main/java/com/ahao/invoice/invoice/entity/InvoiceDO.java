@@ -3,6 +3,7 @@ package com.ahao.invoice.invoice.entity;
 import com.ahao.entity.BaseDO;
 import org.apache.ibatis.type.Alias;
 
+import javax.persistence.Column;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -14,12 +15,18 @@ import java.util.Date;
 public class InvoiceDO extends BaseDO {
     public static final String TAG =  "invoiceDO";
 
+    @Column(name = "invoice_code")
     private String code;
+    @Column(name = "invoice_number")
     private String number;
     private Date date;
+    @Column(name = "is_sell")
     private Boolean sell;
+    @Column(name = "unite_id")
     private Long unitId;
+    @Column(name = "review_id")
     private Long reviewId;
+    @Column(name = "drawer_id")
     private Long drawerId;
 
     public InvoiceDO() {

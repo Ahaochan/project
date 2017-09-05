@@ -42,12 +42,11 @@ public class SpringConfig {
      */
     private void loadFromClassPath() {
         try {
-            log.info("初始化Spring Application Context(spring/spring*.xml).");
+            log.debug("初始化Spring Application Context(spring/spring*.xml).");
             context = new ClassPathXmlApplicationContext(
                     "spring/spring*.xml");
-        } catch (BeansException be) {
-            be.printStackTrace();
-            log.warn("初始化Spring Application Context失败(spring-*.xml).");
+        } catch (BeansException e) {
+            log.error("初始化Spring Application Context失败(spring-*.xml).", e);
         }
     }
 

@@ -16,13 +16,13 @@
         SELECT u1.id, u1.name, u1.tax_id, u1.address, u1.tel, u1.account, u1.gmt_create, u1.gmt_modify
         FROM invoice_unit u1
         INNER JOIN (
-        SELECT id
-        FROM invoice_unit
-        ORDER BY ${sort}
-        <if test="order.equals('desc')">
-            ${order}
-        </if>
-        LIMIT #{start}, #{pageSize}) u2
+            SELECT id
+            FROM invoice_unit
+            ORDER BY ${sort}
+            <if test="order.equals('desc')">
+                ${order}
+            </if>
+            LIMIT #{start}, #{pageSize}) u2
         ON u1.id = u2.id
     </select>
 

@@ -3,7 +3,6 @@ package com.ahao.invoice.admin.role.controller;
 import com.ahao.invoice.admin.auth.service.AuthService;
 import com.ahao.invoice.admin.role.entity.RoleDO;
 import com.ahao.invoice.admin.role.service.RoleService;
-import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +40,5 @@ public class RoleViewController {
         RoleDO role = roleService.selectByKey(roleId);
         mv.addObject(RoleDO.TAG, role);
         return mv;
-    }
-
-    public static void main(String[] args) {
-        for(int i = 46; i <= 55; i++){
-            System.out.println("INSERT INTO `invoice__goods` " +
-                    "VALUES ('"+i+"', '"+i+"', '"+RandomUtils.nextInt(1, 4)+"', '"+RandomUtils.nextInt(5, 15)+"', current_timestamp, current_timestamp);");
-        }
     }
 }

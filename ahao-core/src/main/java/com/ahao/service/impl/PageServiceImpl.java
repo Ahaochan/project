@@ -16,7 +16,7 @@ import java.util.Collection;
 public abstract class PageServiceImpl<T extends BaseDO> extends DataServiceImpl<T> implements PageService<T> {
 
     @Override
-    public final Collection<T> getByPage(Integer page) {
+    public final Collection<?> getByPage(Integer page) {
         int p = NumberHelper.unBoxing(page);
         int pageSize = PageContext.getPageSize();
         String sort = PageContext.getSort();
@@ -25,7 +25,7 @@ public abstract class PageServiceImpl<T extends BaseDO> extends DataServiceImpl<
     }
 
 
-    protected abstract Collection<T> getByPage(int start, int pageSize, String sort, String order);
+    protected abstract Collection<?> getByPage(int start, int pageSize, String sort, String order);
 
     @Override
     protected abstract Mapper<T> dao();

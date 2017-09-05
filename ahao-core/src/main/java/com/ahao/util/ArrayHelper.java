@@ -159,6 +159,15 @@ public abstract class ArrayHelper {
             result[index++] = (item == null) ? "" : item.toString();
         }
         return result;
+    }
 
+
+    /**
+     * 将数组转化为 String 类型
+     * @param elements 数组
+     * @return 字符串
+     */
+    public static <T> String toString(T... elements) {
+        return ArrayUtils.toString(elements);
     }
 }

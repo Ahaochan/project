@@ -21,8 +21,7 @@ public class IOHelper {
         try {
             return IOUtils.toString(inputStream, "UTF-8");
         } catch (IOException e) {
-            e.printStackTrace();
-            logger.warn("InputStream转换String时发生IO异常:" + e.getMessage());
+            logger.error("InputStream转换String时发生IO异常:", e);
         }
         return null;
     }
@@ -31,8 +30,7 @@ public class IOHelper {
         try {
             return IOUtils.toByteArray(inputStream);
         } catch (IOException e) {
-            e.printStackTrace();
-            logger.warn("InputStream转换byte[]时发生IO异常:" + e.getMessage());
+            logger.error("InputStream转换byte[]时发生IO异常:" , e);
         }
         return null;
     }
@@ -41,8 +39,7 @@ public class IOHelper {
         try {
             return ImageIO.write(image, "jpg", output);
         } catch (IOException e) {
-            e.printStackTrace();
-            logger.warn("写出图片发生IO异常:"+e.getMessage());
+            logger.error("写出图片发生IO异常:" , e);
         }
         return false;
     }

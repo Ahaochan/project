@@ -63,8 +63,7 @@ public abstract class DateHelper {
             SimpleDateFormat sdf = new SimpleDateFormat(format);
             return sdf.parse(date).getTime();
         } catch (ParseException e) {
-            e.printStackTrace();
-            logger.error("时间解析异常:" + date);
+            logger.error("时间"+date+"解析异常:", e);
         }
         return -1L;
     }

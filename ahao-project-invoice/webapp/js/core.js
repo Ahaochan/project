@@ -19,6 +19,11 @@
 
     // 扩展验证信息
     (function () {
+        $.validator.setDefaults({
+            ignore: []
+            // any other default options and/or rules
+        });
+
         // 验证统一社会信用代码
         $.validator.addMethod("unifiedSocialCreditCode", function (value, element) {
             $(element).val(value.toUpperCase());
@@ -521,10 +526,10 @@
             var taxId = options.taxId, invoiceCode = options.invoiceCode;
 
             if (!!taxId) {
-                return province[taxId.substring(2, 8)];
+                return province[taxId.substring(2, 8)] || '';
             }
             if (!!invoiceCode) {
-                return province[invoiceCode.substring(0, 4) + '00'];
+                return province[invoiceCode.substring(0, 4) + '00'] || '';
             }
         },
         // 如果有分母, 则获取 分子/分母 的百分数形式, 如果没有分母, 则获取 分子的百分数形式

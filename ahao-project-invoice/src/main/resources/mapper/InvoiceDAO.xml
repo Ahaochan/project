@@ -14,19 +14,20 @@
         <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="Date"/>
     </resultMap>
 
-    <select id="selectPage" resultMap="invoiceResult">
-        <!-- TODO 获取 id, 货物名称, 价钱, 开票日期 -->
-        SELECT i1.id, i1.invoice_code, i1.invoice_number, i1.date, i1.is_sell
+    <select id="selectPage" resultType="DataSet">
+        SELECT i1.id id, g.name name, g.unite_price*ig.number price, i1.date date, i1.is_sell type
         FROM invoice i1
         INNER JOIN (
-        SELECT id
-        FROM invoice
-        ORDER BY ${sort}
-        <if test="order.equals('desc')">
-            ${order}
-        </if>
-        LIMIT #{start}, #{pageSize}) i2
-        ON i1.id = i2.id
+            SELECT id
+            FROM invoice
+            ORDER BY ${sort}
+            <if test="order.equals('desc')">
+                ${order}
+            </if>
+            LIMIT #{start}, #{pageSize}
+        ) i2 ON i1.id = i2.id
+        LEFT JOIN invoice__goods ig ON i1.id = ig.invoice_id
+        LEFT JOIN product_goods g ON ig.goods_id = g.id
     </select>
 
 

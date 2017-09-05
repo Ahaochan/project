@@ -79,8 +79,7 @@ public class DataSet implements IDataSet, Serializable {
         try {
             return Integer.parseInt(obj == null ? "0" : obj.toString());
         } catch (NumberFormatException e) {
-            e.printStackTrace();
-            logger.error("数据集获取int错误:" + e.getMessage());
+            logger.error("数据集获取int错误:", e);
         }
         return 0;
     }
@@ -91,8 +90,7 @@ public class DataSet implements IDataSet, Serializable {
         try {
             return Long.valueOf(obj == null ? "0" : obj.toString());
         } catch (NumberFormatException e) {
-            e.printStackTrace();
-            logger.error("数据集获取long错误:" + e.getMessage());
+            logger.error("数据集获取long错误:" , e);
         }
         return 0L;
     }
@@ -108,8 +106,7 @@ public class DataSet implements IDataSet, Serializable {
                 return obj.toString();
             }
         } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-            logger.error("数据集获取String错误:" + e.getMessage());
+            logger.error("数据集获取String错误:" , e);
         }
         return "";
     }

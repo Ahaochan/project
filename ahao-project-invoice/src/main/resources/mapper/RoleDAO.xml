@@ -10,28 +10,21 @@
         <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="date"/>
     </resultMap>
 
-    <select id="existName" resultType="java.lang.Boolean">
-        SELECT count(*)
-        FROM admin_role
-        WHERE name = #{name}
-    </select>
-
     <select id="selectPage" resultMap="roleResult">
-        SELECT r1.id, r1.name, r1.description, r1.enabled,
-        r1.gmt_create, r1.gmt_modify
+        SELECT r1.id, r1.name, r1.description, r1.enabled, r1.gmt_create, r1.gmt_modify
         FROM admin_role r1
         INNER JOIN (
-        SELECT id
-        FROM admin_role
-        ORDER BY ${sort}
-        <if test="order.equals('desc')">
-            ${order}
-        </if>
-        LIMIT #{start}, #{pageSize}) r2
+            SELECT id
+            FROM admin_role
+            ORDER BY ${sort}
+            <if test="order.equals('desc')">
+                ${order}
+            </if>
+            LIMIT #{start}, #{pageSize}) r2
         ON r1.id = r2.id
     </select>
 
-    <select id="selectNameByUserId" resultType="java.util.Map">
+    <select id="selectNameByUserId" resultType="DataSet">
         SELECT r.id, r.name, r.enabled, ur.id selected
         FROM admin_role r
         LEFT JOIN admin_user__role ur ON ur.user_id = #{userId} AND ur.role_id = r.id

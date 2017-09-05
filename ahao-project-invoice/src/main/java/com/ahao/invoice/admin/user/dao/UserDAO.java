@@ -15,14 +15,6 @@ import java.util.Date;
 public interface UserDAO extends Mapper<UserDO> {
 
     /**
-     * 用户名是否存在
-     *
-     * @param username 用户名
-     * @return 存在为true
-     */
-    boolean existUsername(@Param("username") String username);
-
-    /**
      * 分页查找
      *
      * @param start    从第start条数据开始

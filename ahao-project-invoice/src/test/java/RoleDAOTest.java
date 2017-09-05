@@ -1,3 +1,4 @@
+import com.ahao.entity.DataSet;
 import com.ahao.invoice.admin.role.dao.RoleDAO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +31,7 @@ public class RoleDAOTest {
     @Test
     public void getNameByUserId() {
         long userId = 2L;
-        List<Map<String, Object>> list = roleDAO.selectNameByUserId(userId);
+        List<DataSet> list = roleDAO.selectNameByUserId(userId);
         for (Map<String, Object> item : list) {
             System.out.println("测试1");
             for (Map.Entry<String, Object> entry : item.entrySet()) {

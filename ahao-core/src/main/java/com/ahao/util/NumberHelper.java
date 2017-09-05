@@ -2,6 +2,8 @@ package com.ahao.util;
 
 import com.ibm.icu.text.NumberFormat;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Locale;
 
@@ -9,6 +11,7 @@ import java.util.Locale;
  * Created by Ahaochan on 2017/8/1.
  */
 public abstract class NumberHelper {
+    private static final Logger logger = LoggerFactory.getLogger(NumberHelper.class);
     private static final Locale hans = new Locale("C@numbers=hans");
     private static final Locale hant = new Locale("C@numbers=hant");
     private static final Locale hansfin = new Locale("C@numbers=hansfin");
@@ -448,7 +451,7 @@ public abstract class NumberHelper {
                 return Integer.parseInt(obj.toString());
             }
         } catch (NumberFormatException e){
-            e.printStackTrace();
+            logger.error("解析数字"+obj+"失败:",e);
         }
         return 0;
     }

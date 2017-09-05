@@ -49,7 +49,6 @@ public class ConfigServlet extends HttpServletBean {
             // 载入系统配置信息
             initSystemConfig();
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("初始化系统参数出错", e);
             throw new ServletException(e.getMessage());
         }

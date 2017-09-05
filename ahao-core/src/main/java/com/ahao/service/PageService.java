@@ -11,5 +11,5 @@ import java.util.Collection;
  */
 public interface PageService<T extends BaseDO> extends DataService<T> {
 
-    Collection<T> getByPage(Integer page);
+    Collection<?> getByPage(Integer page);
 }

@@ -1,6 +1,8 @@
 package com.ahao.util;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Avalon on 2017/5/9.
  */
 public class SecurityHelper {
+    private static final Logger logger = LoggerFactory.getLogger(SecurityHelper.class);
+
     private SecurityHelper() {
 
     }
@@ -28,7 +32,7 @@ public class SecurityHelper {
                 return (User) obj;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("获取登录的用户信息失败: ", e);
         }
         return null;
     }
@@ -66,7 +70,7 @@ public class SecurityHelper {
                 return request.getRemoteAddr();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("获取Ip地址失败:", e);
         }
         return "非法Ip";
     }

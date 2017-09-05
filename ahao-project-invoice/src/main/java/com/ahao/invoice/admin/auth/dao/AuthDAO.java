@@ -19,14 +19,6 @@ import java.util.Set;
 public interface AuthDAO extends Mapper<AuthDO> {
 
     /**
-     * 权限名是否存在
-     *
-     * @param name 权限名
-     * @return 存在为true
-     */
-    boolean existName(@Param("name") String name);
-
-    /**
      * 分页查找
      *
      * @param start    从第start条数据开始

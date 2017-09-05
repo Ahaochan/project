@@ -1,5 +1,6 @@
 package com.ahao.invoice.admin.role.dao;
 
+import com.ahao.entity.DataSet;
 import com.ahao.invoice.admin.role.entity.RoleDO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -7,7 +8,6 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Avalon on 2017/6/3.
@@ -15,14 +15,6 @@ import java.util.Map;
  */
 @Repository
 public interface RoleDAO extends Mapper<RoleDO> {
-
-    /**
-     * 角色名是否存在
-     *
-     * @param name 角色名
-     * @return 存在为true
-     */
-    boolean existName(@Param("name") String name);
 
     /**
      * 分页查找
@@ -44,7 +36,7 @@ public interface RoleDAO extends Mapper<RoleDO> {
      * @param userId 用户id
      * @return 角色集合
      */
-    List<Map<String, Object>> selectNameByUserId(@Param("userId") Long userId);
+    List<DataSet> selectNameByUserId(@Param("userId") Long userId);
 
     /**
      * 修改用户角色表, 增加多对多关系, 用于用户详情页面

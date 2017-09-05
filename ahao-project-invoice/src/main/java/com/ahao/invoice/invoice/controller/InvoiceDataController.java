@@ -91,4 +91,11 @@ public class InvoiceDataController {
 //        authService.addRelate(validRole.getId(), authIds);
         return AjaxDTO.success(SpringConfig.getString("insert.success", validInvoice.getId()));
     }
+
+
+    @PostMapping("/invoice/check")
+    public boolean checkName(String code, String number) {
+        boolean isExist = invoiceService.existName(code, number);
+        return !isExist;
+    }
 }

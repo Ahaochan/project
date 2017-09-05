@@ -14,7 +14,7 @@
                     <h1 class="page-header" data-th-text="#{invoice.title.add}">录入发票</h1>
                 </div>
             </div>
-            <form class="form-horizontal" action="#">
+            <form class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-11">
                         <h2 class="text-center" id="title-invoice">增值税发票</h2>
@@ -80,7 +80,7 @@
                                 <div class="form-group" id="form-group-number">
                                     <div class="col-md-12">
                                         <input class="form-control col-md-1" id="input-number"
-                                               name="input-number" data-th-placeholder="#{invoice.number}"/>
+                                               name="number" data-th-placeholder="#{invoice.number}"/>
                                     </div>
                                 </div>
                                 <div class="form-group" id="form-group-date">
@@ -91,8 +91,8 @@
                                 </div>
                                 <div class="form-group" id="form-group-sell">
                                     <div class="col-md-12">
-                                        <select class="form-control" id="select-sell">
-                                            <option data-th-text="#{invoice.type.select}">请选择发票类型</option>
+                                        <select class="form-control" id="select-sell" name="type">
+                                            <option value="" data-th-text="#{invoice.type.select}">请选择发票类型</option>
                                             <option value="0" data-th-text="#{invoice.type.buy}">进项发票</option>
                                             <option value="1" data-th-text="#{invoice.type.sell}">销项发票</option>
                                         </select>
@@ -116,7 +116,7 @@
                     </tbody>
                     <tr>
                         <td colspan="9" class="text-center">
-                            <input type="hidden" id="input-goods-id"/>
+                            <input type="hidden" id="input-goods-id" name="goods"/>
                             <span class="btn btn-primary" data-toggle="modal"
                                   data-target="#modal-goods-select"
                                   data-title="货物">选择货物</span>
@@ -124,15 +124,18 @@
                     </tr>
                     <tr>
                         <td class="col-md-2" colspan="2">价税合计(大写)</td>
-                        <td class="text-center" colspan="4" id="td-goods-total-zh">一百</td>
-                        <td class="text-center" colspan="3" id="td-goods-total-num">一百</td>
+                        <td class="text-center" colspan="4" id="td-goods-total-zh"></td>
+                        <td class="text-center" colspan="3" id="td-goods-total-num"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" class="text-center">
+                            <div class="col-md-12">
+                                <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
+                            </div>
+                        </td>
                     </tr>
                 </table>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
-                    </div>
-                </div>
+
             </form>
         </div>
     </div>
@@ -281,7 +284,7 @@
                         var taxMoney = parseFloat((price*taxRate).toFixed(2));
                         $('#td-goods'+id+'-tax-money').text(taxMoney);
                         // 价税合计
-                        var total = price+taxMoney;
+                        var total = (price+taxMoney).toFixed(2);
                         $('#td-goods-total-zh').text(Nzh.encodeB(total));
                         $('#td-goods-total-num').text(total.toLocaleString());
                     });
@@ -319,10 +322,110 @@
         });
     })(jQuery, Nzh);
 
-    $('#btn-submit').on('click', function () {
 
+    $('form').validate({
+        debug: true,
+        rules: {
+            code: {
+                required: true,
+                rangelength: [10, 10],
+                normalizer: function (value) {
+                    return $.trim(value);
+                }
+            },
+            number: {
+                required: true,
+                rangelength: [8, 8],
+                remote: {
+                    param:{
+                        url : '/invoice/check',
+                        method : 'post',
+                        delay: 2000,
+                        data:{
+                            code: function () {
+                                return $('#input-code').val();
+                            },
+                            number: function () {
+                                return $('#input-number').val();
+                            }
+                        }
+                    },
+                    depends: function (element) {
+                        return !!$('#input-code');
+                    }
+                },
+                normalizer: function (value) {
+                    return $.trim(value);
+                }
+            },
+            type: {
+                required: true
+            },
+            date: {
+                required: true
+            },
+            goods:{
+                required: true
+            }
+        },
+        messages: {
+            // TODO 验证发票代码和发票号码后, 会不显示其他错误
+            code: {
+                required: "发票代码不能为空",
+                rangelength: "发票代码长度必须为{0}",
+                remote: "发票代码或发票号码验证错误, 请检查格式或者是否有重复发票"
+            },
+            number: {
+                required: "发票号码不能为空",
+                rangelength: "发票号码长度必须为{0}",
+                remote: "发票代码或发票号码验证错误, 请检查格式或者是否有重复发票"
+            },
+            type: {
+                required: "必须选择发票类型"
+            },
+            date: {
+                required: "必须填写开票日期"
+            },
+            goods: {
+                required: "必须选择货物"
+            }
+        },
+        errorClass: 'has-error',
+        validClass: 'has-success',
+        onfocusout : false,
+        onkeyup: false,
+        onclick: false,
+        highlight: function (element, errorClass, validClass) {
+            var $group = $(element).parent().parent();
+            if($group.hasClass('form-group')){
+                $group.attr('class', 'form-group '+errorClass);
+            }
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            var $group = $(element).parent().parent();
+            if($group.hasClass('form-group')){
+                $group.attr('class', 'form-group '+validClass);
+            }
+        },
+        errorPlacement: function(error, element) {
+        },
+        showErrors: function(errorMap, errorList) {
+            var errors = [];
+            for(var i in errorMap){
+                if(errorMap.hasOwnProperty(i)) {
+                    errors.push(errorMap[i]);
+                }
+            }
+            swal({
+                title: '你有 '+ this.numberOfInvalids() + ' 个错误信息',
+                text: errors.join("\n"),
+                type: 'warning'
+            });
+            this.defaultShowErrors();
+        },
+        submitHandler:function(form){
+            swal("submitted");
+        }
     });
-
-    // TODO 前端js验证
 </script>
 </html>

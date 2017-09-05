@@ -13,13 +13,13 @@
         SELECT c1.id, c1.name, c1.description, c1.gmt_create, c1.gmt_modify
         FROM product_category c1
         INNER JOIN (
-        SELECT id
-        FROM product_category
-        ORDER BY ${sort}
-        <if test="order.equals('desc')">
-            ${order}
-        </if>
-        LIMIT #{start}, #{pageSize}) c2
+            SELECT id
+            FROM product_category
+            ORDER BY ${sort}
+            <if test="order.equals('desc')">
+                ${order}
+            </if>
+            LIMIT #{start}, #{pageSize}) c2
         ON c1.id = c2.id
     </select>
 

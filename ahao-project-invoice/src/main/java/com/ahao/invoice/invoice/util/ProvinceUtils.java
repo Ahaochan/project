@@ -51,8 +51,7 @@ public abstract class ProvinceUtils {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            logger.error("获取行政区划代码错误! ");
+            logger.error("获取行政区划代码错误! ", e);
         }
         codes = Collections.unmodifiableMap(jsoup);
     }

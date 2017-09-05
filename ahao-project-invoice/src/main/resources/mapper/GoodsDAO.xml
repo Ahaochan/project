@@ -14,17 +14,17 @@
 
     <select id="selectPage" resultType="DataSet">
         SELECT g1.id, g1.name, c.name category, g1.specification, g1.unit, g1.unite_price unitePrice, g1.tax_rate taxRate,
-        g1.gmt_create createTime, g1.gmt_modify modifyTime
+            g1.gmt_create createTime, g1.gmt_modify modifyTime
         FROM product_goods g1
-        LEFT JOIN product_category c on g1.category_id = c.id
         INNER JOIN (
-        SELECT id
-        FROM product_goods
-        ORDER BY ${sort}
-        <if test="order.equals('desc')">
-            ${order}
-        </if>
+            SELECT id
+            FROM product_goods
+            ORDER BY ${sort}
+            <if test="order.equals('desc')">
+                ${order}
+            </if>
         LIMIT #{start}, #{pageSize}) g2 ON g1.id = g2.id
+        LEFT JOIN product_category c on g1.category_id = c.id
     </select>
 
     <select id="selectCategoryByKey" resultType="DataSet">

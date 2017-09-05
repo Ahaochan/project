@@ -8,45 +8,32 @@
         <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" javaType="date"/>
         <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" javaType="string"/>
         <result column="email" property="email" jdbcType="VARCHAR" javaType="string"/>
-
         <result column="enabled" property="enabled" jdbcType="TINYINT" javaType="boolean"/>
         <result column="account_expired" property="accountExpired" jdbcType="TINYINT" javaType="boolean"/>
-        <result column="credentials_expired" property="credentialsExpired" jdbcType="TINYINT"
-                javaType="boolean"/>
+        <result column="credentials_expired" property="credentialsExpired" jdbcType="TINYINT" javaType="boolean"/>
         <result column="account_locked" property="accountLocked" jdbcType="TINYINT" javaType="boolean"/>
         <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="date"/>
         <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="date"/>
     </resultMap>
 
-    <select id="existUsername" resultType="java.lang.Boolean">
-        SELECT count(*) FROM admin_user WHERE username = #{username}
-    </select>
-
     <select id="selectPage" resultMap="userResult">
         SELECT u1.id, u1.username, u1.last_login_time, u1.last_login_ip, u1.email,
-        u1.enabled, u1.account_expired, u1.credentials_expired, u1.account_locked,
-        u1.gmt_create, u1.gmt_modify
+                u1.enabled, u1.account_expired, u1.credentials_expired, u1.account_locked,
+                u1.gmt_create, u1.gmt_modify
         FROM admin_user u1
         INNER JOIN (
-        SELECT id
-        FROM admin_user
-        ORDER BY ${sort}
-        <if test="order.equals('desc')">
-            ${order}
-        </if>
-        LIMIT #{start}, #{pageSize}) u2
+            SELECT id
+            FROM admin_user
+            ORDER BY ${sort}
+            <if test="order.equals('desc')">
+                ${order}
+            </if>
+            LIMIT #{start}, #{pageSize}) u2
         ON u1.id = u2.id
     </select>
 
     <select id="loginByUsername" resultMap="userResult" parameterType="string">
-        SELECT
-            id,
-            username,
-            password,
-            enabled,
-            account_expired,
-            credentials_expired,
-            account_locked
+        SELECT id, username, password, enabled, account_expired, credentials_expired, account_locked
         FROM admin_user
         WHERE username = #{username}
     </select>

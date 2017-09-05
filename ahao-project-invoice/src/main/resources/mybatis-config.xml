@@ -16,6 +16,7 @@
 
     <typeAliases>
         <typeAlias alias="DataSet" type="com.ahao.entity.DataSet"/>
+        <typeAlias alias="IDataSet" type="com.ahao.entity.IDataSet"/>
     </typeAliases>
 
     <plugins>

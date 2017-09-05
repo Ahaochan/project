@@ -5,6 +5,7 @@ import com.ahao.invoice.admin.auth.dao.AuthDAO;
 import com.ahao.invoice.admin.auth.entity.AuthDO;
 import com.ahao.invoice.admin.auth.service.AuthService;
 import com.ahao.service.impl.PageServiceImpl;
+import com.ahao.util.ArrayHelper;
 import com.ahao.util.StringHelper;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -13,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.mapper.entity.Example;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +54,10 @@ public class AuthServiceImpl extends PageServiceImpl<AuthDO> implements AuthServ
             return false;
         }
 
-        return authDAO.existName(name);
+        Example example = new Example(AuthDO.class);
+        example.createCriteria().andEqualTo("name", name);
+        int count = authDAO.selectCountByExample(example);
+        return count > 0;
     }
 
     @Override
@@ -77,7 +81,7 @@ public class AuthServiceImpl extends PageServiceImpl<AuthDO> implements AuthServ
             logger.warn("角色权限表添加失败, 角色id为空");
             return;
         }
-        System.out.println(roleId+","+Arrays.toString(authIds));
+        logger.debug("添加角色权限表关联: 角色id:["+roleId+"], 权限id"+ ArrayHelper.toString(authIds));
         authDAO.addRelate(roleId, authIds);
     }
 }

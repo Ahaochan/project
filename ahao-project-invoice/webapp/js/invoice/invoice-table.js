@@ -11,15 +11,15 @@ $(document).ready(function () {
                 title: '发票Id'
             },
             {
-                field: 'code',
-                title: '发票代码'
+                field: 'name',
+                title: '货物名称'
             },
             {
-                field: 'number',
-                title: '发票号码'
+                field: 'price',
+                title: '价钱'
             },
             {
-                field: 'sell',
+                field: 'type',
                 title: '发票类型',
                 formatter: function (value) {
                     return !!value ? '销项' : '进项';
