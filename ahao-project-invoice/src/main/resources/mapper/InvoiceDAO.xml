@@ -31,4 +31,29 @@
     </select>
 
 
+    <select id="getForm" resultType="DataSet">
+        SELECT iu.id unitId, iu.name unitName, iu.tax_id unitTaxId,
+            iu.address unitAddress, iu.tel unitTel, iu.account unitAccount,
+            i.id invoiceId, i.invoice_code invoiceCode, i.invoice_number invoiceNumber,
+            i.date invoiceDate, i.is_sell invoiceType,
+            g.id goodsId, g.name goodsName, g.specification goodsSpecification,
+            g.unit goodsUnit, ig.number goodsNumber, g.unite_price goodsUnitPrice,
+            (ig.number*g.unite_price) goodsMoney, g.tax_rate goodsTaxRate,
+            (ig.number*g.unite_price*g.tax_rate) goodsTaxMoney
+        FROM invoice i
+        LEFT JOIN invoice_unit iu on i.unit_id = iu.id
+        LEFT JOIN invoice__goods ig on i.id = ig.invoice_id
+        LEFT JOIN product_goods g on g.id = ig.goods_id
+        WHERE i.id = #{invoiceId}
+    </select>
+
+    <insert id="addRelate">
+        DELETE FROM invoice__goods WHERE invoice_id = #{invoiceId};
+        <if test="goodsId != null">
+            INSERT INTO invoice__goods(invoice_id, goods_id, number, gmt_create, gmt_modify)
+            VALUES (#{invoiceId}, #{goodsId}, #{number}, current_timestamp, current_timestamp);
+        </if>
+    </insert>
+
+
 </mapper>

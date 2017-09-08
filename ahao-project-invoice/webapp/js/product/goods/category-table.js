@@ -1,34 +1,33 @@
 $(document).ready(function () {
-    'use strict';
     //1.初始化Table
-    $('#table-invoice').bootstrapTable({
-        url: '/invoice/page',                 //请求后台的URL（*）
+    $('#table-category').bootstrapTable({
+        url: '/product/categorys/page',                 //请求后台的URL（*）
         toolbar: '#toolbar',                //工具按钮用哪个容器
         columns: [{
             checkbox: true
         },
             {
                 field: 'id',
-                title: '发票Id'
+                title: '类别Id'
             },
             {
                 field: 'name',
-                title: '货物名称'
+                title: '类别名'
             },
             {
-                field: 'price',
-                title: '价钱'
+                field: 'description',
+                title: '类别描述'
             },
             {
-                field: 'type',
-                title: '发票类型',
+                field: 'createTime',
+                title: '创建时间',
                 formatter: function (value) {
-                    return !!value ? '销项' : '进项';
+                    return $.format.date(value, 'yyyy-MM-dd HH:mm:ss');
                 }
             },
             {
-                field: 'date',
-                title: '开票日期',
+                field: 'modifyTime',
+                title: '修改时间',
                 formatter: function (value) {
                     return $.format.date(value, 'yyyy-MM-dd HH:mm:ss');
                 }
@@ -37,8 +36,8 @@ $(document).ready(function () {
                 field: 'id',
                 title: '操作',
                 formatter: function (value) {
-                    return '<a class="btn btn-primary btn-circle btn-sm" ' +
-                        'href="/invoice/' + value + '">' +
+                    return '<a type="button" class="btn btn-primary btn-circle btn-sm" ' +
+                        'href="/product/category/' + value + '">' +
                         '<i class="fa fa-pencil-square-o"></i>' +
                         '</a> &nbsp;' +
                         '<a class="btn btn-warning btn-circle btn-sm btn-delete" ' +
@@ -52,16 +51,16 @@ $(document).ready(function () {
     //2.初始化Button的点击事件
     $('#btn_delete_list').click(function () {
         $.deleteTable('list', {
-            url: '/invoices',
-            key: 'invoiceIds',
-            table: '#table-invoice'
+            url: '/product/categorys',
+            key: 'categoryIds',
+            table: '#table-category'
         })
     });
 
     $('body').on('click', '.btn-delete', function () {
         $.deleteTable('one', {
-            url: '/invoices',
-            key: 'invoiceIds',
+            url: '/product/categorys',
+            key: 'categoryIds',
             id: $(this).attr('data-id')
         });
     });

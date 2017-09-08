@@ -33,8 +33,10 @@ public class InvoiceDataController {
 
     @PostMapping("/invoice")
     @Transactional
-    public AjaxDTO add(@RequestParam(name = "auth[]", defaultValue = "") Long[] authIds,
+    public AjaxDTO add(@RequestParam("goods") Long goodsId,
+                       @RequestParam("goodsNumber") Long number,
                        @Valid InvoiceDO validInvoice, BindingResult result) {
+        System.out.println("测试:"+goodsId+","+number+","+validInvoice);
         // 后端验证是否出错
         if (result.hasErrors()) {
             AjaxDTO ajax = AjaxDTO.failure(SpringConfig.getString("insert.failure", validInvoice.getId()));
@@ -44,14 +46,13 @@ public class InvoiceDataController {
         }
 
         invoiceService.insert(validInvoice);
-        // TODO 添加货物
-//        authService.addRelate(validRole.getId(), authIds);
+        invoiceService.addRelate(validInvoice.getId(), goodsId, number);
 
         Long id = validInvoice.getId();
         return AjaxDTO.success(SpringConfig.getString("insert.success", id), id);
     }
 
-    @DeleteMapping("/invoice")
+    @DeleteMapping("/invoices")
     @Transactional
     public AjaxDTO delete(@RequestBody MultiValueMap<String, String> formData) {
         List<String> ids = formData.get("invoiceIds[]");
@@ -72,7 +73,8 @@ public class InvoiceDataController {
 
     @PostMapping("/invoice/{invoiceId}")
     @Transactional
-    public AjaxDTO modify(@RequestParam(name = "auth[]", defaultValue = "") Long[] authIds,
+    public AjaxDTO modify(@RequestParam("goods") Long goodsId,
+                          @RequestParam("goodsNumber") Long number,
                           @Valid InvoiceDO validInvoice, BindingResult result) {
         // 后端验证是否出错
         if (result.hasErrors()) {
@@ -87,8 +89,7 @@ public class InvoiceDataController {
         }
 
         invoiceService.update(validInvoice);
-        // TODO 修改联系
-//        authService.addRelate(validRole.getId(), authIds);
+        invoiceService.addRelate(validInvoice.getId(), goodsId, number);
         return AjaxDTO.success(SpringConfig.getString("insert.success", validInvoice.getId()));
     }
 

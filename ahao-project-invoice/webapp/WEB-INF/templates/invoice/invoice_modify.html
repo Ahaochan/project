@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="/base/head :: headFragment(#{invoice.title.add})"/>
+    <th:block th:include="/base/head :: headFragment(#{invoice.title.modify})"/>
 </head>
 
 <body>
@@ -11,12 +11,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8">
-                    <h1 class="page-header" data-th-text="#{invoice.title.add}">录入发票</h1>
+                    <h1 class="page-header" data-th-text="#{invoice.title.modify}">修改发票</h1>
                 </div>
             </div>
             <form class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-11">
+                        <input type="hidden" id="input-invoice-id" data-th-value="${data.invoiceId}"/>
                         <h2 class="text-center" id="title-invoice">增值税发票</h2>
                     </div>
                 </div>
@@ -29,37 +30,45 @@
                                   data-title="购销单位">选择</span>
                         </td>
                         <td class="col-md-6" colspan="5">
-                            <input type="hidden" id="input-unit-id" name="unit"/>
+                            <input type="hidden" id="input-unit-id" name="unit" data-th-value="${data.unitId}"/>
                             <div class="form-group">
                                 <label class="col-md-3 control-label" data-th-text="#{invoice.unit.name}">单位名称</label>
                                 <div class="col-md-8">
-                                    <input class="form-control" data-th-placeholder="#{invoice.unit.name}" disabled="disabled"
-                                           id="input-unit-name"/>
+                                    <input class="form-control" data-th-placeholder="#{invoice.unit.name}"
+                                           disabled="disabled"
+                                           id="input-unit-name" data-th-value="${data.unitName}"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label" data-th-text="#{invoice.unit.tax.id}">统一社会信用代码</label>
+                                <label class="col-md-3 control-label"
+                                       data-th-text="#{invoice.unit.tax.id}">统一社会信用代码</label>
                                 <div class="col-md-8">
-                                    <input class="form-control" data-th-placeholder="#{invoice.unit.tax.id}" disabled="disabled"
-                                           id="input-unit-tax"/>
+                                    <input class="form-control" data-th-placeholder="#{invoice.unit.tax.id}"
+                                           disabled="disabled"
+                                           id="input-unit-tax" data-th-value="${data.unitTaxId}"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label" data-th-text="#{invoice.unit.address_tel}">地址、电话</label>
+                                <label class="col-md-3 control-label"
+                                       data-th-text="#{invoice.unit.address_tel}">地址、电话</label>
                                 <div class="col-md-5">
-                                    <input class="form-control" data-th-placeholder="#{invoice.unit.address}" disabled="disabled"
-                                           id="input-unit-address"/>
+                                    <input class="form-control" data-th-placeholder="#{invoice.unit.address}"
+                                           disabled="disabled"
+                                           id="input-unit-address" data-th-value="${data.unitAddress}"/>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="tel" class="form-control" data-th-placeholder="#{invoice.unit.tel}" disabled="disabled"
-                                           id="input-unit-tel"/>
+                                    <input type="tel" class="form-control" data-th-placeholder="#{invoice.unit.tel}"
+                                           disabled="disabled"
+                                           id="input-unit-tel" data-th-value="${data.unitTel}"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label" data-th-text="#{invoice.unit.account}">开户行帐号</label>
+                                <label class="col-md-3 control-label"
+                                       data-th-text="#{invoice.unit.account}">开户行帐号</label>
                                 <div class="col-md-5">
-                                    <input class="form-control" data-th-placeholder="#{invoice.unit.account}" disabled="disabled"
-                                           id="input-unit-bank-account"/>
+                                    <input class="form-control" data-th-placeholder="#{invoice.unit.account}"
+                                           disabled="disabled"
+                                           id="input-unit-bank-account" data-th-value="${data.unitAccount}"/>
                                 </div>
                                 <div class="col-md-3">
                                     <img id="input-unit-bank-img" src=""/>
@@ -74,27 +83,30 @@
                                 <div class="form-group" id="form-group-code">
                                     <div class="col-md-12">
                                         <input class="form-control col-md-1" id="input-code"
-                                               name="code" data-th-placeholder="#{invoice.code}"/>
+                                               name="code" data-th-placeholder="#{invoice.code}"
+                                               data-th-value="${data.invoiceCode}"/>
                                     </div>
                                 </div>
                                 <div class="form-group" id="form-group-number">
                                     <div class="col-md-12">
                                         <input class="form-control col-md-1" id="input-number"
-                                               name="number" data-th-placeholder="#{invoice.number}"/>
+                                               name="number" data-th-placeholder="#{invoice.number}"
+                                               data-th-value="${data.invoiceNumber}"/>
                                     </div>
                                 </div>
                                 <div class="form-group" id="form-group-date">
                                     <div class="col-md-12">
                                         <input type="date" class="form-control col-md-6" id="input-date"
-                                               name="date" data-th-placeholder="#{invoice.date}"/>
+                                               name="date" data-th-placeholder="#{invoice.date}"
+                                               data-th-value="${#dates.format(data.invoiceDate, 'yyyy-MM-dd')}"/>
                                     </div>
                                 </div>
                                 <div class="form-group" id="form-group-sell">
                                     <div class="col-md-12">
                                         <select class="form-control" id="select-type" name="type">
                                             <option value="" data-th-text="#{invoice.type.select}">请选择发票类型</option>
-                                            <option value="0" data-th-text="#{invoice.type.buy}">进项发票</option>
-                                            <option value="1" data-th-text="#{invoice.type.sell}">销项发票</option>
+                                            <option value="0" data-th-text="#{invoice.type.buy}" data-th-selected="${!data.invoiceType}">进项发票</option>
+                                            <option value="1" data-th-text="#{invoice.type.sell}" data-th-selected="${data.invoiceType}">销项发票</option>
                                         </select>
                                     </div>
                                 </div>
@@ -112,17 +124,28 @@
                         <td class="col-md-1" data-th-text="#{product.goods.tax.money}">税额</td>
                     </tr>
                     <tbody id="div-goods">
-
+                    <tr>
+                        <td class="col-md-2" colspan="2" data-th-text="${data.goodsName}"></td>
+                        <!-- TODO goodsSpecification为空时抛出异常-->
+                        <td class="col-md-1" data-th-text="${data.goodsSpecification}"></td>
+                        <td class="col-md-1" data-th-text="${data.goodsUnit}"></td>
+                        <td class="col-md-1"><input type="number" data-th-id="'input-goods'+${data.goodsId}+'-number'" data-id="2" data-th-value="${data.goodsNumber}"></td>
+                        <td class="col-md-1" id="td-goods2-unite-price" data-id="2" data-th-text="${data.goodsUnitPrice}"></td>
+                        <td class="col-md-1" id="td-goods2-price" data-id="2" data-th-text="${data.goodsMoney}"></td>
+                        <td class="col-md-1" id="td-goods2-tax-rate" data-id="2" data-th-text="${data.goodsTaxRate}"></td>
+                        <td class="col-md-1" id="td-goods2-tax-money" data-id="2" data-th-text="${data.goodsTaxMoney}"></td>
+                    </tr>
                     </tbody>
                     <tr>
                         <td colspan="9" class="text-center">
-                            <input type="hidden" id="input-goods-id" name="goods"/>
+                            <input type="hidden" id="input-goods-id" name="goods" data-th-value="${data.goodsId}"/>
                             <span class="btn btn-primary" data-toggle="modal"
                                   data-target="#modal-goods-select"
                                   data-title="货物">选择货物</span>
                         </td>
                     </tr>
                     <tr>
+                        <!-- TODO 价税合计不能正常显示-->
                         <td class="col-md-2" colspan="2">价税合计(大写)</td>
                         <td class="text-center" colspan="4" id="td-goods-total-zh"></td>
                         <td class="text-center" colspan="3" id="td-goods-total-num"></td>
@@ -130,7 +153,8 @@
                     <tr>
                         <td colspan="9" class="text-center">
                             <div class="col-md-12">
-                                <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
+                                <input id="btn-submit" type="submit" class="btn btn-default"
+                                       data-th-value="#{form.submit}"/>
                             </div>
                         </td>
                     </tr>

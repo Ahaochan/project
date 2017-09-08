@@ -88,7 +88,7 @@ public class DataSet implements IDataSet, Serializable {
     public long getLong(String key) {
         Object obj = dataMap.get(key);
         try {
-            return Long.valueOf(obj == null ? "0" : obj.toString());
+            return Long.parseLong(obj == null ? "0" : obj.toString());
         } catch (NumberFormatException e) {
             logger.error("数据集获取long错误:" , e);
         }

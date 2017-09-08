@@ -1,7 +1,9 @@
 package com.ahao.invoice.invoice.entity;
 
 import com.ahao.entity.BaseDO;
+import com.ahao.util.CloneHelper;
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -19,10 +21,11 @@ public class InvoiceDO extends BaseDO {
     private String code;
     @Column(name = "invoice_number")
     private String number;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date date;
     @Column(name = "is_sell")
     private Boolean sell;
-    @Column(name = "unite_id")
+    @Column(name = "unit_id")
     private Long unitId;
     @Column(name = "review_id")
     private Long reviewId;
@@ -37,7 +40,7 @@ public class InvoiceDO extends BaseDO {
         super(id, createTime, modifyTime);
         this.code = code;
         this.number = number;
-        this.date = date;
+        this.date = CloneHelper.clone(date);
         this.sell = sell;
         this.unitId = unitId;
         this.reviewId = reviewId;
@@ -61,11 +64,11 @@ public class InvoiceDO extends BaseDO {
     }
 
     public Date getDate() {
-        return date;
+        return CloneHelper.clone(date);
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date = CloneHelper.clone(date);
     }
 
     public Boolean getSell() {

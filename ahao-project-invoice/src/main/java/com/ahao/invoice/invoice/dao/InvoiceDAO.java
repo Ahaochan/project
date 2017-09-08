@@ -28,5 +28,15 @@ public interface InvoiceDAO extends Mapper<InvoiceDO> {
                                    @Param("sort") String sort,
                                    @Param("order") String order);
 
+    /**
+     * 添加发票货物表的联系
+     * @param invoiceId 发票Id
+     * @param goodsId 货物Id
+     * @param number 货物数量
+     */
+    void addRelate(@Param("invoiceId") Long invoiceId,
+                   @Param("goodsId") Long goodsId,
+                   @Param("number") Long number);
 
+    DataSet getForm(@Param("invoiceId") Long invoiceId);
 }

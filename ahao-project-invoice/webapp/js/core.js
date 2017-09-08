@@ -531,6 +531,7 @@
             if (!!invoiceCode) {
                 return province[invoiceCode.substring(0, 4) + '00'] || '';
             }
+            return '';
         },
         // 如果有分母, 则获取 分子/分母 的百分数形式, 如果没有分母, 则获取 分子的百分数形式
         percentage: function (portion, total) {
@@ -580,7 +581,6 @@
                 form: 'form',
                 rules: {},
                 messages: undefined,
-
                 title: '确认保存记录?',
                 url: undefined,
                 go: undefined,
