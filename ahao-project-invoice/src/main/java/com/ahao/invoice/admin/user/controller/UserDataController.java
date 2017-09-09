@@ -61,7 +61,7 @@ public class UserDataController {
     public AjaxDTO delete(@RequestBody MultiValueMap<String, String> formData) {
         List<String> ids = formData.get("userIds[]");
         boolean success = userService.deleteByKey(ids);
-        int flag = NumberHelper.parse(success);
+        int flag = NumberHelper.parseInt(success);
         String msg = SpringConfig.getString(success ? "delete.success" : "delete.failure");
         return AjaxDTO.get(flag, msg);
     }

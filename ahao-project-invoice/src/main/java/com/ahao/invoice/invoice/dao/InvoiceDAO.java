@@ -7,12 +7,15 @@ import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Ahaochan on 2017/9/3.
  */
 @Repository
 public interface InvoiceDAO extends Mapper<InvoiceDO> {
+
+    DataSet getForm(@Param("invoiceId") Long invoiceId);
 
     /**
      * 分页查找
@@ -38,5 +41,15 @@ public interface InvoiceDAO extends Mapper<InvoiceDO> {
                    @Param("goodsId") Long goodsId,
                    @Param("number") Long number);
 
-    DataSet getForm(@Param("invoiceId") Long invoiceId);
+
+    /**
+     * 获取按 yyyy-MM-dd 分布的进销项发票金额和税额
+     */
+    List<DataSet> getProfitGraph();
+
+    /**
+     * 获取 年份 月份 发票代码 某行政区划内的发票数量, 具体到市级
+     * @param isSell 是否为销项发票
+     */
+    List<DataSet> getDistribution(@Param("isSell") int isSell);
 }

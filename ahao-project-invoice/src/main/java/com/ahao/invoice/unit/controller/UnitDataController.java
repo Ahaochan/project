@@ -51,7 +51,7 @@ public class UnitDataController {
         List<String> ids = formData.get("unitIds[]");
 
         boolean success = unitService.deleteByKey(ids);
-        int flag = NumberHelper.parse(success);
+        int flag = NumberHelper.parseInt(success);
         String msg = SpringConfig.getString(success ? "delete.success" : "delete.failure");
         return AjaxDTO.get(flag, msg);
     }

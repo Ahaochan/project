@@ -84,11 +84,11 @@ INSERT INTO `invoice__goods` VALUES ('43', '43', '7', '12', current_timestamp, c
 INSERT INTO `invoice__goods` VALUES ('44', '44', '4', '15', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('45', '45', '7', '15', current_timestamp, current_timestamp);
 
-INSERT INTO `invoice__goods` VALUES ('46', '46', '2', '12', current_timestamp, current_timestamp);
+INSERT INTO `invoice__goods` VALUES ('46', '46', '2', '240', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('47', '47', '1', '11', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('48', '48', '3', '9', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('49', '49', '3', '9', current_timestamp, current_timestamp);
-INSERT INTO `invoice__goods` VALUES ('50', '50', '2', '11', current_timestamp, current_timestamp);
+INSERT INTO `invoice__goods` VALUES ('50', '50', '2', '120', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('51', '51', '3', '12', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('52', '52', '1', '6', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('53', '53', '3', '6', current_timestamp, current_timestamp);
@@ -97,5 +97,5 @@ INSERT INTO `invoice__goods` VALUES ('55', '55', '2', '5', current_timestamp, cu
 INSERT INTO `invoice__goods` VALUES ('56', '56', '3', '9', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('57', '57', '3', '9', current_timestamp, current_timestamp);
 INSERT INTO `invoice__goods` VALUES ('58', '58', '2', '11', current_timestamp, current_timestamp);
-INSERT INTO `invoice__goods` VALUES ('59', '59', '3', '12', current_timestamp, current_timestamp);
-INSERT INTO `invoice__goods` VALUES ('60', '60', '1', '6', current_timestamp, current_timestamp);
+INSERT INTO `invoice__goods` VALUES ('59', '59', '3', '240', current_timestamp, current_timestamp);
+INSERT INTO `invoice__goods` VALUES ('60', '60', '1', '600', current_timestamp, current_timestamp);

@@ -24,6 +24,8 @@ public interface IDataSet extends Map<String, Object> {
 
     long getLong(String key);
 
+    double getDouble(String key);
+
     String getString(String key);
 
     List<String> getStringList(String... keys);

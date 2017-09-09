@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="/base/head :: headFragment(#{invoice.title.add})"/>
+    <th:block th:include="/base/head :: headFragment(#{graph.invoice.profit})"/>
 </head>
 
 <body>
@@ -9,21 +9,16 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{graph.invoice.profit}">进销项利润分析</h1>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Bar Chart Example
-                            <div class="pull-right">
-                                <select class="btn-group" id="select-sell-year">
-                                    <option>2017</option>
-                                    <option>2016</option>
-                                </select>
-                                <select class="btn-group" id="select-sell-month">
-                                    <option>2017</option>
-                                    <option>2016</option>
-                                </select>
-                            </div>
                         </div>
                         <div class="panel-body">
                             <div id="main" style="min-height: 400px"></div>
@@ -47,9 +42,9 @@
 
 
         $.ajax({
-            type: 'post',
+            type: 'POST',
             timeout: 100000,
-            url: '/invoice/graph/moneyTax',
+            url: '/invoice/graph/profit',
             dataType: 'json',
             data: {
                 type: true

@@ -55,5 +55,22 @@
         </if>
     </insert>
 
+    <select id="getProfitGraph" resultType="DataSet">
+        SELECT DATE_FORMAT(i.date, '%Y-%m-%d') date, i.is_sell type, count(*),
+               SUM(pg.unite_price*ig.number) money,
+               SUM(pg.unite_price*ig.number*pg.tax_rate) tax
+        FROM invoice i
+            LEFT JOIN invoice__goods ig on ig.invoice_id = i.id
+            LEFT JOIN product_goods pg on ig.goods_id = pg.id
+        GROUP BY YEAR(i.date), MONTH(i.date), DAY(i.date), i.is_sell
+    </select>
+
+
+    <select id="getDistribution" resultType="DataSet">
+        SELECT YEAR(i.date) year, MONTH(i.date) month, i.invoice_code code, count(*) number
+        FROM invoice i
+        WHERE i.is_sell = #{isSell}
+        GROUP BY YEAR(i.date), MONTH(i.date), substr(i.invoice_code, 1, 2)
+    </select>
 
 </mapper>

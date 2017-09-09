@@ -1,6 +1,7 @@
 package com.ahao.entity;
 
 import com.ahao.util.CollectionHelper;
+import com.ahao.util.NumberHelper;
 import com.ahao.util.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +78,7 @@ public class DataSet implements IDataSet, Serializable {
     public int getInt(String key) {
         Object obj = dataMap.get(key);
         try {
-            return Integer.parseInt(obj == null ? "0" : obj.toString());
+            return NumberHelper.parseInt(obj);
         } catch (NumberFormatException e) {
             logger.error("数据集获取int错误:", e);
         }
@@ -93,6 +94,17 @@ public class DataSet implements IDataSet, Serializable {
             logger.error("数据集获取long错误:" , e);
         }
         return 0L;
+    }
+
+    @Override
+    public double getDouble(String key) {
+        Object obj = dataMap.get(key);
+        try {
+            return Double.parseDouble(obj == null ? "0" : obj.toString());
+        } catch (NumberFormatException e) {
+            logger.error("数据集获取double错误:" , e);
+        }
+        return 0;
     }
 
     @Override

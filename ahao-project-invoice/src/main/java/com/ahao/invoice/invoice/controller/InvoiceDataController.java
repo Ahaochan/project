@@ -58,7 +58,7 @@ public class InvoiceDataController {
         List<String> ids = formData.get("invoiceIds[]");
 
         boolean success = invoiceService.deleteByKey(ids);
-        int flag = NumberHelper.parse(success);
+        int flag = NumberHelper.parseInt(success);
         String msg = SpringConfig.getString(success ? "delete.success" : "delete.failure");
         return AjaxDTO.get(flag, msg);
     }
@@ -95,8 +95,8 @@ public class InvoiceDataController {
 
 
     @PostMapping("/invoice/check")
-    public boolean checkName(String code, String number) {
-        boolean isExist = invoiceService.existName(code, number);
+    public boolean checkUnique(String code, String number) {
+        boolean isExist = invoiceService.exist(code, number);
         return !isExist;
     }
 }

@@ -54,7 +54,7 @@ public class AuthDataController {
         List<String> ids = formData.get("authIds[]");
 
         boolean success = authService.deleteByKey(ids);
-        int flag = NumberHelper.parse(success);
+        int flag = NumberHelper.parseInt(success);
         String msg = SpringConfig.getString(success ? "delete.success" : "delete.failure");
         return AjaxDTO.get(flag, msg);
     }

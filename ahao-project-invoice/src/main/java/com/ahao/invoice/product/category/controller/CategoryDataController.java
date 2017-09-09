@@ -54,7 +54,7 @@ public class CategoryDataController {
         List<String> ids = formData.get("categoryIds[]");
 
         boolean success = categoryService.deleteByKey(ids);
-        int flag = NumberHelper.parse(success);
+        int flag = NumberHelper.parseInt(success);
         String msg = SpringConfig.getString(success ? "delete.success" : "delete.failure");
         return AjaxDTO.get(flag, msg);
     }

@@ -313,15 +313,6 @@
             <artifactId>jsoup</artifactId>
             <version>1.10.3</version>
         </dependency>
-
-        <!-- 汉字转数字 -->
-        <dependency>
-            <groupId>com.ibm.icu</groupId>
-            <artifactId>icu4j</artifactId>
-            <version>59.1</version>
-        </dependency>
-
-
     </dependencies>
 
 

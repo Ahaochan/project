@@ -64,7 +64,7 @@ public class RoleDataController {
         List<String> ids = formData.get("roleIds[]");
 
         boolean success = roleService.deleteByKey(ids);
-        int flag = NumberHelper.parse(success);
+        int flag = NumberHelper.parseInt(success);
         String msg = SpringConfig.getString(success ? "delete.success" : "delete.failure");
         return AjaxDTO.get(flag, msg);
     }

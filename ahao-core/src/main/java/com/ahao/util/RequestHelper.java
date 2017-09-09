@@ -1,5 +1,6 @@
 package com.ahao.util;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -10,6 +11,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
@@ -235,6 +237,13 @@ public abstract class RequestHelper {
             String key = header.nextElement();
             String value = request.getHeader(key);
             System.out.println("头部:[" + key + "]:[" + value + "]");
+        }
+
+        try {
+            String input = IOUtils.toString(request.getInputStream(), Charset.defaultCharset());
+            System.out.println(input);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         Enumeration<String> param = request.getParameterNames();

@@ -67,7 +67,6 @@
           <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.11" />
           <element id="library" level="project" name="Maven: com.zaxxer:HikariCP-java6:2.3.13" />
           <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.10.3" />
-          <element id="library" level="project" name="Maven: com.ibm.icu:icu4j:59.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

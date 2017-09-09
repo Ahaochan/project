@@ -148,12 +148,7 @@
 
 
     <!-- 项目日志级别 -->
-    <logger name="com.apache.ibatis" level="TRACE"/>
-    <logger name="java.sql.Connection" level="DEBUG"/>
-    <logger name="java.sql.Statement" level="DEBUG"/>
-    <logger name="java.sql.PreparedStatement" level="DEBUG"/>
     <logger name="com.ahao.invoice" level="DEBUG"/>
-    <logger name="org.springframework" level="WARN"/>
 
     <!-- apache -->
     <logger name="org.apache.catalina.startup.DigesterFactory" level="ERROR"/>
@@ -162,9 +157,11 @@
     <logger name="org.apache.sshd.common.util.SecurityUtils" level="WARN"/>
     <logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"/>
 
+    <!-- spring -->
+    <logger name="org.springframework.security" level="INFO"/>
 
     <!-- root级别 INFO -->
-    <root level="INFO">
+    <root level="DEBUG">
         <!-- 控制台输出 -->
         <appender-ref ref="STDOUT" />
         <!-- 文件输出 -->
