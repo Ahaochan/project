@@ -36,7 +36,6 @@ public class InvoiceDataController {
     public AjaxDTO add(@RequestParam("goods") Long goodsId,
                        @RequestParam("goodsNumber") Long number,
                        @Valid InvoiceDO validInvoice, BindingResult result) {
-        System.out.println("测试:"+goodsId+","+number+","+validInvoice);
         // 后端验证是否出错
         if (result.hasErrors()) {
             AjaxDTO ajax = AjaxDTO.failure(SpringConfig.getString("insert.failure", validInvoice.getId()));

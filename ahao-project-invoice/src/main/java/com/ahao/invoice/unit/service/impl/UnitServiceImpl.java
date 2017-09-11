@@ -85,9 +85,6 @@ public class UnitServiceImpl extends PageServiceImpl<UnitDO> implements UnitServ
                                         }
                                 ))));
 
-        System.out.println(JSONObject.toJSONString(data));
-
-
         JSONObject json = new JSONObject(new TreeMap<>());
         for (Map.Entry<String, Map<Boolean, DataSet>> entry : data.entrySet()) {
             String date = entry.getKey();
@@ -137,7 +134,6 @@ public class UnitServiceImpl extends PageServiceImpl<UnitDO> implements UnitServ
             json.put(date, item);
         }
 
-        System.out.println(json.toJSONString());
         return json;
     }
 }

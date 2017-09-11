@@ -102,9 +102,4 @@ public abstract class DateHelper {
     public static boolean isBetween(long date, long start, long end) {
         return NumberHelper.isBetween(date, start, end);
     }
-
-    public static void main(String[] args) throws ParseException {
-        System.out.println(StringHelper.containsAny("hello-world",
-                ',', '*', '-', '[', ']', '{', '}', '!', ':'));
-    }
 }
