@@ -26,5 +26,19 @@
         ON u1.id = u2.id
     </select>
 
+    <select id="getDistribution" resultType="DataSet">
+        SELECT DATE_FORMAT(i.date, '%Y-%m') date, i.is_sell type,
+            CONCAT(SUBSTR(u.tax_id,3,2), '0000') code, count(DISTINCT u.id) number
+        FROM invoice i
+        LEFT JOIN invoice_unit u ON i.unit_id = u.id
+        GROUP BY YEAR(i.date), MONTH(i.date), i.is_sell,SUBSTR(u.tax_id, 3, 2)
+    </select>
+
+    <select id="getDistributionAll" resultType="DataSet">
+        SELECT DATE_FORMAT(i.date, '%Y-%m') date, CONCAT(SUBSTR(u.tax_id,3,2), '0000') code, count(DISTINCT u.id) number
+        FROM invoice i
+        LEFT JOIN invoice_unit u ON i.unit_id = u.id
+        GROUP BY YEAR(i.date), MONTH(i.date), SUBSTR(u.tax_id, 3, 2)
+    </select>
 
 </mapper>

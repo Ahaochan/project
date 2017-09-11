@@ -1,11 +1,13 @@
 package com.ahao.invoice.unit.dao;
 
+import com.ahao.entity.DataSet;
 import com.ahao.invoice.unit.entity.UnitDO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Ahaochan on 2017/8/13.
@@ -25,4 +27,15 @@ public interface UnitDAO extends Mapper<UnitDO> {
                                   @Param("pageSize") Integer pageSize,
                                   @Param("sort") String sort,
                                   @Param("order") String order);
+
+
+    /**
+     * 获取发票的购、销单位(分隔计算)的地理分布信息
+     */
+    List<DataSet> getDistribution();
+
+    /**
+     * 获取发票的购、销单位(合并计算)的地理分布信息
+     */
+    List<DataSet> getDistributionAll();
 }

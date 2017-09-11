@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="/base/head :: headFragment(#{invoice.title.add})"/>
+    <th:block th:include="/base/head :: headFragment(#{graph.unit.distribution})"/>
 </head>
 
 <body>
@@ -9,11 +9,16 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{graph.unit.distribution}">购销单位地理分布</h1>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Bar Chart Example
+                            <i class="fa fa-bar-chart-o fa-fw"></i> <th:block data-th-text="#{graph.unit.distribution}">购销单位地理分布</th:block>
                         </div>
                         <div class="panel-body">
                             <div id="main" style="min-height: 500px"></div>
@@ -29,10 +34,11 @@
 <script src="/plugins/echarts/echarts.js"></script>
 <script src="/plugins/echarts/map/china.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function () {
-
-
+        $.distribution({
+            url: '/invoice/unit/graph/distribution',
+            divId: 'main'
+        })
     });
 </script>
 </html>

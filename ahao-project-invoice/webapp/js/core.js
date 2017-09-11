@@ -603,19 +603,6 @@
         isString: function (val) {
             return (typeof val === 'string') && val.constructor === String;
         },
-        // 打印输出obj
-        logObj: function (obj) {
-            for (var i in obj) {
-                if (obj.hasOwnProperty(i)) {
-                    var value = obj[i];
-                    if (typeof value === 'object') {
-                        $.logObj(value);
-                    } else {
-                        console.log(value);
-                    }
-                }
-            }
-        },
         // 提交验证表单数据
         submitDetail: function (option) {
             var options = $.extend({
@@ -708,6 +695,181 @@
                         });
                 }
             });
+        },
+        distribution: function (option) {
+            var options = $.extend({
+                url: undefined,
+                divId: undefined
+            }, option);
+
+            var url = options.url, divId = options.divId;
+
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById(divId));
+            myChart.showLoading();
+
+            $.ajax({
+                type: 'post',
+                timeout: 100000,
+                url: url,
+                success: function (data) {
+                    // 指定图表的配置项和数据
+                    var timeline = [];
+                    var max = 0;
+                    var options = [];
+                    for (var date in data.obj) {
+                        if (data.obj.hasOwnProperty(date)) {
+                            // 设置时间线
+                            timeline.push(date);
+
+                            var item = data.obj[date];
+                            var option = {series: []};
+                            options.push(option);
+                            // 设置最大值
+                            max = Math.max(max, item.max);
+
+                            // 设置购贷单位
+                            var bought = item.bought;
+                            (function (array) {
+                                var result = {data:[]};
+                                option.series.push(result);
+                                for(var i in array){
+                                    if(array.hasOwnProperty(i)){
+                                        var key_value = {name:undefined, value:undefined};
+                                        key_value.name = $.province({provinceCode: array[i].name});
+                                        key_value.value = array[i].value;
+                                        result.data.push(key_value)
+                                    }
+                                }
+                            })(bought);
+
+
+                            // 设置销贷单位
+                            var sell = item.sell;
+                            (function (array) {
+                                var result = {data:[]};
+                                option.series.push(result);
+                                for(var i in array){
+                                    if(array.hasOwnProperty(i)){
+                                        var key_value = {name:undefined, value:undefined};
+                                        key_value.name = $.province({provinceCode: array[i].name});
+                                        key_value.value = array[i].value;
+                                        result.data.push(key_value)
+                                    }
+                                }
+                            })(sell);
+                        }
+                    }
+
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption({
+                        baseOption: {
+                            timeline: {
+                                data: timeline
+                            },
+                            tooltip: {
+                                trigger: 'item'
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                selectedMode: 'single',
+                                left: 'left',
+                                data: ['销贷单位', '购贷单位']
+                            },
+                            visualMap: {
+                                min: 0,
+                                max: max,
+                                left: 'left',
+                                top: 'bottom',
+                                text: ['高', '低'],           // 文本，默认为数值文本
+                                calculable: true
+                            },
+                            toolbox: {
+                                show: true,
+                                orient: 'horizontal',      // 布局方式，默认为水平布局，可选为：
+                                                           // 'horizontal' ¦ 'vertical'
+                                x: 'right',                // 水平安放位置，默认为全图右对齐，可选为：
+                                                           // 'center' ¦ 'left' ¦ 'right'
+                                                           // ¦ {number}（x坐标，单位px）
+                                y: 'top',                  // 垂直安放位置，默认为全图顶端，可选为：
+                                                           // 'top' ¦ 'bottom' ¦ 'center'
+                                                           // ¦ {number}（y坐标，单位px）
+                                color: ['#1e90ff', '#22bb22', '#4b0082', '#d2691e'],
+                                backgroundColor: 'rgba(0,0,0,0)', // 工具箱背景颜色
+                                borderColor: '#ccc',       // 工具箱边框颜色
+                                borderWidth: 0,            // 工具箱边框线宽，单位px，默认为0（无边框）
+                                padding: 5,                // 工具箱内边距，单位px，默认各方向内边距为5，
+                                showTitle: true,
+                                feature: {
+                                    restore: {
+                                        show: true,
+                                        title: '还原',
+                                        color: 'black'
+                                    },
+                                    saveAsImage: {
+                                        show: true,
+                                        title: '保存为图片',
+                                        type: 'jpeg',
+                                        lang: ['点击本地保存']
+                                    }
+                                }
+                            },
+                            //缩放漫游组件，仅对地图有效
+                            roamController: {
+                                //显示策略，默认为显示(true),可选为：true（显示） | false（隐藏）。
+                                show: true,
+                                //水平安放位置，默认为左侧('letf')，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+                                x: 'right',
+                                //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
+                                y: 'top',
+                                //必须，默认无(null),指定漫游组件可控地图类型，如：{ china: true }
+                                mapTypeControl: {
+                                    //指定地图类型
+                                    'china': true
+                                }
+                            },
+                            series: [
+                                {
+                                    name: '销贷单位',
+                                    type: 'map',
+                                    mapType: 'china',
+                                    selectedMode: 'single',
+                                    //是否开启滚轮缩放和拖拽漫游，默认为false（关闭），其他有效输入为true（开启），'scale'（仅开启滚轮缩放），'move'（仅开启拖拽漫游）
+                                    roam: true,
+                                    label: {
+                                        normal: {
+                                            show: true
+                                        },
+                                        emphasis: {
+                                            show: true
+                                        }
+                                    }
+                                },
+                                {
+                                    name: '购贷单位',
+                                    type: 'map',
+                                    mapType: 'china',
+                                    selectedMode: 'single',
+                                    //是否开启滚轮缩放和拖拽漫游，默认为false（关闭），其他有效输入为true（开启），'scale'（仅开启滚轮缩放），'move'（仅开启拖拽漫游）
+                                    roam: true,
+                                    label: {
+                                        normal: {
+                                            show: true
+                                        },
+                                        emphasis: {
+                                            show: true
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        options: options
+                    });
+                    myChart.hideLoading();
+                }
+            });
+
         }
     });
 

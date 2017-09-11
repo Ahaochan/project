@@ -18,10 +18,10 @@
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Bar Chart Example
+                            <i class="fa fa-bar-chart-o fa-fw"></i> <th:block data-th-text="#{graph.invoice.profit}">进销项利润分析</th:block>
                         </div>
                         <div class="panel-body">
-                            <div id="main" style="min-height: 400px"></div>
+                            <div id="main" style="min-height: 500px"></div>
                         </div>
                     </div>
                 </div>
@@ -50,8 +50,6 @@
                 type: true
             },
             success: function (data) {
-                console.log(JSON.stringify(data));
-
                 // 指定图表的配置项和数据
                 var option = {
                     tooltip: {

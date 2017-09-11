@@ -136,9 +136,7 @@ public abstract class NumberHelper {
             if (obj instanceof Boolean) {
                 return Boolean.valueOf(obj.toString()) ? 1 : 0;
             }
-            if (obj instanceof Number) {
-                return Integer.parseInt(obj.toString());
-            }
+            return Integer.parseInt(obj.toString());
         } catch (NumberFormatException e) {
             logger.error("解析数字" + obj + "失败:", e);
         }

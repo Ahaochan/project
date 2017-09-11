@@ -115,7 +115,7 @@ public class DataSet implements IDataSet, Serializable {
                 Clob clob = (Clob) obj;
                 return clob.getSubString(1, (int) clob.length());
             } else {
-                return obj.toString();
+                return obj == null ? "" : obj.toString();
             }
         } catch (SQLException | NullPointerException e) {
             logger.error("数据集获取String错误:" , e);

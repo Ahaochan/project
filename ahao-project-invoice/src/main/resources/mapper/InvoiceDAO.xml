@@ -65,7 +65,7 @@
         GROUP BY YEAR(i.date), MONTH(i.date), DAY(i.date), i.is_sell
     </select>
 
-
+    <!-- TODO 发票地区分布 -->
     <select id="getDistribution" resultType="DataSet">
         SELECT YEAR(i.date) year, MONTH(i.date) month, i.invoice_code code, count(*) number
         FROM invoice i

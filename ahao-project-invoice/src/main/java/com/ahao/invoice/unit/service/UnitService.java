@@ -2,6 +2,7 @@ package com.ahao.invoice.unit.service;
 
 import com.ahao.invoice.unit.entity.UnitDO;
 import com.ahao.service.PageService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 @Service
 public interface UnitService extends PageService<UnitDO> {
 
-    public List<UnitDO> selectByTaxId(String taxId);
+    List<UnitDO> selectByTaxId(String taxId);
+
+    JSONObject getDistribution();
 
 }

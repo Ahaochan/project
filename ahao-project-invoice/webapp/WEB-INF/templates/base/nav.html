@@ -86,10 +86,10 @@
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 数据分析<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a data-th-href="@{/invoice/graph/profit}">进销项利润分析</a>
+                                <a data-th-href="@{/invoice/graph/profit}" data-th-text="#{graph.invoice.profit}">进销项利润分析</a>
                             </li>
                             <li>
-                                <a href="flot.html">公告类别</a>
+                                <a data-th-href="@{/invoice/unit/graph/distribution}" data-th-text="#{graph.unit.distribution}">购销单位地理分布</a>
                             </li>
                             <li>
                                 <a href="flot.html">历史公告</a>

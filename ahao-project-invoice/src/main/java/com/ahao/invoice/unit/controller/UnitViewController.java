@@ -42,4 +42,9 @@ public class UnitViewController {
         return mv;
     }
 
+    @GetMapping("/invoice/unit/graph/distribution")
+    public String getDistribution(){
+        return "invoice/unit/distribution";
+    }
+
 }
