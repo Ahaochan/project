@@ -65,12 +65,11 @@
         GROUP BY YEAR(i.date), MONTH(i.date), DAY(i.date), i.is_sell
     </select>
 
-    <!-- TODO 发票地区分布 -->
     <select id="getDistribution" resultType="DataSet">
-        SELECT YEAR(i.date) year, MONTH(i.date) month, i.invoice_code code, count(*) number
+        SELECT DATE_FORMAT(i.date, '%Y-%m') date, i.is_sell type,
+               CONCAT(SUBSTR(i.invoice_code, 1, 2), '0000') code, count(*) number
         FROM invoice i
-        WHERE i.is_sell = #{isSell}
-        GROUP BY YEAR(i.date), MONTH(i.date), substr(i.invoice_code, 1, 2)
+        GROUP BY YEAR(i.date), MONTH(i.date), i.is_sell, substr(i.invoice_code, 1, 2)
     </select>
 
 </mapper>

@@ -60,4 +60,9 @@ public class InvoiceViewController {
     public String getProfitGraph(){
         return "invoice/invoice_profit";
     }
+
+    @GetMapping("/invoice/graph/distribution")
+    public String getDistributionGraph(){
+        return "invoice/invoice_distribution";
+    }
 }

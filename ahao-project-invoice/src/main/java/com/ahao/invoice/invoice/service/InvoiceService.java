@@ -1,14 +1,10 @@
 package com.ahao.invoice.invoice.service;
 
-import com.ahao.entity.DataSet;
 import com.ahao.entity.IDataSet;
 import com.ahao.invoice.invoice.entity.InvoiceDO;
 import com.ahao.service.PageService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Ahaochan on 2017/7/30.
@@ -47,8 +43,7 @@ public interface InvoiceService extends PageService<InvoiceDO> {
 
     /**
      * 根据发票类型获取发票的地理分布
-     * @param type 是否为销项发票
      */
-    Map<Integer, Map<Integer, List<DataSet>>> getDistribution(Boolean type);
+    JSONObject getDistribution();
 
 }

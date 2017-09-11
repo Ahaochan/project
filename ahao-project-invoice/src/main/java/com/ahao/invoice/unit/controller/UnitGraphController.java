@@ -2,6 +2,8 @@ package com.ahao.invoice.unit.controller;
 
 import com.ahao.entity.AjaxDTO;
 import com.ahao.invoice.unit.service.UnitService;
+import com.ahao.util.CollectionHelper;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,10 @@ public class UnitGraphController {
 
     @PostMapping("/invoice/unit/graph/distribution")
     public AjaxDTO getDistribution(){
-        return AjaxDTO.success(unitService.getDistribution());
+        JSONObject result = unitService.getDistribution();
+        if(CollectionHelper.isEmpty(result)){
+            return AjaxDTO.failure("没有查询到数据");
+        }
+        return AjaxDTO.success("查询数据成功", result);
     }
 }

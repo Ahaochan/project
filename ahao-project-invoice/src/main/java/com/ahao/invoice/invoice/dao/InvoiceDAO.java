@@ -48,8 +48,7 @@ public interface InvoiceDAO extends Mapper<InvoiceDO> {
     List<DataSet> getProfitGraph();
 
     /**
-     * 获取 年份 月份 发票代码 某行政区划内的发票数量, 具体到市级
-     * @param isSell 是否为销项发票
+     * 获取 年份 月份 发票代码 某行政区划内的发票数量, 具体到省级
      */
-    List<DataSet> getDistribution(@Param("isSell") int isSell);
+    List<DataSet> getDistribution();
 }

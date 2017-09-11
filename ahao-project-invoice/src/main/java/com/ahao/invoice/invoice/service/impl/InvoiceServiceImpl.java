@@ -17,7 +17,10 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
@@ -129,20 +132,82 @@ public class InvoiceServiceImpl extends PageServiceImpl<InvoiceDO> implements In
 
 
     @Override
-    public Map<Integer, Map<Integer, List<DataSet>>> getDistribution(Boolean type) {
-        int isSell = NumberHelper.unBoxing(type) ? 1 : 0;
-        List<DataSet> data = invoiceDAO.getDistribution(isSell);
+    public JSONObject getDistribution() {
+        Map<String, Map<Boolean, DataSet>> data = invoiceDAO.getDistribution().stream()
+                .collect(Collectors.groupingBy(
+                        d -> d.getString("date"),
+                        TreeMap::new,// 以年月分组
+                        Collectors.partitioningBy(
+                                d -> d.getBoolean("type"),
+                                Collectors.reducing(
+                                        new DataSet(),
+                                        (left, right) -> {
+                                            DataSet map = new DataSet();
 
-        Map<Integer, Map<Integer, List<DataSet>>> map = data.stream()
-                .collect(Collectors.groupingBy(d -> d.getInt("year"), // 以年份分组
-                        Collectors.groupingBy(d -> d.getInt("month"), // 再以月份分组
-                                Collectors.mapping(d -> { // 剔除多余的数据
-                                    DataSet result = new DataSet();
-                                    result.put("provinceCode", d.getString("code").substring(0, 2) + "0000");
-                                    result.put("number", d.get("number"));
-                                    return result;
-                                }, Collectors.toList()))));
-        return map;
+                                            String leftCode = left.getString("code");
+                                            String leftNumber = left.getString("number");
+                                            if ("".equals(leftCode)) {
+                                                map.putAll(left);
+                                            } else {
+                                                map.put(leftCode, leftNumber);
+                                            }
+                                            String rightCode = right.getString("code");
+                                            String rightNumber = right.getString("number");
+                                            map.put(rightCode, rightNumber);
+                                            return map;
+                                        }
+                                ))));
+
+        JSONObject json = new JSONObject(new TreeMap<>());
+        for (Map.Entry<String, Map<Boolean, DataSet>> entry : data.entrySet()) {
+            String date = entry.getKey();
+            JSONObject item = new JSONObject();
+            int max = 0;
+
+
+            // 销贷单位的行政区划代码和数量
+            JSONArray sellArray = new JSONArray();
+            DataSet sellData = entry.getValue().get(true);
+            for (Map.Entry<String, Object> sellEntry : sellData.entrySet()) {
+                String code = sellEntry.getKey();
+                int number = NumberHelper.parseInt(sellEntry.getValue());
+
+                if (number > max) {
+                    max = number;
+                }
+
+                JSONObject result = new JSONObject();
+                result.put("name", code);
+                result.put("value", number);
+
+                sellArray.add(result);
+            }
+            item.put("sell", sellArray);
+
+            // 购贷单位的行政区划代码和数量
+            JSONArray boughtArray = new JSONArray();
+            DataSet boughtData = entry.getValue().get(false);
+            for (Map.Entry<String, Object> boughtEntry : boughtData.entrySet()) {
+                String code = boughtEntry.getKey();
+                int number = NumberHelper.parseInt(boughtEntry.getValue());
+
+                if (number > max) {
+                    max = number;
+                }
+
+                JSONObject result = new JSONObject();
+                result.put("name", code);
+                result.put("value", number);
+
+                boughtArray.add(result);
+            }
+            item.put("bought", boughtArray);
+            item.put("max", max);
+
+            json.put(date, item);
+        }
+
+        return json;
     }
 
 
