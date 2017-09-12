@@ -46,4 +46,8 @@ public interface InvoiceService extends PageService<InvoiceDO> {
      */
     JSONObject getDistribution();
 
+    /**
+     * 获取所有发票的纯利润(税后)
+     */
+    Long getProfit();
 }

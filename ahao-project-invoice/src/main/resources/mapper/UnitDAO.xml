@@ -33,4 +33,13 @@
         LEFT JOIN invoice_unit u ON i.unit_id = u.id
         GROUP BY YEAR(i.date), MONTH(i.date), i.is_sell,SUBSTR(u.tax_id, 3, 2)
     </select>
+    <select id="selectMaxCount" resultType="DataSet">
+        SELECT MAX(t.count) count, t.code code
+        FROM
+        (
+            SELECT count(*) count, CONCAT(SUBSTR(u.tax_id, 3, 2), '0000') code
+            FROM invoice_unit u
+            GROUP BY SUBSTR(u.tax_id, 3, 2)
+        ) t;
+    </select>
 </mapper>

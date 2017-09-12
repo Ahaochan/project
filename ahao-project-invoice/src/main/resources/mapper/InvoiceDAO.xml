@@ -71,5 +71,13 @@
         FROM invoice i
         GROUP BY YEAR(i.date), MONTH(i.date), i.is_sell, substr(i.invoice_code, 1, 2)
     </select>
+    <select id="getProfit" resultType="DataSet">
+        SELECT i.is_sell type, SUM(g.unite_price*ig.number) money,
+                          SUM(g.unite_price*ig.number*g.tax_rate) tax
+        FROM invoice i
+            LEFT JOIN invoice__goods ig ON i.id = ig.invoice_id
+            LEFT JOIN product_goods g ON g.id = ig.goods_id
+        GROUP BY i.is_sell
+    </select>
 
 </mapper>

@@ -51,4 +51,9 @@ public interface InvoiceDAO extends Mapper<InvoiceDO> {
      * 获取 年份 月份 发票代码 某行政区划内的发票数量, 具体到省级
      */
     List<DataSet> getDistribution();
+
+    /**
+     * 获取所有发票的纯利润(税后)
+     */
+    List<DataSet> getProfit();
 }

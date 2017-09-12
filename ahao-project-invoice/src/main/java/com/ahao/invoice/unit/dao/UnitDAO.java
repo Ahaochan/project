@@ -33,4 +33,9 @@ public interface UnitDAO extends Mapper<UnitDO> {
      * 获取发票的购、销单位(分隔计算)的地理分布信息
      */
     List<DataSet> getDistribution();
+
+    /**
+     * 获取最多单位的省份的编码
+     */
+    DataSet selectMaxCount();
 }

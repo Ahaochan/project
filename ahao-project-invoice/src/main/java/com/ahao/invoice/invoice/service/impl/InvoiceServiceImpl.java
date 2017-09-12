@@ -210,5 +210,20 @@ public class InvoiceServiceImpl extends PageServiceImpl<InvoiceDO> implements In
         return json;
     }
 
+    @Override
+    public Long getProfit() {
+        Map<Boolean, DataSet> data = invoiceDAO.getProfit().stream()
+                .collect(Collectors.toMap(d->d.getBoolean("type"), d->d));
 
+        // 想卖出的钱(成本金额+成本税额+想要获得的利润)
+        double sellMoney = Optional.ofNullable(data.get(true)).map(d -> d.getDouble("money")).orElse(0.0);
+        // 卖出的税额(想要获得的利润的税额)
+        double sellTax = Optional.ofNullable(data.get(true)).map(d -> d.getDouble("tax")).orElse(0.0);
+        // 想购入的价钱(成本金额)
+        double boughtMoney = Optional.ofNullable(data.get(false)).map(d -> d.getDouble("money")).orElse(0.0);
+        // 购入的税额(成本税额)
+        double boughtTax = Optional.ofNullable(data.get(false)).map(d -> d.getDouble("tax")).orElse(0.0);
+
+        return (long) (sellMoney - boughtMoney - boughtTax);
+    }
 }

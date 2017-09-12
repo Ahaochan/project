@@ -34,4 +34,14 @@ public class InvoiceGraphController {
     public AjaxDTO getMoneyTax(){
         return AjaxDTO.success(invoiceService.getProfitGraph());
     }
+
+    @PostMapping("/invoice/count")
+    public AjaxDTO getCount(){
+        return AjaxDTO.success(invoiceService.getAllCount());
+    }
+
+    @PostMapping("/invoice/profit")
+    public AjaxDTO getAllProfit(){
+        return AjaxDTO.success(invoiceService.getProfit());
+    }
 }

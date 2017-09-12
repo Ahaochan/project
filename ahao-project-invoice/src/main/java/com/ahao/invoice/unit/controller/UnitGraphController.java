@@ -30,4 +30,14 @@ public class UnitGraphController {
         }
         return AjaxDTO.success("查询数据成功", result);
     }
+
+    @PostMapping("/invoice/unit/count")
+    public AjaxDTO getCount(){
+        return AjaxDTO.success(unitService.getAllCount());
+    }
+
+    @PostMapping("/invoice/unit/province/max")
+    public AjaxDTO getMaxCountOfProvince(){
+        return AjaxDTO.success(unitService.selectMaxCount());
+    }
 }

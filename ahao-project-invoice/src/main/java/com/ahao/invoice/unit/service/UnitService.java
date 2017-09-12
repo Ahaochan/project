@@ -1,5 +1,6 @@
 package com.ahao.invoice.unit.service;
 
+import com.ahao.entity.DataSet;
 import com.ahao.invoice.unit.entity.UnitDO;
 import com.ahao.service.PageService;
 import com.alibaba.fastjson.JSONObject;
@@ -17,4 +18,5 @@ public interface UnitService extends PageService<UnitDO> {
 
     JSONObject getDistribution();
 
+    DataSet selectMaxCount();
 }

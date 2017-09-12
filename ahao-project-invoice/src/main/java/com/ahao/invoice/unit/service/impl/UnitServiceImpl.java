@@ -136,4 +136,9 @@ public class UnitServiceImpl extends PageServiceImpl<UnitDO> implements UnitServ
 
         return json;
     }
+
+    @Override
+    public DataSet selectMaxCount() {
+        return unitDAO.selectMaxCount();
+    }
 }
