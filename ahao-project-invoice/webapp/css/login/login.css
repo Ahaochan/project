@@ -6,7 +6,7 @@ body {
     color: #888;
     line-height: 30px;
     text-align: center;
-    background-image: url("/img/bg_login.png");
+    background-image: url(../../img/bg_login.png);
 }
 
 strong { font-weight: 500; }

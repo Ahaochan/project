@@ -1,3 +1,5 @@
+var contextPath = $('meta[name="_context_path"]').attr('content');
+
 (function ($) {
 
     // AJAX请求的CSRF配置, Form表单的CSRF配置使用data-th-action替代action即可
