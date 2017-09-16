@@ -32,28 +32,47 @@ CREATE TABLE `admin_auth` (
 -- ----------------------------
 -- Records of admin_auth
 -- ----------------------------
-INSERT INTO `admin_auth` VALUES ('1', 'auth.index.view', '访问首页', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('2', 'auth.user.add', '添加用户', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('3', 'auth.user.disable', '禁用用户', '0', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('4', 'auth.user.delete', '删除用户', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('5', 'auth.user.view.self', '查看自己的用户信息', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('6', 'auth.user.view.all', '查看所有的用户信息', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('7', 'auth.user.edit', '修改自己的信息', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('8', 'auth.user.edit.role', '修改用户的角色', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('9', 'auth.role.add', '添加角色', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('10', 'auth.role.disable', '禁用角色', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('11', 'auth.role.delete', '删除角色', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('12', 'auth.role.view.all', '查看所有的角色信息', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('13', 'auth.role.edit', '修改角色信息', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('14', 'auth.auth.add', '添加权限', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('15', 'auth.auth.disable', '禁用权限', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('16', 'auth.auth.delete', '删除权限', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('17', 'auth.auth.view.all', '查看所有权限信息', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('18', 'auth.auth.edit', '修改权限信息', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('19', 'auth.invoice.add', '添加发票', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('20', 'auth.invoice.disable', '禁用发票', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('21', 'auth.invoice.delete', '删除发票', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('22', 'auth.invoice.view.all', '查看所有发票信息', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('23', 'auth.invoice.edit', '编辑发票', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
-INSERT INTO `admin_auth` VALUES ('24', 'auth.invoice.review', '审查发票', '1', '2017-07-22 23:05:26', '2017-07-22 23:05:26');
+INSERT INTO `admin_auth` VALUES ('1', 'auth.auth.add',         '添加权限',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('2', 'auth.auth.delete',      '删除权限',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('3', 'auth.auth.view.all',    '查看所有权限信息',   '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('4', 'auth.auth.edit',        '修改权限信息',       '1', current_timestamp, current_timestamp);
+
+INSERT INTO `admin_auth` VALUES ('5', 'auth.role.add',         '添加角色',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('6', 'auth.role.delete',      '删除角色',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('7', 'auth.role.view.all',    '查看所有的角色信息', '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('8', 'auth.role.edit',        '修改角色信息',       '1', current_timestamp, current_timestamp);
+
+INSERT INTO `admin_auth` VALUES ('9',  'auth.user.add',        '添加用户',           '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('10', 'auth.user.delete',     '删除用户',           '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('11', 'auth.user.view.all',   '查看所有的用户信息',  '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('12', 'auth.user.edit',       '修改信息',           '1', current_timestamp, current_timestamp);
+
+INSERT INTO `admin_auth` VALUES ('13', 'auth.invoice.add',      '添加发票',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('14', 'auth.invoice.delete',   '删除发票',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('15', 'auth.invoice.view.all', '查看所有的发票信息', '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('16', 'auth.invoice.edit',     '编辑发票',          '1', current_timestamp, current_timestamp);
+
+INSERT INTO `admin_auth` VALUES ('17', 'auth.unit.add',      '添加购销单位',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('18', 'auth.unit.delete',   '删除购销单位',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('19', 'auth.unit.view.all', '查看所有的购销单位信息', '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('20', 'auth.unit.edit',     '编辑购销单位',          '1', current_timestamp, current_timestamp);
+
+INSERT INTO `admin_auth` VALUES ('21', 'auth.category.add',      '添加货物类别',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('22', 'auth.category.delete',   '删除货物类别',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('23', 'auth.category.view.all', '查看所有的货物类别信息', '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('24', 'auth.category.edit',     '编辑货物类别',          '1', current_timestamp, current_timestamp);
+
+INSERT INTO `admin_auth` VALUES ('25', 'auth.category.add',      '添加货物类别',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('26', 'auth.category.delete',   '删除货物类别',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('27', 'auth.category.view.all', '查看所有的货物类别信息', '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('28', 'auth.category.edit',     '编辑货物类别',          '1', current_timestamp, current_timestamp);
+
+INSERT INTO `admin_auth` VALUES ('29', 'auth.goods.add',      '添加货物',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('30', 'auth.goods.delete',   '删除货物',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('31', 'auth.goods.view.all', '查看所有的货物信息', '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('32', 'auth.goods.edit',     '编辑货物',          '1', current_timestamp, current_timestamp);
+
+
+INSERT INTO `admin_auth` VALUES ('33', 'auth.index.view',        '访问首页',           '1', current_timestamp, current_timestamp);
+
 SET FOREIGN_KEY_CHECKS = 1;
