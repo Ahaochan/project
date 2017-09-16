@@ -19,7 +19,7 @@
         <typeAlias alias="IDataSet" type="com.ahao.entity.IDataSet"/>
     </typeAliases>
 
-    <plugins>
-        <plugin interceptor="com.ahao.interceptor.MybatisSqlInterceptor"/>
-    </plugins>
+    <!--<plugins>-->
+        <!--<plugin interceptor="com.ahao.interceptor.MybatisSqlInterceptor"/>-->
+    <!--</plugins>-->
 </configuration>

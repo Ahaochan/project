@@ -151,13 +151,14 @@
     <logger name="com.ahao.invoice" level="DEBUG"/>
 
     <!-- apache -->
-    <logger name="org.apache.catalina.startup.DigesterFactory" level="ERROR"/>
-    <logger name="org.apache.catalina.util.LifecycleBase" level="ERROR"/>
+    <logger name="org.apache.catalina.startup.DigesterFactory" level="WARN"/>
+    <logger name="org.apache.catalina.util.LifecycleBase" level="WARN"/>
     <logger name="org.apache.coyote.http11.Http11NioProtocol" level="WARN"/>
     <logger name="org.apache.sshd.common.util.SecurityUtils" level="WARN"/>
     <logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"/>
 
     <!-- spring -->
+    <logger name="org.springframework.web" level="INFO"/>
     <logger name="org.springframework.security" level="INFO"/>
 
     <!-- root级别 INFO -->
@@ -165,10 +166,10 @@
         <!-- 控制台输出 -->
         <appender-ref ref="STDOUT" />
         <!-- 文件输出 -->
-        <!--<appender-ref ref="FILE_ERROR" />-->
-        <!--<appender-ref ref="FILE_INFO" />-->
-        <!--<appender-ref ref="FILE_WARN" />-->
-        <!--<appender-ref ref="FILE_DEBUG" />-->
-        <!--<appender-ref ref="FILE_TRACE" />-->
+        <appender-ref ref="FILE_ERROR" />
+        <appender-ref ref="FILE_INFO" />
+        <appender-ref ref="FILE_WARN" />
+        <appender-ref ref="FILE_DEBUG" />
+        <appender-ref ref="FILE_TRACE" />
     </root>
 </configuration>
