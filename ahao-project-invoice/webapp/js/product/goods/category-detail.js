@@ -2,8 +2,8 @@ $(document).ready(function () {
 
     var id = $('#input-id').val();
     $.submitDetail({
-        url: '/product/category/' + ((id === undefined) ? "" : id),
-        go: '/product/categorys',
+        url: contextPath+'product/category/' + ((id === undefined) ? "" : id),
+        go: contextPath+'product/categorys',
         data: {
             id: '#input-id',
             name: '#input-name',

@@ -2,7 +2,7 @@ $(document).ready(function () {
     //1.初始化Table
     $.bootstrapTable({
         selector: '#table-role',
-        url: '/admin/roles/page',
+        url: contextPath+'admin/roles/page',
         rowStyle: function (row) {
             if (!row.enabled) {
                 return {classes: 'danger'};
@@ -50,7 +50,7 @@ $(document).ready(function () {
                 title: '操作',
                 formatter: function (value) {
                     return '<a type="button" class="btn btn-primary btn-circle btn-sm" ' +
-                        'href="/admin/role/' + value + '">' +
+                        'href="'+contextPath+'admin/role/' + value + '">' +
                         '<i class="fa fa-pencil-square-o"></i>' +
                         '</a> &nbsp;' +
                         '<a class="btn btn-warning btn-circle btn-sm btn-delete" ' +
@@ -64,7 +64,7 @@ $(document).ready(function () {
     //2.初始化Button的点击事件
     $('#btn_delete_list').click(function () {
         $.deleteTable('list', {
-            url: '/admin/roles',
+            url: contextPath+'admin/roles',
             key: 'roleIds',
             table: '#table-role'
         })
@@ -72,7 +72,7 @@ $(document).ready(function () {
 
     $('body').on('click', '.btn-delete', function () {
         $.deleteTable('one', {
-            url: '/admin/roles',
+            url: contextPath+'admin/roles',
             key: 'roleIds',
             id: $(this).attr('data-id')
         });

@@ -2,8 +2,8 @@ $(document).ready(function () {
 
     var id = $('#input-id').val();
     $.submitDetail({
-        url: '/product/good/' + ((id === undefined) ? "" : id),
-        go: '/product/goods',
+        url: contextPath+'product/good/' + ((id === undefined) ? "" : id),
+        go: contextPath+'product/goods',
         data: {
             id: '#input-id',
             name: '#input-name',
@@ -62,7 +62,7 @@ $(document).ready(function () {
     });
 
     $('#input-category-select').bsSuggest({
-        url: '/product/category/searchByName',
+        url: contextPath+'product/category/searchByName',
         getDataMethod: 'url',
         effectiveFields: ['id', 'name', 'description'],
         effectiveFieldsAlias:{name: '类别名称', description: '类别描述'},

@@ -102,7 +102,7 @@ var contextPath = $('meta[name="_context_path"]').attr('content');
             data[element.name] = value;
             $.ajax($.extend(true, {
                 type: 'get',
-                url: "/invoice/bank/" + value,
+                url: contextPath+"/invoice/bank/" + value,
                 mode: "abort",
                 port: "validate" + element.name,
                 dataType: "json",

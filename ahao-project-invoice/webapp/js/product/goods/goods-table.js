@@ -3,7 +3,7 @@ $(document).ready(function () {
     //1.初始化Table
     $.bootstrapTable({
         selector: '#table-goods',
-        url: '/product/goods/page',
+        url: contextPath+'product/goods/page',
         columns: [{
             checkbox: true
         },
@@ -57,7 +57,7 @@ $(document).ready(function () {
                 title: '操作',
                 formatter: function (value) {
                     return '<a type="button" class="btn btn-primary btn-circle btn-sm" ' +
-                        'href="/product/good/' + value + '">' +
+                        'href="'+contextPath+'product/good/' + value + '">' +
                         '<i class="fa fa-pencil-square-o"></i>' +
                         '</a> &nbsp;' +
                         '<a class="btn btn-warning btn-circle btn-sm btn-delete" ' +
@@ -71,7 +71,7 @@ $(document).ready(function () {
     //2.初始化Button的点击事件
     $('#btn_delete_list').click(function () {
         $.deleteTable('list', {
-            url: '/product/goods',
+            url: contextPath+'product/goods',
             key: 'goodIds',
             table: '#table-goods'
         })
@@ -79,7 +79,7 @@ $(document).ready(function () {
 
     $('body').on('click', '.btn-delete', function () {
         $.deleteTable('one', {
-            url: '/product/goods',
+            url: contextPath+'product/goods',
             key: 'goodIds',
             id: $(this).attr('data-id')
         });

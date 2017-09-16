@@ -144,17 +144,17 @@
 
     $(document).ready(function () {
         $.loadByAjax({
-            url: '/invoice/count',
+            url: contextPath+'invoice/count',
             selector: '#count-invoice'
         });
 
         $.loadByAjax({
-            url: '/invoice/profit',
+            url: contextPath+'invoice/profit',
             selector: '#count-profit'
         });
 
         $.loadByAjax({
-            url: '/invoice/unit/province/max',
+            url: contextPath+'invoice/unit/province/max',
             selector: '#count-province',
             convert: function (data) {
                 return $.province({provinceCode: data.code});
@@ -162,7 +162,7 @@
         });
 
         $.loadByAjax({
-            url: '/invoice/unit/count',
+            url: contextPath+'invoice/unit/count',
             selector: '#count-unit'
         })
     });

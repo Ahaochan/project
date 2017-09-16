@@ -3,7 +3,7 @@ $(document).ready(function () {
     //1.初始化Table
     $.bootstrapTable({
         selector: '#table-invoice',
-        url: '/invoice/page',
+        url: contextPath+'invoice/page',
         columns: [{
             checkbox: true
         },
@@ -38,7 +38,7 @@ $(document).ready(function () {
                 title: '操作',
                 formatter: function (value) {
                     return '<a class="btn btn-primary btn-circle btn-sm" ' +
-                        'href="/invoice/' + value + '">' +
+                        'href="'+contextPath+'invoice/' + value + '">' +
                         '<i class="fa fa-pencil-square-o"></i>' +
                         '</a> &nbsp;' +
                         '<a class="btn btn-warning btn-circle btn-sm btn-delete" ' +
@@ -52,7 +52,7 @@ $(document).ready(function () {
     //2.初始化Button的点击事件
     $('#btn_delete_list').click(function () {
         $.deleteTable('list', {
-            url: '/invoices',
+            url: contextPath+'invoices',
             key: 'invoiceIds',
             table: '#table-invoice'
         })
@@ -60,7 +60,7 @@ $(document).ready(function () {
 
     $('body').on('click', '.btn-delete', function () {
         $.deleteTable('one', {
-            url: '/invoices',
+            url: contextPath+'invoices',
             key: 'invoiceIds',
             id: $(this).attr('data-id')
         });

@@ -5,8 +5,8 @@ $(document).ready(function () {
 
     var id = $('#input-id').val();
     $.submitDetail({
-        url: '/admin/auth/' + ((id === undefined) ? "" : id),
-        go: '/admin/auths',
+        url: contextPath+'admin/auth/' + ((id === undefined) ? "" : id),
+        go: contextPath+'admin/auths',
         data: {
             id: '#input-id',
             name: '#input-name',
@@ -21,7 +21,7 @@ $(document).ready(function () {
                 minlength: 2,
                 remote: {
                     param:{
-                        url : '/admin/auth/checkName',
+                        url : contextPath+'admin/auth/checkName',
                         method : 'post',
                         delay: 2000,
                     },

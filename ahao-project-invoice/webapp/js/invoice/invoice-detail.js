@@ -35,7 +35,7 @@ $(document).ready(function () {
         });
 
         $('#input-tax').bsSuggest({
-            url: '/invoice/unit/tax/',
+            url: contextPath+'invoice/unit/tax/',
             getDataMethod: 'url',
             effectiveFields: ['id', 'taxId', 'name', 'account'],
             effectiveFieldsAlias: {id: 'id', taxId: '社会统一信用代码', name: '单位名称', account: '银行帐号'},
@@ -110,7 +110,7 @@ $(document).ready(function () {
         });
 
         $('#input-goods').bsSuggest({
-            url: '/product/good/searchByName',
+            url: contextPath+'product/good/searchByName',
             getDataMethod: 'url',
             effectiveFields: ['id', 'name', 'unitePrice', 'taxRate', 'createTime'],
             effectiveFieldsAlias: {name: '货物名称', unitePrice: '单价', taxRate: '税率', createTime: '创建时间'},
@@ -157,7 +157,7 @@ $(document).ready(function () {
                 rangelength: [8, 8],
                 remote: {
                     param:{
-                        url : '/invoice/check',
+                        url : contextPath+'invoice/check',
                         method : 'post',
                         delay: 2000,
                         data:{
@@ -262,7 +262,7 @@ $(document).ready(function () {
                     $.ajax({
                         type: 'POST',
                         timeout: 100000,
-                        url: '/invoice/'+(invoiceId || ''),
+                        url: contextPath+'invoice/'+(invoiceId || ''),
                         dataType: 'json',
                         data: {
                             id: invoiceId,
@@ -295,7 +295,7 @@ $(document).ready(function () {
                             }
 
                             swal('成功', json.msg, 'success');
-                            $.goUrl('/invoices');
+                            $.goUrl(contextPath+'invoices');
                         }
                     });
                 });

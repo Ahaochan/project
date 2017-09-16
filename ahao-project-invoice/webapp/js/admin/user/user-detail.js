@@ -4,7 +4,7 @@ $(document).ready(function () {
     oldUsername = $('#input-username').val();
 
     $.initPanel({
-        url: '/admin/user/roles',
+        url: contextPath+'admin/user/roles',
         data: {
             userId: $('#input-id').val()
         },
@@ -14,8 +14,8 @@ $(document).ready(function () {
 
     var id = $('#input-id').val();
     $.submitDetail({
-        url: '/admin/user/' + ((id === undefined) ? "" : id),
-        go: '/admin/users',
+        url: contextPath+'admin/user/' + ((id === undefined) ? "" : id),
+        go: contextPath+'admin/users',
         data: {
             id: '#input-id',
             username: '#input-username',
@@ -34,7 +34,7 @@ $(document).ready(function () {
                 return $('input[name="accountLocked"]:checked').val();
             },
             role: function () {
-                var ids = []
+                var ids = [];
                 $('input[name="role"]:checked').each(function () {
                     ids.push($(this).val());
                 });
@@ -47,7 +47,7 @@ $(document).ready(function () {
                 minlength: 2,
                 remote: {
                     param:{
-                        url : '/admin/user/checkUsername',
+                        url : contextPath+'admin/user/checkUsername',
                         method : 'post',
                         delay: 2000,
                     },

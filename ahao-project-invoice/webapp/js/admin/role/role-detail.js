@@ -4,7 +4,7 @@ $(document).ready(function () {
     oldName = $('#input-name').val();
 
     $.initPanel({
-        url: '/admin/role/auths',
+        url: contextPath+'admin/role/auths',
         data: {
             roleId: $('#input-id').val()
         },
@@ -14,8 +14,8 @@ $(document).ready(function () {
 
     var id = $('#input-id').val();
     $.submitDetail({
-        url: '/admin/role/' + ((id === undefined) ? "" : id),
-        go: '/admin/roles',
+        url: contextPath+'admin/role/' + ((id === undefined) ? "" : id),
+        go: contextPath+'admin/roles',
         data: {
             id: '#input-id',
             name: '#input-name',
@@ -23,7 +23,7 @@ $(document).ready(function () {
             enabled: function () {
                 return $('input[name="enabled"]:checked').val();
             },
-            auth: function () {var ids = []
+            auth: function () {var ids = [];
                 $('input[name="auth"]:checked').each(function () {
                     ids.push($(this).val());
                 });
@@ -36,7 +36,7 @@ $(document).ready(function () {
                 minlength: 2,
                 remote: {
                     param:{
-                        url : '/admin/role/checkName',
+                        url : contextPath+'admin/role/checkName',
                         method : 'post',
                         delay: 2000,
                     },

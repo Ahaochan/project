@@ -8,8 +8,8 @@ $(document).ready(function () {
 
     var id = $('#input-id').val();
     $.submitDetail({
-        url: '/invoice/unit/' + ((id === undefined) ? "" : id),
-        go: '/invoice/units',
+        url: contextPath+'invoice/unit/' + ((id === undefined) ? "" : id),
+        go: contextPath+'invoice/units',
         data: {
             id: '#input-id',
             name: '#input-name',
