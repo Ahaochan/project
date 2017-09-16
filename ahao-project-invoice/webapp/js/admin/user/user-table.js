@@ -1,8 +1,8 @@
 $(document).ready(function () {
     //1.初始化Table
-    $('#table-user').bootstrapTable({
-        url: '/admin/users/page',                 //请求后台的URL（*）
-        toolbar: '#toolbar',                //工具按钮用哪个容器
+    $.bootstrapTable({
+        selector: '#table-user',
+        url: '/admin/users/page',
         rowStyle: function (row) {
             if (!row.enabled || !!row.accountExpired ||
                 !!row.accountExpired || !!row.credentialsExpired) {

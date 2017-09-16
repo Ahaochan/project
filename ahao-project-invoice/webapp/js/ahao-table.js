@@ -28,7 +28,7 @@
                     }
                 });
             });
-    }
+    };
 
     var methods = {
         one: function (option) {
@@ -79,6 +79,49 @@
             } else {
                 $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
             }
+        },
+        bootstrapTable: function (option) {
+            var options = $.extend({
+                selector: '',
+                url: '',
+                rowStyle: undefined,
+                columns: undefined,
+                queryParams: function (params) {    //传递参数（*）
+                    return {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                        pageSize: params.limit,   //页面大小
+                        page: params.offset / params.limit,  //页码
+                        order: params.order,
+                        sort: params.sort
+                    };
+                },
+                toolbar: '#toolbar',
+                pagination: true,
+                sidePagination: 'server', // client or server
+                showColumns: true,
+                contentType: 'application/x-www-form-urlencoded',
+                uniqueId: 'id',
+                sortName: 'id',
+                striped: true,
+                cache: false
+            }, option);
+
+
+            $(options.selector).bootstrapTable({
+                selector: options.selector,
+                url: options.url,
+                rowStyle: options.rowStyle,
+                columns: options.columns,
+                queryParams: options.queryParams,
+                toolbar: options.toolbar,
+                pagination: options.pagination,
+                sidePagination: options.sidePagination,
+                showColumns: options.showColumns,
+                contentType: options.contentType,
+                uniqueId: options.uniqueId,
+                sortName: options.sortName,
+                striped: options.striped,
+                cache: options.cache
+            });
         }
     });
 

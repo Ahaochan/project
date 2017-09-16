@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment('')"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script>
+    $(document).ready(function () {
+        swal({
+                title: '403',
+                text: '没有权限访问, 请联系管理员',
+                type: "warning",
+                confirmButtonText: "返回首页",
+                closeOnConfirm: false
+            },
+            function(){
+                $.goUrl('/');
+        });
+    });
+</script>
+</html>

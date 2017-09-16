@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">后台管理</a>
+            <a class="navbar-brand" data-th-href="@{/}">后台管理</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -22,11 +22,6 @@
                     <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> 个人信息</a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
-                    </li>
-                    <li class="divider"></li>
                     <li><a data-th-href="@{/logout}"><i class="fa fa-sign-out fa-fw"></i> 注销登录</a>
                     </li>
                 </ul>
@@ -41,16 +36,13 @@
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 人员管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/admin/users">用户管理</a>
+                                <a data-th-href="@{/admin/users}">用户管理</a>
                             </li>
                             <li>
-                                <a href="/admin/roles">角色管理</a>
+                                <a data-th-href="@{/admin/roles}">角色管理</a>
                             </li>
                             <li>
-                                <a href="/admin/auths">权限管理</a>
-                            </li>
-                            <li>
-                                <a href="#">访问管理</a>
+                                <a data-th-href="@{/admin/auths}">权限管理</a>
                             </li>
                         </ul>
                     </li>
@@ -62,9 +54,6 @@
                             </li>
                             <li>
                                 <a data-th-href="@{/invoice}">录入发票</a>
-                            </li>
-                            <li>
-                                <a href="morris.html">发票审核</a>
                             </li>
                             <li>
                                 <a data-th-href="@{/invoice/units}">购销单位</a>

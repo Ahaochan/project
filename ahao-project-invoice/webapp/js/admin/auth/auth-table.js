@@ -1,8 +1,9 @@
 $(document).ready(function () {
+    'use strict';
     //1.初始化Table
-    $('#table-auth').bootstrapTable({
-        url: '/admin/auths/page',                 //请求后台的URL（*）
-        toolbar: '#toolbar',                //工具按钮用哪个容器
+    $.bootstrapTable({
+        selector: '#table-auth',
+        url: '/admin/auths/page',
         rowStyle: function (row) {
             if (!row.enabled) {
                 return {classes: 'danger'};

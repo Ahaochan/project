@@ -1,4 +1,4 @@
-package com.ahao.util;
+package com.ahao.invoice.admin.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

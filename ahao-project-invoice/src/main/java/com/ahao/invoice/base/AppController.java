@@ -1,7 +1,7 @@
 package com.ahao.invoice.base;
 
 import com.ahao.invoice.admin.user.service.UserService;
-import com.ahao.util.SecurityHelper;
+import com.ahao.invoice.admin.util.SecurityHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,7 +53,7 @@ public class AppController {
         } else {
             mv.setViewName("admin/login");
             if(error!=null){
-                mv.addObject("error", "登录失败");
+                mv.addObject("error", "登录失败, 请检查账号密码是否正确");
             }
             if(logout!=null){
                 mv.addObject("logout", "注销成功");

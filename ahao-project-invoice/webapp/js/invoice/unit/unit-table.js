@@ -1,8 +1,9 @@
 $(document).ready(function () {
+    'use strict';
     //1.初始化Table
-    $('#table-unit').bootstrapTable({
-        url: '/invoice/units/page',                 //请求后台的URL（*）
-        toolbar: '#toolbar',                //工具按钮用哪个容器
+    $.bootstrapTable({
+        selector: '#table-unit',
+        url: '/invoice/units/page',
         columns: [{
             checkbox: true
         },

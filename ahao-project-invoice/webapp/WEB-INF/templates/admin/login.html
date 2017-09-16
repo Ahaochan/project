@@ -3,7 +3,6 @@
 <head>
     <th:block th:include="/base/head :: headFragment(#{login.title})"/>
     <link rel="stylesheet" data-th-href="@{/css/login/login.css}"/>
-    <script data-th-href="@{/js/login.js}"></script>
 </head>
 <body>
 <!-- Top content -->
@@ -13,7 +12,7 @@
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text">
                     <h1><strong data-th-text="#{project.name.main}">企业增值税发票</strong>
-                        <data-th-block data-th-text="#{project.name.sub}"/>
+                        <th:block data-th-text="#{project.name.sub}"/>
                     </h1>
                     <div class="description">
                         <p data-th-text="#{project.description}">

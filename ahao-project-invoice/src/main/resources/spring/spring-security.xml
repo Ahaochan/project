@@ -2,13 +2,9 @@
 <beans:beans
         xmlns="http://www.springframework.org/schema/security"
         xmlns:beans="http://www.springframework.org/schema/beans"
-        xmlns:p="http://www.springframework.org/schema/p"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:context="http://www.springframework.org/schema/context"
         xsi:schemaLocation="http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans.xsd
-          http://www.springframework.org/schema/context
-          http://www.springframework.org/schema/context/spring-context.xsd
           http://www.springframework.org/schema/security
               http://www.springframework.org/schema/security/spring-security.xsd">
 
@@ -20,12 +16,79 @@
         <logout logout-url="/logout" logout-success-url="/admin/login?logout=true"/>
         <http-basic/>
 
-        <intercept-url pattern="/*" access="permitAll"/>
+        <!-- 权限页面的url拦截 -->
+        <intercept-url pattern="/admin/auth" access="hasAuthority('auth.auth.add')"/>
+        <intercept-url pattern="/admin/auth/checkName" access="permitAll()"/>
+        <intercept-url pattern="/admin/auth/*" access="hasAuthority('auth.auth.edit')"/>
+        <intercept-url pattern="/admin/auths" access="hasAuthority('auth.auth.delete')" method="DELETE"/>
+        <intercept-url pattern="/admin/auths" access="hasAuthority('auth.auth.view.all')"/>
+        <intercept-url pattern="/admin/auths/page" access="hasAuthority('auth.auth.view.all')"/>
+
+        <!-- 角色页面的url拦截 -->
+        <intercept-url pattern="/admin/role" access="hasAuthority('auth.role.add')"/>
+        <intercept-url pattern="/admin/role/auths" access="permitAll()"/>
+        <intercept-url pattern="/admin/role/checkName" access="permitAll()"/>
+        <intercept-url pattern="/admin/role/*" access="hasAuthority('auth.role.edit')"/>
+        <intercept-url pattern="/admin/roles" access="hasAuthority('auth.role.delete')" method="DELETE"/>
+        <intercept-url pattern="/admin/roles" access="hasAuthority('auth.role.view.all')"/>
+        <intercept-url pattern="/admin/roles/page" access="hasAuthority('auth.role.view.all')"/>
+
+        <!-- 用户页面的url拦截 -->
+        <intercept-url pattern="/admin/user" access="hasAuthority('auth.user.add')"/>
+        <intercept-url pattern="/admin/user/roles" access="permitAll()"/>
+        <intercept-url pattern="/admin/user/checkUserName" access="permitAll()"/>
+        <intercept-url pattern="/admin/user/*" access="hasAuthority('auth.user.edit')"/>
+        <intercept-url pattern="/admin/users" access="hasAuthority('auth.user.delete')" method="DELETE"/>
+        <intercept-url pattern="/admin/users" access="hasAuthority('auth.user.view.all')"/>
+        <intercept-url pattern="/admin/users/page" access="hasAuthority('auth.user.view.all')"/>
+
+        <!-- 发票页面的url拦截 -->
+        <intercept-url pattern="/invoice" access="hasAuthority('auth.invoice.add')"/>
+        <intercept-url pattern="/invoice/bank/**" access="permitAll()"/>
+        <intercept-url pattern="/invoice/check" access="permitAll()"/>
+        <intercept-url pattern="/invoice/count" access="permitAll()"/>
+        <intercept-url pattern="/invoice/graph/**" access="permitAll()"/>
+        <intercept-url pattern="/invoice/page" access="hasAuthority('auth.invoice.view.all')"/>
+        <intercept-url pattern="/invoice/profit" access="permitAll()"/>
+        <intercept-url pattern="/invoice/*" access="hasAuthority('auth.invoice.edit')"/>
+        <intercept-url pattern="/invoices" access="hasAuthority('auth.invoice.delete')" method="DELETE"/>
+        <intercept-url pattern="/invoices" access="hasAuthority('auth.invoice.view.all')"/>
+
+        <!-- 购销单位页面的url拦截 -->
+        <intercept-url pattern="/invoice/unit" access="hasAuthority('auth.unit.add')"/>
+        <intercept-url pattern="/invoice/unit/count" access="permitAll()"/>
+        <intercept-url pattern="/invoice/unit/graph/**" access="permitAll()"/>
+        <intercept-url pattern="/invoice/unit/province/max" access="permitAll()"/>
+        <intercept-url pattern="/invoice/unit/tax" access="permitAll()"/>
+        <intercept-url pattern="/invoice/unit/*" access="hasAuthority('auth.unit.edit')"/>
+        <intercept-url pattern="/invoice/units" access="hasAuthority('auth.unit.delete')" method="DELETE"/>
+        <intercept-url pattern="/invoice/units" access="hasAuthority('auth.unit.view.all')"/>
+        <intercept-url pattern="/invoice/units/page" access="hasAuthority('auth.unit.view.all')"/>
+
+        <!-- 货物类别页面的url拦截 -->
+        <intercept-url pattern="/product/category" access="hasAuthority('auth.category.add')"/>
+        <intercept-url pattern="/product/category/searchByName" access="permitAll()"/>
+        <intercept-url pattern="/product/category/*" access="hasAuthority('auth.category.edit')"/>
+        <intercept-url pattern="/product/categorys" access="hasAuthority('auth.category.delete')" method="DELETE"/>
+        <intercept-url pattern="/product/categorys" access="hasAuthority('auth.category.view.all')"/>
+        <intercept-url pattern="/product/categorys/page" access="hasAuthority('auth.category.view.all')"/>
+
+        <!-- 货物页面的url拦截 -->
+        <intercept-url pattern="/product/good" access="hasAuthority('auth.goods.add')"/>
+        <intercept-url pattern="/product/good/searchByName" access="permitAll()"/>
+        <intercept-url pattern="/product/good/*" access="hasAuthority('auth.goods.edit')"/>
+        <intercept-url pattern="/product/goods" access="hasAuthority('auth.goods.delete')" method="DELETE"/>
+        <intercept-url pattern="/product/goods" access="hasAuthority('auth.goods.view.all')"/>
+        <intercept-url pattern="/product/goods/page" access="hasAuthority('auth.goods.view.all')"/>
+
+        <intercept-url pattern="/" access="hasAuthority('auth.index.view')"/>
         <intercept-url pattern="/admin/login" access="permitAll"/>
-        <intercept-url pattern="/admin/**" access="hasAuthority('auth.index.view')"/>
+        <intercept-url pattern="/admin/index" access="hasAuthority('auth.index.view')"/>
+        <intercept-url pattern="/logout" access="permitAll()"/>
+        <intercept-url pattern="/*" access="permitAll"/>
 
         <!-- 尝试访问没有权限的页面时跳转的页面 -->
-        <!--<access-denied-handler error-page="/403.jsp"/>-->
+        <access-denied-handler error-page="/403"/>
 
         <session-management session-authentication-error-url="/frame.expired">
             <!-- max-sessions只容许一个账号登录，error-if-maximum-exceeded 后面账号登录后踢出前一个账号，expired-url session过期跳转界面 -->

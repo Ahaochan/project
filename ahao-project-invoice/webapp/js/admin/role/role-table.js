@@ -1,8 +1,8 @@
 $(document).ready(function () {
     //1.初始化Table
-    $('#table-role').bootstrapTable({
-        url: '/admin/roles/page',                 //请求后台的URL（*）
-        toolbar: '#toolbar',                //工具按钮用哪个容器
+    $.bootstrapTable({
+        selector: '#table-role',
+        url: '/admin/roles/page',
         rowStyle: function (row) {
             if (!row.enabled) {
                 return {classes: 'danger'};
