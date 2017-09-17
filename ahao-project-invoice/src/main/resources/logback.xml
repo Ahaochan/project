@@ -151,15 +151,31 @@
     <logger name="com.ahao.invoice" level="DEBUG"/>
 
     <!-- apache -->
-    <logger name="org.apache.catalina.startup.DigesterFactory" level="WARN"/>
-    <logger name="org.apache.catalina.util.LifecycleBase" level="WARN"/>
-    <logger name="org.apache.coyote.http11.Http11NioProtocol" level="WARN"/>
-    <logger name="org.apache.sshd.common.util.SecurityUtils" level="WARN"/>
-    <logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"/>
+    <!--<logger name="org.apache.catalina.startup.DigesterFactory" level="WARN"/>-->
+    <!--<logger name="org.apache.catalina.util.LifecycleBase" level="WARN"/>-->
+    <!--<logger name="org.apache.coyote.http11.Http11NioProtocol" level="WARN"/>-->
+    <!--<logger name="org.apache.sshd.common.util.SecurityUtils" level="WARN"/>-->
+    <!--<logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"/>-->
+    <!--<logger name="org.apache.commons" level="WARN"/>-->
+    <logger name="org.apache" level="WARN"/>
 
     <!-- spring -->
-    <logger name="org.springframework.web" level="INFO"/>
-    <logger name="org.springframework.security" level="INFO"/>
+    <!--<logger name="org.springframework.aop" level="INFO"/>-->
+    <!--<logger name="org.springframework.beans" level="INFO"/>-->
+    <!--<logger name="org.springframework.core" level="INFO"/>-->
+    <!--<logger name="org.springframework.context" level="INFO"/>-->
+    <!--<logger name="org.springframework.jndi" level="INFO"/>-->
+    <!--<logger name="org.springframework.security" level="INFO"/>-->
+    <!--<logger name="org.springframework.util" level="INFO"/>-->
+    <!--<logger name="org.springframework.web" level="INFO"/>-->
+    <logger name="org.springframework" level="WARN"/>
+
+    <!-- sql -->
+    <logger name="org.mybatis.spring" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+
+    <!-- thymeleaf -->
+    <logger name="org.thymeleaf" level="WARN"/>
 
     <!-- root级别 INFO -->
     <root level="DEBUG">
