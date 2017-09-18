@@ -64,12 +64,7 @@ INSERT INTO `admin_role__auth` VALUES ('26', '1', '26', current_timestamp, curre
 INSERT INTO `admin_role__auth` VALUES ('27', '1', '27', current_timestamp, current_timestamp);
 INSERT INTO `admin_role__auth` VALUES ('28', '1', '28', current_timestamp, current_timestamp);
 INSERT INTO `admin_role__auth` VALUES ('29', '1', '29', current_timestamp, current_timestamp);
-INSERT INTO `admin_role__auth` VALUES ('30', '1', '30', current_timestamp, current_timestamp);
-INSERT INTO `admin_role__auth` VALUES ('31', '1', '31', current_timestamp, current_timestamp);
-INSERT INTO `admin_role__auth` VALUES ('32', '1', '32', current_timestamp, current_timestamp);
-INSERT INTO `admin_role__auth` VALUES ('33', '1', '32', current_timestamp, current_timestamp);
 
-
-INSERT INTO `admin_role__auth` VALUES ('34', '2', '1', current_timestamp, current_timestamp);
-INSERT INTO `admin_role__auth` VALUES ('35', '3', '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_role__auth` VALUES ('30', '2', '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_role__auth` VALUES ('31', '3', '1', current_timestamp, current_timestamp);
 SET FOREIGN_KEY_CHECKS = 1;

@@ -68,7 +68,6 @@ $(document).ready(function () {
         effectiveFieldsAlias:{name: '类别名称', description: '类别描述'},
         showHeader: true,
         autoSelect: true,
-//        showBtn: true,
         idField: "id",
         keyField: "name",
         fnAdjustAjaxParam: function (keyword, options) {
@@ -78,9 +77,6 @@ $(document).ready(function () {
                     name: $('#input-category-select').val()
                 }
             }
-        },
-        fnProcessData: function () {
-
         }
     });
 });

@@ -62,17 +62,11 @@ INSERT INTO `admin_auth` VALUES ('22', 'auth.category.delete',   '删除货物�
 INSERT INTO `admin_auth` VALUES ('23', 'auth.category.view.all', '查看所有的货物类别信息', '1', current_timestamp, current_timestamp);
 INSERT INTO `admin_auth` VALUES ('24', 'auth.category.edit',     '编辑货物类别',          '1', current_timestamp, current_timestamp);
 
-INSERT INTO `admin_auth` VALUES ('25', 'auth.category.add',      '添加货物类别',          '1', current_timestamp, current_timestamp);
-INSERT INTO `admin_auth` VALUES ('26', 'auth.category.delete',   '删除货物类别',          '1', current_timestamp, current_timestamp);
-INSERT INTO `admin_auth` VALUES ('27', 'auth.category.view.all', '查看所有的货物类别信息', '1', current_timestamp, current_timestamp);
-INSERT INTO `admin_auth` VALUES ('28', 'auth.category.edit',     '编辑货物类别',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('25', 'auth.goods.add',      '添加货物',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('26', 'auth.goods.delete',   '删除货物',          '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('27', 'auth.goods.view.all', '查看所有的货物信息', '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('28', 'auth.goods.edit',     '编辑货物',          '1', current_timestamp, current_timestamp);
 
-INSERT INTO `admin_auth` VALUES ('29', 'auth.goods.add',      '添加货物',          '1', current_timestamp, current_timestamp);
-INSERT INTO `admin_auth` VALUES ('30', 'auth.goods.delete',   '删除货物',          '1', current_timestamp, current_timestamp);
-INSERT INTO `admin_auth` VALUES ('31', 'auth.goods.view.all', '查看所有的货物信息', '1', current_timestamp, current_timestamp);
-INSERT INTO `admin_auth` VALUES ('32', 'auth.goods.edit',     '编辑货物',          '1', current_timestamp, current_timestamp);
-
-
-INSERT INTO `admin_auth` VALUES ('33', 'auth.index.view',        '访问首页',           '1', current_timestamp, current_timestamp);
+INSERT INTO `admin_auth` VALUES ('29', 'auth.index.view',        '访问首页',           '1', current_timestamp, current_timestamp);
 
 SET FOREIGN_KEY_CHECKS = 1;
