@@ -1,5 +1,5 @@
+'use strict';
 $(document).ready(function () {
-    'use strict';
     //1.初始化Table
     $.bootstrapTable({
         selector: '#table-auth',

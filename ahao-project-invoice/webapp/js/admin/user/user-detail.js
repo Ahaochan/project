@@ -1,18 +1,19 @@
+'use strict';
 var oldUsername;
 
 $(document).ready(function () {
     oldUsername = $('#input-username').val();
-
+    var id = $('#input-id').val();
     $.initPanel({
         url: contextPath+'admin/user/roles',
         data: {
-            userId: $('#input-id').val()
+            userId: id
         },
         panel: '#panel-role',
         inputName: 'role'
     });
 
-    var id = $('#input-id').val();
+
     $.submitDetail({
         url: contextPath+'admin/user/' + ((id === undefined) ? "" : id),
         go: contextPath+'admin/users',
@@ -49,7 +50,7 @@ $(document).ready(function () {
                     param:{
                         url : contextPath+'admin/user/checkUsername',
                         method : 'post',
-                        delay: 2000,
+                        delay: 2000
                     },
                     depends: function (element) {
                         return oldUsername !== $(element).val();

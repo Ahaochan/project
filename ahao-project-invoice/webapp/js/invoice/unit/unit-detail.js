@@ -1,3 +1,4 @@
+'use strict';
 $(document).ready(function () {
 
     $('#input-tax').blur(function () {
@@ -10,29 +11,29 @@ $(document).ready(function () {
     $.submitDetail({
         url: contextPath+'invoice/unit/' + ((id === undefined) ? "" : id),
         go: contextPath+'invoice/units',
-        data: {
-            id: '#input-id',
-            name: '#input-name',
-            taxId: '#input-tax',
-            address: '#input-address',
-            tel: '#input-tel',
-            account: '#input-account',
-        },
-        rules: {
-            name: {
-                required: true,
-                minlength: 2,
-                normalizer: function (value) {
-                    return $.trim(value);
-                }
-            },
-            tax: {
-                unifiedSocialCreditCode: true,
-                required: true,
-                maxlength: 100
-            },
-            tel:{
-                number: true,
+                data: {
+                    id: '#input-id',
+                    name: '#input-name',
+                    taxId: '#input-tax',
+                    address: '#input-address',
+                    tel: '#input-tel',
+                    account: '#input-account'
+                },
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 2,
+                        normalizer: function (value) {
+                            return $.trim(value);
+                        }
+                    },
+                    tax: {
+                        unifiedSocialCreditCode: true,
+                        required: true,
+                        maxlength: 100
+                    },
+                    tel:{
+                        number: true
             },
             account:{
                 number: true,

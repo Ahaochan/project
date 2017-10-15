@@ -165,7 +165,7 @@ public class InvoiceServiceImpl extends PageServiceImpl<InvoiceDO> implements In
             int max = 0;
 
 
-            // 销贷单位的行政区划代码和数量
+            // 销项发票的行政区划代码和数量
             JSONArray sellArray = new JSONArray();
             DataSet sellData = entry.getValue().get(true);
             for (Map.Entry<String, Object> sellEntry : sellData.entrySet()) {
@@ -184,7 +184,7 @@ public class InvoiceServiceImpl extends PageServiceImpl<InvoiceDO> implements In
             }
             item.put("sell", sellArray);
 
-            // 购贷单位的行政区划代码和数量
+            // 进项发票的行政区划代码和数量
             JSONArray boughtArray = new JSONArray();
             DataSet boughtData = entry.getValue().get(false);
             for (Map.Entry<String, Object> boughtEntry : boughtData.entrySet()) {

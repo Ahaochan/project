@@ -1,6 +1,5 @@
-
+'use strict';
 $(document).ready(function () {
-    'use strict';
     var oldCode = $('#input-code').val();
     var oldNumber = $('#input-number').val();
 

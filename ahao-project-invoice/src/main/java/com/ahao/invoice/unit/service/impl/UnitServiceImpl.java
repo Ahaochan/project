@@ -133,7 +133,6 @@ public class UnitServiceImpl extends PageServiceImpl<UnitDO> implements UnitServ
 
             json.put(date, item);
         }
-
         return json;
     }
 

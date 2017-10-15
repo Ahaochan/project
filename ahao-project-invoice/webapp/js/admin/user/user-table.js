@@ -1,3 +1,4 @@
+'use strict';
 $(document).ready(function () {
     //1.初始化Table
     $.bootstrapTable({

@@ -1,3 +1,4 @@
+'use strict';
 var oldName;
 
 $(document).ready(function () {
@@ -23,7 +24,7 @@ $(document).ready(function () {
                     param:{
                         url : contextPath+'admin/auth/checkName',
                         method : 'post',
-                        delay: 2000,
+                        delay: 2000
                     },
                     depends: function (element) {
                         return oldName !== $(element).val();
