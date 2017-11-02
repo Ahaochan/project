@@ -4,7 +4,7 @@
 # 使用
 1. 新建一个文件夹, clone本项目 ` git clone git@github.com:Ahaochan/invoice.git `
 2. 然后使用maven打包war, [war包下载地址](https://github.com/Ahaochan/invoice/blob/master/ahao-project-invoice/doc/ahao.war)
-3. 部署, [部署教程](https://ahaochan.github.io/Java/JavaWeb/Tomcat/Tomcat部署web项目的3种方法.html)
+3. 部署, [部署教程](https://ahaochan.github.io/posts/The_ways_of_deploy_Web_project_with_Tomcat.html)
 4. 导入sql数据, [sql文件位置](https://github.com/Ahaochan/invoice/tree/master/ahao-project-invoice/src/main/resources/sql)
 5. 运行Tomcat, 输入帐号admin1, 密码admin1, 登录即可。
 
