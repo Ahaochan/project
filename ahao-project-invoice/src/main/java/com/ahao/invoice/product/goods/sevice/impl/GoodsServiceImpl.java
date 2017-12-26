@@ -1,10 +1,10 @@
 package com.ahao.invoice.product.goods.sevice.impl;
 
 import com.ahao.entity.DataSet;
+import com.ahao.invoice.base.service.impl.PageServiceImpl;
 import com.ahao.invoice.product.goods.dao.GoodsDAO;
 import com.ahao.invoice.product.goods.entity.GoodsDO;
 import com.ahao.invoice.product.goods.sevice.GoodsService;
-import com.ahao.service.impl.PageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

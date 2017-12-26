@@ -12,11 +12,11 @@ public abstract class JSONHelper {
     private JSONHelper() {
     }
 
-    public static JSONArray getArray() {
+    public static JSONArray newArray() {
         return new JSONArray();
     }
 
-    public static JSONObject getJSON() {
+    public static JSONObject newJSON() {
         return new JSONObject();
     }
 
@@ -26,7 +26,7 @@ public abstract class JSONHelper {
      * @param json json字符串
      * @return JSON对象
      */
-    public static JSONObject getJSONObject(String json) {
+    public static JSONObject toJSONObject(String json) {
         return JSONObject.parseObject(json);
     }
 
@@ -36,7 +36,7 @@ public abstract class JSONHelper {
      * @param obj 对象
      * @return json字符串
      */
-    public static String getJSONString(Object obj) {
+    public static String toJSONString(Object obj) {
         return JSONObject.toJSONString(obj);
     }
 
@@ -47,7 +47,7 @@ public abstract class JSONHelper {
      * @param clazz 对象
      * @return clazz对象
      */
-    public static <T> T getObject(String json, Class<T> clazz) {
+    public static <T> T toObject(String json, Class<T> clazz) {
         return JSONObject.parseObject(json, clazz);
     }
 }

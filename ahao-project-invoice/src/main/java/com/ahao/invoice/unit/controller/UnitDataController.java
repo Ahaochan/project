@@ -5,7 +5,7 @@ import com.ahao.entity.AjaxDTO;
 import com.ahao.invoice.invoice.util.ValidUtils;
 import com.ahao.invoice.unit.entity.UnitDO;
 import com.ahao.invoice.unit.service.UnitService;
-import com.ahao.util.NumberHelper;
+import com.ahao.util.lang.math.NumberHelper;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;

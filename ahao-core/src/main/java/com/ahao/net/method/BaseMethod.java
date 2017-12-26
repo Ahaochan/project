@@ -2,11 +2,14 @@ package com.ahao.net.method;
 
 import com.ahao.net.HttpClientHelper;
 import com.ahao.net.Response;
-import com.ahao.util.IOHelper;
+import com.ahao.util.io.IOHelper;
+import com.ahao.util.lang.time.DateHelper;
+import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ahaochan on 2017/8/10.
@@ -82,30 +86,42 @@ public abstract class BaseMethod<M extends BaseMethod> {
      * @return 响应体, 用于格式化数据
      */
     public Response execute(boolean https) {
+        logger.debug("[" + url + "]: 初始化请求头, url为:" + url);
+        // 初始化请求头和请求体
+        HttpRequestBase http = initHttpMethod(url);
+
+        // 设置超时限制
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setConnectTimeout(1000 * 100)
+                .build();
+        http.setConfig(requestConfig);
+
+        long start = System.currentTimeMillis();
+        logger.debug("[" + url + ": 开始进行Http请求, 开始时间: " + DateHelper.getString(start, DateHelper.yyyyMMdd_hhmmssSSS));
+
         // 打开 HttpClientUtils 客户端
-        try (CloseableHttpClient httpClient = HttpClientHelper.getClient(https)) {
-            // 初始化请求头和请求体
-            HttpRequestBase http = initHttpMethod(url);
+        try (CloseableHttpClient httpClient = HttpClientHelper.getClient(https);
+             CloseableHttpResponse response = httpClient.execute(http);) {
+            // 获取IO
+            HttpEntity entity = response.getEntity();
+            InputStream inputStream = entity.getContent();
 
-            // 设置超时限制
-            RequestConfig requestConfig = RequestConfig.custom()
-                    .setConnectTimeout(1000 * 100)
-                    .build();
-            http.setConfig(requestConfig);
+            // 获取 字节数组
+            byte[] data = IOHelper.toByte(inputStream);
 
-            // 获取 response
-            try (CloseableHttpResponse response = httpClient.execute(http);
-                 InputStream inputStream = response.getEntity().getContent()) {
+            // 释放IO
+            IOHelper.close(inputStream);
+            EntityUtils.consume(entity);
 
-                byte[] data = IOHelper.toByte(inputStream);
-
-                // 将返回的 byte[] 封装到 Response 中, 用于格式化.
-                return new Response(data);
-            } catch (IOException e) {
-                logger.error("IO异常: ", e);
-            }
+            // 将返回的 byte[] 封装到 Response 中, 用于格式化.
+            return new Response(url, data);
         } catch (IOException e) {
-            logger.error("IO异常: ",e );
+            logger.warn("[" + url + "]@: IO异常: ", e);
+        } finally {
+            long end = System.currentTimeMillis();
+            logger.debug("[" + url + ": Http请求完毕: 结束时间: " + DateHelper.getString(end, DateHelper.yyyyMMdd_hhmmssSSS) +
+                    ", 总耗时: " + DateHelper.getBetween(start, end, TimeUnit.MILLISECONDS) + "毫秒");
+            http.releaseConnection();
         }
         return null;
     }

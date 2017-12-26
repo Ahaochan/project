@@ -1,7 +1,7 @@
 package com.ahao.invoice.admin.user.service;
 
 import com.ahao.invoice.admin.user.entity.UserDO;
-import com.ahao.service.PageService;
+import com.ahao.invoice.base.service.PageService;
 import org.springframework.stereotype.Service;
 
 /**

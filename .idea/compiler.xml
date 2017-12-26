@@ -14,7 +14,6 @@
       <module name="ahao-all" target="1.8" />
       <module name="ahao-core" target="1.8" />
       <module name="ahao-project-invoice" target="1.8" />
-      <module name="ahao-protect-admin" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

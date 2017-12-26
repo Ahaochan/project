@@ -1,6 +1,6 @@
 package com.ahao.util;
 
-import org.apache.http.client.utils.CloneUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,12 +16,6 @@ public abstract class CloneHelper {
     }
 
     public static <T extends Cloneable> T clone(T instance) {
-        try {
-            return CloneUtils.cloneObject(instance);
-        } catch (CloneNotSupportedException e) {
-            logger.error(instance.getClass().getSimpleName() + "未实现Cloneable接口," +
-                    " 若为自定义类, 建议使用复制构造函数: ",e);
-            return null;
-        }
+        return ObjectUtils.clone(instance);
     }
 }

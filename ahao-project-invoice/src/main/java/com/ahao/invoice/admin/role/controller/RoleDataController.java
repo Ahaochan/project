@@ -6,9 +6,9 @@ import com.ahao.invoice.admin.auth.service.AuthService;
 import com.ahao.invoice.admin.role.entity.RoleDO;
 import com.ahao.invoice.admin.role.service.RoleService;
 import com.ahao.invoice.invoice.util.ValidUtils;
-import com.ahao.util.CollectionHelper;
-import com.ahao.util.NumberHelper;
-import com.ahao.util.StringHelper;
+import com.ahao.util.lang.CollectionHelper;
+import com.ahao.util.lang.StringHelper;
+import com.ahao.util.lang.math.NumberHelper;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -100,7 +100,7 @@ public class RoleDataController {
 
     @PostMapping("/admin/role/checkName")
     public boolean checkName(String oldName, String name) {
-        if (StringHelper.equals(name, oldName)) {
+        if (StringHelper.equalsAny(name, oldName)) {
             return true;
         }
 

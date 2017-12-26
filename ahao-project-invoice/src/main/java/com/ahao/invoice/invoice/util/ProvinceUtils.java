@@ -1,7 +1,7 @@
 package com.ahao.invoice.invoice.util;
 
 import com.ahao.config.Setter;
-import com.ahao.util.StringHelper;
+import com.ahao.util.lang.StringHelper;
 import com.alibaba.fastjson.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -45,7 +45,7 @@ public abstract class ProvinceUtils {
                                 province.put("city", text);
                             }
                         });
-                if (province.containsKey("code") && !StringHelper.equals(province.getString("city"),
+                if (province.containsKey("code") && !StringHelper.equalsAny(province.getString("city"),
                         "市辖区", "省直辖县级行政区划")) {
                     jsoup.put(province.getString("code"), province.getString("city"));
                 }

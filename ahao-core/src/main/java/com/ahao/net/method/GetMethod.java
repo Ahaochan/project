@@ -1,8 +1,11 @@
 package com.ahao.net.method;
 
 import com.ahao.net.Parameterizable;
+import com.ahao.util.JSONHelper;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,6 +15,8 @@ import java.util.Map;
  * 进行 get 请求
  */
 public class GetMethod extends BaseMethod<GetMethod> implements Parameterizable<GetMethod> {
+    private static final Logger logger = LoggerFactory.getLogger(GetMethod.class);
+
     private Map<String, String> params = new LinkedHashMap<>();
 
     public GetMethod(String url) {
@@ -40,12 +45,12 @@ public class GetMethod extends BaseMethod<GetMethod> implements Parameterizable<
         }
         urlBuilder.deleteCharAt(urlBuilder.length() - 1);
 
-
         HttpGet http = new HttpGet(urlBuilder.toString());
         // 设置头部
         for (Map.Entry<String, String> header : getHeader().entrySet()) {
             http.setHeader(header.getKey(), header.getValue());
         }
+        logger.debug("["+url+"]: 初始化请求头:"+ JSONHelper.toJSONString(getHeader()));
         return http;
     }
 

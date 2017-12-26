@@ -6,7 +6,7 @@ import com.ahao.invoice.admin.auth.controller.AuthDataController;
 import com.ahao.invoice.invoice.util.ValidUtils;
 import com.ahao.invoice.product.category.entity.CategoryDO;
 import com.ahao.invoice.product.category.sevice.CategoryService;
-import com.ahao.util.NumberHelper;
+import com.ahao.util.lang.math.NumberHelper;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

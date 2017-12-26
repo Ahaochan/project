@@ -1,7 +1,7 @@
 package com.ahao.invoice.admin.role.service;
 
 import com.ahao.invoice.admin.role.entity.RoleDO;
-import com.ahao.service.PageService;
+import com.ahao.invoice.base.service.PageService;
 import com.alibaba.fastjson.JSONArray;
 import org.springframework.stereotype.Service;
 

@@ -6,9 +6,9 @@ import com.ahao.invoice.admin.role.service.RoleService;
 import com.ahao.invoice.admin.user.entity.UserDO;
 import com.ahao.invoice.admin.user.service.UserService;
 import com.ahao.invoice.invoice.util.ValidUtils;
-import com.ahao.util.CollectionHelper;
-import com.ahao.util.NumberHelper;
-import com.ahao.util.StringHelper;
+import com.ahao.util.lang.CollectionHelper;
+import com.ahao.util.lang.StringHelper;
+import com.ahao.util.lang.math.NumberHelper;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -98,7 +98,7 @@ public class UserDataController {
 
     @PostMapping("/admin/user/checkUsername")
     public boolean checkUsername(String oldUsername, String username) {
-        if (StringHelper.equals(username, oldUsername)) {
+        if (StringHelper.equalsAny(username, oldUsername)) {
             return true;
         }
 

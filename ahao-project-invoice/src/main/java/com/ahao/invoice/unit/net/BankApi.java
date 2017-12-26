@@ -1,7 +1,7 @@
 package com.ahao.invoice.unit.net;
 
 import com.ahao.net.HttpClientHelper;
-import com.ahao.net.convert.JSONConvert;
+import com.ahao.net.convert.JSONObjectConvert;
 
 /**
  * Created by Ahaochan on 2017/8/14.
@@ -16,7 +16,7 @@ public class BankApi {
                 .addParam("cardNo", account)
                 .addParam("cardBinCheck", "true")
                 .execute()
-                .convert(JSONConvert.class)
+                .convert(JSONObjectConvert.class)
                 .getString("bank");
     }
 

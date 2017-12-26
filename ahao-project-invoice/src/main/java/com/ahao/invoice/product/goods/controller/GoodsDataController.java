@@ -5,7 +5,7 @@ import com.ahao.entity.AjaxDTO;
 import com.ahao.invoice.invoice.util.ValidUtils;
 import com.ahao.invoice.product.goods.entity.GoodsDO;
 import com.ahao.invoice.product.goods.sevice.GoodsService;
-import com.ahao.util.NumberHelper;
+import com.ahao.util.lang.math.NumberHelper;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

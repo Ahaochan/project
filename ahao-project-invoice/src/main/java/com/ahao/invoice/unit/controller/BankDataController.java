@@ -3,7 +3,7 @@ package com.ahao.invoice.unit.controller;
 import com.ahao.config.SpringConfig;
 import com.ahao.entity.AjaxDTO;
 import com.ahao.invoice.unit.net.BankApi;
-import com.ahao.util.StringHelper;
+import com.ahao.util.lang.StringHelper;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

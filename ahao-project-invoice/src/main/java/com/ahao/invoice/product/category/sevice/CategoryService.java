@@ -1,7 +1,7 @@
 package com.ahao.invoice.product.category.sevice;
 
+import com.ahao.invoice.base.service.PageService;
 import com.ahao.invoice.product.category.entity.CategoryDO;
-import com.ahao.service.PageService;
 
 import java.util.List;
 

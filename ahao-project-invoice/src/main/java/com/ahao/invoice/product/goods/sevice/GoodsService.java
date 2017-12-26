@@ -1,8 +1,8 @@
 package com.ahao.invoice.product.goods.sevice;
 
 import com.ahao.entity.DataSet;
+import com.ahao.invoice.base.service.PageService;
 import com.ahao.invoice.product.goods.entity.GoodsDO;
-import com.ahao.service.PageService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.ahao.filter;
 
 
 import com.ahao.context.PageContext;
-import com.ahao.util.StringHelper;
+import com.ahao.util.lang.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

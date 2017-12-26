@@ -61,6 +61,7 @@ public class ConfigServlet extends HttpServletBean {
         SystemConfig.getInstance();
     }
 
+    @Override
     public void destroy() {
 
     }

@@ -1,8 +1,8 @@
 package com.ahao.entity;
 
-import com.ahao.util.CollectionHelper;
-import com.ahao.util.NumberHelper;
-import com.ahao.util.StringHelper;
+import com.ahao.util.lang.CollectionHelper;
+import com.ahao.util.lang.StringHelper;
+import com.ahao.util.lang.math.NumberHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -46,9 +46,11 @@ public class PostJSONMethod extends BaseMethod<PostJSONMethod> implements Parame
         for (Map.Entry<String, String> header : getHeader().entrySet()) {
             http.setHeader(header.getKey(), header.getValue());
         }
+        logger.debug("["+url+"]: 初始化请求头:"+ JSONHelper.toJSONString(getHeader()));
 
         // 使用json的请求体
-        String jsonParam = JSONHelper.getJSONString(params);
+        String jsonParam = JSONHelper.toJSONString(params);
+        logger.debug("["+url+"]: 初始化请求体:"+ jsonParam);
         http.setEntity(new StringEntity(jsonParam, "UTF-8"));
         return http;
     }

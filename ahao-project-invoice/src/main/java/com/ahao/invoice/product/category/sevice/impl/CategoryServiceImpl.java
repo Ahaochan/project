@@ -1,9 +1,9 @@
 package com.ahao.invoice.product.category.sevice.impl;
 
+import com.ahao.invoice.base.service.impl.PageServiceImpl;
 import com.ahao.invoice.product.category.dao.CategoryDAO;
 import com.ahao.invoice.product.category.entity.CategoryDO;
 import com.ahao.invoice.product.category.sevice.CategoryService;
-import com.ahao.service.impl.PageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
