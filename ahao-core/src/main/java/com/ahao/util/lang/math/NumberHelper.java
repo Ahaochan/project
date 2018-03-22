@@ -137,7 +137,7 @@ public abstract class NumberHelper {
     }
 
     public static <T> boolean isNumber(T obj) {
-        return obj != null && NumberUtils.isNumber(obj.toString());
+        return obj != null && NumberUtils.isCreatable(obj.toString());
     }
 
     public static int between(int min, int max, int number) {
