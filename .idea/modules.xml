@@ -4,7 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ahao-all.iml" filepath="$PROJECT_DIR$/ahao-all.iml" />
       <module fileurl="file://$PROJECT_DIR$/ahao-core/ahao-core.iml" filepath="$PROJECT_DIR$/ahao-core/ahao-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ahao-project-invoice/ahao-project-invoice.iml" filepath="$PROJECT_DIR$/ahao-project-invoice/ahao-project-invoice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ahao-forum-guitar/ahao-forum-guitar.iml" filepath="$PROJECT_DIR$/ahao-forum-guitar/ahao-forum-guitar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ahao-invoice/ahao-invoice.iml" filepath="$PROJECT_DIR$/ahao-invoice/ahao-invoice.iml" />
     </modules>
   </component>
 </project>

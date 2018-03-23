@@ -7,13 +7,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ahao-core" />
-        <module name="ahao-project-invoice" />
+        <module name="ahao-forum-guitar" />
+        <module name="ahao-invoice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ahao-all" target="1.8" />
       <module name="ahao-core" target="1.8" />
-      <module name="ahao-project-invoice" target="1.8" />
+      <module name="ahao-forum-guitar" target="1.8" />
+      <module name="ahao-invoice" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,0 +1,17 @@
+
+.panel-title span {
+    float: right;
+}
+
+.panel-item {
+    margin-top: 5px;
+}
+.panel-item img {
+    width: 120px;
+    height: 60px;
+    float: left;
+}
+
+.panel-item div {
+    margin-left: 130px
+}

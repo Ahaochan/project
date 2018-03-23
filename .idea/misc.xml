@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$/ahao-project-invoice" />
+    <file type="web" url="file://$PROJECT_DIR$/ahao-forum-guitar" />
+    <file type="web" url="file://$PROJECT_DIR$/ahao-invoice" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
