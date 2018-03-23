@@ -3,17 +3,17 @@
 
 # 使用
 1. 新建一个文件夹, clone本项目 ` git clone git@github.com:Ahaochan/invoice.git `
-2. 然后使用maven打包war, [war包下载地址](https://github.com/Ahaochan/invoice/blob/master/ahao-project-invoice/doc/ahao.war)
+2. 然后使用maven打包war, [war包下载地址](https://github.com/Ahaochan/invoice/blob/master/ahao-invoice/doc/ahao.war)
 3. 部署, [部署教程](https://ahaochan.github.io/posts/The_ways_of_deploy_Web_project_with_Tomcat.html)
-4. 导入sql数据, [sql文件位置](https://github.com/Ahaochan/invoice/tree/master/ahao-project-invoice/src/main/resources/sql)
+4. 导入sql数据, [sql文件位置](https://github.com/Ahaochan/invoice/tree/master/ahao-invoice/src/main/resources/sql)
 5. 运行Tomcat, 输入帐号admin1, 密码admin1, 登录即可。
 
 # 截图
-![登录图](https://github.com/Ahaochan/invoice/blob/master/ahao-project-invoice/doc/pic_login.png)
-![列表图](https://github.com/Ahaochan/invoice/blob/master/ahao-project-invoice/doc/pic_list.png)
-![详细图](https://github.com/Ahaochan/invoice/blob/master/ahao-project-invoice/doc/pic_item.png)
-![折线图](https://github.com/Ahaochan/invoice/blob/master/ahao-project-invoice/doc/pic_profit.png)
-![地理图](https://github.com/Ahaochan/invoice/blob/master/ahao-project-invoice/doc/pic_distribution.png)
+![登录图](https://github.com/Ahaochan/invoice/blob/master/ahao-invoice/doc/pic_login.png)
+![列表图](https://github.com/Ahaochan/invoice/blob/master/ahao-invoice/doc/pic_list.png)
+![详细图](https://github.com/Ahaochan/invoice/blob/master/ahao-invoice/doc/pic_item.png)
+![折线图](https://github.com/Ahaochan/invoice/blob/master/ahao-invoice/doc/pic_profit.png)
+![地理图](https://github.com/Ahaochan/invoice/blob/master/ahao-invoice/doc/pic_distribution.png)
 
 # 贡献
 本项目依赖于以下开源项目
