@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.forum.guitar.module.category.dao.CategoryMapper">
+
+    <select id="getCategory" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    c.${item}
+                </foreach>
+            </when>
+            <otherwise> c.* </otherwise>
+        </choose>
+        from category c
+        <where>
+            <choose>
+                <when test="parentId != null and parentId > 0">
+                    c.parent_id = #{parentId}
+                </when>
+                <otherwise>
+                    c.parent_id is null
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+</mapper>
