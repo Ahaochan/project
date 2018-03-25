@@ -96,7 +96,8 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a data-toggle="collapse" href="#pane-sub-role">角色</a>
+                                                角色
+                                                <span class="glyphicon glyphicon-triangle-bottom" data-toggle="collapse" href="#pane-sub-role"></span>
                                             </h4>
                                         </div>
                                         <div id="pane-sub-role" class="panel-collapse collapse in">
@@ -118,7 +119,8 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a data-toggle="collapse" href="#pane-sub-auth">权限</a>
+                                                权限
+                                                <span class="glyphicon glyphicon-triangle-bottom" data-toggle="collapse" href="#pane-sub-auth"></span>
                                             </h4>
                                         </div>
                                         <div id="pane-sub-auth" class="panel-collapse collapse in">
