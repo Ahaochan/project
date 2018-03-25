@@ -27,7 +27,7 @@
                     <div class="panel-body media-list">
                         <div class="col-md-4 panel-item media" style="display: none">
                             <div class="media-left">
-                                <img src="https://v3.bootcss.com/assets/img/coding.jpeg"/>
+                                <a href="#"><img src="https://v3.bootcss.com/assets/img/coding.jpeg"/></a>
                             </div>
                             <div class="media-body">
                                 <a href="#">板块标题</a><br/>
@@ -38,10 +38,10 @@
                         <c:forEach items="${group.get('sub')}" var="item">
                             <div class="col-md-4 panel-item media">
                                 <div class="media-left">
-                                    <img src="${item.getString("icon_url")}"/>
+                                    <a href="${contextPath}/category-${item.getInt("id")}"><img src="${item.getString("icon_url")}"/></a>
                                 </div>
                                 <div class="media-body">
-                                    <a href="#">${item.getString("name")}</a><br/>
+                                    <a href="${contextPath}/category-${item.getInt("id")}">${item.getString("name")}</a><br/>
                                     数量:1000, 回复:1000<br/>
                                     最后发表时间: 4天前
                                 </div>
