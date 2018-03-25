@@ -14,6 +14,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <c:if test="${username != null}">
                     <li><a href="${contextPath}/profile">${username}</a></li>
+                    <li><a href="${contextPath}/logout">注销</a></li>
                 </c:if>
                 <c:if test="${username == null}">
                     <li><a href="${contextPath}/login">登录</a></li>
