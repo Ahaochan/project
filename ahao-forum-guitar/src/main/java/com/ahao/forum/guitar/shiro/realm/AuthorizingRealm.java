@@ -2,7 +2,6 @@ package com.ahao.forum.guitar.shiro.realm;
 
 import com.ahao.core.annotation.Realm;
 import com.ahao.core.entity.IDataSet;
-import com.ahao.core.util.lang.CollectionHelper;
 import com.ahao.forum.guitar.module.admin.auth.dao.AuthMapper;
 import com.ahao.forum.guitar.module.admin.role.dao.RoleMapper;
 import com.ahao.forum.guitar.module.admin.user.dao.UserMapper;
@@ -82,7 +81,7 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         // 2. 根据 userId 获取所有角色
-        List<IDataSet> roleDatas = roleMapper.selectRoleByUserId(userId, "name");
+        List<IDataSet> roleDatas = roleMapper.getByUserId(userId);
         Set<String> roles = new HashSet<>(roleDatas.size());
         for (IDataSet roleData : roleDatas) {
             roles.add(roleData.getString("name"));
@@ -90,7 +89,7 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
         authorizationInfo.setRoles(roles);
 
         // 3. 根据 userId 获取所有权限
-        List<IDataSet> authDatas = authMapper.selectAuthByUserId(userId, "name");
+        List<IDataSet> authDatas = authMapper.getByUserId(userId, "name");
         Set<String> auths = new HashSet<>(authDatas.size());
         for (IDataSet authData : authDatas) {
             auths.add(authData.getString("name"));

@@ -8,7 +8,10 @@ import java.util.List;
 
 @Repository
 public interface UserMapper {
+    IDataSet selectProfileByUserId(@Param("userId") long userId, @Param("fields") String... fields);
+
     IDataSet selectByUsername(@Param("username") String username, @Param("fields") String... fields);
+
 
     List<IDataSet> getUsersByWeight(@Param("search") String search, @Param("weight") int weight, @Param("fields") String... fields);
 }

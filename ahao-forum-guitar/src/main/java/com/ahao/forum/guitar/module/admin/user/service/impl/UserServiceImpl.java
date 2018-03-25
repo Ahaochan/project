@@ -8,6 +8,8 @@ import com.ahao.forum.guitar.module.admin.user.service.UserService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,24 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
 
     private UserMapper userMapper;
 
     @Autowired
     public UserServiceImpl(UserMapper userMapper){
         this.userMapper = userMapper;
+    }
+
+    @Override
+    public IDataSet getProfile(Long userId, String... fields) {
+        if(userId == null || userId <= 0){
+            logger.debug("用户id不合法, 获取信息失败:" + userId);
+            return null;
+        }
+        IDataSet data = userMapper.selectProfileByUserId(userId, fields);
+        return data;
     }
 
     @Override

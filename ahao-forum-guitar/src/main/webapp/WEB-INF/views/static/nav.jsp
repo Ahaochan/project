@@ -13,7 +13,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <c:if test="${username != null}">
-                    <li><a href="${contextPath}/">${username}</a></li>
+                    <li><a href="${contextPath}/profile">${username}</a></li>
                 </c:if>
                 <c:if test="${username == null}">
                     <li><a href="${contextPath}/login">登录</a></li>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.module.admin.role.dao.RoleMapper">
 
-    <select id="selectRoleByUserId" resultType="DataSet">
+    <select id="getByUserId" resultType="DataSet">
         select
         <choose>
             <when test="fields != null and fields.length > 0">
@@ -10,11 +10,28 @@
                     r.${item}
                 </foreach>
             </when>
-            <otherwise> r.* </otherwise>
+            <otherwise>*</otherwise>
         </choose>
-        from admin_role r on ra.role_id = r.id
-        left join admin_user__role ur on ur.role_id = r.id
-        left join admin_user u on ur.user_id = u.id
-        where u.id = #{userId}
+        from admin_role r
+        left join admin_user__role ur on r.id = ur.role_id
+        where ur.user_id = #{userId}
     </select>
+
+
+    <select id="getSelectedByUserId" resultType="DataSet">
+        SELECT
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    r.${item}
+                </foreach>
+            </when>
+            <otherwise>*</otherwise>
+        </choose>
+        , ur.id selected
+        from admin_role r
+        left join admin_user__role ur on ur.role_id = r.id
+        where ur.user_id = #{userId} or ur.user_id is null
+    </select>
+
 </mapper>

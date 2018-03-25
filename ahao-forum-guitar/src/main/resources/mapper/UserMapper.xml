@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.module.admin.user.dao.UserMapper">
 
+    <select id="selectProfileByUserId" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    ${item}
+                </foreach>
+            </when>
+            <otherwise>*</otherwise>
+        </choose>
+        from user_profile up
+        where up.user_id = ${userId}
+    </select>
+
     <select id="selectByUsername" resultType="DataSet">
         select
         <choose>
@@ -10,7 +24,7 @@
                     ${item}
                 </foreach>
             </when>
-            <otherwise> * </otherwise>
+            <otherwise>*</otherwise>
         </choose>
         from admin_user
         where username = #{username}
@@ -24,7 +38,7 @@
                     u.${item}
                 </foreach>
             </when>
-            <otherwise> u.* </otherwise>
+            <otherwise>u.*</otherwise>
         </choose>
         from admin_user u
         left join admin_user__role ur on u.id = ur.user_id
@@ -35,4 +49,5 @@
             and u.username like ${searchLike}
         </if>
     </select>
+
 </mapper>
