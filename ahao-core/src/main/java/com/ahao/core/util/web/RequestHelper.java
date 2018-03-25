@@ -3,6 +3,7 @@ package com.ahao.core.util.web;
 import com.ahao.core.util.lang.ArrayHelper;
 import com.ahao.core.util.lang.StringHelper;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -33,7 +34,7 @@ public abstract class RequestHelper {
      */
     public static HttpServletRequest getRequest(){
         return ((ServletRequestAttributes) RequestContextHolder
-                .getRequestAttributes()).getRequest();
+                .currentRequestAttributes()).getRequest();
     }
 
     // ----------------------- 设置 Attribute 属性------------------------------
@@ -216,6 +217,39 @@ public abstract class RequestHelper {
         } catch (ServletException | IOException e) {
             logger.warn("转发失败:", e);
         }
+    }
+
+    /**
+     * 获取访问者IP
+     * 在一般情况下使用Request.getRemoteAddr()即可，
+     * 但是经过nginx等反向代理软件后，这个方法会失效。
+     * 本方法先从Header中获取X-Real-IP，
+     * 如果不存在再从X-Forwarded-For获得第一个IP(用,分割)
+     * 如果还不存在则调用Request .getRemoteAddr()。
+     */
+    public static String getClientIp() {
+        try {
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            String ip = request.getHeader("X-Real-IP");
+            if (StringUtils.isNotBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+                return ip;
+            }
+            ip = request.getHeader("X-Forwarded-For");
+            if (StringUtils.isNotBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+                // 多次反向代理后会有多个IP值，第一个为真实IP。
+                int index = ip.indexOf(',');
+                if (index != -1) {
+                    return ip.substring(0, index);
+                } else {
+                    return ip;
+                }
+            } else {
+                return request.getRemoteAddr();
+            }
+        } catch (Exception e) {
+            logger.error("获取Ip地址失败:", e);
+        }
+        return "非法Ip";
     }
 
 

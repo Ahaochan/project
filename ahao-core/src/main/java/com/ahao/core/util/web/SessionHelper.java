@@ -3,7 +3,10 @@ package com.ahao.core.util.web;
 import com.ahao.core.util.lang.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -16,6 +19,14 @@ public abstract class SessionHelper {
     private SessionHelper(){
 
     }
+
+    /**
+     * 从ThreadLocal中获取HttpRequest
+     */
+    public static HttpSession getSession(){
+        return RequestHelper.getRequest().getSession();
+    }
+
     /**
      * 向SESSION中设置字符串
      *

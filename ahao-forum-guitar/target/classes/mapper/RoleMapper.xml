@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.forum.guitar.module.admin.role.dao.RoleMapper">
+
+    <select id="selectRoleByUserId" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    r.${item}
+                </foreach>
+            </when>
+            <otherwise> r.* </otherwise>
+        </choose>
+        from admin_role r on ra.role_id = r.id
+        left join admin_user__role ur on ur.role_id = r.id
+        left join admin_user u on ur.user_id = u.id
+        where u.id = #{userId}
+    </select>
+</mapper>

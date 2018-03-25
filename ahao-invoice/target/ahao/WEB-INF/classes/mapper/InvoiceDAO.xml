@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.invoice.invoice.dao.InvoiceDAO">
+    <resultMap type="com.ahao.invoice.invoice.entity.InvoiceDO" id="invoiceResult">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="long"/>
+        <result column="invoice_code" property="code" jdbcType="VARCHAR" javaType="String"/>
+        <result column="invoice_number" property="number" jdbcType="VARCHAR" javaType="String"/>
+        <result column="date" property="date" jdbcType="TIMESTAMP" javaType="Date"/>
+        <result column="is_sell" property="sell" jdbcType="TINYINT" javaType="Boolean"/>
+        <result column="unit_id" property="unitId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="review_id" property="reviewId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="drawer_id" property="drawerId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="gmt_create" property="createTime" jdbcType="TIMESTAMP" javaType="Date"/>
+        <result column="gmt_modify" property="modifyTime" jdbcType="TIMESTAMP" javaType="Date"/>
+    </resultMap>
+
+    <select id="selectPage" resultType="DataSet">
+        SELECT i1.id id, g.name name, g.unite_price*ig.number price, i1.date date, i1.is_sell type
+        FROM invoice i1
+        INNER JOIN (
+            SELECT id
+            FROM invoice
+            ORDER BY ${sort}
+            <if test="order.equals('desc')">
+                ${order}
+            </if>
+            LIMIT #{start}, #{pageSize}
+        ) i2 ON i1.id = i2.id
+        LEFT JOIN invoice__goods ig ON i1.id = ig.invoice_id
+        LEFT JOIN product_goods g ON ig.goods_id = g.id
+    </select>
+
+
+    <select id="getForm" resultType="DataSet">
+        SELECT iu.id unitId, iu.name unitName, iu.tax_id unitTaxId,
+            iu.address unitAddress, iu.tel unitTel, iu.account unitAccount,
+            i.id invoiceId, i.invoice_code invoiceCode, i.invoice_number invoiceNumber,
+            i.date invoiceDate, i.is_sell invoiceType,
+            g.id goodsId, g.name goodsName, g.specification goodsSpecification,
+            g.unit goodsUnit, ig.number goodsNumber, g.unite_price goodsUnitPrice,
+            (ig.number*g.unite_price) goodsMoney, g.tax_rate goodsTaxRate,
+            (ig.number*g.unite_price*g.tax_rate) goodsTaxMoney
+        FROM invoice i
+        LEFT JOIN invoice_unit iu on i.unit_id = iu.id
+        LEFT JOIN invoice__goods ig on i.id = ig.invoice_id
+        LEFT JOIN product_goods g on g.id = ig.goods_id
+        WHERE i.id = #{invoiceId}
+    </select>
+
+    <insert id="addRelate">
+        DELETE FROM invoice__goods WHERE invoice_id = #{invoiceId};
+        <if test="goodsId != null">
+            INSERT INTO invoice__goods(invoice_id, goods_id, number, gmt_create, gmt_modify)
+            VALUES (#{invoiceId}, #{goodsId}, #{number}, current_timestamp, current_timestamp);
+        </if>
+    </insert>
+
+    <select id="getProfitGraph" resultType="DataSet">
+        SELECT DATE_FORMAT(i.date, '%Y-%m-%d') date, i.is_sell type, count(*),
+               SUM(pg.unite_price*ig.number) money,
+               SUM(pg.unite_price*ig.number*pg.tax_rate) tax
+        FROM invoice i
+            LEFT JOIN invoice__goods ig on ig.invoice_id = i.id
+            LEFT JOIN product_goods pg on ig.goods_id = pg.id
+        GROUP BY YEAR(i.date), MONTH(i.date), DAY(i.date), i.is_sell
+    </select>
+
+    <select id="getDistribution" resultType="DataSet">
+        SELECT DATE_FORMAT(i.date, '%Y-%m') date, i.is_sell type,
+               CONCAT(SUBSTR(i.invoice_code, 1, 2), '0000') code, count(*) number
+        FROM invoice i
+        GROUP BY YEAR(i.date), MONTH(i.date), i.is_sell, substr(i.invoice_code, 1, 2)
+    </select>
+    <select id="getProfit" resultType="DataSet">
+        SELECT i.is_sell type, SUM(g.unite_price*ig.number) money,
+                          SUM(g.unite_price*ig.number*g.tax_rate) tax
+        FROM invoice i
+            LEFT JOIN invoice__goods ig ON i.id = ig.invoice_id
+            LEFT JOIN product_goods g ON g.id = ig.goods_id
+        GROUP BY i.is_sell
+    </select>
+
+</mapper>

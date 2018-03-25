@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment(#{invoice.title.add})"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{invoice.title.add}">录入发票</h1>
+                </div>
+            </div>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-11">
+                        <h2 class="text-center" id="title-invoice">增值税发票</h2>
+                    </div>
+                </div>
+                <table class="table table-bordered table-responsive">
+                    <tr>
+                        <td class="col-md-1 text-center">
+                            <span class="text-vertical" data-th-text="#{invoice.unit.title}">购销单位</span>
+                            <span class="btn btn-primary" data-toggle="modal"
+                                  data-target="#modal-unit-select"
+                                  data-title="购销单位">选择</span>
+                        </td>
+                        <td class="col-md-6" colspan="5">
+                            <input type="hidden" id="input-unit-id" name="unit"/>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" data-th-text="#{invoice.unit.name}">单位名称</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" data-th-placeholder="#{invoice.unit.name}" disabled="disabled"
+                                           id="input-unit-name"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" data-th-text="#{invoice.unit.tax.id}">统一社会信用代码</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" data-th-placeholder="#{invoice.unit.tax.id}" disabled="disabled"
+                                           id="input-unit-tax"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" data-th-text="#{invoice.unit.address_tel}">地址、电话</label>
+                                <div class="col-md-5">
+                                    <input class="form-control" data-th-placeholder="#{invoice.unit.address}" disabled="disabled"
+                                           id="input-unit-address"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="tel" class="form-control" data-th-placeholder="#{invoice.unit.tel}" disabled="disabled"
+                                           id="input-unit-tel"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" data-th-text="#{invoice.unit.account}">开户行帐号</label>
+                                <div class="col-md-5">
+                                    <input class="form-control" data-th-placeholder="#{invoice.unit.account}" disabled="disabled"
+                                           id="input-unit-bank-account"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <img id="input-unit-bank-img" src=""/>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-md-1 text-center">
+                            <span class="text-vertical" data-th-text="#{invoice.msg.title}">发票信息</span>
+                        </td>
+                        <td class="col-md-3" colspan="2">
+                            <label>
+                                <div class="form-group" id="form-group-code">
+                                    <div class="col-md-12">
+                                        <input class="form-control col-md-1" id="input-code"
+                                               name="code" data-th-placeholder="#{invoice.code}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="form-group-number">
+                                    <div class="col-md-12">
+                                        <input class="form-control col-md-1" id="input-number"
+                                               name="number" data-th-placeholder="#{invoice.number}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="form-group-date">
+                                    <div class="col-md-12">
+                                        <input type="date" class="form-control col-md-6" id="input-date"
+                                               name="date" data-th-placeholder="#{invoice.date}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="form-group-sell">
+                                    <div class="col-md-12">
+                                        <select class="form-control" id="select-type" name="type">
+                                            <option value="" data-th-text="#{invoice.type.select}">请选择发票类型</option>
+                                            <option value="0" data-th-text="#{invoice.type.buy}">进项发票</option>
+                                            <option value="1" data-th-text="#{invoice.type.sell}">销项发票</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-2" colspan="2" data-th-text="#{product.goods.name}">货物名称</td>
+                        <td class="col-md-1" data-th-text="#{product.goods.specification}">规格型号</td>
+                        <td class="col-md-1" data-th-text="#{product.goods.unit}">单位</td>
+                        <td class="col-md-1" data-th-text="#{invoice.goods.num}">数量</td>
+                        <td class="col-md-1" data-th-text="#{product.goods.unite.price}">单价</td>
+                        <td class="col-md-1" data-th-text="#{invoice.goods.money}">金额</td>
+                        <td class="col-md-1" data-th-text="#{product.goods.tax.rate}">税率</td>
+                        <td class="col-md-1" data-th-text="#{product.goods.tax.money}">税额</td>
+                    </tr>
+                    <tbody id="div-goods">
+
+                    </tbody>
+                    <tr>
+                        <td colspan="9" class="text-center">
+                            <input type="hidden" id="input-goods-id" name="goods"/>
+                            <span class="btn btn-primary" data-toggle="modal"
+                                  data-target="#modal-goods-select"
+                                  data-title="货物">选择货物</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-2" colspan="2">价税合计(大写)</td>
+                        <td class="text-center" colspan="4" id="td-goods-total-zh"></td>
+                        <td class="text-center" colspan="3" id="td-goods-total-num"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" class="text-center">
+                            <div class="col-md-12">
+                                <input id="btn-submit" type="submit" class="btn btn-default" data-th-value="#{form.submit}"/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+<div class="modal fade" id="modal-unit-select" tabindex="-1" role="dialog" aria-labelledby="modal-unit-title">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-unit-select-title">New message</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group col-md-12">
+                    <label for="input-tax" class="control-label"
+                           data-th-text="#{invoice.unit.tax.id}">统一社会信用代码:</label>
+                    <input type="text" class="form-control" id="input-tax" name="tax" autocomplete="off">
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                    <!-- /btn-group -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-goods-select" tabindex="-1" role="dialog" aria-labelledby="modal-goods-title">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-goods-select-title">New message</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group col-md-12">
+                    <label for="input-goods" class="control-label"
+                           data-th-text="#{product.goods.name}">货物:</label>
+                    <input type="text" class="form-control" id="input-goods" name="goods" autocomplete="off">
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                    <!-- /btn-group -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:include="/base/script :: scriptFragment"/>
+<script data-th-src="@{/plugins/nzh/nzh.hk.js}"></script>
+<script data-th-src="@{/plugins/bootstrap-suggest/bootstrap-suggest.js}"></script>
+<script data-th-src="@{/js/invoice/invoice-detail.js}"></script>
+</html>

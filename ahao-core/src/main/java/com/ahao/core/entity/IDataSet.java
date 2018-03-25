@@ -1,10 +1,13 @@
 package com.ahao.core.entity;
 
+import org.apache.ibatis.type.Alias;
+
 import java.util.*;
 
 /**
  * Created by Ahaochan on 2017/8/22.
  */
+@Alias("IDataSet")
 public interface IDataSet extends Map<String, Object> {
 
     @Override

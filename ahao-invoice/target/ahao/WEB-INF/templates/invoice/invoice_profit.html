@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/base/head :: headFragment(#{graph.invoice.profit})"/>
+</head>
+
+<body>
+<th:block th:include="/base/nav :: navFragment"/>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="page-header" data-th-text="#{graph.invoice.profit}">进销项利润分析</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> <th:block data-th-text="#{graph.invoice.profit}">进销项利润分析</th:block>
+                        </div>
+                        <div class="panel-body">
+                            <div id="main" style="min-height: 500px"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/base/script :: scriptFragment"/>
+<script src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-maps@1.1.0/china.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        myChart.showLoading();
+
+
+        $.ajax({
+            type: 'POST',
+            timeout: 100000,
+            url: contextPath+'invoice/graph/profit',
+            dataType: 'json',
+            data: {
+                type: true
+            },
+            success: function (data) {
+                // 指定图表的配置项和数据
+                var option = {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: ['进项', '销项', '利润']
+                    },
+                    toolbox: {
+                        show: true,
+                        orient: 'horizontal',      // 布局方式，默认为水平布局，可选为：
+                                                   // 'horizontal' ¦ 'vertical'
+                        x: 'right',                // 水平安放位置，默认为全图右对齐，可选为：
+                                                   // 'center' ¦ 'left' ¦ 'right'
+                                                   // ¦ {number}（x坐标，单位px）
+                        y: 'top',                  // 垂直安放位置，默认为全图顶端，可选为：
+                                                   // 'top' ¦ 'bottom' ¦ 'center'
+                                                   // ¦ {number}（y坐标，单位px）
+                        color: ['#1e90ff', '#22bb22', '#4b0082', '#d2691e'],
+                        backgroundColor: 'rgba(0,0,0,0)', // 工具箱背景颜色
+                        borderColor: '#ccc',       // 工具箱边框颜色
+                        borderWidth: 0,            // 工具箱边框线宽，单位px，默认为0（无边框）
+                        padding: 5,                // 工具箱内边距，单位px，默认各方向内边距为5，
+                        showTitle: true,
+                        feature: {
+                            mark: {
+                                show: true,
+                                title: {
+                                    mark: '辅助线-开关',
+                                    markUndo: '辅助线-删除',
+                                    markClear: '辅助线-清空'
+                                },
+                                lineStyle: {
+                                    width: 1,
+                                    color: '#1e90ff',
+                                    type: 'dashed'
+                                }
+                            },
+                            dataZoom: {
+                                show: true,
+                                title: {
+                                    dataZoom: '区域缩放',
+                                    dataZoomReset: '区域缩放-后退'
+                                }
+                            },
+                            dataView: {
+                                show: true,
+                                title: '数据视图',
+                                readOnly: true,
+                                lang: ['数据视图', '关闭', '刷新'],
+                                optionToContent: function (opt) {
+                                    var axisData = opt.xAxis[0].data;
+                                    var series = opt.series;
+                                    var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+                                        + '<td>时间</td>'
+                                        + '<td>' + series[0].name + '</td>'
+                                        + '<td>' + series[1].name + '</td>'
+                                        + '</tr>';
+                                    for (var i = 0, l = axisData.length; i < l; i++) {
+                                        table += '<tr>'
+                                            + '<td>' + axisData[i] + '</td>'
+                                            + '<td>' + series[0].data[i] + '</td>'
+                                            + '<td>' + series[1].data[i] + '</td>'
+                                            + '</tr>';
+                                    }
+                                    table += '</tbody></table>';
+                                    return table;
+                                }
+                            },
+                            magicType: {
+                                show: true,
+                                title: {
+                                    line: '动态类型切换-折线图',
+                                    bar: '动态类型切换-柱形图'
+                                },
+                                type: ['line', 'bar']
+                            },
+                            restore: {
+                                show: true,
+                                title: '还原',
+                                color: 'black'
+                            },
+                            saveAsImage: {
+                                show: true,
+                                title: '保存为图片',
+                                type: 'jpeg',
+                                lang: ['点击本地保存']
+                            }
+                        }
+                    },
+                    calculable: true,
+                    dataZoom: {
+                        show: true,
+                        realtime: true,
+                        start: 20,
+                        end: 80
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: data.obj.time
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '进项',
+                            type: 'line',
+                            data: data.obj.bought
+                        },
+                        {
+                            name: '销项',
+                            type: 'line',
+                            data: data.obj.sell
+                        }
+                        ,
+                        {
+                            name: '利润',
+                            type: 'line',
+                            data: data.obj.profit
+                        }
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                myChart.hideLoading();
+
+            }
+        });
+    });
+</script>
+</html>

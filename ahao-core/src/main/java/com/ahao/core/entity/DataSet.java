@@ -3,6 +3,7 @@ package com.ahao.core.entity;
 import com.ahao.core.util.lang.CollectionHelper;
 import com.ahao.core.util.lang.StringHelper;
 import com.ahao.core.util.lang.math.NumberHelper;
+import org.apache.ibatis.type.Alias;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 /**
  * Created by Ahaochan on 2017/8/22.
  */
+@Alias("DataSet")
 public class DataSet implements IDataSet, Serializable {
     private static final Logger logger = LoggerFactory.getLogger(DataSet.class);
     private static final long serialVersionUID = 7641097398093605780L;
@@ -71,6 +73,11 @@ public class DataSet implements IDataSet, Serializable {
     @Override
     public boolean getBoolean(String key) {
         Object obj = dataMap.get(key);
+
+        if(NumberHelper.isNumber(obj.toString())){
+            int value = Integer.parseInt(obj.toString());
+            return value != 0;
+        }
         return Boolean.valueOf(obj.toString());
     }
 
