@@ -8,5 +8,8 @@ import java.util.List;
 
 @Repository
 public interface CategoryMapper {
-    List<IDataSet> getCategory(@Param("parentId") long parentId, @Param("fields") String... fields);
+
+    IDataSet getCategoryById(@Param("id") long id, @Param("fields") String... fields);
+
+    List<IDataSet> getCategoryByParentId(@Param("parentId") long parentId, @Param("fields") String... fields);
 }
