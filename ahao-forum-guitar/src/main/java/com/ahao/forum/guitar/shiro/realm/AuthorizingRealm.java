@@ -2,6 +2,7 @@ package com.ahao.forum.guitar.shiro.realm;
 
 import com.ahao.core.annotation.Realm;
 import com.ahao.core.entity.IDataSet;
+import com.ahao.core.util.web.RequestHelper;
 import com.ahao.forum.guitar.module.admin.auth.dao.AuthMapper;
 import com.ahao.forum.guitar.module.admin.role.dao.RoleMapper;
 import com.ahao.forum.guitar.module.admin.user.dao.UserMapper;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,7 +65,8 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
             throw new LockedAccountException(msg);
         }
 
-        // TODO 3. 更新最后登录时间 ip
+        // 3. 更新最后登录时间 ip
+        userMapper.updateLastLoginMsg(new Date(), RequestHelper.getClientIp(), userData.getLong("id"));
 
         // 4. 返回 AuthenticationInfo 对象, 将 userData 存入 Shiro, 方便获取
         AuthenticationInfo authorizationInfo =
