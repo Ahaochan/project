@@ -35,6 +35,9 @@
         <property name="maxUploadSize" value="100000000"/>
         <property name="resolveLazily" value="true"/>
     </bean>
+    <bean class="com.ahao.forum.guitar.ExceptionResolver">
+        <property name="viewName" value="unauthorized"/>
+    </bean>
 
     <!--4: 扫描web相关的bean -->
     <context:component-scan base-package="com.ahao.forum.guitar" use-default-filters="false">
