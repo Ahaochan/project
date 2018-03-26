@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.module.category.dao.CategoryMapper">
 
-    <select id="getCategory" resultType="DataSet">
+    <select id="getCategoryById" resultType="DataSet">
         select
         <choose>
             <when test="fields != null and fields.length > 0">
@@ -10,7 +10,21 @@
                     c.${item}
                 </foreach>
             </when>
-            <otherwise> c.* </otherwise>
+            <otherwise>c.*</otherwise>
+        </choose>
+        from category c
+        where c.id = #{id}
+    </select>
+
+    <select id="getCategoryByParentId" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    c.${item}
+                </foreach>
+            </when>
+            <otherwise>c.*</otherwise>
         </choose>
         from category c
         <where>
