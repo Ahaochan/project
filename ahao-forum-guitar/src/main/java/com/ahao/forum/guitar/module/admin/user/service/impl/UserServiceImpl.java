@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         // 3. 获取分页器
         PageInfo<IDataSet> pageInfo = new PageInfo<>(list);
         long total = pageInfo.getTotal();
-        String pageIndicator = PageIndicator.getBootstarap(total, page, pageSize);
+        String pageIndicator = PageIndicator.getBootstrap(total, page, pageSize);
         result.put("pageIndicator", pageIndicator);
         return result;
     }
