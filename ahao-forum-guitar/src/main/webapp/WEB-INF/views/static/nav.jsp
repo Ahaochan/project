@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">电吉他设备选购及知识普及软件平台</a>
+            <a class="navbar-brand" href="${contextPath}">电吉他设备选购及知识普及软件平台</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
