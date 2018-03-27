@@ -5,6 +5,7 @@ import com.ahao.forum.guitar.module.admin.auth.service.AuthService;
 import com.ahao.forum.guitar.module.admin.role.service.RoleService;
 import com.ahao.forum.guitar.module.admin.user.service.UserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,14 +22,15 @@ public class UserController {
     private RoleService roleService;
     private AuthService authService;
 
-    public UserController(UserService userService, RoleService roleService, AuthService authService){
+    public UserController(UserService userService, RoleService roleService, AuthService authService) {
         this.userService = userService;
         this.roleService = roleService;
         this.authService = authService;
     }
 
+    @RequiresAuthentication
     @GetMapping("/profile")
-    public String profile(Model model){
+    public String profile(Model model) {
         // 1. 获取用户信息
         IDataSet currentUser = (IDataSet) SecurityUtils.getSubject().getPrincipal();
         long userId = currentUser.getLong("id");
@@ -49,14 +51,20 @@ public class UserController {
         return "admin/pane/pane-profile";
     }
 
+    @RequiresAuthentication
+    @GetMapping("/password")
+    public String modifyPassword() {
+        return "admin/pane/pane-password";
+    }
+
 
     @GetMapping("/admin/user")
-    public String list(){
+    public String list() {
         return "admin/pane/pane-user";
     }
 
     @GetMapping("/admin/user-{userId}")
-    public void userInfo(@PathVariable("userId") Integer userId){
+    public void userInfo(@PathVariable("userId") Integer userId) {
 
     }
 }

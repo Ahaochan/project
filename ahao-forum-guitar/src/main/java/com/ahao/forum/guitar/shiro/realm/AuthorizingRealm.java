@@ -43,7 +43,7 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
         String username = token.getUsername();
 
         // 2. 从数据库获取用户信息, 和用户输入进行对比
-        IDataSet userData = userMapper.selectByUsername(username);
+        IDataSet userData = userMapper.selectUserByUsername(username);
         // TODO 2.1. 判断验证码是否正确
         // 2.2. 判断用户是否存在
         if (userData == null) {

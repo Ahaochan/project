@@ -3,7 +3,7 @@
 <head>
     <%-- 样式 --%>
     <%@include file="/WEB-INF/views/static/head.jsp" %>
-    <title>标题</title>
+    <title>个人资料</title>
 </head>
 <body>
 <%-- 导航条 --%>
@@ -15,7 +15,8 @@
         <div class="col-md-2">
             <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="javascript:void(0)">个人资料</a></li>
-                <li><a href="#password">修改密码</a></li>
+                <li><a href="${contextPath}/password">修改密码</a></li>
+                <li><a href="#">分区管理</a></li>
                 <li><a href="#">板块管理</a></li>
                 <li><a href="#">用户管理</a></li>
                 <li><a href="#">权限管理</a></li>

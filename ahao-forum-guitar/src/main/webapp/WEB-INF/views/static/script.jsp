@@ -8,5 +8,5 @@
 
 <script src="${contextPath}/js/core.js"></script>
 <script>
-    var ctx = $('meta[name="ctx"]').val();
+    var ctx = $('meta[name="ctx"]').attr('content');
 </script>
