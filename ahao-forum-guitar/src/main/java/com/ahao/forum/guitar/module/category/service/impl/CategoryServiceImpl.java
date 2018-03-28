@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,6 +22,16 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     public CategoryServiceImpl(CategoryMapper categoryMapper) {
         this.categoryMapper = categoryMapper;
+    }
+
+    @Override
+    public List<IDataSet> getCategoryGroupByUserId(Long userId, String search, String... fields) {
+        if(userId == null || userId <= 0){
+            logger.debug("用户id非法:"+userId);
+            return Collections.emptyList();
+        }
+        List<IDataSet> list = categoryMapper.getCategoryGroupByUserId(userId, search, fields);
+        return list;
     }
 
     @Override

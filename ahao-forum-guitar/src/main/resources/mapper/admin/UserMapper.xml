@@ -65,7 +65,7 @@
         left join admin_user__role ur on u.id = ur.user_id
         left join admin_role r on ur.role_id = r.id
         <![CDATA[ where r.weight < #{weight} ]]>
-        <if test="search != null and search.length()">
+        <if test="search != null and search.length() > 0">
             <bind name="searchLike" value="'%'+search+'%'"/>
             and u.username like ${searchLike}
         </if>

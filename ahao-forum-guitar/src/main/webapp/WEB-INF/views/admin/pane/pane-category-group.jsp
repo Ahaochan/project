@@ -25,34 +25,65 @@
         </div>
         <div class="col-md-10">
             <div class="tab-content tab-pane">
-                <div class="panel panel-default">
-                    <div class="panel-heading">分区管理</div>
-                    <div class="panel-body">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="input-password" class="col-md-2 control-label">原密码</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" id="input-password" placeholder="原密码"/>
+                <div class="row">
+                    <div class="tab-content tab-pane">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">分区管理</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="btn-group">
+                                            <a class="btn btn-default">
+                                                <span class="glyphicon glyphicon-plus"></span>新增
+                                            </a>
+                                            <a id="btn_delete_list" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-remove"></span>删除
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-md-offset-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search for..."/>
+                                            <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">Go!</button>
+                                        </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="input-password-new" class="col-md-2 control-label">新密码</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" id="input-password-new" placeholder="新密码"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="input-password-confirm" class="col-md-2 control-label">确认密码</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" id="input-password-confirm" placeholder="确认密码"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <button type="submit" class="btn btn-default">保存</button>
-                                </div>
-                            </div>
-                        </form>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="col-md-1"></th>
+                                    <th class="col-md-1">分区id</th>
+                                    <th class="col-md-2">分区名</th>
+                                    <th class="col-md-2">状态</th>
+                                    <th class="col-md-4">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><input type="checkbox"/></td>
+                                    <td>列1</td>
+                                    <td>列2</td>
+                                    <td>列3</td>
+                                    <td>列4</td>
+                                    <td>
+                                        <a type="button" class="btn btn-primary btn-circle btn-sm" href="">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </a> &nbsp;
+                                        <a class="btn btn-warning btn-circle btn-sm btn-delete" data-id="">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-right" id="pagination">
                     </div>
                 </div>
             </div>
@@ -64,4 +95,55 @@
 </body>
 <%-- 通用脚本 --%>
 <%@include file="/WEB-INF/views/static/script.jsp" %>
+<script>
+    var getList = function (option) {
+        var options = $.extend({
+            page: 1,
+            search: ''
+        }, option);
+
+        var page = options.page, search = options.search;
+
+        $.ajax({
+            type: 'get',
+            url: ctx + '/api/category-group-' + page,
+            data: {search: search},
+            success: function (json) {
+                console.log("测试1:" + JSON.stringify(json));
+                if (!json.result) {
+                    swal({
+                        type: 'warning',
+                        title: '警告',
+                        text: json.msg
+                    });
+                    return;
+                }
+
+                var $tbody = $('tbody');
+                $tbody.empty();
+                var list = json.obj.list;
+                for (var i = 0, len = list.length; i < len; i++) {
+                    var item = list[i];
+                    $tbody.append('<tr>' +
+                        '   <td><input type="checkbox"/></td>' +
+                        '   <td>' + item.id + '</td>' +
+                        '   <td>' + item.name + '</td>' +
+                        '   <td>' + (!!item.status ? '正常' : '禁用') + '</td>' +
+                        '   <td>' +
+                        '       <a type="button" class="btn btn-primary btn-circle btn-sm" href="">' +
+                        '           <i class="glyphicon glyphicon-pencil"></i>' +
+                        '       </a> &nbsp;' +
+                        '       <a class="btn btn-warning btn-circle btn-sm btn-delete" data-id="">' +
+                        '           <i class="glyphicon glyphicon-remove"></i>' +
+                        '       </a>' +
+                        '   </td>' +
+                        '</tr>');
+                }
+                $('#pagination').empty().append(json.obj.pageIndicator);
+            }
+        });
+    };
+
+    getList();
+</script>
 </html>

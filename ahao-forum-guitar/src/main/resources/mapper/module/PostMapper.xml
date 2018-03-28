@@ -8,7 +8,7 @@
         left join category c on c.id = p.category_id
         left join admin_user u on p.user_id = u.id
         where c.id = #{categoryId}
-        <if test="search != null and search != ''">
+        <if test="search != null and search.length() > 0">
             <bind name="searchLike" value="'%'+search+'%'"/>
             and (p.title like ${searchLike} or p.content like ${searchLike})
         </if>

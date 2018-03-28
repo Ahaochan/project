@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.module.category.dao.CategoryMapper">
+    <select id="getCategoryGroupByUserId" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    c.${item}
+                </foreach>
+            </when>
+            <otherwise>c.*</otherwise>
+        </choose>
+        from category c
+        left join user_category uc on c.id = uc.category_id
+        where uc.user_id = #{userId} and c.parent_id is null
+        <if test="search != null and search.length() > 0">
+            <bind name="searchLike" value="'%'+search+'%'"/>
+            and c.name like ${searchLike}
+        </if>
+    </select>
 
     <select id="getCategoryById" resultType="DataSet">
         select
@@ -38,4 +56,5 @@
             </choose>
         </where>
     </select>
+
 </mapper>
