@@ -16,7 +16,7 @@
             <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="javascript:void(0)">个人资料</a></li>
                 <li><a href="${contextPath}/password">修改密码</a></li>
-                <li><a href="#">分区管理</a></li>
+                <li><a href="${contextPath}/manager/categories">分区管理</a></li>
                 <li><a href="#">板块管理</a></li>
                 <li><a href="#">用户管理</a></li>
                 <li><a href="#">权限管理</a></li>

@@ -42,12 +42,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-md-offset-6">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search for..."/>
-                                            <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">Go!</button>
-                                        </span>
-                                        </div>
+                                        <form id="form-search">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="搜索分区名"
+                                                       name="category-name"/>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="submit">搜索</button>
+                                                </span>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -62,21 +65,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td><input type="checkbox"/></td>
-                                    <td>列1</td>
-                                    <td>列2</td>
-                                    <td>列3</td>
-                                    <td>列4</td>
-                                    <td>
-                                        <a type="button" class="btn btn-primary btn-circle btn-sm" href="">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                        </a> &nbsp;
-                                        <a class="btn btn-warning btn-circle btn-sm btn-delete" data-id="">
-                                            <i class="glyphicon glyphicon-remove"></i>
-                                        </a>
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -96,7 +84,11 @@
 <%-- 通用脚本 --%>
 <%@include file="/WEB-INF/views/static/script.jsp" %>
 <script>
-    var getList = function (option) {
+    var jump = function (page) {
+        var search = $('input[name="category-name"]').val();
+        getList({page: page, search: search});
+    };
+    var getListFun = function (option) {
         var options = $.extend({
             page: 1,
             search: ''
@@ -106,26 +98,23 @@
 
         $.ajax({
             type: 'get',
-            url: ctx + '/api/category-group-' + page,
+            url: ctx + '/manager/api/categories-' + page,
             data: {search: search},
             success: function (json) {
-                console.log("测试1:" + JSON.stringify(json));
+                var $tbody = $('tbody');
+                $tbody.empty();
+
                 if (!json.result) {
-                    swal({
-                        type: 'warning',
-                        title: '警告',
-                        text: json.msg
-                    });
+                    $tbody.append('<tr><td colspan="5" class="text-center">暂无数据</tr>');
                     return;
                 }
 
-                var $tbody = $('tbody');
-                $tbody.empty();
+
                 var list = json.obj.list;
                 for (var i = 0, len = list.length; i < len; i++) {
                     var item = list[i];
                     $tbody.append('<tr>' +
-                        '   <td><input type="checkbox"/></td>' +
+                        '   <td><input type="checkbox" name="category-id" value="' + item.id + '"/></td>' +
                         '   <td>' + item.id + '</td>' +
                         '   <td>' + item.name + '</td>' +
                         '   <td>' + (!!item.status ? '正常' : '禁用') + '</td>' +
@@ -133,7 +122,7 @@
                         '       <a type="button" class="btn btn-primary btn-circle btn-sm" href="">' +
                         '           <i class="glyphicon glyphicon-pencil"></i>' +
                         '       </a> &nbsp;' +
-                        '       <a class="btn btn-warning btn-circle btn-sm btn-delete" data-id="">' +
+                        '       <a class="btn btn-warning btn-circle btn-sm btn-delete" ahao-category-id="' + item.id + '">' +
                         '           <i class="glyphicon glyphicon-remove"></i>' +
                         '       </a>' +
                         '   </td>' +
@@ -144,6 +133,67 @@
         });
     };
 
-    getList();
+    $(function () {
+        // 1. 初始化表格, 获取第1页数据
+        (function ($) {
+            getListFun();
+        })(jQuery);
+
+        // 2. 搜索功能
+        (function ($) {
+            $('#form-search').submit(function (event) {
+                var search = $('input[name="category-name"]').val();
+                getListFun({search: search});
+                event.preventDefault();
+            });
+            $('input[name="category-name"]').on('keyup', function () {
+                var $this = $(this);
+                clearTimeout(parseInt($this.data('timer')));
+                var search = $this.val();
+                $this.data('timer', setTimeout(function () {
+                    getListFun({search: search});
+                }, 500));
+            });
+        })(jQuery);
+
+        // 3. 删除功能
+        (function ($) {
+            var deleteFun = function (categoryIds) {
+                var ids = [].concat(categoryIds);
+                $.ajax({
+                    type: 'post',
+                    url: ctx + '/manager/api/categories/delete',
+                    data: {categoryIds: ids},
+                    dataType: 'json',
+                    success: function (json) {
+                        if (!json.result) {
+                            swal({type: 'warning', title: '警告', text: json.msg});
+                            return;
+                        }
+                        swal({type: 'success', title: '成功', text: json.msg});
+                        $('#form-search').submit();
+                    }
+                });
+            };
+
+            // 3.1 批量删除
+            $('#btn_delete_list').on('click', function () {
+                var categoryIds = $('input[name="category-id"]:checked').map(function () {
+                    return this.value;
+                }).get();
+                deleteFun(categoryIds);
+            });
+
+            // 3.2. 单个删除
+            $('tbody').on('click', 'a.btn-delete', function () {
+                console.log("测试2");
+                var $this = $(this);
+                var categoryId = $this.attr('ahao-category-id');
+                if (!!categoryId) {
+                    deleteFun(categoryId);
+                }
+            });
+        })(jQuery);
+    });
 </script>
 </html>

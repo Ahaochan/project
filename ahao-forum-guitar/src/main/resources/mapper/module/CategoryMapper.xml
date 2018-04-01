@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.module.category.dao.CategoryMapper">
-    <select id="getCategoryGroupByUserId" resultType="DataSet">
+    <select id="getCategoriesByUserId" resultType="DataSet">
         select
         <choose>
             <when test="fields != null and fields.length > 0">
@@ -11,12 +11,12 @@
             </when>
             <otherwise>c.*</otherwise>
         </choose>
-        from category c
-        left join user_category uc on c.id = uc.category_id
-        where uc.user_id = #{userId} and c.parent_id is null
+        from user_category uc
+        left join category c on c.id = uc.category_id
+        where uc.user_id = #{userId}
         <if test="search != null and search.length() > 0">
             <bind name="searchLike" value="'%'+search+'%'"/>
-            and c.name like ${searchLike}
+            and c.name like #{searchLike}
         </if>
     </select>
 
@@ -32,6 +32,13 @@
         </choose>
         from category c
         where c.id = #{id}
+    </select>
+
+    <select id="deleteCategory" resultType="int">
+        delete from category where id in
+        <foreach collection="categoryIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </select>
 
     <select id="getCategoryByParentId" resultType="DataSet">

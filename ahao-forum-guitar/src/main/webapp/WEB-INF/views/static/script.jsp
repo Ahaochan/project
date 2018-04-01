@@ -7,6 +7,3 @@
 <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>  <%--https://sweetalert.js.org/--%>
 
 <script src="${contextPath}/js/core.js"></script>
-<script>
-    var ctx = $('meta[name="ctx"]').attr('content');
-</script>

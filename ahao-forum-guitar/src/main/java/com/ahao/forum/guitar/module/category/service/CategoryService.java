@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface CategoryService {
 
-    List<IDataSet> getCategoryGroupByUserId(Long userId, String search, String... fields);
+    List<IDataSet> getCategories(Long userId, String search);
 
-    IDataSet getCategoryById(Long categoryId, String... fields);
+    IDataSet getCategory(Long categoryId);
+
+    int deleteCategory(Long... categoryIds);
 
     JSONArray getCategoryAndSub();
 }

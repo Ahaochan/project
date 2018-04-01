@@ -1,19 +1,27 @@
 package com.ahao.forum.guitar.module.category.controller;
 
+import com.ahao.core.context.PageContext;
+import com.ahao.core.entity.AjaxDTO;
 import com.ahao.core.entity.IDataSet;
+import com.ahao.core.util.lang.CollectionHelper;
+import com.ahao.core.util.web.PageIndicator;
 import com.ahao.forum.guitar.module.category.service.CategoryService;
 import com.ahao.forum.guitar.module.post.service.PostService;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
+@RequestMapping("/manager")
 public class CategoryController {
     private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
@@ -27,28 +35,77 @@ public class CategoryController {
         this.postService = postService;
     }
 
-    @GetMapping("/category-{categoryId}")
-    public String category(@PathVariable Long categoryId,
-                           @RequestParam(required = false) String search,
-                           @RequestParam(defaultValue = "1") Integer page, Model model) {
-        // 1. 获取板块信息
-        IDataSet category = categoryService.getCategoryById(categoryId, "name", "status", "post_count");
-        if (category == null) {
-            logger.debug("板块信息获取错误, 重定向到index");
-            return "redirect: index";
-        }
-        if (!category.getBoolean("status")) {
-            logger.debug("板块被禁止访问, 重定向到index");
-            return "redirect: index";
-        }
-        model.addAttribute("category", category);
-
-        // 2. 获取该板块下的文章
-        JSONObject posts = postService.getPosts(categoryId, search, page);
-        model.addAttribute("posts", posts);
-
-        return "category/category";
+    @GetMapping("/categories")
+    public String categoryList() {
+        return "category/manager-category-list";
     }
+
+    @GetMapping("/category")
+    public String categoryList(@RequestParam Long catageoryId) {
+        return "category/manager-category-detail";
+    }
+
+    @GetMapping("/api/categories-{page}")
+    @ResponseBody
+    public AjaxDTO categoryGroup(@PathVariable Integer page,
+                                 @RequestParam(required = false) String search) {
+        JSONObject result = new JSONObject();
+
+        // 1. 获取已登录的用户数据
+        IDataSet userData = (IDataSet) SecurityUtils.getSubject().getPrincipal();
+        long userId = userData.getLong("id");
+
+        // 2. 分页获取
+        int pageSize = PageContext.getPageSize();
+        PageHelper.startPage(page, pageSize);
+        List<IDataSet> list = categoryService.getCategories(userId, search);
+        result.put("list", list);
+        if (CollectionHelper.isEmpty(list)) {
+            return AjaxDTO.failure("获取数据为空");
+        }
+
+        // 3. 获取分页器
+        PageInfo<IDataSet> pageInfo = new PageInfo<>(list);
+        long total = pageInfo.getTotal();
+        String pageIndicator = PageIndicator.getBootstrap(total, page, pageSize);
+        result.put("pageIndicator", pageIndicator);
+        return AjaxDTO.success(result);
+    }
+
+    @PostMapping("/api/categories/delete")
+    @ResponseBody
+    public AjaxDTO delete(@RequestParam("categoryIds[]") Long... categoryIds) {
+//        int deleteCount = categoryService.deleteCategory(categoryIds);
+        String deleteCount = Arrays.toString(categoryIds);
+        logger.debug("测试："+deleteCount+","+(deleteCount != null));
+        if (deleteCount != null) {
+            return AjaxDTO.success("删除成功, 删除"+deleteCount+"条记录");
+        }
+        return AjaxDTO.failure("删除失败, 请联系管理员");
+    }
+
+//    @GetMapping("/category-{categoryId}")
+//    public String category(@PathVariable Long categoryId,
+//                           @RequestParam(required = false) String search,
+//                           @RequestParam(defaultValue = "1") Integer page, Model model) {
+//        // 1. 获取板块信息
+//        IDataSet category = categoryService.getCategoryById(categoryId, "name", "status", "post_count");
+//        if (category == null) {
+//            logger.debug("板块信息获取错误, 重定向到index");
+//            return "redirect: index";
+//        }
+//        if (!category.getBoolean("status")) {
+//            logger.debug("板块被禁止访问, 重定向到index");
+//            return "redirect: index";
+//        }
+//        model.addAttribute("category", category);
+//
+//        // 2. 获取该板块下的文章
+//        JSONObject posts = postService.getPosts(categoryId, search, page);
+//        model.addAttribute("posts", posts);
+//
+//        return "category/category";
+//    }
 
 
 }
