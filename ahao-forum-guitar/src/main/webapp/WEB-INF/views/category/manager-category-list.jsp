@@ -121,7 +121,7 @@
                         '   <td>' + item.name + '</td>' +
                         '   <td>' + (!!item.status ? '正常' : '禁用') + '</td>' +
                         '   <td>' +
-                        '       <a type="button" class="btn btn-primary btn-circle btn-sm" href="">' +
+                        '       <a type="button" class="btn btn-primary btn-circle btn-sm" href="' + ctx + '/manager/category-' + item.id + '">' +
                         '           <i class="glyphicon glyphicon-pencil"></i>' +
                         '       </a> &nbsp;' +
                         '       <a class="btn btn-warning btn-circle btn-sm btn-delete" ahao-category-id="' + item.id + '">' +
