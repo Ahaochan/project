@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.forum.guitar.module.index.dao.IndexMapper">
+
+    <select id="getCategories" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    c.${item}
+                </foreach>
+            </when>
+            <otherwise>c.*</otherwise>
+        </choose>
+        from category c
+        where c.status = #{status}
+        order by c.id, c.name
+    </select>
+    <select id="getForumsByCategoryId" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    f.${item}
+                </foreach>
+            </when>
+            <otherwise>f.*</otherwise>
+        </choose>
+        from forum f
+        left join category_forum cf on cf.forum_id = f.id
+        left join category c on cf.category_id = c.id
+        where c.status = 1 and f.status = 1 and c.id = ${categoryId}
+        order by f.id, f.name
+    </select>
+</mapper>

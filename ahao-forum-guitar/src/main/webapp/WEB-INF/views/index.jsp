@@ -15,11 +15,12 @@
         <p class="lead">Basic grid layouts to get you familiar with building within the Bootstrap grid system.</p>
     </div>
     <div class="panel-group">
-        <c:forEach items="${category}" var="group" varStatus="loop">
+        <%--@elvariable id="categories" type="java.util.List"--%>
+        <c:forEach items="${categories}" var="category" varStatus="loop">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        ${group.getString("name")}
+                        ${category.getString("name")}
                         <span class="glyphicon glyphicon-triangle-bottom" data-toggle="collapse" href="#collapse${loop.index}"></span>
                     </h4>
                 </div>
@@ -35,13 +36,13 @@
                                 最后发表时间: N天前
                             </div>
                         </div>
-                        <c:forEach items="${group.get('sub')}" var="item">
+                        <c:forEach items="${category.get('forums')}" var="forum">
                             <div class="col-md-4 panel-item media">
                                 <div class="media-left">
-                                    <a href="${contextPath}/category-${item.getInt("id")}"><img src="${item.getString("icon_url")}"/></a>
+                                    <a href="${contextPath}/category-${forum.getInt("id")}"><img src="${forum.getString("icon_url")}"/></a>
                                 </div>
                                 <div class="media-body">
-                                    <a href="${contextPath}/category-${item.getInt("id")}">${item.getString("name")}</a><br/>
+                                    <a href="${contextPath}/category-${forum.getInt("id")}">${forum.getString("name")}</a><br/>
                                     数量:1000, 回复:1000<br/>
                                     最后发表时间: 4天前
                                 </div>
