@@ -65,7 +65,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <%-- Ajax加载数据 --%>
+                                <%-- Ajax加载数据 --%>
                                 </tbody>
                             </table>
                         </div>
@@ -100,7 +100,7 @@
 
         $.ajax({
             type: 'get',
-            url: ctx + '/manager/api/categories-' + page,
+            url: ctx + '/manager/api/categories/list-' + page,
             data: {search: search},
             success: function (json) {
                 var $tbody = $('tbody');
@@ -115,7 +115,7 @@
                 var list = json.obj.list;
                 for (var i = 0, len = list.length; i < len; i++) {
                     var item = list[i];
-                    $tbody.append('<tr>' +
+                    $tbody.append('<tr ' + (item.status ? '' : 'class="danger"') + '>' +
                         '   <td><input type="checkbox" name="category-id" value="' + item.id + '"/></td>' +
                         '   <td>' + item.id + '</td>' +
                         '   <td>' + item.name + '</td>' +

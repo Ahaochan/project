@@ -21,15 +21,19 @@ public class AjaxDTO {
         return new AjaxDTO(SUCCESS, msg, obj);
     }
 
-    public static AjaxDTO get(int result){
+    public static AjaxDTO get(boolean success) {
+        return new AjaxDTO(success ? SUCCESS : FAILURE, "", null);
+    }
+
+    public static AjaxDTO get(int result) {
         return new AjaxDTO(result, "", null);
     }
 
-    public static AjaxDTO get(int result, String msg){
+    public static AjaxDTO get(int result, String msg) {
         return new AjaxDTO(result, msg, null);
     }
 
-    public static AjaxDTO get(int result, String msg, Object obj){
+    public static AjaxDTO get(int result, String msg, Object obj) {
         return new AjaxDTO(result, msg, obj);
     }
 

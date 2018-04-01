@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * 数据库中的数据必须有id和createTime和gmt_modify
  */
-public abstract class BaseDO {
+public class BaseDO {
     private Long id;
     private Date createTime;
     private Date modifyTime;

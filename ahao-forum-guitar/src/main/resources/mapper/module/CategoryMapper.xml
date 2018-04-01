@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.module.category.dao.CategoryMapper">
+    <insert id="saveCategory" useGeneratedKeys="true" keyProperty="baseDO.id" keyColumn="id">
+        INSERT INTO category (name, description, status) VALUES (#{name}, #{description}, #{status});
+    </insert>
+
+    <update id="updateCategory">
+        update category
+        <set>
+            <if test="name != null and name.length() > 0">name = #{name}</if>
+            <if test="description != null and description.length() > 0">description = #{description}</if>
+            <if test="status >= 0">status = #{status}</if>
+        </set>
+        where id = #{categoryId}
+    </update>
+
+    <insert id="relateCategoryForum">
+        delete from category_forum where category_id = #{categoryId};
+        <if test="forumIds != null and forumIds.length>0">
+            insert into category_forum(category_id, forum_id)
+            values
+            <foreach collection="forumIds" item="item" separator=",">
+                (#{categoryId}, #{item})
+            </foreach>
+        </if>
+    </insert>
+
+    <insert id="relateRootCategory">
+        insert into user_category(user_id, category_id)
+        select ur.user_id, #{categoryId} category_id
+        from admin_role r
+        left join admin_user__role ur ON r.id = ur.role_id
+        where r.id = 1;
+    </insert>
+
+    <delete id="deleteCategory">
+        delete from category where id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from category_forum where category_id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from user_category where category_id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+    </delete>
+
     <select id="getCategoriesByUserId" resultType="DataSet">
         select
         <choose>
@@ -13,11 +52,23 @@
         </choose>
         from user_category uc
         left join category c on c.id = uc.category_id
-        where uc.user_id = #{userId}
-        <if test="search != null and search.length() > 0">
-            <bind name="searchLike" value="'%'+search+'%'"/>
-            and c.name like #{searchLike}
-        </if>
+        <where>
+            uc.user_id = #{userId}
+            <if test="search != null and search.length() > 0">
+                <bind name="searchLike" value="'%'+search+'%'"/>
+                and c.name like #{searchLike}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSelectedForumsByCategoryId" resultType="DataSet">
+        SELECT
+            f.id,
+            f.name,
+            f.status,
+            cf.id selected
+        FROM forum f
+            LEFT JOIN category_forum cf ON f.id = cf.forum_id AND cf.category_id = #{categoryId}
     </select>
 
     <select id="getCategoryById" resultType="DataSet">
@@ -32,36 +83,6 @@
         </choose>
         from category c
         where c.id = #{id}
-    </select>
-
-    <select id="deleteCategory" resultType="int">
-        delete from category where id in
-        <foreach collection="categoryIds" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
-
-    <select id="getCategoryByParentId" resultType="DataSet">
-        select
-        <choose>
-            <when test="fields != null and fields.length > 0">
-                <foreach collection="fields" separator="," item="item">
-                    c.${item}
-                </foreach>
-            </when>
-            <otherwise>c.*</otherwise>
-        </choose>
-        from category c
-        <where>
-            <choose>
-                <when test="parentId != null and parentId > 0">
-                    c.parent_id = #{parentId}
-                </when>
-                <otherwise>
-                    c.parent_id is null
-                </otherwise>
-            </choose>
-        </where>
     </select>
 
 </mapper>

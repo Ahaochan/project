@@ -6,7 +6,7 @@ import com.ahao.core.entity.IDataSet;
 import com.ahao.core.util.lang.CollectionHelper;
 import com.ahao.core.util.web.PageIndicator;
 import com.ahao.forum.guitar.module.category.service.CategoryService;
-import com.ahao.forum.guitar.module.post.service.PostService;
+import com.ahao.forum.guitar.module.forum.service.ForumService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -15,9 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -27,27 +27,59 @@ public class CategoryController {
 
 
     private CategoryService categoryService;
-    private PostService postService;
+    private ForumService forumService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService, PostService postService) {
+    public CategoryController(CategoryService categoryService, ForumService forumService) {
         this.categoryService = categoryService;
-        this.postService = postService;
+        this.forumService = forumService;
     }
+
+    @GetMapping("/category")
+    public String category(Model model) {
+        model.addAttribute("isExist", false);
+        List<IDataSet> forums = forumService.getForums("id", "name", "status");
+        model.addAttribute("forums", forums);
+        return "category/manager-category-detail";
+    }
+
+    @GetMapping("/category-{categoryId}")
+    public String category(@PathVariable Long categoryId, Model model) {
+        boolean isExist = false;
+        if (categoryId != null && categoryId > 0) {
+            IDataSet data = categoryService.getCategory(categoryId);
+            if (data != null){
+                isExist = true;
+                model.addAttribute("category", data);
+                List<IDataSet> forums = categoryService.getSelectedForums(categoryId);
+                model.addAttribute("forums", forums);
+            }
+        }
+        model.addAttribute("isExist", isExist);
+        return "category/manager-category-detail";
+    }
+
+    @PostMapping("/api/categories/save")
+    @ResponseBody
+    public AjaxDTO save(@RequestParam(required = false) Long categoryId,
+                        @RequestParam String name,
+                        @RequestParam String description,
+                        @RequestParam Integer status,
+                        @RequestParam("forumIds[]") Long... forumIds) {
+        // 1. 保存当前用户的实体联系, 返回 分区id
+        long id = categoryService.saveCategory(categoryId, name, description, status, forumIds);
+        return AjaxDTO.get(id>0);
+    }
+
 
     @GetMapping("/categories")
     public String categoryList() {
         return "category/manager-category-list";
     }
 
-    @GetMapping("/category")
-    public String categoryList(@RequestParam(defaultValue = "-1") Long catageoryId) {
-        return "category/manager-category-detail";
-    }
-
-    @GetMapping("/api/categories-{page}")
+    @GetMapping("/api/categories/list-{page}")
     @ResponseBody
-    public AjaxDTO categoryGroup(@PathVariable Integer page,
+    public AjaxDTO categoryList(@PathVariable Integer page,
                                  @RequestParam(required = false) String search) {
         JSONObject result = new JSONObject();
 
@@ -75,11 +107,9 @@ public class CategoryController {
     @PostMapping("/api/categories/delete")
     @ResponseBody
     public AjaxDTO delete(@RequestParam("categoryIds[]") Long... categoryIds) {
-//        int deleteCount = categoryService.deleteCategory(categoryIds);
-        String deleteCount = Arrays.toString(categoryIds);
-        logger.debug("测试："+deleteCount+","+(deleteCount != null));
-        if (deleteCount != null) {
-            return AjaxDTO.success("删除成功, 删除"+deleteCount+"条记录");
+        int deleteCount = categoryService.deleteCategory(categoryIds);
+        if (deleteCount > 0) {
+            return AjaxDTO.success("删除成功, 删除" + deleteCount + "条记录");
         }
         return AjaxDTO.failure("删除失败, 请联系管理员");
     }

@@ -16,7 +16,7 @@
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="${contextPath}/profile">个人资料</a></li>
                 <li><a href="${contextPath}/password">修改密码</a></li>
-                <li class="active"><a href="#">分区管理</a></li>
+                <li class="active"><a href="${contextPath}/manager/categories">分区管理</a></li>
                 <li><a href="#">板块管理</a></li>
                 <li><a href="#">用户管理</a></li>
                 <li><a href="#">权限管理</a></li>
@@ -28,50 +28,86 @@
                 <div class="row">
                     <div class="tab-content tab-pane">
                         <div class="panel panel-default">
-                            <div class="panel-heading">分区管理</div>
+                            <%--@elvariable id="isExist" type="java.lang.Boolean"--%>
+                            <%--@elvariable id="category" type="com.ahao.core.entity.IDataSet"--%>
+                            <div class="panel-heading">${isExist?'编辑分区':'增加分区'}</div>
                             <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="btn-group">
-                                            <a class="btn btn-default">
-                                                <span class="glyphicon glyphicon-plus"></span>新增
-                                            </a>
-                                            <a id="btn_delete_list" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-remove"></span>删除
-                                            </a>
+                                <form class="form-horizontal" id="forum-category">
+                                    <c:if test="${isExist}">
+                                        <div class="form-group">
+                                            <label for="input-id" class="col-md-2 control-label">分区id</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" id="input-id" placeholder="分区id" name="category-id"
+                                                       readonly disabled value="${category.getInt('id')}"/>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                    <div class="form-group">
+                                        <label for="input-name" class="col-md-2 control-label">分区名称</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" id="input-name" placeholder="分区名称" name="category-name"
+                                                   value="${category.getString('name')}">
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-md-offset-6">
-                                        <form id="form-search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="搜索分区名"
-                                                       name="category-name"/>
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="submit">搜索</button>
-                                                </span>
-                                            </div>
-                                        </form>
+                                    <div class="form-group">
+                                        <label for="input-description" class="col-md-2 control-label">分区描述</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" id="input-description" placeholder="分区描述" name="category-description"
+                                                   value="${category.getString('description')}">
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">分区状态</label>
+                                        <c:set var="status" value="${category.getInt('status') == 0}"/>
+                                        <div class="col-md-3 radio">
+                                            <label>
+                                                <input type="radio" id="input-status-1" name="category-status"
+                                                       value="1" ${status?'':'checked'}>启用
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3 radio">
+                                            <label>
+                                                <input type="radio" id="input-status-0" name="category-status"
+                                                       value="0" ${status?'checked':''}>禁用
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">下属板块</label>
+                                        <div class="col-md-10">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        下属板块
+                                                        <span class="glyphicon glyphicon-triangle-bottom"
+                                                              data-toggle="collapse" href="#pane-sub-forum"></span>
+                                                    </h4>
+                                                </div>
+                                                <div id="pane-sub-forum" class="panel-collapse collapse in">
+                                                    <div class="panel-body">
+                                                        <c:forEach items="${forums}" var="item">
+                                                            <div class="checkbox ${item.getBoolean("status") ? '' : 'disabled'}">
+                                                                <label>
+                                                                    <input type="checkbox" name="forums"
+                                                                           value="${item.getInt("id")}"
+                                                                        ${item.getBoolean("status") ? '' : 'disabled'}
+                                                                        ${"".equals(item.getString("selected")) ? "":"checked"}/>
+                                                                        ${item.getString("name")}</label>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button type="submit" class="btn btn-default">保存</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="col-md-1"></th>
-                                    <th class="col-md-1">分区id</th>
-                                    <th class="col-md-2">分区名</th>
-                                    <th class="col-md-2">状态</th>
-                                    <th class="col-md-4">操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="text-right" id="pagination">
                     </div>
                 </div>
             </div>
@@ -84,114 +120,41 @@
 <%-- 通用脚本 --%>
 <%@include file="/WEB-INF/views/static/script.jsp" %>
 <script>
-    var jump = function (page) {
-        var search = $('input[name="category-name"]').val();
-        getList({page: page, search: search});
-    };
-    var getListFun = function (option) {
-        var options = $.extend({
-            page: 1,
-            search: ''
-        }, option);
-
-        var page = options.page, search = options.search;
-
-        $.ajax({
-            type: 'get',
-            url: ctx + '/manager/api/categories-' + page,
-            data: {search: search},
-            success: function (json) {
-                var $tbody = $('tbody');
-                $tbody.empty();
-
-                if (!json.result) {
-                    $tbody.append('<tr><td colspan="5" class="text-center">暂无数据</tr>');
-                    return;
-                }
-
-
-                var list = json.obj.list;
-                for (var i = 0, len = list.length; i < len; i++) {
-                    var item = list[i];
-                    $tbody.append('<tr>' +
-                        '   <td><input type="checkbox" name="category-id" value="' + item.id + '"/></td>' +
-                        '   <td>' + item.id + '</td>' +
-                        '   <td>' + item.name + '</td>' +
-                        '   <td>' + (!!item.status ? '正常' : '禁用') + '</td>' +
-                        '   <td>' +
-                        '       <a type="button" class="btn btn-primary btn-circle btn-sm" href="">' +
-                        '           <i class="glyphicon glyphicon-pencil"></i>' +
-                        '       </a> &nbsp;' +
-                        '       <a class="btn btn-warning btn-circle btn-sm btn-delete" ahao-category-id="' + item.id + '">' +
-                        '           <i class="glyphicon glyphicon-remove"></i>' +
-                        '       </a>' +
-                        '   </td>' +
-                        '</tr>');
-                }
-                $('#pagination').empty().append(json.obj.pageIndicator);
-            }
-        });
-    };
-
     $(function () {
-        // 1. 初始化表格, 获取第1页数据
         (function ($) {
-            getListFun();
-        })(jQuery);
+            $('#forum-category').submit(function (e) {
+                e.preventDefault();
 
-        // 2. 搜索功能
-        (function ($) {
-            $('#form-search').submit(function (event) {
-                var search = $('input[name="category-name"]').val();
-                getListFun({search: search});
-                event.preventDefault();
-            });
-            $('input[name="category-name"]').on('keyup', function () {
-                var $this = $(this);
-                clearTimeout(parseInt($this.data('timer')));
-                var search = $this.val();
-                $this.data('timer', setTimeout(function () {
-                    getListFun({search: search});
-                }, 500));
-            });
-        })(jQuery);
-
-        // 3. 删除功能
-        (function ($) {
-            var deleteFun = function (categoryIds) {
-                var ids = [].concat(categoryIds);
-                $.ajax({
-                    type: 'post',
-                    url: ctx + '/manager/api/categories/delete',
-                    data: {categoryIds: ids},
-                    dataType: 'json',
-                    success: function (json) {
-                        if (!json.result) {
-                            swal({type: 'warning', title: '警告', text: json.msg});
-                            return;
-                        }
-                        swal({type: 'success', title: '成功', text: json.msg});
-                        $('#form-search').submit();
-                    }
-                });
-            };
-
-            // 3.1 批量删除
-            $('#btn_delete_list').on('click', function () {
-                var categoryIds = $('input[name="category-id"]:checked').map(function () {
+                var categoryId = $('input[name="category-id"]').val();
+                var name = $('input[name="category-name"]').val();
+                var description = $('input[name="category-description"]').val();
+                var status = $('input[name="category-status"]:checked').val();
+                var forumIds = $('input[name="forums"]:checked').map(function () {
                     return this.value;
                 }).get();
-                deleteFun(categoryIds);
-            });
 
-            // 3.2. 单个删除
-            $('tbody').on('click', 'a.btn-delete', function () {
-                console.log("测试2");
-                var $this = $(this);
-                var categoryId = $this.attr('ahao-category-id');
-                if (!!categoryId) {
-                    deleteFun(categoryId);
-                }
+                $.ajax({
+                    type: 'post',
+                    url: ctx + '/manager/api/categories/save',
+                    data: {
+                        categoryId: categoryId,
+                        name: name,
+                        description: description,
+                        status: status,
+                        forumIds: forumIds
+                    },
+                    success: function (json) {
+                        if (!json.result) {
+                            swal({type: 'warning', title: '警告', text: '保存失败'});
+                            return;
+                        }
+                        swal({type: 'success', title: '成功', text: '保存成功'});
+
+                        setTimeout(function () {
+                            window.location.href = ctx + '/manager/categories';
+                        })
+                    }
+                });
             });
         })(jQuery);
     });
