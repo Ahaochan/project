@@ -64,16 +64,14 @@
                 and c.name like #{searchLike}
             </if>
         </where>
+        order by c.id asc, c.name asc, c.status desc
     </select>
 
     <select id="getSelectedForumsByCategoryId" resultType="DataSet">
-        SELECT
-            f.id,
-            f.name,
-            f.status,
-            cf.id selected
-        FROM forum f
-            LEFT JOIN category_forum cf ON f.id = cf.forum_id AND cf.category_id = #{categoryId}
+        select f.id, f.name, f.status, cf.id selected
+        from forum f
+        left join category_forum cf on f.id = cf.forum_id and cf.category_id = #{categoryId}
+        order by f.id asc, f.name asc, f.status desc
     </select>
 
     <select id="getCategoryById" resultType="DataSet">
@@ -88,6 +86,7 @@
         </choose>
         from category c
         where c.id = #{id}
+        order by c.id asc, c.name asc, c.status desc
     </select>
 
 </mapper>
