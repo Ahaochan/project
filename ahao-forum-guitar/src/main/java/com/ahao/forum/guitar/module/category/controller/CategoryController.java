@@ -41,7 +41,7 @@ public class CategoryController {
     }
 
     @GetMapping("/category")
-    public String categoryList(@RequestParam Long catageoryId) {
+    public String categoryList(@RequestParam(defaultValue = "-1") Long catageoryId) {
         return "category/manager-category-detail";
     }
 

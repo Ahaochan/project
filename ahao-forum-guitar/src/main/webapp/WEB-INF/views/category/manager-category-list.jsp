@@ -33,7 +33,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="btn-group">
-                                            <a class="btn btn-default">
+                                            <a class="btn btn-default" href="${contextPath}/manager/category">
                                                 <span class="glyphicon glyphicon-plus"></span>新增
                                             </a>
                                             <a id="btn_delete_list" class="btn btn-default">
@@ -65,6 +65,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    <%-- Ajax加载数据 --%>
                                 </tbody>
                             </table>
                         </div>
@@ -72,6 +73,7 @@
                 </div>
                 <div class="row">
                     <div class="text-right" id="pagination">
+                        <%-- Ajax加载数据 获取分页器 --%>
                     </div>
                 </div>
             </div>
