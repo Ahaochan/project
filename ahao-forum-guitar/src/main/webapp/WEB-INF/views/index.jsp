@@ -21,10 +21,10 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         ${category.getString("name")}
-                        <span class="glyphicon glyphicon-triangle-bottom" data-toggle="collapse" href="#collapse${loop.index}"></span>
+                        <span class="glyphicon glyphicon-triangle-bottom" data-toggle="collapse" href="#collapse-${loop.index}"></span>
                     </h4>
                 </div>
-                <div id="collapse${loop.index}" class="panel-collapse collapse in">
+                <div id="collapse-${loop.index}" class="panel-collapse collapse in">
                     <div class="panel-body media-list">
                         <div class="col-md-4 panel-item media" style="display: none">
                             <div class="media-left">
