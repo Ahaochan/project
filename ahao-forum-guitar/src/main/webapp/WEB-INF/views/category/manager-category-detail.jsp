@@ -135,7 +135,7 @@
 
                 $.ajax({
                     type: 'post',
-                    url: ctx + '/manager/api/categories/save',
+                    url: ctx + '/manager/api/category/save',
                     data: {
                         categoryId: categoryId,
                         name: name,

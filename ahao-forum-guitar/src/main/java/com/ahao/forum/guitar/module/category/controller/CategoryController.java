@@ -59,7 +59,7 @@ public class CategoryController {
         return "category/manager-category-detail";
     }
 
-    @PostMapping("/api/categories/save")
+    @PostMapping("/api/category/save")
     @ResponseBody
     public AjaxDTO save(@RequestParam(required = false) Long categoryId,
                         @RequestParam String name,
