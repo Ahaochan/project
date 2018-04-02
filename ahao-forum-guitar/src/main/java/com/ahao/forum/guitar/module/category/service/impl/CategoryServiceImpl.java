@@ -65,6 +65,30 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public int deleteCategory(Long... categoryIds) {
+        // 1. 判断至少有一条记录存在
+        boolean oneExist = false;
+        for (Long categoryId : categoryIds) {
+            if (categoryId == null || categoryId <= 0) {
+                continue;
+            }
+            IDataSet data = categoryMapper.getCategoryById(categoryId, "id");
+            if (data != null) {
+                oneExist = true;
+                break;
+            }
+        }
+        // 2. 如果存在, 则删除选择的数据
+        if (oneExist) {
+            int deleteCount = categoryMapper.deleteCategory(NumberHelper.unboxing(categoryIds));
+            return deleteCount;
+        }
+        // 3. 如果不存在, 则返回0
+        logger.debug("删除分区失败, 数据表中不存在id:" + Arrays.toString(categoryIds) + "的记录");
+        return 0;
+    }
+
+    @Override
     public List<IDataSet> getCategories(Long userId, String search) {
         if (userId == null || userId <= 0) {
             logger.debug("用户id非法:" + userId);
@@ -97,29 +121,5 @@ public class CategoryServiceImpl implements CategoryService {
         }
         List<IDataSet> list = categoryMapper.getSelectedForumsByCategoryId(categoryId);
         return list;
-    }
-
-    @Override
-    public int deleteCategory(Long... categoryIds) {
-        // 1. 判断至少有一条记录存在
-        boolean oneExist = false;
-        for (Long categoryId : categoryIds) {
-            if (categoryId == null || categoryId <= 0) {
-                continue;
-            }
-            IDataSet data = categoryMapper.getCategoryById(categoryId, "id");
-            if (data != null) {
-                oneExist = true;
-                break;
-            }
-        }
-        // 2. 如果存在, 则删除选择的数据
-        if (oneExist) {
-            int deleteCount = categoryMapper.deleteCategory(NumberHelper.unboxing(categoryIds));
-            return deleteCount;
-        }
-        // 3. 如果不存在, 则返回0
-        logger.debug("删除分区失败, 数据表中不存在id:" + Arrays.toString(categoryIds) + "的记录");
-        return 0;
     }
 }
