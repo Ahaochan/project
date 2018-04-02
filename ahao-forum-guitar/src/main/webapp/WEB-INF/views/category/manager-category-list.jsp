@@ -33,10 +33,10 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="btn-group">
-                                            <a class="btn btn-default" href="${contextPath}/manager/category">
+                                            <a class="btn btn-primary" href="${contextPath}/manager/category">
                                                 <span class="glyphicon glyphicon-plus"></span>新增
                                             </a>
-                                            <a id="btn_delete_list" class="btn btn-default">
+                                            <a id="btn_delete_list" class="btn btn-warning">
                                                 <span class="glyphicon glyphicon-remove"></span>删除
                                             </a>
                                         </div>
