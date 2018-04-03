@@ -14,8 +14,6 @@ public interface CategoryService {
 
     IDataSet getCategory(Long categoryId);
 
-    List<IDataSet> getForums();
-
     List<IDataSet> getSelectedForums(Long categoryId);
 
 }

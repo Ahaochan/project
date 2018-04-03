@@ -94,7 +94,7 @@ public class CategoryServiceImpl implements CategoryService {
             logger.debug("用户id非法:" + userId);
             return Collections.emptyList();
         }
-        List<IDataSet> list = categoryMapper.getCategoriesByUserId(userId, search, "id", "name", "status");
+        List<IDataSet> list = categoryMapper.getCategoriesByUserId(userId, search);
         return list;
     }
 
@@ -106,11 +106,6 @@ public class CategoryServiceImpl implements CategoryService {
         }
         IDataSet data = categoryMapper.getCategoryById(categoryId);
         return data;
-    }
-
-    @Override
-    public List<IDataSet> getForums() {
-        return null;
     }
 
     @Override
