@@ -15,7 +15,7 @@ public interface CategoryMapper {
      * @param name 分区名称
      * @param description 分区描述
      * @param status 分区状态
-     * @return 是否成功
+     * @return 是否插入成功
      */
     boolean saveCategory(@Param("baseDO") BaseDO baseDO,
                          @Param("name") String name, @Param("description") String description, @Param("status") int status);
@@ -53,19 +53,23 @@ public interface CategoryMapper {
      */
     int deleteCategory(@Param("categoryIds") long... categoryIds);
 
-
-
-
+    /**
+     * 获取该分区下所有的板块, 标记起来
+     * @param categoryId 分区id
+     */
     List<IDataSet> getSelectedForumsByCategoryId(@Param("categoryId") long categoryId);
 
-    List<IDataSet> getCategoriesByUserId(@Param("userId") long userId, @Param("search") String search,
-                                            @Param("fields") String... fields);
+    /**
+     * 获取userId用户拥有的所有分区
+     * @param userId 用户id
+     * @param search 查找分区名
+     */
+    List<IDataSet> getCategoriesByUserId(@Param("userId") long userId, @Param("search") String search);
 
     /**
      * 根据 分区id 获取 分区 的基本信息
      * @param categoryId 分区id
      * @param fields category表的字段
-     * @return 唯一一条数据
      */
     IDataSet getCategoryById(@Param("id") long categoryId, @Param("fields") String... fields);
 }
