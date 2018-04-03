@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-10">
             <div class="tab-content">
-                <div class="tab-pane" id="profile"><%@include file="/WEB-INF/views/manager/profile/profile.jsp" %></div>
+                <div class="tab-pane" id="profile"><%@include file="/WEB-INF/views/manager/profile/manager-profile.jsp" %></div>
             </div>
         </div>
     </div>

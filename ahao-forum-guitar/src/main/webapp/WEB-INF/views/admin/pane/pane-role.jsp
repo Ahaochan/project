@@ -14,12 +14,13 @@
     <div class="row">
         <div class="col-md-2">
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">个人资料</a></li>
-                <li><a href="#">修改密码</a></li>
-                <li><a href="#">板块管理</a></li>
-                <li><a href="#">用户管理</a></li>
-                <li><a href="#">权限管理</a></li>
-                <li class="active"><a href="#manager-user">角色管理</a></li>
+                <li><a href="javascript:void(0)">个人资料</a></li>
+                <li><a href="${contextPath}/manager/password">修改密码</a></li>
+                <li><a href="${contextPath}/manager/categories">分区管理</a></li>
+                <li><a href="${contextPath}/manager/forums">板块管理</a></li>
+                <li><a href="${contextPath}/manager/users">用户管理</a></li>
+                <li><a href="${contextPath}/manager/auths">权限管理</a></li>
+                <li class="active"><a href="${contextPath}/manager/roles">角色管理</a></li>
             </ul>
         </div>
         <div class="col-md-10">

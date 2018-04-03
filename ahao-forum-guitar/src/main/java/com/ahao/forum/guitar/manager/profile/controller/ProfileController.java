@@ -41,7 +41,7 @@ public class ProfileController {
         List<IDataSet> auths = profileService.getSelectedAuth(userId);
         model.addAttribute("auths", auths);
 
-        return "manager/profile/profile";
+        return "manager/profile/manager-profile";
     }
 
 }
