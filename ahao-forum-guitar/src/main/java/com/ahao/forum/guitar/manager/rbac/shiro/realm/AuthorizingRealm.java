@@ -3,9 +3,7 @@ package com.ahao.forum.guitar.manager.rbac.shiro.realm;
 import com.ahao.core.annotation.Realm;
 import com.ahao.core.entity.IDataSet;
 import com.ahao.core.util.web.RequestHelper;
-import com.ahao.forum.guitar.manager.rbac.auth.dao.AuthMapper;
-import com.ahao.forum.guitar.manager.rbac.role.dao.RoleMapper;
-import com.ahao.forum.guitar.manager.rbac.user.dao.UserMapper;
+import com.ahao.forum.guitar.manager.rbac.shiro.dao.ShiroMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -24,15 +22,11 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
     private static final Logger logger = LoggerFactory.getLogger(AuthorizingRealm.class);
 
 
-    private UserMapper userMapper;
-    private RoleMapper roleMapper;
-    private AuthMapper authMapper;
+    private ShiroMapper shiroMapper;
 
     @Autowired
-    public AuthorizingRealm(UserMapper userMapper, RoleMapper roleMapper, AuthMapper authMapper){
-        this.userMapper = userMapper;
-        this.roleMapper = roleMapper;
-        this.authMapper = authMapper;
+    public AuthorizingRealm(ShiroMapper shiroMapper){
+        this.shiroMapper = shiroMapper;
     }
 
     // 用于认证
@@ -43,7 +37,7 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
         String username = token.getUsername();
 
         // 2. 从数据库获取用户信息, 和用户输入进行对比
-        IDataSet userData = userMapper.selectUserByUsername(username);
+        IDataSet userData = shiroMapper.getUserByUsername(username);
         // TODO 2.1. 判断验证码是否正确
         // 2.2. 判断用户是否存在
         if (userData == null) {
@@ -66,7 +60,7 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
         }
 
         // 3. 更新最后登录时间 ip
-        userMapper.updateLastLoginMsg(new Date(), RequestHelper.getClientIp(), userData.getLong("id"));
+        shiroMapper.updateLastLoginMsg(new Date(), RequestHelper.getClientIp(), userData.getLong("id"));
 
         // 4. 返回 AuthenticationInfo 对象, 将 userData 存入 Shiro, 方便获取
         AuthenticationInfo authorizationInfo =
@@ -77,14 +71,13 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
     // 用于授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        logger.debug("测试"+principals);
         // 1. 从 Shiro 中获取已 认证 的用户信息
         IDataSet userData = (IDataSet) principals.getPrimaryPrincipal();
         long userId = userData.getLong("id");
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         // 2. 根据 userId 获取所有角色
-        List<IDataSet> roleDatas = roleMapper.getByUserId(userId);
+        List<IDataSet> roleDatas = shiroMapper.getRolesByUserId(userId);
         Set<String> roles = new HashSet<>(roleDatas.size());
         for (IDataSet roleData : roleDatas) {
             roles.add(roleData.getString("name"));
@@ -92,7 +85,7 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
         authorizationInfo.setRoles(roles);
 
         // 3. 根据 userId 获取所有权限
-        List<IDataSet> authDatas = authMapper.getByUserId(userId, "name");
+        List<IDataSet> authDatas = shiroMapper.getAuthsByUserId(userId);
         Set<String> auths = new HashSet<>(authDatas.size());
         for (IDataSet authData : authDatas) {
             auths.add(authData.getString("name"));

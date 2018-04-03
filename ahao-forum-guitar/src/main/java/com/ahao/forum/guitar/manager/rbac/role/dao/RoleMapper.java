@@ -1,10 +1,6 @@
 package com.ahao.forum.guitar.manager.rbac.role.dao;
 
-import com.ahao.core.entity.IDataSet;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * 角色的DAO层
@@ -26,14 +22,6 @@ public interface RoleMapper {
 //                                  @Param("sort") String sort,
 //                                  @Param("order") String order);
 
-
-    /**
-     * 根据用户id获取用户所拥有的角色信息
-     * @param userId 用户id
-     * @param fields admin_role的字段
-     * @return 角色信息
-     */
-    List<IDataSet> getByUserId(@Param("userId") long userId, @Param("fields") String... fields);
 
     /**
      * 修改用户角色表, 增加多对多关系, 用于用户详情页面

@@ -4,25 +4,9 @@
     <update id="updatePassword">
         update admin_user set password = #{password} where id = #{userId}
     </update>
-    <update id="updateLastLoginMsg">
-        update admin_user
-        set last_login_time = #{lastLoginTime}, last_login_ip = #{lastLoginIp}
-        where id = #{userId}
-    </update>
 
-    <select id="selectUserByUsername" resultType="DataSet">
-        select
-        <choose>
-            <when test="fields != null and fields.length > 0">
-                <foreach collection="fields" separator="," item="item">
-                    ${item}
-                </foreach>
-            </when>
-            <otherwise>*</otherwise>
-        </choose>
-        from admin_user
-        where username = #{username}
-    </select>
+
+
     <select id="selectUserByUserId" resultType="DataSet">
         select
         <choose>
