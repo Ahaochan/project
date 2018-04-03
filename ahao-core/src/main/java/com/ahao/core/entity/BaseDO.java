@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * Created by Ahaochan on 2017/6/5.
- *
+ * <p>
  * 数据库中的数据必须有id和createTime和gmt_modify
  */
 public class BaseDO {
@@ -16,7 +16,11 @@ public class BaseDO {
     private Date createTime;
     private Date modifyTime;
 
-    public BaseDO(){
+    public BaseDO() {
+    }
+
+    public BaseDO(Long id) {
+        this.id = id;
     }
 
     public BaseDO(Long id, Date createTime, Date modifyTime) {
