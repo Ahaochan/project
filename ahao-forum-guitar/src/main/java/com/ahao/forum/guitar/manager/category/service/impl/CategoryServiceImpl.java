@@ -40,7 +40,6 @@ public class CategoryServiceImpl implements CategoryService {
             BaseDO idDO = new BaseDO();
             categoryMapper.saveCategory(idDO, name, description, status);
             Long id = idDO.getId();
-            logger.debug("测试:"+idDO+","+ Arrays.toString(forumIds));
             // 2.2. 插入失败则返回 false
             if (id == null || id < 0) {
                 return -1;
