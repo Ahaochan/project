@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.forum.guitar.manager.rbac.auth.dao.AuthMapper">
+
+    <select id="getByUserId" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    a.${item}
+                </foreach>
+            </when>
+            <otherwise> a.* </otherwise>
+        </choose>
+        from admin_auth a
+        left join admin_role__auth ra on ra.auth_id = a.id
+        left join admin_role r on ra.role_id = r.id
+        left join admin_user__role ur on ur.role_id = r.id
+        where ur.user_id = #{userId}
+    </select>
+</mapper>

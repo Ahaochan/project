@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.forum.guitar.manager.profile.dao.ProfileMapper">
+    <update id="updateProfile">
+        update user_profile
+        <set>
+            sex = #{sex},
+            <if test="email != null || email.length()>0">email = #{email},</if>
+            <if test="qq    != null || qq.length()>0   ">qq    = #{qq},</if>
+            <if test="city  != null || city.length()>0 ">city  = #{city},</if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+
+    <select id="getProfile" resultType="DataSet">
+        select u.id, u.username, uf.email, uf.sex, uf.qq, uf.city, u.enabled, u.last_login_time, u.last_login_ip
+        from admin_user u
+        left join user_profile uf on uf.user_id = u.id
+        where u.id = ${userId}
+    </select>
+
+    <select id="getSelectedRolesByUserId" resultType="DataSet">
+        SELECT r.id, r.description, ur.id selected
+        from admin_role r
+        left join admin_user__role ur on ur.role_id = r.id
+        where ur.user_id = #{userId} or ur.user_id is null
+    </select>
+
+    <select id="getSelectedAuthsByUserId" resultType="DataSet">
+        SELECT a.id, a.description, ur.id selected
+        from admin_auth a
+        left join admin_role__auth ra on ra.auth_id = a.id
+        left join admin_role r on ra.role_id = r.id
+        left join admin_user__role ur on ur.role_id = r.id
+        where ur.user_id = #{userId} or ur.user_id is null
+    </select>
+</mapper>

@@ -33,6 +33,6 @@ public class IndexController {
 
     @GetMapping("/test")
     public String test(){
-        return "category/manager-category-list";
+        return "manager/category/manager-category-list";
     }
 }

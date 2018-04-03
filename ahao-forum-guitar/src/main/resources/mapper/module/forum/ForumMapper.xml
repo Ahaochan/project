@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.forum.guitar.manager.forum.dao.ForumMapper">
+
+    <delete id="deleteForum">
+        delete from forum where id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from category_forum where forum_id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from user_forum where forum_id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from post where thread_id in (select t.id from thread t where t.forum_id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>);
+        delete from thread where forum_id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+    </delete>
+
+    <select id="getForums" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    f.${item}
+                </foreach>
+            </when>
+            <otherwise>f.*</otherwise>
+        </choose>
+        from forum f
+    </select>
+
+    <select id="getForumsTable" resultType="DataSet">
+        select f.id, f.name, f.status, thread_num.num thread_num
+        from forum f
+        left join user_forum uf on uf.forum_id = f.id
+        left join admin_user u on uf.user_id = u.id
+        left join (
+            select id, count(*) num
+            from thread
+            group by forum_id
+        ) thread_num on f.id = thread_num.id
+        where u.enabled = 1 and u.id = #{userId}
+        <if test="search != null and search.length() > 0">
+            <bind name="searchLike" value="'%'+search+'%'"/>
+            and f.name like #{searchLike}
+        </if>
+    </select>
+
+    <select id="getForumById" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">f.${item}</foreach>
+            </when>
+            <otherwise>f.*</otherwise>
+        </choose>
+        from forum f
+        where f.id = #{forumId}
+    </select>
+</mapper>
