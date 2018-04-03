@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-2">
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="javascript:void(0)">个人资料</a></li>
+                <li><a href="${contextPath}/manager/profile">个人资料</a></li>
                 <li><a href="${contextPath}/manager/password">修改密码</a></li>
                 <li><a href="${contextPath}/manager/categories">分区管理</a></li>
                 <li class="active"><a href="${contextPath}/manager/forums">板块管理</a></li>
