@@ -3,7 +3,6 @@ package com.ahao.forum.guitar.manager.rbac.user.controller;
 import com.ahao.forum.guitar.manager.rbac.auth.service.AuthService;
 import com.ahao.forum.guitar.manager.rbac.role.service.RoleService;
 import com.ahao.forum.guitar.manager.rbac.user.service.UserService;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,13 +23,6 @@ public class UserController {
         this.roleService = roleService;
         this.authService = authService;
     }
-
-    @RequiresAuthentication
-    @GetMapping("/password")
-    public String modifyPassword() {
-        return "admin/pane/pane-password";
-    }
-
 
     @GetMapping("/admin/user")
     public String list() {

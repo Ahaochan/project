@@ -32,19 +32,19 @@
                             <div class="form-group">
                                 <label for="input-password" class="col-md-2 control-label">原密码</label>
                                 <div class="col-md-4">
-                                    <input class="form-control" id="input-password" placeholder="原密码"/>
+                                    <input type="password" class="form-control" id="input-password" name="password-old" placeholder="原密码"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="input-password-new" class="col-md-2 control-label">新密码</label>
                                 <div class="col-md-4">
-                                    <input class="form-control" id="input-password-new" placeholder="新密码"/>
+                                    <input type="password" class="form-control" id="input-password-new" name="password-new" placeholder="新密码"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="input-password-confirm" class="col-md-2 control-label">确认密码</label>
                                 <div class="col-md-4">
-                                    <input class="form-control" id="input-password-confirm" placeholder="确认密码"/>
+                                    <input type="password" class="form-control" id="input-password-confirm" name="password-confirm" placeholder="确认密码"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -67,46 +67,32 @@
 
 <script>
     $("#form-password").submit(function (e) {
+        e.preventDefault();
 
-        var oldPassword = $('#input-password').val();
-        var newPassword = $('#input-password-new').val();
-        var confirmPassword = $('#input-password-confirm').val();
+        var oldPassword = $('input[name="password-old"]').val();
+        var newPassword = $('input[name="password-new"]').val();
+        var confirmPassword = $('input[name="password-confirm"]').val();
 
         if(newPassword != confirmPassword){
-            swal({
-                type: 'warning',
-                title: '警告',
-                text: '确认密码不一致, 请重新输入'
-            });
-            e.preventDefault();
+            swal({type: 'warning', title: '警告', text: '确认密码不一致, 请重新输入'});
             return;
         }
 
         $.ajax({
             type: "POST",
-            url: ctx+"/api/modify/password",
+            url: ctx+"/manager/api/password/modify",
             data: { oldPassword: oldPassword, newPassword:newPassword },
             success: function (json) {
                 if(!json.result){
-                    swal({
-                        type: 'warning',
-                        title: '警告',
-                        text: json.msg
-                    });
+                    swal({type: 'warning', title: '警告', text: json.msg });
                     return;
                 }
-
-                swal({
-                    type: 'success',
-                    title: '成功',
-                    text: json.msg
-                });
+                swal({ type: 'success',  title: '成功', text: json.msg });
                 setTimeout(function () {
                     location.reload();
                 }, 5000);
             }
         });
-        e.preventDefault(); // avoid to execute the actual submit of the form.
     });
 </script>
 </html>

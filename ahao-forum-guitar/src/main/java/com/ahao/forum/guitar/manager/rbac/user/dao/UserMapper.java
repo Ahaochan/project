@@ -8,9 +8,6 @@ import java.util.List;
 
 @Repository
 public interface UserMapper {
-    boolean updatePassword(@Param("userId") long userId, @Param("password") String password);
-
-
 
     IDataSet selectUserByUserId(@Param("userId") long userId, @Param("fields") String... fields );
 

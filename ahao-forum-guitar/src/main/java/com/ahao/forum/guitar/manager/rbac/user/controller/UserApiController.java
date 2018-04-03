@@ -1,12 +1,12 @@
 package com.ahao.forum.guitar.manager.rbac.user.controller;
 
 import com.ahao.core.entity.AjaxDTO;
-import com.ahao.core.entity.IDataSet;
 import com.ahao.forum.guitar.manager.rbac.user.service.UserService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -18,16 +18,6 @@ public class UserApiController {
     @Autowired
     public UserApiController(UserService userService){
         this.userService = userService;
-    }
-
-
-    @RequiresAuthentication
-    @PostMapping("/modify/password")
-    public AjaxDTO modifyPassword(@RequestParam String oldPassword,
-                                  @RequestParam String newPassword){
-        IDataSet userData = (IDataSet) SecurityUtils.getSubject().getPrincipal();
-        AjaxDTO ajaxDTO = userService.modifyPassword(userData.getLong("id"), oldPassword, newPassword);
-        return ajaxDTO;
     }
 
     @GetMapping("/admin/user")

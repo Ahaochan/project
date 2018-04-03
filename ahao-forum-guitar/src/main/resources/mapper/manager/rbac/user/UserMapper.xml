@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.manager.rbac.user.dao.UserMapper">
-    <update id="updatePassword">
-        update admin_user set password = #{password} where id = #{userId}
-    </update>
-
-
-
     <select id="selectUserByUserId" resultType="DataSet">
         select
         <choose>
