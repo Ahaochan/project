@@ -25,57 +25,51 @@
         </div>
         <div class="col-md-10">
             <div class="tab-content tab-pane">
-                <div class="row">
-                    <div class="tab-content tab-pane">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">分区管理</div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="btn-group">
-                                            <a class="btn btn-primary" href="${contextPath}/manager/category">
-                                                <span class="glyphicon glyphicon-plus"></span>新增
-                                            </a>
-                                            <a id="btn_delete_list" class="btn btn-warning">
-                                                <span class="glyphicon glyphicon-remove"></span>删除
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-md-offset-6">
-                                        <form id="form-search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="搜索分区名"
-                                                       name="category-name"/>
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="submit">搜索</button>
-                                                </span>
-                                            </div>
-                                        </form>
-                                    </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">分区管理</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="${contextPath}/manager/category">
+                                        <span class="glyphicon glyphicon-plus"></span>新增
+                                    </a>
+                                    <a id="btn_delete_list" class="btn btn-warning">
+                                        <span class="glyphicon glyphicon-remove"></span>删除
+                                    </a>
                                 </div>
                             </div>
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="col-md-1"></th>
-                                    <th class="col-md-1">分区id</th>
-                                    <th class="col-md-2">分区名</th>
-                                    <th class="col-md-2">状态</th>
-                                    <th class="col-md-4">操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%-- Ajax加载数据 --%>
-                                </tbody>
-                            </table>
+                            <div class="col-md-3 col-md-offset-6">
+                                <form id="form-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="搜索分区名"
+                                               name="category-name"/>
+                                        <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="submit">搜索</button>
+                                                </span>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th class="col-md-1"></th>
+                            <th class="col-md-1">分区id</th>
+                            <th class="col-md-2">分区名</th>
+                            <th class="col-md-2">状态</th>
+                            <th class="col-md-4">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%-- Ajax加载数据 --%>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="row">
-                    <div class="text-right" id="pagination">
-                        <%-- Ajax加载数据 获取分页器 --%>
-                    </div>
-                </div>
+            </div>
+            <div class="text-right" id="pagination">
+                <%-- Ajax加载数据 获取分页器 --%>
             </div>
         </div>
     </div>

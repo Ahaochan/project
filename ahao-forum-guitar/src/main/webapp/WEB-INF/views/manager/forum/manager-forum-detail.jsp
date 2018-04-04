@@ -25,89 +25,86 @@
         </div>
         <div class="col-md-10">
             <div class="tab-content tab-pane">
-                <div class="row">
-                    <div class="tab-content tab-pane">
-                        <div class="panel panel-default">
-                            <%--@elvariable id="isExist" type="java.lang.Boolean"--%>
-                            <%--@elvariable id="category" type="com.ahao.core.entity.IDataSet"--%>
-                            <div class="panel-heading">${isExist?'编辑分区':'增加分区'}</div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" id="forum-category">
-                                    <c:if test="${isExist}">
-                                        <div class="form-group">
-                                            <label for="input-id" class="col-md-2 control-label">分区id</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control" id="input-id" placeholder="分区id" name="category-id"
-                                                       readonly disabled value="${category.getInt('id')}"/>
-                                            </div>
-                                        </div>
-                                    </c:if>
-                                    <div class="form-group">
-                                        <label for="input-name" class="col-md-2 control-label">分区名称</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" id="input-name" placeholder="分区名称" name="category-name"
-                                                   value="${category.getString('name')}">
-                                        </div>
+                <div class="panel panel-default">
+                    <%--@elvariable id="isExist" type="java.lang.Boolean"--%>
+                    <%--@elvariable id="category" type="com.ahao.core.entity.IDataSet"--%>
+                    <div class="panel-heading">${isExist?'编辑分区':'增加分区'}</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" id="form-forum">
+                            <c:if test="${isExist}">
+                                <div class="form-group">
+                                    <label for="input-id" class="col-md-2 control-label">分区id</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" id="input-id" placeholder="分区id" name="category-id"
+                                               readonly disabled value="${category.getInt('id')}"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="input-description" class="col-md-2 control-label">分区描述</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" id="input-description" placeholder="分区描述" name="category-description"
-                                                   value="${category.getString('description')}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">分区状态</label>
-                                        <c:set var="status" value="${category.getInt('status') == 0}"/>
-                                        <div class="col-md-3 radio">
-                                            <label>
-                                                <input type="radio" id="input-status-1" name="category-status"
-                                                       value="1" ${status?'':'checked'}>启用
-                                            </label>
-                                        </div>
-                                        <div class="col-md-3 radio">
-                                            <label>
-                                                <input type="radio" id="input-status-0" name="category-status"
-                                                       value="0" ${status?'checked':''}>禁用
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">下属板块</label>
-                                        <div class="col-md-10">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                        下属板块
-                                                        <span class="glyphicon glyphicon-triangle-bottom"
-                                                              data-toggle="collapse" href="#pane-sub-forum"></span>
-                                                    </h4>
-                                                </div>
-                                                <div id="pane-sub-forum" class="panel-collapse collapse in">
-                                                    <div class="panel-body">
-                                                        <c:forEach items="${forums}" var="item">
-                                                            <div class="checkbox ${item.getBoolean("status") ? '' : 'disabled'}">
-                                                                <label>
-                                                                    <input type="checkbox" name="forums"
-                                                                           value="${item.getInt("id")}"
-                                                                        ${item.getBoolean("status") ? '' : 'disabled'}
-                                                                        ${"".equals(item.getString("selected")) ? "":"checked"}/>
-                                                                        ${item.getString("name")}</label>
-                                                            </div>
-                                                        </c:forEach>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <button type="submit" class="btn btn-default">保存</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
+                            </c:if>
+                            <div class="form-group">
+                                <label for="input-name" class="col-md-2 control-label">分区名称</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" id="input-name" placeholder="分区名称" name="category-name"
+                                           value="${category.getString('name')}">
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="input-description" class="col-md-2 control-label">分区描述</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" id="input-description" placeholder="分区描述"
+                                           name="category-description"
+                                           value="${category.getString('description')}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">分区状态</label>
+                                <c:set var="status" value="${category.getInt('status') == 0}"/>
+                                <div class="col-md-3 radio">
+                                    <label>
+                                        <input type="radio" id="input-status-1" name="category-status"
+                                               value="1" ${status?'':'checked'}>启用
+                                    </label>
+                                </div>
+                                <div class="col-md-3 radio">
+                                    <label>
+                                        <input type="radio" id="input-status-0" name="category-status"
+                                               value="0" ${status?'checked':''}>禁用
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">下属板块</label>
+                                <div class="col-md-10">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                下属板块
+                                                <span class="glyphicon glyphicon-triangle-bottom"
+                                                      data-toggle="collapse" href="#pane-sub-forum"></span>
+                                            </h4>
+                                        </div>
+                                        <div id="pane-sub-forum" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <c:forEach items="${forums}" var="item">
+                                                    <div class="checkbox ${item.getBoolean("status") ? '' : 'disabled'}">
+                                                        <label>
+                                                            <input type="checkbox" name="forums"
+                                                                   value="${item.getInt("id")}"
+                                                                ${item.getBoolean("status") ? '' : 'disabled'}
+                                                                ${"".equals(item.getString("selected")) ? "":"checked"}/>
+                                                                ${item.getString("name")}</label>
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit" class="btn btn-default">保存</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
