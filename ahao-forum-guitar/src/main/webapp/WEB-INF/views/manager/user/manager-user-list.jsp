@@ -3,7 +3,7 @@
 <head>
     <%-- 样式 --%>
     <%@include file="/WEB-INF/views/static/head.jsp" %>
-    <title>分区管理</title>
+    <title>用户管理</title>
 </head>
 <body>
 <%-- 导航条 --%>
@@ -26,7 +26,7 @@
         <div class="col-md-10">
             <div class="tab-content tab-pane">
                 <div class="panel panel-default">
-                    <div class="panel-heading">分区管理</div>
+                    <div class="panel-heading">用户管理</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3">
@@ -42,7 +42,7 @@
                             <div class="col-md-3 col-md-offset-6">
                                 <form id="form-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="搜索分区名"
+                                        <input type="text" class="form-control" placeholder="搜索用户名"
                                                name="user-name"/>
                                         <span class="input-group-btn">
                                                     <button class="btn btn-default" type="submit">搜索</button>
