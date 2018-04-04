@@ -26,6 +26,8 @@
         <div class="col-md-10">
             <div class="tab-content tab-pane">
                 <div class="panel panel-default">
+                    <%--@elvariable id="isExist" type="java.lang.Boolean"--%>
+                    <%--@elvariable id="profile" type="com.ahao.core.entity.IDataSet"--%>
                     <div class="panel-heading">个人资料</div>
                     <div class="panel-body">
                         <form class="form-horizontal" id="form-profile">
@@ -34,8 +36,9 @@
                             <div class="form-group">
                                 <label for="input-username" class="col-md-2 control-label">用户名</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" placeholder="用户名" value="${username}" disabled
-                                           id="input-username"  name="user-username"/>
+                                    <input class="form-control" placeholder="用户名"
+                                           id="input-username" name="user-username"
+                                           value="${username}" disabled/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -158,7 +161,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <button type="submit" id="btn-submit" class="btn btn-default">保存</button>
+                                    <button type="submit" class="btn btn-default">保存</button>
                                 </div>
                             </div>
                         </form>
@@ -199,6 +202,10 @@
                             return;
                         }
                         swal({type: 'success', title: '成功', text: '保存成功'});
+
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000)
                     }
                 });
             });
