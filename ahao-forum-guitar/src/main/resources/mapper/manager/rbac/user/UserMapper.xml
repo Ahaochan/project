@@ -25,7 +25,7 @@
         <![CDATA[where (uw.weight <= #{weight} or uw.weight is null )]]>
         <if test="search != null and search.length() > 0">
             <bind name="searchLike" value="'%'+search+'%'"/>
-            and u.username like ${searchLike}
+            and u.username like #{searchLike}
         </if>
     </select>
 

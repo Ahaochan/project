@@ -10,7 +10,7 @@
         where c.id = #{categoryId}
         <if test="search != null and search.length() > 0">
             <bind name="searchLike" value="'%'+search+'%'"/>
-            and (p.title like ${searchLike} or p.content like ${searchLike})
+            and (p.title like #{searchLike} or p.content like #{searchLike})
         </if>
     </select>
 </mapper>
