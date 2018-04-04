@@ -92,7 +92,7 @@
 <script>
     var jump = function (page) {
         var search = $('input[name="user-name"]').val();
-        getList({page: page, search: search});
+        getListFun({page: page, search: search});
     };
     var getListFun = function (option) {
         var options = $.extend({
