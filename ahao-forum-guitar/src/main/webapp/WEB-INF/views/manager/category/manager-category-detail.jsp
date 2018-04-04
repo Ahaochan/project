@@ -32,7 +32,7 @@
                             <%--@elvariable id="category" type="com.ahao.core.entity.IDataSet"--%>
                             <div class="panel-heading">${isExist?'编辑分区':'增加分区'}</div>
                             <div class="panel-body">
-                                <form class="form-horizontal" id="forum-category">
+                                <form class="form-horizontal" id="form-category">
                                     <c:if test="${isExist}">
                                         <div class="form-group">
                                             <label for="input-id" class="col-md-2 control-label">分区id</label>
@@ -122,7 +122,7 @@
 <script>
     $(function () {
         (function ($) {
-            $('#forum-category').submit(function (e) {
+            $('#form-category').submit(function (e) {
                 e.preventDefault();
 
                 var categoryId = $('input[name="category-id"]').val();
