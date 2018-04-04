@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.manager.rbac.user.dao.UserMapper">
-    <select id="selectUserByUserId" resultType="DataSet">
-        select
-        <choose>
-            <when test="fields != null and fields.length > 0">
-                <foreach collection="fields" separator="," item="item">
-                    ${item}
-                </foreach>
-            </when>
-            <otherwise>*</otherwise>
-        </choose>
-        from admin_user
-        where id = #{userId}
-    </select>
 
     <select id="selectProfileByUserId" resultType="DataSet">
         select
@@ -29,24 +16,25 @@
         where up.user_id = ${userId}
     </select>
 
-    <select id="getUsersByWeight" resultType="DataSet">
-        select
-        <choose>
-            <when test="fields != null and fields.length > 0">
-                <foreach collection="fields" separator="," item="item">
-                    u.${item}
-                </foreach>
-            </when>
-            <otherwise>u.*</otherwise>
-        </choose>
+    <select id="getUsersTableByWeight" resultType="DataSet">
+        select u.id, u.username, u.last_login_time, u.last_login_ip, u.enabled, t.thread_num, p.post_num
         from admin_user u
-        left join admin_user__role ur on u.id = ur.user_id
-        left join admin_role r on ur.role_id = r.id
-        <![CDATA[ where r.weight < #{weight} ]]>
+        left join (select u.id user_id, max(IFNULL(r.weight, 0)) weight from admin_user u left join admin_user__role ur on u.id = ur.user_id left join admin_role r on r.id = ur.role_id group by u.id ) uw on uw.user_id = u.id
+        left join (select user_id, count(*) thread_num from thread group by user_id) t on t.user_id = u.id
+        left join (select user_id, count(*) post_num from post group by user_id) p on p.user_id = u.id
+        <![CDATA[where (uw.weight <= #{weight} or uw.weight is null )]]>
         <if test="search != null and search.length() > 0">
             <bind name="searchLike" value="'%'+search+'%'"/>
             and u.username like ${searchLike}
         </if>
+    </select>
+
+    <select id="getMaxWeightByUserId" resultType="int">
+        select max(r.weight)
+        from admin_user u
+        left join admin_user__role ur on ur.user_id = u.id
+        left join admin_role r on ur.role_id = r.id
+        where u.id = #{userId}
     </select>
 
 

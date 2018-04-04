@@ -1,11 +1,21 @@
 package com.ahao.forum.guitar.manager.rbac.user.service;
 
 import com.ahao.core.entity.IDataSet;
-import com.alibaba.fastjson.JSONObject;
+
+import java.util.List;
 
 public interface UserService {
 
-    IDataSet getProfile(Long userId, String... fields);
+    long saveUser(Long userId, String username, String password, Integer enabled, String email, Integer sex, String city, String qq, Long... roleId);
 
-    JSONObject getUsersWithPage(Integer page, String search);
+    int deleteUser(Long... userIds);
+
+    List<IDataSet> getUsersTable(int weight, String search);
+
+    IDataSet getUser(Long userId);
+
+
+    int getMaxRoleWeight(Long userId);
+
+    List<IDataSet> getSelectedRoles(Long userId);
 }

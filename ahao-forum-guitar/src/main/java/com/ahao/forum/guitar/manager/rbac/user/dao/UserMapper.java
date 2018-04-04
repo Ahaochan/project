@@ -9,12 +9,7 @@ import java.util.List;
 @Repository
 public interface UserMapper {
 
-    IDataSet selectUserByUserId(@Param("userId") long userId, @Param("fields") String... fields );
+    int getMaxWeightByUserId(@Param("userId") long userId);
 
-    IDataSet selectProfileByUserId(@Param("userId") long userId, @Param("fields") String... fields);
-
-
-
-
-    List<IDataSet> getUsersByWeight(@Param("search") String search, @Param("weight") int weight, @Param("fields") String... fields);
+    List<IDataSet> getUsersTableByWeight(@Param("weight") int weight, @Param("search") String search);
 }

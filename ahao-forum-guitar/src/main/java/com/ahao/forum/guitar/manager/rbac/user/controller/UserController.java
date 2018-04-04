@@ -1,14 +1,23 @@
 package com.ahao.forum.guitar.manager.rbac.user.controller;
 
+import com.ahao.core.context.PageContext;
+import com.ahao.core.entity.AjaxDTO;
+import com.ahao.core.entity.IDataSet;
+import com.ahao.core.util.lang.CollectionHelper;
+import com.ahao.core.util.web.PageIndicator;
 import com.ahao.forum.guitar.manager.rbac.auth.service.AuthService;
 import com.ahao.forum.guitar.manager.rbac.role.service.RoleService;
 import com.ahao.forum.guitar.manager.rbac.user.service.UserService;
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/manager")
@@ -24,13 +33,62 @@ public class UserController {
         this.authService = authService;
     }
 
-    @GetMapping("/admin/user")
+//    @GetMapping("/user")
+//    public String user() {
+//        return "admin/pane/pane-user";
+//    }
+
+//    @GetMapping("/user-{userId}")
+//    public void user(@PathVariable("userId") Integer userId) {
+//    }
+
+//    @PostMapping("/api/user/save")
+//    @ResponseBody
+//    public AjaxDTO save(@RequestParam(required = false) Long categoryId,
+//                        @RequestParam String name,
+//                        @RequestParam String description,
+//                        @RequestParam Integer status,
+//                        @RequestParam("forumIds[]") Long... forumIds) {
+//        // 1. 保存当前用户的实体联系, 返回 分区id
+//        long id = categoryService.saveCategory(categoryId, name, description, status, forumIds);
+//        return AjaxDTO.get(id>0);
+//    }
+
+    @GetMapping("/users")
     public String list() {
-        return "admin/pane/pane-user";
+        return "manager/user/manager-user-list";
     }
 
-    @GetMapping("/admin/user-{userId}")
-    public void userInfo(@PathVariable("userId") Integer userId) {
+    @GetMapping("/api/users/list-{page}")
+    @ResponseBody
+    public AjaxDTO userList(@PathVariable Integer page,
+                                @RequestParam(required = false) String search) {
+        JSONObject result = new JSONObject();
 
+        // 1. 获取已登录的用户数据
+        IDataSet userData = (IDataSet) SecurityUtils.getSubject().getPrincipal();
+        long userId = userData.getLong("id");
+
+        // 2. 分页获取
+        int pageSize = PageContext.getPageSize();
+        int weight = userService.getMaxRoleWeight(userId);
+        PageHelper.startPage(page, pageSize);
+        List<IDataSet> list = userService.getUsersTable(weight, search);
+        result.put("list", list);
+        if (CollectionHelper.isEmpty(list)) {
+            return AjaxDTO.failure("获取数据为空");
+        }
+
+        // 3. 获取分页器
+        PageInfo<IDataSet> pageInfo = new PageInfo<>(list);
+        long total = pageInfo.getTotal();
+        String pageIndicator = PageIndicator.getBootstrap(total, page, pageSize);
+        result.put("pageIndicator", pageIndicator);
+        return AjaxDTO.success(result);
     }
+
+//    @PostMapping("/api/users/delete")
+//    @ResponseBody
+//    public AjaxDTO delete(@RequestParam("categoryIds[]") Long... categoryIds) {
+//    }
 }
