@@ -1,6 +1,7 @@
 package com.ahao.forum.guitar.manager.rbac.user.service.impl;
 
 import com.ahao.core.entity.IDataSet;
+import com.ahao.core.util.lang.math.NumberHelper;
 import com.ahao.forum.guitar.manager.rbac.user.dao.UserMapper;
 import com.ahao.forum.guitar.manager.rbac.user.service.UserService;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -63,25 +65,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int deleteUser(Long... userIds) {
-//        // 1. 判断至少有一条记录存在
-//        boolean oneExist = false;
-//        for (Long userId : userIds) {
-//            if (userId == null || userId <= 0) {
-//                continue;
-//            }
-//            IDataSet data = userMapper.getUserById(userId, "id");
-//            if (data != null) {
-//                oneExist = true;
-//                break;
-//            }
-//        }
-//        // 2. 如果存在, 则删除选择的数据
-//        if (oneExist) {
-//            int deleteCount = userMapper.deleteUser(NumberHelper.unboxing(userIds));
-//            return deleteCount;
-//        }
-//        // 3. 如果不存在, 则返回0
-//        logger.debug("删除分区失败, 数据表中不存在id:" + Arrays.toString(userIds) + "的记录");
+        // 1. 判断至少有一条记录存在
+        boolean oneExist = false;
+        for (Long userId : userIds) {
+            if (userId == null || userId <= 0) {
+                continue;
+            }
+            boolean exists = userMapper.checkUserExists(userId);
+            if (exists) {
+                oneExist = true;
+                break;
+            }
+        }
+        // 2. 如果存在, 则删除选择的数据
+        if (oneExist) {
+            int deleteCount = userMapper.deleteUser(NumberHelper.unboxing(userIds));
+            return deleteCount;
+        }
+        // 3. 如果不存在, 则返回0
+        logger.debug("删除分区失败, 数据表中不存在id:" + Arrays.toString(userIds) + "的记录");
         return 0;
     }
 

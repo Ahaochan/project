@@ -2,18 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.manager.rbac.user.dao.UserMapper">
 
-    <select id="selectProfileByUserId" resultType="DataSet">
-        select
-        <choose>
-            <when test="fields != null and fields.length > 0">
-                <foreach collection="fields" separator="," item="item">
-                    ${item}
-                </foreach>
-            </when>
-            <otherwise>*</otherwise>
-        </choose>
-        from user_profile up
-        where up.user_id = ${userId}
+    <delete id="deleteUser">
+        delete from admin_user where id in <foreach collection="userIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from admin_user__role where user_id in <foreach collection="userIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from user_profile where user_id in <foreach collection="userIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from user_category where user_id in <foreach collection="userIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from user_forum where user_id in <foreach collection="userIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        # 不删除主题和回复
+    </delete>
+
+    <select id="checkUserExists" resultType="boolean">
+        select exists(select 1 from admin_user where id=#{userId})
     </select>
 
     <select id="getUsersTableByWeight" resultType="DataSet">
@@ -36,6 +35,7 @@
         left join admin_role r on ur.role_id = r.id
         where u.id = #{userId}
     </select>
+
 
 
 </mapper>

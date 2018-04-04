@@ -87,8 +87,13 @@ public class UserController {
         return AjaxDTO.success(result);
     }
 
-//    @PostMapping("/api/users/delete")
-//    @ResponseBody
-//    public AjaxDTO delete(@RequestParam("categoryIds[]") Long... categoryIds) {
-//    }
+    @PostMapping("/api/users/delete")
+    @ResponseBody
+    public AjaxDTO delete(@RequestParam("userIds[]") Long... userIds) {
+        int deleteCount = userService.deleteUser(userIds);
+        if (deleteCount > 0) {
+            return AjaxDTO.success("删除成功, 删除" + deleteCount + "条记录");
+        }
+        return AjaxDTO.failure("删除失败, 请联系管理员");
+    }
 }
