@@ -63,8 +63,9 @@ public interface CategoryMapper {
      * 获取userId用户拥有的所有分区
      * @param userId 用户id
      * @param search 查找分区名
+     * @param isRoot 是否为最高管理员
      */
-    List<IDataSet> getCategoriesByUserId(@Param("userId") long userId, @Param("search") String search);
+    List<IDataSet> getCategoriesByUserId(@Param("userId") long userId, @Param("search") String search, @Param("isRoot") boolean isRoot);
 
     /**
      * 根据 分区id 获取 分区 的基本信息

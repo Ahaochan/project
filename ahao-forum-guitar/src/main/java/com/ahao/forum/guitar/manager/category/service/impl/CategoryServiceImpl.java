@@ -5,6 +5,7 @@ import com.ahao.core.entity.IDataSet;
 import com.ahao.core.util.lang.math.NumberHelper;
 import com.ahao.forum.guitar.manager.category.dao.CategoryMapper;
 import com.ahao.forum.guitar.manager.category.service.CategoryService;
+import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +94,7 @@ public class CategoryServiceImpl implements CategoryService {
             logger.debug("用户id非法:" + userId);
             return Collections.emptyList();
         }
-        List<IDataSet> list = categoryMapper.getCategoriesByUserId(userId, search);
+        List<IDataSet> list = categoryMapper.getCategoriesByUserId(userId, search, ShiroHelper.isRoot());
         return list;
     }
 

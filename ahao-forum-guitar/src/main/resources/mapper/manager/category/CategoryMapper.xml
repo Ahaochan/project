@@ -47,10 +47,10 @@
 
     <select id="getCategoriesByUserId" resultType="DataSet">
         select c.id, c.name, c.status
-        from user_category uc
-        left join category c on c.id = uc.category_id
+        from category c
+        <if test="!isRoot">left join user_category uc on c.id = uc.category_id</if>
         <where>
-            uc.user_id = #{userId}
+            <if test="!isRoot"> uc.user_id = #{userId} </if>
             <if test="search != null and search.length() > 0">
                 <bind name="searchLike" value="'%'+search+'%'"/>
                 and c.name like #{searchLike}
