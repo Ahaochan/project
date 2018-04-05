@@ -15,8 +15,9 @@
 
 
 <%--=================================CSS 样式表=================================--%>
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>   <%--https://v3.bootcss.com/getting-started/--%>
-<link rel="stylesheet" href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css">      <%--https://sweetalert.js.org/--%>
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>               <%--https://v3.bootcss.com/getting-started/--%>
+<link rel="stylesheet" href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css">                  <%--https://sweetalert.js.org/--%>
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> <%--https://github.com/snapappointments/bootstrap-select--%>
 <link rel="stylesheet" href="${contextPath}/css/app.css"/>
 <%--=================================CSS 样式表=================================--%>
 
