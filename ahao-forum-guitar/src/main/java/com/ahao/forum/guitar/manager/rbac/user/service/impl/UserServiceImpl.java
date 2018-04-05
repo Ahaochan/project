@@ -150,10 +150,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<IDataSet> getForums() {
-        long operatorUserId = ShiroHelper.getMyUserId();
-        int maxWeight = Setter.getInt("role.weight.max");
-        int weight = ShiroHelper.getMyUserWeight();
-        return userMapper.getSelectedForums(-1, weight >= maxWeight, operatorUserId);
+        return userMapper.getSelectedForums(-1, ShiroHelper.isRoot(), ShiroHelper.getMyUserId());
     }
 
     @Override
@@ -162,10 +159,7 @@ public class UserServiceImpl implements UserService {
             logger.debug("用户id非法:" + userId);
             return null;
         }
-        long operatorUserId = ShiroHelper.getMyUserId();
-        int maxWeight = Setter.getInt("role.weight.max");
-        int weight = ShiroHelper.getMyUserWeight();
-        List<IDataSet> list = userMapper.getSelectedForums(userId, weight >= maxWeight, operatorUserId);
+        List<IDataSet> list = userMapper.getSelectedForums(userId, ShiroHelper.isRoot(), ShiroHelper.getMyUserId());
         return list;
     }
 }
