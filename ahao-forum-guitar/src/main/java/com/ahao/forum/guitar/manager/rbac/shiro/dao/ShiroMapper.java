@@ -25,6 +25,12 @@ public interface ShiroMapper {
     IDataSet getUserByUsername(@Param("username") String username);
 
     /**
+     * 获取当前用户的权限值
+     * @param userId 用户id
+     */
+    int getWeight(@Param("userId") long userId);
+
+    /**
      * 根据用户id获取用户所拥有的角色信息
      * @param userId 用户id
      */

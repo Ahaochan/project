@@ -13,6 +13,14 @@
         where u.username = #{username}
     </select>
 
+    <select id="getWeight" resultType="int">
+        select max(r.weight)
+        from admin_user u
+        left join admin_user__role ur on ur.user_id = u.id
+        left join admin_role r on ur.role_id = r.id
+        where u.id = #{userId}
+    </select>
+
     <select id="getRolesByUserId" resultType="DataSet">
         select r.id, r.name
         from admin_role r
@@ -28,4 +36,5 @@
         left join admin_user__role ur on ur.role_id = r.id
         where ur.user_id = #{userId}
     </select>
+
 </mapper>

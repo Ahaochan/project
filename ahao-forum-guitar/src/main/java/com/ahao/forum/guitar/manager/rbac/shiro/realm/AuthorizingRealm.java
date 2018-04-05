@@ -38,6 +38,7 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
 
         // 2. 从数据库获取用户信息, 和用户输入进行对比
         IDataSet userData = shiroMapper.getUserByUsername(username);
+        long userId = userData.getLong("id");
         // TODO 2.1. 判断验证码是否正确
         // 2.2. 判断用户是否存在
         if (userData == null) {
@@ -59,8 +60,12 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
             throw new LockedAccountException(msg);
         }
 
+        // 3. 加入用户权限值
+        int weight = shiroMapper.getWeight(userId);
+        userData.put("weight", weight);
+
         // 3. 更新最后登录时间 ip
-        shiroMapper.updateLastLoginMsg(new Date(), RequestHelper.getClientIp(), userData.getLong("id"));
+        shiroMapper.updateLastLoginMsg(new Date(), RequestHelper.getClientIp(), userId);
 
         // 4. 返回 AuthenticationInfo 对象, 将 userData 存入 Shiro, 方便获取
         AuthenticationInfo authorizationInfo =
