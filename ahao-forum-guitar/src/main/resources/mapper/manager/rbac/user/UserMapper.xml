@@ -2,6 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.manager.rbac.user.dao.UserMapper">
 
+    <insert id="saveUser" useGeneratedKeys="true" keyProperty="idDO.id" keyColumn="id">
+        insert into admin_user (username, password, enabled) values (#{username}, #{password}, #{enabled});
+    </insert>
+    <insert id="saveProfile">
+        insert into user_profile (user_id, email, sex, qq, city) values (#{userId}, #{email}, #{sex}, #{qq}, #{city});
+    </insert>
+    <update id="updateUserAndProfile">
+        update admin_user
+        <set>
+            <if test="password != null and password.length() > 0">password = #{password},</if>
+            <if test="enabled >= 0">enabled = #{enabled}</if>
+        </set>
+        where id = #{userId};
+
+        update user_profile
+        <set>
+            <if test="email != null and email.length() > 0">email = #{email},</if>
+            <if test="qq != null and qq.length() > 0">qq = #{qq},</if>
+            <if test="city != null and city.length() > 0">city = #{city},</if>
+            <if test="sex >= 0">sex = #{sex}</if>
+        </set>
+        where user_id = #{userId};
+    </update>
+
+    <select id="getUser" resultType="DataSet">
+        select u.id, u.username, u.enabled, u.last_login_time, u.last_login_ip,
+            p.email, p.sex, p.qq, p.city,
+            uw.weight
+        from admin_user u
+        left join user_profile p on p.user_id = u.id
+        left join (select u.id user_id, max(IFNULL(r.weight, 0)) weight from admin_user u left join admin_user__role ur on u.id = ur.user_id left join admin_role r on r.id = ur.role_id group by u.id ) uw on uw.user_id = u.id
+        where u.id = #{userId}
+    </select>
+    <update id="relateUserRole">
+        delete from user_category where user_id = #{userId};
+        delete from user_forum where user_id = #{userId};
+        delete from admin_user__role where user_id = #{userId};
+        <if test="roleIds != null and roleIds.length > 0">
+            insert into admin_user__role(user_id, role_id) values
+            <foreach collection="roleIds" item="roleId" separator=","> (#{userId}, #{roleId}) </foreach>
+        </if>
+    </update>
+    <update id="relateUserCategory">
+        delete from user_category where user_id = #{userId};
+        delete from user_forum where user_id = #{userId};
+        <if test="categoriesIds != null and categoriesIds.length > 0">
+            insert into user_category(user_id, category_id) values
+            <foreach collection="categoriesIds" item="categoryId" separator=","> (#{userId}, #{categoryId}) </foreach>
+        </if>
+    </update>
+    <update id="relateUserForum">
+        delete from user_category where user_id = #{userId};
+        delete from user_forum where user_id = #{userId};
+        <if test="forumIds != null and forumIds.length > 0">
+            insert into user_forum(user_id, forum_id) values
+            <foreach collection="forumIds" item="forumId" separator=","> (#{userId}, #{forumId}) </foreach>
+        </if>
+    </update>
+
     <delete id="deleteUser">
         delete from admin_user where id in <foreach collection="userIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
         delete from admin_user__role where user_id in <foreach collection="userIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
@@ -16,26 +75,45 @@
     </select>
 
     <select id="getUsersTableByWeight" resultType="DataSet">
-        select u.id, u.username, u.last_login_time, u.last_login_ip, u.enabled, t.thread_num, p.post_num
+        select u.id, u.username, u.password, u.last_login_time, u.last_login_ip, u.enabled, t.thread_num, p.post_num
         from admin_user u
         left join (select u.id user_id, max(IFNULL(r.weight, 0)) weight from admin_user u left join admin_user__role ur on u.id = ur.user_id left join admin_role r on r.id = ur.role_id group by u.id ) uw on uw.user_id = u.id
         left join (select user_id, count(*) thread_num from thread group by user_id) t on t.user_id = u.id
         left join (select user_id, count(*) post_num from post group by user_id) p on p.user_id = u.id
-        <![CDATA[where (uw.weight <= #{weight} or uw.weight is null )]]>
+        <![CDATA[where (uw.weight < #{weight} or uw.weight is null )]]>
         <if test="search != null and search.length() > 0">
             <bind name="searchLike" value="'%'+search+'%'"/>
             and u.username like #{searchLike}
         </if>
     </select>
 
-    <select id="getMaxWeightByUserId" resultType="int">
-        select max(r.weight)
-        from admin_user u
-        left join admin_user__role ur on ur.user_id = u.id
-        left join admin_role r on ur.role_id = r.id
-        where u.id = #{userId}
+    <select id="getSelectedRoles" resultType="DataSet">
+        select r.id, r.description, r.enabled <if test="userId > 0">, ur.id selected</if>
+        from admin_role r
+        <if test="userId > 0">
+        left join admin_user__role ur on ur.user_id = #{userId} and ur.role_id = r.id
+        </if>
+        <![CDATA[where r.weight < #{weight}]]>
+        order by r.weight asc
     </select>
-
-
+    <select id="getSelectedCategories" resultType="DataSet">
+        select c.id, c.name, c.status <if test="userId > 0">, uc.id selected</if>
+        from category c
+        <if test="userId > 0">
+        left join user_category uc on uc.user_id = #{userId} and uc.category_id = c.id
+        </if>
+    </select>
+    <select id="getSelectedForums" resultType="DataSet">
+        select f.id, f.name, f.status <if test="userId > 0">, uf.id selected</if>
+        from forum f
+        <if test="userId > 0">
+        left join user_forum uf on uf.user_id = #{userId} and uf.forum_id = f.id
+        </if>
+        <if test="!isRoot">
+        left join category_forum cf on cf.forum_id = f.id
+        left join user_category uc on uc.category_id = cf.category_id
+        where uc.user_id = ${operatorUserId}
+        </if>
+    </select>
 
 </mapper>

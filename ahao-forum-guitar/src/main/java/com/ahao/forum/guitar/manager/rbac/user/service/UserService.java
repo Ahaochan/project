@@ -5,8 +5,7 @@ import com.ahao.core.entity.IDataSet;
 import java.util.List;
 
 public interface UserService {
-
-    long saveUser(Long userId, String username, String password, Integer enabled, String email, Integer sex, String city, String qq, Long... roleId);
+    long saveUser(Long userId, String username, String password, String email, Integer sex, String qq, String city, Integer enabled, Long roleId, Long[] categoryIds, Long[] forumIds);
 
     int deleteUser(Long... userIds);
 
@@ -14,8 +13,10 @@ public interface UserService {
 
     IDataSet getUser(Long userId);
 
-
-    int getMaxRoleWeight(Long userId);
-
+    List<IDataSet> getRoles();
     List<IDataSet> getSelectedRoles(Long userId);
+    List<IDataSet> getCategories();
+    List<IDataSet> getSelectedCategories(Long userId);
+    List<IDataSet> getForums();
+    List<IDataSet> getSelectedForums(Long userId);
 }

@@ -19,4 +19,16 @@
     <provinceUrl description="行政区划代码url"
                  value="http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201703/t20170310_1471429.html"/>
 
+    <role>
+        <id>
+            <root value="1" description="最高管理员id"/>
+            <super-moderator value="2" description="超级版主id"/>
+            <moderator value="3" description="版主id"/>
+        </id>
+        <weight>
+            <max value="100" description="权限最大值"/>
+            <min value="0" description="权限最小值"/>
+        </weight>
+    </role>
+
 </application-setting>

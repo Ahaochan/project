@@ -1,7 +1,10 @@
 package com.ahao.forum.guitar.manager.rbac.user.service.impl;
 
+import com.ahao.core.config.Setter;
+import com.ahao.core.entity.BaseDO;
 import com.ahao.core.entity.IDataSet;
 import com.ahao.core.util.lang.math.NumberHelper;
+import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import com.ahao.forum.guitar.manager.rbac.user.dao.UserMapper;
 import com.ahao.forum.guitar.manager.rbac.user.service.UserService;
 import org.slf4j.Logger;
@@ -22,45 +25,50 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
+
     @Transactional
     @Override
-    public long saveUser(Long userId, String username, String password, Integer enabled,
-                         String email, Integer sex, String city, String qq, Long... roleId) {
-//        // 1. 数据初始化
-//        if (enabled == null || enabled < 0) {
-//            enabled = 1;
-//        }
-//        if (sex == null || sex < 0 || sex > 2) {
-//            sex = 0;
-//        }
-//        // 2. 如果 categoryId 不存在, 则插入数据, 并添加联系
-//        if (userId == null || userId <= 0) {
-//            // 2.1. BaseDO封装插入记录的id
-//            BaseDO idDO = new BaseDO();
-//            userMapper.saveUser(idDO, username, password, enabled);
-//            Long id = idDO.getId();
-//            // 2.2. 插入失败则返回 false
-//            if (id == null || id < 0) {
-//                return -1;
-//            }
-//            // 2.3. 插入成功则添加联系
-//            else {
-//                categoryMapper.relateCategoryForum(id, NumberHelper.unboxing(forumIds));
-//                categoryId = id;
-//            }
-//        }
-//        // 3. 如果 categoryId 存在, 则更新数据, 并添加联系
-//        else {
-//            // 3.1. 更新数据
-//            boolean success = categoryMapper.updateCategory(categoryId, name, description, status);
-//            // 3.2. 更新成功则添加联系
-//            categoryMapper.relateCategoryForum(categoryId, NumberHelper.unboxing(forumIds));
-//        }
-//
-//        // 4. 为所有最高管理员添加该分区的联系
-//        categoryMapper.relateRootCategory(categoryId);
-//        return categoryId;
-        return 0;
+    public long saveUser(Long userId, String username, String password,
+                         String email, Integer sex, String qq, String city,
+                         Integer enabled,
+                         Long roleId, Long[] categoryIds, Long[] forumIds) {
+        // 1. 数据初始化
+        if (enabled == null || enabled < 0) {
+            enabled = 1;
+        }
+        if (sex == null || sex < 0 || sex > 2) {
+            sex = 0;
+        }
+        // 2. 如果 userId 不存在, 则插入数据
+        if (userId == null || userId <= 0) {
+            // 2.1. BaseDO封装插入记录的id
+            BaseDO idDO = new BaseDO();
+            userMapper.saveUser(idDO, username, password, enabled);
+            userId = idDO.getId();
+            // 2.2. 插入失败则返回 -1
+            if (userId == null || userId < 0) {
+                return -1;
+            }
+        }
+        // 3. 如果 userId 存在, 则更新数据
+        else {
+            // 3.1. 更新数据
+            boolean success = userMapper.updateUserAndProfile(userId, password, enabled, email, sex, qq, city);
+        }
+
+        // 4. 添加用户角色关联
+        userMapper.relateUserRole(userId, roleId);
+
+        // 5. 添加用户分区关联
+        if(roleId == Setter.getInt("role.id.super-moderator")){
+            userMapper.relateUserCategory(userId, NumberHelper.unboxing(categoryIds));
+        }
+
+        // 6. 添加用户板块关联
+        if(roleId == Setter.getInt("role.id.moderator")){
+            userMapper.relateUserForum(userId, NumberHelper.unboxing(forumIds));
+        }
+        return userId;
     }
 
     @Override
@@ -88,16 +96,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int getMaxRoleWeight(Long userId) {
-        if (userId == null || userId <= 0) {
-            logger.debug("用户id非法:" + userId);
-            return 0;
-        }
-        int weight = userMapper.getMaxWeightByUserId(userId);
-        return weight;
-    }
-
-    @Override
     public List<IDataSet> getUsersTable(int weight, String search) {
         List<IDataSet> list = userMapper.getUsersTableByWeight(weight, search);
         return list;
@@ -105,23 +103,69 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public IDataSet getUser(Long userId) {
-//        if (categoryId == null || categoryId <= 0) {
-//            logger.debug("板块id非法:" + categoryId);
-//            return null;
-//        }
-//        IDataSet data = categoryMapper.getCategoryById(categoryId);
-//        return data;
-        return null;
+        if (userId == null || userId <= 0) {
+            logger.debug("用户id非法:" + userId);
+            return null;
+        }
+        IDataSet data = userMapper.getUser(userId);
+        return data;
+    }
+
+    @Override
+    public List<IDataSet> getRoles() {
+        // 1. 获取已登录的权值
+        int weight = ShiroHelper.getMyUserWeight();
+
+        // 2. 获取小于已登录用户权值的角色
+        return userMapper.getSelectedRoles(-1, weight);
     }
 
     @Override
     public List<IDataSet> getSelectedRoles(Long userId) {
-//        if (categoryId == null || categoryId <= 0) {
-//            logger.debug("板块id非法:" + categoryId);
-//            return null;
-//        }
-//        List<IDataSet> list = categoryMapper.getSelectedForumsByCategoryId(categoryId);
-//        return list;
-        return null;
+        if (userId == null || userId <= 0) {
+            logger.debug("用户id非法:" + userId);
+            return null;
+        }
+        // 1. 获取已登录的权值
+        int weight = ShiroHelper.getMyUserWeight();
+
+        // 2. 获取小于已登录用户权值的角色
+        return userMapper.getSelectedRoles(userId, weight);
+    }
+
+    @Override
+    public List<IDataSet> getCategories() {
+        return userMapper.getSelectedCategories(-1);
+    }
+
+    @Override
+    public List<IDataSet> getSelectedCategories(Long userId) {
+        if (userId == null || userId <= 0) {
+            logger.debug("用户id非法:" + userId);
+            return null;
+        }
+        List<IDataSet> list = userMapper.getSelectedCategories(userId);
+        return list;
+    }
+
+    @Override
+    public List<IDataSet> getForums() {
+        long operatorUserId = ShiroHelper.getMyUserId();
+        int maxWeight = Setter.getInt("role.weight.max");
+        int weight = ShiroHelper.getMyUserWeight();
+        return userMapper.getSelectedForums(-1, weight >= maxWeight, operatorUserId);
+    }
+
+    @Override
+    public List<IDataSet> getSelectedForums(Long userId) {
+        if (userId == null || userId <= 0) {
+            logger.debug("用户id非法:" + userId);
+            return null;
+        }
+        long operatorUserId = ShiroHelper.getMyUserId();
+        int maxWeight = Setter.getInt("role.weight.max");
+        int weight = ShiroHelper.getMyUserWeight();
+        List<IDataSet> list = userMapper.getSelectedForums(userId, weight >= maxWeight, operatorUserId);
+        return list;
     }
 }
