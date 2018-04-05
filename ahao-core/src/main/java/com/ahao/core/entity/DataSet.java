@@ -73,6 +73,10 @@ public class DataSet implements IDataSet, Serializable {
     @Override
     public boolean getBoolean(String key) {
         Object obj = dataMap.get(key);
+        if(obj == null){
+            logger.debug("key:"+key+"不存在");
+            return false;
+        }
 
         if(NumberHelper.isNumber(obj.toString())){
             int value = Integer.parseInt(obj.toString());
