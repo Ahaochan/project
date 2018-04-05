@@ -156,6 +156,9 @@ public abstract class NumberHelper {
 
 
     public static int parseInt(Object obj) {
+        if(obj == null) {
+            return 0;
+        }
         try {
             if (obj instanceof Boolean) {
                 return Boolean.valueOf(obj.toString()) ? 1 : 0;
