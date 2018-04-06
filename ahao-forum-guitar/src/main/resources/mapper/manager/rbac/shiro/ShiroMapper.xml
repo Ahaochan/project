@@ -8,7 +8,7 @@
     </update>
 
     <select id="getUserByUsername" resultType="DataSet">
-        select u.id, u.password, u.enabled
+        select u.id, u.username, u.password, u.enabled, u.last_login_time, u.last_login_ip, u.create_time, u.modify_time
         from admin_user u
         where u.username = #{username}
     </select>
