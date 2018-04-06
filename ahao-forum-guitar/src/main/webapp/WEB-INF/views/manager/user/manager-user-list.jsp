@@ -105,7 +105,7 @@
                 $tbody.empty();
 
                 if (!json.result) {
-                    $tbody.append('<tr><td colspan="5" class="text-center">暂无数据</tr>');
+                    $tbody.append('<tr><td colspan="9" class="text-center">暂无数据</tr>');
                     return;
                 }
 
