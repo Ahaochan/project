@@ -40,26 +40,22 @@ public class CategoryServiceImpl implements CategoryService {
             // 2.1. BaseDO封装插入记录的id
             BaseDO idDO = new BaseDO();
             categoryMapper.saveCategory(idDO, name, description, status);
-            Long id = idDO.getId();
+            categoryId = idDO.getId();
             // 2.2. 插入失败则返回 false
-            if (id == null || id < 0) {
+            if (categoryId == null || categoryId < 0) {
                 return -1;
-            }
-            // 2.3. 插入成功则添加联系
-            else {
-                categoryMapper.relateCategoryForum(id, NumberHelper.unboxing(forumIds));
-                categoryId = id;
             }
         }
         // 3. 如果 categoryId 存在, 则更新数据, 并添加联系
         else {
             // 3.1. 更新数据
             boolean success = categoryMapper.updateCategory(categoryId, name, description, status);
-            // 3.2. 更新成功则添加联系
-            categoryMapper.relateCategoryForum(categoryId, NumberHelper.unboxing(forumIds));
         }
 
-        // 4. 为所有最高管理员添加该分区的联系
+        // 4. 添加分区板块的联系
+        categoryMapper.relateCategoryForum(categoryId, NumberHelper.unboxing(forumIds));
+
+        // 5. 为所有最高管理员添加该分区的联系
         categoryMapper.relateRootCategory(categoryId);
         return categoryId;
     }
