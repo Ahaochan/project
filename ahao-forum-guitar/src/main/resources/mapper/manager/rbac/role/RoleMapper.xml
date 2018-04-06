@@ -2,5 +2,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.manager.rbac.role.dao.RoleMapper">
 
+    <insert id="saveRole" useGeneratedKeys="true" keyProperty="baseDO.id" keyColumn="id">
+        insert into admin_role (name, description, weight, enabled, create_time, modify_time)
+        values (#{name}, #{description}, #{weight}, #{enabled}, #{createTime}, #{createTime});
+    </insert>
 
+    <update id="updateRole">
+        update admin_role
+        <set>
+            <if test="name != null and name.length() > 0">name = #{name},</if>
+            <if test="description != null and description.length() > 0">description = #{description},</if>
+            <if test="weight >= 0">weight = #{weight},</if>
+            <if test="enabled >= 0">enabled = #{enabled},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime}</if>
+        </set>
+        where id = #{roleId}
+    </update>
+
+    <insert id="relateRoleAuth">
+        delete from admin_role__auth where role_id = #{roleId};
+        <if test="authIds != null and authIds.length>0">
+        insert into admin_role__auth(role_id, auth_id)
+        values
+        <foreach collection="authIds" item="item" separator=",">
+            (#{roleId}, #{item})
+        </foreach>
+        </if>
+    </insert>
+
+    <delete id="deleteRole" >
+        delete from admin_user__role where role_id in <foreach collection="roleIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from admin_role__auth where role_id in <foreach collection="roleIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from admin_role where id in <foreach collection="roleIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+    </delete>
+
+    <select id="getSelectedAuthsByRoleId" resultType="DataSet">
+        select a.id, a.name, a.description, a.enabled <if test="roleId > 0">, ra.id selected</if>
+        from admin_auth a
+        <if test="roleId > 0">
+        left join admin_role__auth ra on a.id = ra.auth_id and ra.role_id = #{roleId}
+        </if>
+        order by a.id asc, a.name asc, a.enabled desc
+    </select>
+
+    <select id="getRoles" resultType="DataSet">
+        select r.id, r.name, r.description, r.weight, r.enabled
+        from admin_role r
+        <where>
+            <if test="search != null and search.length() > 0">
+                <bind name="searchLike" value="'%'+search+'%'"/>
+                and (r.name like #{searchLike} or r.description like #{searchLike})
+            </if>
+        </where>
+    </select>
+
+    <select id="getRoleById" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    r.${item}
+                </foreach>
+            </when>
+            <otherwise>r.*</otherwise>
+        </choose>
+        from admin_role r
+        where r.id = #{roleId}
+    </select>
 </mapper>
