@@ -35,23 +35,25 @@
                                 <div class="form-group">
                                     <label for="input-id" class="col-md-2 control-label">分区id</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" id="input-id" placeholder="分区id" name="category-id"
-                                               readonly disabled value="${category.getInt('id')}"/>
+                                        <input class="form-control" placeholder="分区id" readonly
+                                               id="input-id" name="category-id"
+                                               value="${category.getInt('id')}"/>
                                     </div>
                                 </div>
                             </c:if>
                             <div class="form-group">
                                 <label for="input-name" class="col-md-2 control-label">分区名称</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" id="input-name" placeholder="分区名称" name="category-name"
+                                    <input class="form-control" placeholder="分区名称"
+                                           id="input-name" name="category-name"
                                            value="${category.getString('name')}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="input-description" class="col-md-2 control-label">分区描述</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" id="input-description" placeholder="分区描述"
-                                           name="category-description"
+                                    <input class="form-control" placeholder="分区描述"
+                                           id="input-description" name="category-description"
                                            value="${category.getString('description')}">
                                 </div>
                             </div>
@@ -60,14 +62,16 @@
                                 <c:set var="status" value="${category.getInt('status') == 0}"/>
                                 <div class="col-md-3 radio">
                                     <label>
-                                        <input type="radio" id="input-status-1" name="category-status"
-                                               value="1" ${status?'':'checked'}>启用
+                                        <input type="radio" ${status?'':'checked'}
+                                               id="input-status-1" name="category-status"
+                                               value="1" />启用
                                     </label>
                                 </div>
                                 <div class="col-md-3 radio">
                                     <label>
-                                        <input type="radio" id="input-status-0" name="category-status"
-                                               value="0" ${status?'checked':''}>禁用
+                                        <input type="radio" ${status?'checked':''}
+                                               id="input-status-0" name="category-status"
+                                               value="0" />禁用
                                     </label>
                                 </div>
                             </div>
@@ -87,7 +91,8 @@
                                                 <c:forEach items="${forums}" var="item">
                                                     <div class="checkbox ${item.getBoolean("status") ? '' : 'disabled'}">
                                                         <label>
-                                                            <input type="checkbox" name="forums"
+                                                            <input type="checkbox"
+                                                                   name="forums"
                                                                    value="${item.getInt("id")}"
                                                                 ${item.getBoolean("status") ? '' : 'disabled'}
                                                                 ${"".equals(item.getString("selected")) ? "":"checked"}/>
