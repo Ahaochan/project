@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label for="input-name" class="col-md-2 control-label">权限名称</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" placeholder="权限名称(只支持英文及点, 如 role.root)"
+                                    <input class="form-control" placeholder="权限名称(只支持英文及点, 如 auth.root)"
                                            id="input-name" name="auth-name"
                                            value="${auth.getString('name')}">
                                 </div>
