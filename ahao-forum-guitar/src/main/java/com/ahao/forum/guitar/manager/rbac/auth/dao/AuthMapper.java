@@ -15,9 +15,9 @@ public interface AuthMapper {
     /**
      * 插入一条 权限数据
      * @param baseDO 封装id的实体类
-     * @param name 分区名称
-     * @param description 分区描述
-     * @param enabled 分区状态
+     * @param name 权限名称
+     * @param description 权限描述
+     * @param enabled 权限状态
      * @param createTime 创建时间
      * @return 是否插入成功
      */
