@@ -2,5 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.manager.rbac.auth.dao.AuthMapper">
 
+    <insert id="saveAuth" useGeneratedKeys="true" keyProperty="baseDO.id" keyColumn="id">
+        insert into admin_auth (name, description, enabled) values (#{name}, #{description}, #{enabled});
+    </insert>
+
+    <update id="updateAuth">
+        update admin_auth
+        <set>
+            <if test="name != null and name.length() > 0">name = #{name},</if>
+            <if test="description != null and description.length() > 0">description = #{description},</if>
+            <if test="enabled >= 0">enabled = #{enabled},</if>
+        </set>
+        where id = #{authId}
+    </update>
+
+    <insert id="relateRootAuth">
+        insert into admin_role__auth(role_id, auth_id)
+        select id role_id, #{authId} auth_id from admin_role where weight = #{rootWeight};
+    </insert>
+
+    <delete id="deleteAuth">
+        delete from admin_role__auth where auth_id in <foreach collection="authIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+        delete from admin_auth where id in <foreach collection="authIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+    </delete>
+
+    <select id="getAuthById" resultType="DataSet">
+        select
+        <choose>
+            <when test="fields != null and fields.length > 0">
+                <foreach collection="fields" separator="," item="item">
+                    a.${item}
+                </foreach>
+            </when>
+            <otherwise>a.*</otherwise>
+        </choose>
+        from admin_auth a
+        where a.id = #{authId}
+    </select>
+
+    <select id="getAuths" resultType="DataSet">
+        select a.id, a.name, a.description, a.enabled
+        from admin_auth a
+        <where>
+            <if test="search != null and search.length() > 0">
+                <bind name="searchLike" value="'%'+search+'%'"/>
+                (a.name like #{searchLike} or a.description like #{searchLike})
+            </if>
+        </where>
+    </select>
 
 </mapper>
