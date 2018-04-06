@@ -21,10 +21,9 @@
     </select>
 
     <select id="getSelectedRolesByUserId" resultType="DataSet">
-        SELECT r.id, r.description, ur.id selected
+        select r.id, r.description, ur.id selected
         from admin_role r
-        left join admin_user__role ur on ur.role_id = r.id
-        where ur.user_id = #{userId} or ur.user_id is null
+        left join admin_user__role ur on ur.role_id = r.id and (ur.user_id = #{userId} or ur.user_id is null)
     </select>
 
     <select id="getSelectedAuthsByUserId" resultType="DataSet">
