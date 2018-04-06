@@ -49,7 +49,7 @@ public class ForumServiceImpl implements ForumService{
             return deleteCount;
         }
         // 3. 如果不存在, 则返回0
-        logger.debug("删除分区失败, 数据表中不存在id:" + Arrays.toString(forumIds) + "的记录");
+        logger.debug("删除板块失败, 数据表中不存在id:" + Arrays.toString(forumIds) + "的记录");
         return 0;
     }
 
