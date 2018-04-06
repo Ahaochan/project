@@ -2,7 +2,7 @@ package com.ahao.forum.guitar.manager.profile.controller;
 
 import com.ahao.core.entity.IDataSet;
 import com.ahao.forum.guitar.manager.profile.service.ProfileService;
-import org.apache.shiro.SecurityUtils;
+import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +25,8 @@ public class ProfileController {
     @GetMapping("/profile")
     public String profile(Model model) {
         // 1. 获取用户信息
-        IDataSet currentUser = (IDataSet) SecurityUtils.getSubject().getPrincipal();
-        long userId = currentUser.getLong("id");
-        model.addAttribute("user", currentUser);
+        long userId = ShiroHelper.getMyUserId();
+        model.addAttribute("user", ShiroHelper.getCurrentUser());
 
         // 2. 获取用户资料
         IDataSet profile = profileService.getProfile(userId);
