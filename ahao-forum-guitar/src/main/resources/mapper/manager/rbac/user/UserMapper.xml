@@ -32,7 +32,7 @@
             uw.weight
         from admin_user u
         left join user_profile p on p.user_id = u.id
-        left join (select u.id user_id, max(IFNULL(r.weight, 0)) weight from admin_user u left join admin_user__role ur on u.id = ur.user_id left join admin_role r on r.id = ur.role_id group by u.id ) uw on uw.user_id = u.id
+        left join (select u.id user_id, max(IFNULL(r.weight, 0)) weight from admin_user u left join admin_user__role ur on u.id = ur.user_id left join admin_role r on r.id = ur.role_id where r.enabled = 1 group by u.id ) uw on uw.user_id = u.id
         where u.id = #{userId}
     </select>
     <update id="relateUserRole">
@@ -77,7 +77,7 @@
     <select id="getUsersTableByWeight" resultType="DataSet">
         select u.id, u.username, u.password, u.last_login_time, u.last_login_ip, u.enabled, t.thread_num, p.post_num
         from admin_user u
-        left join (select u.id user_id, max(IFNULL(r.weight, 0)) weight from admin_user u left join admin_user__role ur on u.id = ur.user_id left join admin_role r on r.id = ur.role_id group by u.id ) uw on uw.user_id = u.id
+        left join (select u.id user_id, max(IFNULL(r.weight, 0)) weight from admin_user u left join admin_user__role ur on u.id = ur.user_id left join admin_role r on r.id = ur.role_id where r.enabled = 1 group by u.id ) uw on uw.user_id = u.id
         left join (select user_id, count(*) thread_num from thread group by user_id) t on t.user_id = u.id
         left join (select user_id, count(*) post_num from post group by user_id) p on p.user_id = u.id
         <![CDATA[where (uw.weight < #{weight} or uw.weight is null )]]>

@@ -17,7 +17,7 @@
         select max(r.weight)
         from admin_user u
         left join admin_user__role ur on ur.user_id = u.id
-        left join admin_role r on ur.role_id = r.id
+        left join admin_role r on ur.role_id = r.id and r.enabled = 1
         where u.id = #{userId}
     </select>
 
@@ -25,7 +25,7 @@
         select r.id, r.name
         from admin_role r
         left join admin_user__role ur on r.id = ur.role_id
-        where ur.user_id = #{userId}
+        where ur.user_id = #{userId} and r.enabled = 1
     </select>
 
     <select id="getAuthsByUserId" resultType="DataSet">
@@ -34,7 +34,7 @@
         left join admin_role__auth ra on ra.auth_id = a.id
         left join admin_role r on ra.role_id = r.id
         left join admin_user__role ur on ur.role_id = r.id
-        where ur.user_id = #{userId}
+        where ur.user_id = #{userId} and r.enabled = 1 and a.enabled = 1
     </select>
 
 </mapper>
