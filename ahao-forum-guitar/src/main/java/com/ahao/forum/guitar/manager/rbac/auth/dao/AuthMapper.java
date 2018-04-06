@@ -5,6 +5,7 @@ import com.ahao.core.entity.IDataSet;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -17,9 +18,11 @@ public interface AuthMapper {
      * @param name 分区名称
      * @param description 分区描述
      * @param enabled 分区状态
+     * @param createTime 创建时间
      * @return 是否插入成功
      */
-    boolean saveAuth(@Param("baseDO") BaseDO baseDO, @Param("name") String name, @Param("description") String description, @Param("enabled") int enabled);
+    boolean saveAuth(@Param("baseDO") BaseDO baseDO, @Param("name") String name, @Param("description") String description,
+                     @Param("enabled") int enabled, @Param("createTime") Date createTime);
 
     /**
      * 根据 权限id 更新字段
@@ -27,9 +30,11 @@ public interface AuthMapper {
      * @param name 权限名称
      * @param description 权限描述
      * @param enabled 权限状态
+     * @param modifyTime 修改时间
      * @return 是否更新成功
      */
-    boolean updateAuth(@Param("authId") long authId, @Param("name") String name, @Param("description") String description, @Param("enabled") int enabled);
+    boolean updateAuth(@Param("authId") long authId, @Param("name") String name, @Param("description") String description,
+                       @Param("enabled") int enabled, @Param("modifyTime") Date modifyTime);
 
     /**
      * 为所有最高管理员添加此权限

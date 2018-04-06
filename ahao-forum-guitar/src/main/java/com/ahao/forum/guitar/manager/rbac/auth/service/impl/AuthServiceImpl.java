@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,7 +36,7 @@ public class AuthServiceImpl implements AuthService {
         if (authId == null || authId <= 0) {
             // 2.1. BaseDO封装插入记录的id
             BaseDO idDO = new BaseDO();
-            authMapper.saveAuth(idDO, name, description, enabled);
+            authMapper.saveAuth(idDO, name, description, enabled, new Date());
             authId = idDO.getId();
             // 2.2. 插入失败则返回 false
             if (authId == null || authId < 0) {
@@ -48,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
         // 3. 如果 authId 存在, 则更新数据
         else {
             // 3.1. 更新数据
-            boolean success = authMapper.updateAuth(authId, name, description, enabled);
+            boolean success = authMapper.updateAuth(authId, name, description, enabled, new Date());
         }
         return authId;
     }

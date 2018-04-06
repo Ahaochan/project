@@ -3,7 +3,8 @@
 <mapper namespace="com.ahao.forum.guitar.manager.rbac.auth.dao.AuthMapper">
 
     <insert id="saveAuth" useGeneratedKeys="true" keyProperty="baseDO.id" keyColumn="id">
-        insert into admin_auth (name, description, enabled) values (#{name}, #{description}, #{enabled});
+        insert into admin_auth (name, description, enabled, create_time, modify_time)
+        values (#{name}, #{description}, #{enabled}, #{createTime}, #{createTime});
     </insert>
 
     <update id="updateAuth">
@@ -12,6 +13,7 @@
             <if test="name != null and name.length() > 0">name = #{name},</if>
             <if test="description != null and description.length() > 0">description = #{description},</if>
             <if test="enabled >= 0">enabled = #{enabled},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime}</if>
         </set>
         where id = #{authId}
     </update>
