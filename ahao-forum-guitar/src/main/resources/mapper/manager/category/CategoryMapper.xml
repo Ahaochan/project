@@ -60,9 +60,11 @@
     </select>
 
     <select id="getSelectedForumsByCategoryId" resultType="DataSet">
-        select f.id, f.name, f.status, cf.id selected
+        select f.id, f.name, f.status <if test="categoryId > 0">, cf.id selected </if>
         from forum f
+        <if test="categoryId > 0">
         left join category_forum cf on f.id = cf.forum_id and cf.category_id = #{categoryId}
+        </if>
         order by f.id asc, f.name asc, f.status desc
     </select>
 

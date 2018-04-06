@@ -7,10 +7,10 @@ import com.ahao.core.util.lang.CollectionHelper;
 import com.ahao.core.util.web.PageIndicator;
 import com.ahao.forum.guitar.manager.category.service.CategoryService;
 import com.ahao.forum.guitar.manager.forum.service.ForumService;
+import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +26,16 @@ public class CategoryController {
     private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
     private CategoryService categoryService;
-    private ForumService forumService;
 
     @Autowired
     public CategoryController(CategoryService categoryService, ForumService forumService) {
         this.categoryService = categoryService;
-        this.forumService = forumService;
     }
 
     @GetMapping("/category")
     public String category(Model model) {
         model.addAttribute("isExist", false);
-        List<IDataSet> forums = forumService.getForums("id", "name", "status");
+        List<IDataSet> forums = categoryService.getSelectedForums( -1L);
         model.addAttribute("forums", forums);
         return "manager/category/manager-category-detail";
     }
@@ -83,8 +81,7 @@ public class CategoryController {
         JSONObject result = new JSONObject();
 
         // 1. 获取已登录的用户数据
-        IDataSet userData = (IDataSet) SecurityUtils.getSubject().getPrincipal();
-        long userId = userData.getLong("id");
+        long userId = ShiroHelper.getMyUserId();
 
         // 2. 分页获取
         int pageSize = PageContext.getPageSize();
@@ -112,29 +109,4 @@ public class CategoryController {
         }
         return AjaxDTO.failure("删除失败, 请联系管理员");
     }
-
-//    @GetMapping("/category-{categoryId}")
-//    public String category(@PathVariable Long categoryId,
-//                           @RequestParam(required = false) String search,
-//                           @RequestParam(defaultValue = "1") Integer page, Model model) {
-//        // 1. 获取板块信息
-//        IDataSet category = categoryService.getCategoryById(categoryId, "name", "status", "post_count");
-//        if (category == null) {
-//            logger.debug("板块信息获取错误, 重定向到index");
-//            return "redirect: index";
-//        }
-//        if (!category.getBoolean("status")) {
-//            logger.debug("板块被禁止访问, 重定向到index");
-//            return "redirect: index";
-//        }
-//        model.addAttribute("category", category);
-//
-//        // 2. 获取该板块下的文章
-//        JSONObject posts = postService.getPosts(categoryId, search, page);
-//        model.addAttribute("posts", posts);
-//
-//        return "category/category";
-//    }
-
-
 }

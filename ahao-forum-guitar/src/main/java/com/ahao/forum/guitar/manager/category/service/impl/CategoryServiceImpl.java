@@ -106,10 +106,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<IDataSet> getSelectedForums(Long categoryId) {
-        if (categoryId == null || categoryId <= 0) {
-            logger.debug("板块id非法:" + categoryId);
-            return null;
-        }
         List<IDataSet> list = categoryMapper.getSelectedForumsByCategoryId(categoryId);
         return list;
     }
