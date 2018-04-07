@@ -1,6 +1,6 @@
 package com.ahao.invoice.invoice.util;
 
-import com.ahao.core.config.Setter;
+import com.ahao.core.config.SystemConfig;
 import com.ahao.core.util.lang.StringHelper;
 import com.alibaba.fastjson.JSONObject;
 import org.jsoup.Jsoup;
@@ -28,7 +28,7 @@ public abstract class ProvinceUtils {
     static {
         Map<String, String> jsoup = new HashMap<>(100);
         try {
-            String url = Setter.getString("provinceUrl");
+            String url = SystemConfig.instance().getString("provinceUrl");
             Document doc = Jsoup.connect(url).get();
             Elements msoNormals = doc.getElementsByClass("MsoNormal");
             for (Element msoNormal : msoNormals) {
