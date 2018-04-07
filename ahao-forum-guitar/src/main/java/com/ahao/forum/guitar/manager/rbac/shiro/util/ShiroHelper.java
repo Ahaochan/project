@@ -4,6 +4,7 @@ import com.ahao.core.config.SpringConfig;
 import com.ahao.core.entity.DataSet;
 import com.ahao.core.entity.IDataSet;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class ShiroHelper {
@@ -36,7 +37,15 @@ public class ShiroHelper {
         return new DataSet(dao().queryForMap(sql)).getInt("weight");
     }
 
+    public static boolean hasAllAuths(String... authNames){
+        return getSubject().isPermittedAll(authNames);
+    }
+
     public static IDataSet getCurrentUser(){
-        return (IDataSet) SecurityUtils.getSubject().getPrincipal();
+        return (IDataSet) getSubject().getPrincipal();
+    }
+
+    private static Subject getSubject(){
+        return SecurityUtils.getSubject();
     }
 }
