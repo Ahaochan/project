@@ -21,7 +21,7 @@ public enum SystemConfig {
     INSTANCE;
     private static final Logger logger = LoggerFactory.getLogger(SystemConfig.class);
 
-    public static synchronized SystemConfig get() {
+    public static synchronized SystemConfig instance() {
         return INSTANCE;
     }
 

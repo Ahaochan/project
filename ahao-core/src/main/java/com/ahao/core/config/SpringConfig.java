@@ -15,48 +15,23 @@ import java.util.Locale;
  * Spring配置工具类，用以读取Spring Bean配置，属性文件配置，XML文件配置等信息.<br>
  * 主要用于在命令行启动时配置Spring，或者用于WEB应用中自行加载Spring的情况.
  */
-public class SpringConfig {
-    private static final Logger log = LoggerFactory.getLogger(SystemConfig.class);
+public enum SpringConfig {
+    INSTANCE;
+    private static final Logger logger = LoggerFactory.getLogger(SpringConfig.class);
 
     private static ApplicationContext context;
 
     /**
-     * 初始化状态，true代表已初始化，否则没有初始化
+     * 得到Spring配置实例。
+     * 单例模式.
+     * @return Spring配置实例.
      */
-    private static boolean initialized;
-
-    /**
-     * 单例模式
-     */
-    private volatile static SpringConfig instance;
-
-    private SpringConfig() {
-        if (!initialized) {
-            loadFromClassPath();
-            setInitialized(true);
-        }
+    public synchronized static SpringConfig instance() {
+        return INSTANCE;
     }
 
-    /**
-     * 从类路径中装载Spring配置.
-     */
-    private void loadFromClassPath() {
-        try {
-            log.debug("初始化Spring Application Context(spring/spring*.xml).");
-            context = new ClassPathXmlApplicationContext(
-                    "spring/spring*.xml");
-        } catch (BeansException e) {
-            log.error("初始化Spring Application Context失败(spring-*.xml).", e);
-        }
-    }
-
-    /**
-     * 设置是否已经初始化。<br>
-     * 本方法用于从外部初始化本类，
-     * 如果外部未初始化，本类的构造方法（在调用getInstance方法时调用）中会根据类路径初始化
-     */
-    public static void setInitialized(boolean initialized) {
-        SpringConfig.initialized = initialized;
+    SpringConfig() {
+        loadFromClassPath();
     }
 
     /**
@@ -66,25 +41,21 @@ public class SpringConfig {
      *
      * @param theContext Spring ApplicationContext.
      */
-    public static void setApplicationContext(ApplicationContext theContext) {
+    public static void init(ApplicationContext theContext) {
         context = theContext;
     }
 
     /**
-     * 得到Spring配置实例。
-     * 单例模式.
-     * @return Spring配置实例.
+     * 从类路径中装载Spring配置.
      */
-    synchronized public static SpringConfig getInstance() {
-        if (instance == null) {
-            synchronized (SpringConfig.class) {
-                if (instance == null) {
-                    instance = new SpringConfig();
-                }
-            }
+    private void loadFromClassPath() {
+        try {
+            logger.debug("初始化Spring Application Context(spring/spring*.xml).");
+            context = new ClassPathXmlApplicationContext(
+                    "spring/spring*.xml");
+        } catch (BeansException e) {
+            logger.error("初始化Spring Application Context失败(spring-*.xml).", e);
         }
-
-        return instance;
     }
 
     /**
@@ -92,11 +63,8 @@ public class SpringConfig {
      * @param beanName Bean唯一标识符
      * @return
      */
-    public static Object getBean(String beanName) {
-        if(instance == null){
-            instance = new SpringConfig();
-        }
-        return context.getBean(beanName);
+    public static <T> T getBean(String beanName) {
+        return (T) context.getBean(beanName);
     }
 
     /**
@@ -115,9 +83,6 @@ public class SpringConfig {
      * @return 国际化字符串
      */
     public static String getString(String code, Object... args) {
-        if(instance == null){
-            instance = new SpringConfig();
-        }
         HttpServletRequest request = RequestHelper.getRequest();
         Locale locale = RequestContextUtils.getLocaleResolver(request).resolveLocale(request);
         return context.getMessage(code, args, locale);

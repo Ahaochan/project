@@ -25,8 +25,7 @@ public class SpringConfigInitListener extends ContextLoaderListener implements S
 		ApplicationContext context = WebApplicationContextUtils
 				.getWebApplicationContext(event.getServletContext());
 		if (context != null) {
-			SpringConfig.setApplicationContext(context);
-			SpringConfig.setInitialized(true);
+			SpringConfig.init(context);
 			logger.info("User ContextLoaderListener load Spring config succeed.");
 		} else {
 			logger.error("User ContextLoaderListener load Spring config error.");
