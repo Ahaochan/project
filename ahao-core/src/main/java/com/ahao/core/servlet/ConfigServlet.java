@@ -39,30 +39,16 @@ public class ConfigServlet extends HttpServletBean {
 
     /**
      * 初始化系统参数
-     *
-     * @throws ServletException
      */
     private void initSystem(ServletConfig config) throws ServletException {
         try {
             // 取得系统的目录路径
             ApplicationContext.setSystemRoot(config.getServletContext().getRealPath("/"));
             // 载入系统配置信息
-            initSystemConfig();
+            SystemConfig.getInstance();
         } catch (Exception e) {
             logger.error("初始化系统参数出错", e);
             throw new ServletException(e.getMessage());
         }
-    }
-
-    /**
-     * 初始化系统配置
-     */
-    private void initSystemConfig() {
-        SystemConfig.getInstance();
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }
