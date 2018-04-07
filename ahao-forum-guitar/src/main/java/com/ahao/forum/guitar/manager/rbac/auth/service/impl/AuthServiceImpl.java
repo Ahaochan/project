@@ -1,11 +1,11 @@
 package com.ahao.forum.guitar.manager.rbac.auth.service.impl;
 
-import com.ahao.core.config.Setter;
 import com.ahao.core.entity.BaseDO;
 import com.ahao.core.entity.IDataSet;
 import com.ahao.core.util.lang.math.NumberHelper;
 import com.ahao.forum.guitar.manager.rbac.auth.dao.AuthMapper;
 import com.ahao.forum.guitar.manager.rbac.auth.service.AuthService;
+import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
                 return -1;
             }
             // 2.3. 为所有最高管理员添加该权限
-            int maxWeight = Setter.getInt("role.weight.max");
+            int maxWeight = ShiroHelper.getMaxWeight();
             authMapper.relateRootAuth(authId, maxWeight);
         }
         // 3. 如果 authId 存在, 则更新数据

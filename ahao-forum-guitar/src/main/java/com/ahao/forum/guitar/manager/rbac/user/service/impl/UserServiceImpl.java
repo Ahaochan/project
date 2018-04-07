@@ -1,6 +1,6 @@
 package com.ahao.forum.guitar.manager.rbac.user.service.impl;
 
-import com.ahao.core.config.Setter;
+import com.ahao.core.config.SystemConfig;
 import com.ahao.core.entity.BaseDO;
 import com.ahao.core.entity.IDataSet;
 import com.ahao.core.util.lang.math.NumberHelper;
@@ -60,12 +60,12 @@ public class UserServiceImpl implements UserService {
         userMapper.relateUserRole(userId, roleId);
 
         // 5. 添加用户分区关联
-        if(roleId == Setter.getInt("role.id.super-moderator")){
+        if(roleId == SystemConfig.instance().getInt("role.super-moderator", "id")){
             userMapper.relateUserCategory(userId, NumberHelper.unboxing(categoryIds));
         }
 
         // 6. 添加用户板块关联
-        if(roleId == Setter.getInt("role.id.moderator")){
+        if(roleId == SystemConfig.instance().getInt("role.moderator", "id")){
             userMapper.relateUserForum(userId, NumberHelper.unboxing(forumIds));
         }
         return userId;
@@ -159,7 +159,8 @@ public class UserServiceImpl implements UserService {
             logger.debug("用户id非法:" + userId);
             return null;
         }
-        List<IDataSet> list = userMapper.getSelectedForums(userId, ShiroHelper.isRoot(), ShiroHelper.getMyUserId());
+        boolean showAll = userMapper.getUser(userId).getInt("weight") < ShiroHelper.getMyUserWeight();
+        List<IDataSet> list = userMapper.getSelectedForums(userId, showAll, ShiroHelper.getMyUserId());
         return list;
     }
 }
