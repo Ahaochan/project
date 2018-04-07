@@ -1,6 +1,6 @@
 package com.ahao.forum.guitar.manager.rbac.user.controller;
 
-import com.ahao.core.config.Setter;
+import com.ahao.core.config.SystemConfig;
 import com.ahao.core.context.PageContext;
 import com.ahao.core.entity.AjaxDTO;
 import com.ahao.core.entity.IDataSet;
@@ -67,7 +67,7 @@ public class UserController {
         if(ShiroHelper.getMyUserWeight() <= data.getInt("weight")) {
             model.addAttribute("errorMsg", "没有权限对该用户进行操作");
             // TODO 返回没有权限的页面
-            return "123456789";
+//            return "123456789";
         }
 
         model.addAttribute("user", data);
@@ -76,8 +76,8 @@ public class UserController {
         model.addAttribute("roles", roles);
 
         // 4. 检测是否包含分区, 板块角色
-        final int superModeratorId = Setter.getInt("role.id.super-moderator");
-        final int moderatorId = Setter.getInt("role.id.moderator");
+        final int superModeratorId = SystemConfig.instance().getInt("role.super-moderator", "id");
+        final int moderatorId = SystemConfig.instance().getInt("role.moderator", "id");
         model.addAttribute("superModeratorId", superModeratorId);
         model.addAttribute("moderatorId", moderatorId);
         for (IDataSet role : roles) {
