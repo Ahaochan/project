@@ -75,6 +75,8 @@
                                     </label>
                                 </div>
                             </div>
+                            <%--@elvariable id="forums" type="java.util.List"--%>
+                            <c:if test="${forums != null && forums.size() > 0}">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">下属板块</label>
                                 <div class="col-md-10">
@@ -104,6 +106,7 @@
                                     </div>
                                 </div>
                             </div>
+                            </c:if>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <button type="submit" class="btn btn-default">保存</button>

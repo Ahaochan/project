@@ -40,11 +40,12 @@ public interface CategoryMapper {
     boolean relateCategoryForum(@Param("categoryId") long categoryId, @Param("forumIds") long... forumIds);
 
     /**
-     * 为所有最高管理员 关联 分区
+     * 为所有权值比weight还大的用户 关联 分区
      * @param categoryId 分区id
+     * @param weight 当前用户的权值
      * @return 是否关联成功
      */
-    boolean relateRootCategory(@Param("categoryId") long categoryId);
+    boolean relateCategoryByWeight(@Param("categoryId") long categoryId, @Param("weight") int weight);
 
     /**
      * 删除 分区

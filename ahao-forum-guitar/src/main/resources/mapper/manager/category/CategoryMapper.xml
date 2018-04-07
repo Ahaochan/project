@@ -26,17 +26,30 @@
         </if>
     </insert>
 
-    <insert id="relateRootCategory">
+    <insert id="relateCategoryByWeight">
         delete from user_category
         where category_id = #{categoryId}
             and user_id in
-            (select ur.user_id from admin_role r left join admin_user__role ur on ur.role_id = r.id where r.id = 1);
+                ( select tmp.user_id
+                  from (
+                      select u.id user_id, max(IFNULL(r.weight, 0)) weight
+                      from admin_user u
+                      left join admin_user__role ur on u.id = ur.user_id
+                      left join admin_role r on r.id = ur.role_id
+                      where r.enabled = 1
+                      group by u.id) tmp
+                  where weight >= #{weight});
 
         insert into user_category(user_id, category_id)
-        select ur.user_id, #{categoryId} category_id
-        from admin_role r
-        left join admin_user__role ur ON r.id = ur.role_id
-        where r.id = 1;
+        select tmp.user_id, #{categoryId} category_id
+        from (
+            select u.id user_id, max(IFNULL(r.weight, 0)) weight
+            from admin_user u
+            left join admin_user__role ur on u.id = ur.user_id
+            left join admin_role r on r.id = ur.role_id
+            where r.enabled = 1
+            group by u.id) tmp
+        where weight >= #{weight};
     </insert>
 
     <delete id="deleteCategory">

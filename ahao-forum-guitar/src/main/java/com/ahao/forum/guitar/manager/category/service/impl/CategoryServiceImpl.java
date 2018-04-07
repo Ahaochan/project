@@ -52,11 +52,14 @@ public class CategoryServiceImpl implements CategoryService {
             boolean success = categoryMapper.updateCategory(categoryId, name, description, status);
         }
 
-        // 4. 添加分区板块的联系
-        categoryMapper.relateCategoryForum(categoryId, NumberHelper.unboxing(forumIds));
+        // 4. 如果有关联板块的权限, 则添加分区板块的联系
+        if(ShiroHelper.hasAllAuths("auth.category.relate.forums")) {
+            categoryMapper.relateCategoryForum(categoryId, NumberHelper.unboxing(forumIds));
+        }
 
-        // 5. 为所有最高管理员添加该分区的联系
-        categoryMapper.relateRootCategory(categoryId);
+        // 5. 为所有最大权值者添加该分区的联系
+        int maxWeight = ShiroHelper.getMaxWeight();
+        categoryMapper.relateCategoryByWeight(categoryId, maxWeight);
         return categoryId;
     }
 

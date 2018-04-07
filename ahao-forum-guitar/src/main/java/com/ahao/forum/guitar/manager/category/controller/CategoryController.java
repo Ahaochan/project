@@ -32,24 +32,32 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    // TODO @RequiresPermissions("auth.category.add")
     @GetMapping("/category")
     public String category(Model model) {
+        // 1. 新建分区, 所以传入 false, 表示不存在, 用于隐藏部分html代码
         model.addAttribute("isExist", false);
         List<IDataSet> forums = categoryService.getSelectedForums( -1L);
         model.addAttribute("forums", forums);
         return "manager/category/manager-category-detail";
     }
 
+    // TODO @RequiresPermissions("auth.category.edit")
     @GetMapping("/category-{categoryId}")
     public String category(@PathVariable Long categoryId, Model model) {
+        // 1. 编辑分区, 根据传入的分区id, 判断分区是否存在
         boolean isExist = false;
         if (categoryId != null && categoryId > 0) {
             IDataSet data = categoryService.getCategory(categoryId);
             if (data != null){
                 isExist = true;
+                // 2. 编辑分区, 如果存在, 则传入该分区的数据
                 model.addAttribute("category", data);
-                List<IDataSet> forums = categoryService.getSelectedForums(categoryId);
-                model.addAttribute("forums", forums);
+                // 3. 判断是否拥有关联板块权限
+                if(ShiroHelper.hasAllAuths("auth.category.relate.forums")) {
+                    List<IDataSet> forums = categoryService.getSelectedForums(categoryId);
+                    model.addAttribute("forums", forums);
+                }
             }
         }
         model.addAttribute("isExist", isExist);
@@ -68,12 +76,13 @@ public class CategoryController {
         return AjaxDTO.get(id>0);
     }
 
-
+    // TODO @RequiresPermissions("auth.category.list")
     @GetMapping("/categories")
     public String categoryList() {
         return "manager/category/manager-category-list";
     }
 
+    // TODO @RequiresPermissions("auth.category.list")
     @GetMapping("/api/categories/list-{page}")
     @ResponseBody
     public AjaxDTO categoryList(@PathVariable Integer page,
@@ -100,6 +109,7 @@ public class CategoryController {
         return AjaxDTO.success(result);
     }
 
+    // TODO @RequiresPermissions("auth.category.delete")
     @PostMapping("/api/categories/delete")
     @ResponseBody
     public AjaxDTO delete(@RequestParam("categoryIds[]") Long... categoryIds) {
