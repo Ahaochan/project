@@ -15,23 +15,29 @@ import java.util.Locale;
  * Spring配置工具类，用以读取Spring Bean配置，属性文件配置，XML文件配置等信息.<br>
  * 主要用于在命令行启动时配置Spring，或者用于WEB应用中自行加载Spring的情况.
  */
-public enum SpringConfig {
-    INSTANCE;
-    private static final Logger logger = LoggerFactory.getLogger(SpringConfig.class);
+public class SpringConfig {
+    private transient static final Logger logger = LoggerFactory.getLogger(SpringConfig.class);
 
     private static ApplicationContext context;
 
-    /**
-     * 得到Spring配置实例。
-     * 单例模式.
-     * @return Spring配置实例.
-     */
-    public synchronized static SpringConfig instance() {
-        return INSTANCE;
+    private static volatile SpringConfig instance;
+    public static SpringConfig instance() {
+        if (instance == null) {
+            synchronized (SpringConfig.class) {
+                if (instance == null) {
+                    instance = new SpringConfig();
+                }
+            }
+        }
+        return instance;
     }
-
-    SpringConfig() {
-        loadFromClassPath();
+    private SpringConfig() {
+        if (instance != null) {
+            throw new IllegalStateException("Already instantiated");
+        }
+        if(context == null) {
+            loadFromClassPath();
+        }
     }
 
     /**
@@ -39,10 +45,10 @@ public enum SpringConfig {
      * 本方法用于从外部初始化本类，
      * 如果外部未初始化，本类的构造方法（在调用getInstance方法时调用）中会根据类路径初始化
      *
-     * @param theContext Spring ApplicationContext.
+     * @param context Spring ApplicationContext.
      */
-    public static void init(ApplicationContext theContext) {
-        context = theContext;
+    public static void init(ApplicationContext context) {
+        SpringConfig.context = context;
     }
 
     /**
@@ -63,7 +69,7 @@ public enum SpringConfig {
      * @param beanName Bean唯一标识符
      * @return
      */
-    public static <T> T getBean(String beanName) {
+    public <T> T getBean(String beanName) {
         return (T) context.getBean(beanName);
     }
 
