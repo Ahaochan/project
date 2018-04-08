@@ -55,6 +55,18 @@ public abstract class CollectionHelper {
         return enumeration == null ? 0 : CollectionUtils.size(enumeration);
     }
 
+    /**
+     * 返回空集合, 避免返回null, 导致NPE
+     */
+    public static <T> List<T> emptyList(){
+        return Collections.emptyList();
+    }
+    public static <K,V> Map<K,V> emptyMap(){
+        return Collections.emptyMap();
+    }
+    public static <T> Set<T> emptySet(){
+        return Collections.emptySet();
+    }
 
     /**
      * 往 collection 集合中添加元素
