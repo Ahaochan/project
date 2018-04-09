@@ -17,13 +17,8 @@ import java.util.Map;
 /**
  * 系统配置操作
  */
-public enum SystemConfig {
-    INSTANCE;
+public class SystemConfig {
     private static final Logger logger = LoggerFactory.getLogger(SystemConfig.class);
-
-    public static synchronized SystemConfig instance() {
-        return INSTANCE;
-    }
 
     /**
      * 系统配置文件名
@@ -33,9 +28,25 @@ public enum SystemConfig {
 
     private Configuration configuration = null;
 
-    SystemConfig() {
+    private static volatile SystemConfig instance;
+    public static SystemConfig instance() {
+        if (instance == null) {
+            synchronized (SystemConfig.class) {
+                if (instance == null) {
+                    instance = new SystemConfig();
+                }
+            }
+        }
+        return instance;
+    }
+    private SystemConfig() {
+        if (configuration != null) {
+            throw new IllegalStateException("Already instantiated");
+        }
         init();
     }
+
+
 
     private void init() {
         String systemPath = this.getClass().getResource("/").getPath();
