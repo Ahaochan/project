@@ -37,4 +37,5 @@
 </body>
 <%-- 通用脚本 --%>
 <%@include file="/WEB-INF/views/static/script.jsp" %>
+<script src="${contextPath}/js/core.js"></script>
 </html>
