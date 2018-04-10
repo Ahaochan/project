@@ -39,10 +39,10 @@
                         <c:forEach items="${category.get('forums')}" var="forum">
                             <div class="col-md-4 panel-item media">
                                 <div class="media-left">
-                                    <a href="${contextPath}/category-${forum.getInt("id")}"><img src="${forum.getString("icon_url")}"/></a>
+                                    <a href="${contextPath}/forum-${forum.getInt("id")}"><img src="${forum.getString("icon_url")}"/></a>
                                 </div>
                                 <div class="media-body">
-                                    <a href="${contextPath}/category-${forum.getInt("id")}">${forum.getString("name")}</a><br/>
+                                    <a href="${contextPath}/forum-${forum.getInt("id")}">${forum.getString("name")}</a><br/>
                                     数量:1000, 回复:1000<br/>
                                     最后发表时间: 4天前
                                 </div>
