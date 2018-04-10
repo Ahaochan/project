@@ -37,6 +37,13 @@ public abstract class RequestHelper {
                 .currentRequestAttributes()).getRequest();
     }
 
+    /**
+     * 从ThreadLocal中获取项目路径
+     */
+    public static String getContextPath(){
+        return getRequest().getContextPath();
+    }
+
     // ----------------------- 设置 Attribute 属性------------------------------
     /**
      * 向request中设置Attribute字符串
