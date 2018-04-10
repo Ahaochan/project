@@ -89,11 +89,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <input type="hidden" id="input_icon_url" name="forum-icon-url"/>
                                 <label for="input_icon" class="col-md-2 control-label">版图</label>
                                 <div class="col-md-10 ">
                                     <div class="kv-avatar">
                                         <div class="file-loading">
-                                            <input type="hidden" id="input_icon_url" name="forum-icon_url"/>
                                             <input type="file" id="input_icon" name="file"/>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@
             fileInput.initImg({
                 selector: '#input_icon',
                 uploadUrl: ctx + '/upload/img',
-
+                filePath: 'forum-icon'
             }).on('change', function(event) {
                 // TODO 提醒上传, 并禁用提交按钮
                 console.log("change");
@@ -155,7 +155,7 @@
 
 
         (function ($) {
-            $('#forum-forum').submit(function (e) {
+            $('#form-forum').submit(function (e) {
                 e.preventDefault();
 
                 var forumId = $('input[name="forum-id"]').val();
@@ -181,9 +181,9 @@
                         }
                         swal({type: 'success', title: '成功', text: '保存成功'});
 
-                        setTimeout(function () {
-                            window.location.href = ctx + '/manager/forums';
-                        })
+                        // setTimeout(function () {
+                        //     window.location.href = ctx + '/manager/forums';
+                        // })
                     }
                 });
             });

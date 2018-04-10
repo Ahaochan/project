@@ -6,14 +6,12 @@ import java.util.List;
 
 public interface ForumService {
 
-    long saveForum(Long forumId, Long categoryId, String name, String description, Integer status, String iconUrl);
+    long saveForum(Long forumId, String name, String description, Integer status, String iconUrl);
 
-    int deleteForum(Long... forumIds);
+    boolean deleteForum(Long... forumIds);
 
-    List<IDataSet> getCategories();
+    List<IDataSet> getCategories(Long forumId);
 
-    List<IDataSet> getForums(String... fields);
-    List<IDataSet> getForumsTable(Long userId, String search);
-
-
+    IDataSet getForum(Long forumId);
+    List<IDataSet> getForums(Long userId, String search);
 }

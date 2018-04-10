@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.manager.forum.dao.ForumMapper">
 
+    <insert id="saveForum" useGeneratedKeys="true" keyProperty="baseDO.id" keyColumn="id">
+        insert into forum (name, description, status, icon_url) values (#{name}, #{description}, #{status}, #{iconUrl});
+    </insert>
+
+    <update id="updateForum">
+        update forum
+        <set>
+            <if test="name != null and name.length() > 0">name = #{name},</if>
+            <if test="description != null and description.length() > 0">description = #{description},</if>
+            <if test="status >= 0">status = #{status},</if>
+            <if test="iconUrl != null and iconUrl.length() > 0">icon_url = #{iconUrl},</if>
+        </set>
+        where id = #{forumId}
+    </update>
+
+
     <delete id="deleteForum">
         delete from forum where id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
         delete from category_forum where forum_id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
@@ -10,35 +26,6 @@
         delete from thread where forum_id in <foreach collection="categoryIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
     </delete>
 
-    <select id="getForums" resultType="DataSet">
-        select
-        <choose>
-            <when test="fields != null and fields.length > 0">
-                <foreach collection="fields" separator="," item="item">
-                    f.${item}
-                </foreach>
-            </when>
-            <otherwise>f.*</otherwise>
-        </choose>
-        from forum f
-    </select>
-
-    <select id="getForumsTable" resultType="DataSet">
-        select f.id, f.name, f.status, thread_num.num thread_num
-        from forum f
-        left join user_forum uf on uf.forum_id = f.id
-        left join admin_user u on uf.user_id = u.id
-        left join (
-            select id, count(*) num
-            from thread
-            group by forum_id
-        ) thread_num on f.id = thread_num.id
-        where u.enabled = 1 and u.id = #{userId}
-        <if test="search != null and search.length() > 0">
-            <bind name="searchLike" value="'%'+search+'%'"/>
-            and f.name like #{searchLike}
-        </if>
-    </select>
 
     <select id="getForumById" resultType="DataSet">
         select
@@ -50,5 +37,42 @@
         </choose>
         from forum f
         where f.id = #{forumId}
+    </select>
+
+    <select id="getForums" resultType="DataSet">
+        select *
+        from forum f
+        left join ( select forum_id, count(*) num from thread group by forum_id ) thread_num on f.id = thread_num.forum_id
+        <where>
+        <if test="search != null and search.length() > 0">
+            <bind name="searchLike" value="'%'+search+'%'"/>
+            f.name like #{searchLike}
+        </if>
+        </where>
+    </select>
+    <select id="getForumsBySuperModerator" resultType="DataSet">
+        select f.id, f.name, f.status, thread_num.num thread_num
+        from forum f
+        left join category_forum cf on cf.forum_id = f.id
+        left join user_category uc on uc.category_id = cf.category_id
+        left join admin_user u on u.id = uc.user_id
+        left join ( select forum_id, count(*) num from thread group by forum_id ) thread_num on f.id = thread_num.forum_id
+        where u.enabled = 1 and u.id = #{userId}
+        <if test="search != null and search.length() > 0">
+            <bind name="searchLike" value="'%'+search+'%'"/>
+            and f.name like #{searchLike}
+        </if>
+    </select>
+    <select id="getForumsByModerator" resultType="DataSet">
+        select f.id, f.name, f.status, thread_num.num thread_num
+        from forum f
+        left join user_forum uf on uf.forum_id = f.id
+        left join admin_user u on uf.user_id = u.id
+        left join ( select forum_id, count(*) num from thread group by forum_id ) thread_num on f.id = thread_num.forum_id
+        where u.enabled = 1 and u.id = #{userId}
+        <if test="search != null and search.length() > 0">
+            <bind name="searchLike" value="'%'+search+'%'"/>
+            and f.name like #{searchLike}
+        </if>
     </select>
 </mapper>
