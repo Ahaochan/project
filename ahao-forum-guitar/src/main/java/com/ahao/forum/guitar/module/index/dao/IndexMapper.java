@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface IndexMapper {
-    List<IDataSet> getCategories(@Param("status") int status, @Param("fields") String... fields);
-    List<IDataSet> getForumsByCategoryId(@Param("categoryId") long categoryId, @Param("fields") String... fields);
+    List<IDataSet> getCategories(@Param("status") int status);
+    List<IDataSet> getForumsByCategoryId(@Param("categoryId") long categoryId);
 }

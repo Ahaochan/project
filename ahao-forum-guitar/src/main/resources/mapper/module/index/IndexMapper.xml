@@ -3,29 +3,13 @@
 <mapper namespace="com.ahao.forum.guitar.module.index.dao.IndexMapper">
 
     <select id="getCategories" resultType="DataSet">
-        select
-        <choose>
-            <when test="fields != null and fields.length > 0">
-                <foreach collection="fields" separator="," item="item">
-                    c.${item}
-                </foreach>
-            </when>
-            <otherwise>c.*</otherwise>
-        </choose>
+        select c.id, c.name
         from category c
         where c.status = #{status}
         order by c.id, c.name
     </select>
     <select id="getForumsByCategoryId" resultType="DataSet">
-        select
-        <choose>
-            <when test="fields != null and fields.length > 0">
-                <foreach collection="fields" separator="," item="item">
-                    f.${item}
-                </foreach>
-            </when>
-            <otherwise>f.*</otherwise>
-        </choose>
+        select f.id, f.name, f.icon_url
         from forum f
         left join category_forum cf on cf.forum_id = f.id
         left join category c on cf.category_id = c.id
