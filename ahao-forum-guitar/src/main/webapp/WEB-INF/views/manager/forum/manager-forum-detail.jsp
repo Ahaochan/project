@@ -100,11 +100,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="input-description" class="col-md-2 control-label">板块描述</label>
+                                <label class="col-md-2 control-label">板块描述</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" placeholder="板块描述"
-                                           id="input-description" name="forum-description"
-                                           value="${forum.getString('description')}">
+                                    <div id="editor">
+                                        ${forum.getString('description')}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -124,24 +124,31 @@
 </body>
 <%-- 通用脚本 --%>
 <%@include file="/WEB-INF/views/static/script.jsp" %>
+<%-- 预防 XSS 攻击 --%>
+<script src="https://cdn.bootcss.com/js-xss/0.3.3/xss.min.js"></script>
+<%-- Boostrap 文件上传 --%>
 <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/plugins/purify.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/plugins/piexif.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/fileinput.min.js"></script>
+<%-- wangEditor 富文本编辑器 --%>
+<script src="https://unpkg.com/wangeditor@3.1.0/release/wangEditor.min.js"></script>
+
 <script src="${contextPath}/js/core.js"></script>
 <script>
     $(function () {
+        // 1. 文件上传插件
         (function ($) {
             var fileInput = new FileInput();
             fileInput.initImg({
                 selector: '#input_icon',
                 uploadUrl: ctx + '/upload/img',
                 filePath: 'forum-icon'
-            }).on('change', function(event) {
+            }).on('change', function (event) {
                 // TODO 提醒上传, 并禁用提交按钮
                 console.log("change");
-            }).on('filebeforedelete', function() {
+            }).on('filebeforedelete', function () {
                 console.log("filebeforedelete");
-            }).on('filedeleted', function() {
+            }).on('filedeleted', function () {
                 console.log("filedeleted");
             }).on('fileuploaded', function (event, data, previewId, index) {
                 var json = data.response;
@@ -153,14 +160,25 @@
             });
         })(jQuery);
 
+        // 2. 富文本编辑插件
+        var editor;
+        (function ($) {
+            editor = new RichEditor();
+            editor.init({
+                uploadImgUrl: ctx+'/upload/img',
+                selector: '#editor',
+                filePath: 'editor',
+            });
+        })(jQuery);
 
+        // 3. ajax提交表单
         (function ($) {
             $('#form-forum').submit(function (e) {
                 e.preventDefault();
 
                 var forumId = $('input[name="forum-id"]').val();
                 var name = $('input[name="forum-name"]').val();
-                var description = $('input[name="forum-description"]').val();
+                var description = filterXSS(editor.html());
                 var status = $('input[name="forum-status"]:checked').val();
                 var iconUrl = $('input[name="forum-icon-url"]').val();
 
@@ -181,9 +199,9 @@
                         }
                         swal({type: 'success', title: '成功', text: '保存成功'});
 
-                        // setTimeout(function () {
-                        //     window.location.href = ctx + '/manager/forums';
-                        // })
+                        setTimeout(function () {
+                            window.location.href = ctx + '/manager/forums';
+                        }, 3000)
                     }
                 });
             });
