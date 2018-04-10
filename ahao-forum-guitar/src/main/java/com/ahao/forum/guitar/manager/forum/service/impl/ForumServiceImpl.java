@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@Service
+@Service("forumBackService")
 public class ForumServiceImpl implements ForumService{
     private static final Logger logger = LoggerFactory.getLogger(ForumServiceImpl.class);
 

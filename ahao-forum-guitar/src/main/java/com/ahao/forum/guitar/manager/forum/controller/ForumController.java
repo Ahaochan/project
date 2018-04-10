@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@Controller("forumBackController")
 @RequestMapping("/manager")
 public class ForumController {
     private static final Logger logger = LoggerFactory.getLogger(ForumController.class);

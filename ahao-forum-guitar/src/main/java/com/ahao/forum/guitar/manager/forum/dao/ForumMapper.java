@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Repository("forumBackMapper")
 public interface ForumMapper {
     /**
      * 插入一条 板块数据
