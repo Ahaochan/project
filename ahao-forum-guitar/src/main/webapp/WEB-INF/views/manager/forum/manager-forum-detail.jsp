@@ -3,7 +3,32 @@
 <head>
     <%-- 样式 --%>
     <%@include file="/WEB-INF/views/static/head.jsp" %>
-    <title>分区管理</title>
+    <title>板块管理</title>
+    <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/css/fileinput.min.css" rel="stylesheet"/>
+    <style>
+        .kv-avatar .krajee-default.file-preview-frame, .kv-avatar .krajee-default.file-preview-frame:hover {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            text-align: center;
+        }
+
+        .kv-avatar {
+            display: inline-block;
+        }
+
+        .kv-avatar .file-input {
+            display: table-cell;
+            width: 213px;
+        }
+
+        .kv-reqd {
+            color: red;
+            font-family: monospace;
+            font-weight: normal;
+        }
+    </style>
 </head>
 <body>
 <%-- 导航条 --%>
@@ -27,76 +52,59 @@
             <div class="tab-content tab-pane">
                 <div class="panel panel-default">
                     <%--@elvariable id="isExist" type="java.lang.Boolean"--%>
-                    <%--@elvariable id="category" type="com.ahao.core.entity.IDataSet"--%>
-                    <div class="panel-heading">${isExist?'编辑分区':'增加分区'}</div>
+                    <%--@elvariable id="forum" type="com.ahao.core.entity.IDataSet"--%>
+                    <div class="panel-heading">${isExist?'编辑板块':'增加板块'}</div>
                     <div class="panel-body">
                         <form class="form-horizontal" id="form-forum">
-                            <c:if test="${isExist}">
-                                <div class="form-group">
-                                    <label for="input-id" class="col-md-2 control-label">分区id</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" id="input-id" placeholder="分区id" name="category-id"
-                                               readonly disabled value="${category.getInt('id')}"/>
+                            <div class="form-group">
+                                <c:if test="${isExist}">
+                                    <label for="input-id" class="col-md-2 control-label">板块id</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" placeholder="板块id" readonly
+                                               id="input-id" name="forum-id"
+                                               value="${forum.getInt('id')}"/>
                                     </div>
-                                </div>
-                            </c:if>
-                            <div class="form-group">
-                                <label for="input-name" class="col-md-2 control-label">分区名称</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" id="input-name" placeholder="分区名称" name="category-name"
-                                           value="${category.getString('name')}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="input-description" class="col-md-2 control-label">分区描述</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" id="input-description" placeholder="分区描述"
-                                           name="category-description"
-                                           value="${category.getString('description')}">
+                                </c:if>
+                                <label for="input-name" class="col-md-2 control-label">板块名称</label>
+                                <div class="col-md-3">
+                                    <input class="form-control" placeholder="板块名称"
+                                           id="input-name" name="forum-name"
+                                           value="${forum.getString('name')}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-2 control-label">分区状态</label>
-                                <c:set var="status" value="${category.getInt('status') == 0}"/>
+                                <label class="col-md-2 control-label">板块状态</label>
+                                <c:set var="status" value="${forum.getInt('status') == 0}"/>
                                 <div class="col-md-3 radio">
                                     <label>
-                                        <input type="radio" id="input-status-1" name="category-status"
+                                        <input type="radio" id="input-status-1" name="forum-status"
                                                value="1" ${status?'':'checked'}>启用
                                     </label>
                                 </div>
                                 <div class="col-md-3 radio">
                                     <label>
-                                        <input type="radio" id="input-status-0" name="category-status"
+                                        <input type="radio" id="input-status-0" name="forum-status"
                                                value="0" ${status?'checked':''}>禁用
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-2 control-label">下属板块</label>
-                                <div class="col-md-10">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                下属板块
-                                                <span class="glyphicon glyphicon-triangle-bottom"
-                                                      data-toggle="collapse" href="#pane-sub-forum"></span>
-                                            </h4>
-                                        </div>
-                                        <div id="pane-sub-forum" class="panel-collapse collapse in">
-                                            <div class="panel-body">
-                                                <c:forEach items="${forums}" var="item">
-                                                    <div class="checkbox ${item.getBoolean("status") ? '' : 'disabled'}">
-                                                        <label>
-                                                            <input type="checkbox" name="forums"
-                                                                   value="${item.getInt("id")}"
-                                                                ${item.getBoolean("status") ? '' : 'disabled'}
-                                                                ${"".equals(item.getString("selected")) ? "":"checked"}/>
-                                                                ${item.getString("name")}</label>
-                                                    </div>
-                                                </c:forEach>
-                                            </div>
+                                <label for="input_icon" class="col-md-2 control-label">版图</label>
+                                <div class="col-md-10 ">
+                                    <div class="kv-avatar">
+                                        <div class="file-loading">
+                                            <input type="hidden" id="input_icon_url" name="forum-icon_url"/>
+                                            <input type="file" id="input_icon" name="file"/>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-description" class="col-md-2 control-label">板块描述</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" placeholder="板块描述"
+                                           id="input-description" name="forum-description"
+                                           value="${forum.getString('description')}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -116,29 +124,55 @@
 </body>
 <%-- 通用脚本 --%>
 <%@include file="/WEB-INF/views/static/script.jsp" %>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/plugins/purify.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/plugins/piexif.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/fileinput.min.js"></script>
+<script src="${contextPath}/js/core.js"></script>
 <script>
     $(function () {
         (function ($) {
-            $('#forum-category').submit(function (e) {
+            var fileInput = new FileInput();
+            fileInput.initImg({
+                selector: '#input_icon',
+                uploadUrl: ctx + '/upload/img',
+
+            }).on('change', function(event) {
+                // TODO 提醒上传, 并禁用提交按钮
+                console.log("change");
+            }).on('filebeforedelete', function() {
+                console.log("filebeforedelete");
+            }).on('filedeleted', function() {
+                console.log("filedeleted");
+            }).on('fileuploaded', function (event, data, previewId, index) {
+                var json = data.response;
+                if (!json.result) {
+                    swal({type: 'warning', title: '警告', text: '上传失败'});
+                    return;
+                }
+                $('input[name="forum-icon-url"]').val(json.obj.url || '');
+            });
+        })(jQuery);
+
+
+        (function ($) {
+            $('#forum-forum').submit(function (e) {
                 e.preventDefault();
 
-                var categoryId = $('input[name="category-id"]').val();
-                var name = $('input[name="category-name"]').val();
-                var description = $('input[name="category-description"]').val();
-                var status = $('input[name="category-status"]:checked').val();
-                var forumIds = $('input[name="forums"]:checked').map(function () {
-                    return this.value;
-                }).get();
+                var forumId = $('input[name="forum-id"]').val();
+                var name = $('input[name="forum-name"]').val();
+                var description = $('input[name="forum-description"]').val();
+                var status = $('input[name="forum-status"]:checked').val();
+                var iconUrl = $('input[name="forum-icon-url"]').val();
 
                 $.ajax({
                     type: 'post',
-                    url: ctx + '/manager/api/category/save',
+                    url: ctx + '/manager/api/forum/save',
                     data: {
-                        categoryId: categoryId,
+                        forumId: forumId,
                         name: name,
                         description: description,
                         status: status,
-                        forumIds: forumIds
+                        iconUrl: iconUrl
                     },
                     success: function (json) {
                         if (!json.result) {
@@ -148,7 +182,7 @@
                         swal({type: 'success', title: '成功', text: '保存成功'});
 
                         setTimeout(function () {
-                            window.location.href = ctx + '/manager/categories';
+                            window.location.href = ctx + '/manager/forums';
                         })
                     }
                 });
