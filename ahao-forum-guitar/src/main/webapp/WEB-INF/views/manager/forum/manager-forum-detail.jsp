@@ -4,6 +4,7 @@
     <%-- 样式 --%>
     <%@include file="/WEB-INF/views/static/head.jsp" %>
     <title>板块管理</title>
+    <meta name="icon-url" content="${forum.getString('icon_url')}"/>
     <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/css/fileinput.min.css" rel="stylesheet"/>
     <style>
         .kv-avatar .krajee-default.file-preview-frame, .kv-avatar .krajee-default.file-preview-frame:hover {
@@ -135,13 +136,18 @@
 
 <script src="${contextPath}/js/core.js"></script>
 <script>
+
     $(function () {
         // 1. 文件上传插件
         (function ($) {
+            var url = $('meta[name="icon-url"]').attr('content');
+            url = (!!url) ? ctx + url : undefined;
+
             var fileInput = new FileInput();
             fileInput.initImg({
                 selector: '#input_icon',
                 uploadUrl: ctx + '/upload/img',
+                placeholderImg: url,
                 filePath: 'forum-icon'
             }).on('change', function (event) {
                 // TODO 提醒上传, 并禁用提交按钮
@@ -165,7 +171,7 @@
         (function ($) {
             editor = new RichEditor();
             editor.init({
-                uploadImgUrl: ctx+'/upload/img',
+                uploadImgUrl: ctx + '/upload/img',
                 selector: '#editor',
                 filePath: 'editor',
             });

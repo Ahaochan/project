@@ -6,6 +6,7 @@ var FileInput = function () {
     File.initImg = function (option) {
         var options = $.extend({
             selector: undefined,
+            placeholderImg: ctx + '/img/default_avatar_male.jpg',
             filePath: '',
             fileInputParam: {},
         }, option);
@@ -37,7 +38,7 @@ var FileInput = function () {
 
             // elErrorContainer: '#kv-avatar-errors-2',
             msgErrorClass: 'alert alert-block alert-danger',
-            defaultPreviewContent: '<img src="' + ctx + '/img/default_avatar_male.jpg" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
+            defaultPreviewContent: '<img src="' + options.placeholderImg + '" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
             layoutTemplates: {main2: '{preview} {remove} {browse}'},
         }, options.fileInputParam));
     };
