@@ -79,7 +79,6 @@ public class RoleController {
 
         // 1. 获取已登录的用户数据
         IDataSet userData = (IDataSet) SecurityUtils.getSubject().getPrincipal();
-        long userId = userData.getLong("id");
 
         // 2. 分页获取
         int pageSize = PageContext.getPageSize();
