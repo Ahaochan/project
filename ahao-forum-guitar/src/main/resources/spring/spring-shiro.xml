@@ -51,7 +51,7 @@
 
     <!-- Shiro安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realm" ref="authorizingRealm"/>
+        <property name="realm" ref="shiroRealm"/>
         <property name="cacheManager" ref="shiroCacheManager"/>
     </bean>
 

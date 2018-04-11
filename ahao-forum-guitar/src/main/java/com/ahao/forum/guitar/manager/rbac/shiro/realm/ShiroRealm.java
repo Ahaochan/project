@@ -7,6 +7,7 @@ import com.ahao.forum.guitar.manager.rbac.shiro.dao.ShiroMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,14 +19,15 @@ import java.util.List;
 import java.util.Set;
 
 @Realm
-public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
-    private static final Logger logger = LoggerFactory.getLogger(AuthorizingRealm.class);
+public class ShiroRealm extends AuthorizingRealm {
+    private static final Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
+    
 
 
     private ShiroMapper shiroMapper;
 
     @Autowired
-    public AuthorizingRealm(ShiroMapper shiroMapper){
+    public ShiroRealm(ShiroMapper shiroMapper){
         this.shiroMapper = shiroMapper;
     }
 
@@ -38,7 +40,6 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
 
         // 2. 从数据库获取用户信息, 和用户输入进行对比
         IDataSet userData = shiroMapper.getUserByUsername(username);
-        long userId = userData.getLong("id");
         // TODO 2.1. 判断验证码是否正确
         // 2.2. 判断用户是否存在
         if (userData == null) {
@@ -61,6 +62,7 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
         }
 
         // 3. 加入用户权限值
+        long userId = userData.getLong("id");
         int weight = shiroMapper.getWeight(userId);
         userData.put("weight", weight);
 
