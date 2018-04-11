@@ -35,17 +35,27 @@
                                    value="${profile.getInt("id")}"/>
                             <div class="form-group">
                                 <label for="input-username" class="col-md-2 control-label">用户名</label>
-                                <div class="col-md-10">
+                                <div class="col-md-3">
                                     <input class="form-control" placeholder="用户名"
                                            id="input-username" name="user-username"
                                            value="${username}" disabled/>
                                 </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="input-email" class="col-md-2 control-label">电子邮箱</label>
-                                <div class="col-md-10">
+                                <div class="col-md-3">
                                     <input type="email" class="form-control" placeholder="电子邮箱" value="${profile.getString('email')}"
                                            id="input-email" name="profile-email"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-qq" class="col-md-2 control-label">QQ号</label>
+                                <div class="col-md-3">
+                                    <input class="form-control" placeholder="QQ号" value="${profile.getString('qq')}"
+                                           id="input-qq" name="profile-qq"/>
+                                </div>
+                                <label for="input-city" class="col-md-2 control-label">城市</label>
+                                <div class="col-md-3">
+                                    <input class="form-control" placeholder="城市" value="${profile.getString('city')}"
+                                           id="input-city" name="profile-city"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -73,22 +83,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="input-qq" class="col-md-2 control-label">QQ号</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" placeholder="QQ号" value="${profile.getString('qq')}"
-                                           id="input-qq" name="profile-qq"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="input-city" class="col-md-2 control-label">城市</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" placeholder="城市" value="${profile.getString('city')}"
-                                           id="input-city" name="profile-city"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="input-enabled" class="col-md-2 control-label">帐号状态</label>
-                                <div class="col-md-10">
+                                <div class="col-md-8">
                                     <c:set var="enabled" value="${user.getInt('enabled') == 0 ? '封禁' : '正常'}"/>
                                     <input class="form-control" placeholder="帐号状态" disabled
                                            id="input-enabled" value="${enabled}">
@@ -96,13 +92,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="input-last-login-time" class="col-md-2 control-label">上次登录时间</label>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <input class="form-control" placeholder="上次登录时间" disabled
                                            id="input-last-login-time"
                                            value="${user.getString('last_login_time')}" />
                                 </div>
                                 <label for="input-last-login-ip" class="col-md-2 control-label">上次登录ip</label>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <input class="form-control" placeholder="上次登录ip" disabled
                                            id="input-last-login-ip"
                                            value="${user.getString('last_login_ip')}" />
