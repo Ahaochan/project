@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.forum.guitar.module.thread.dao.ThreadMapper">
+
+    <select id="getThreadById" resultType="DataSet">
+        select t.id thread_id, t.title thread_title, f.id forum_id, f.name forum_name, tu.username
+        from thread t
+        left join forum f on t.forum_id = f.id
+        left join admin_user tu on tu.id = t.user_id
+        where t.id = #{threadId}
+    </select>
+
+    <select id="getPosts" resultType="DataSet">
+        select p.id post_id,
+            u.id, u.username, ut.thread_num, up.post_num,
+            p.create_time, p.floor,
+            p.modify_time, p.content
+        from post p
+        left join thread t on t.id = p.thread_id
+        left join admin_user u on u.id = p.user_id and u.enabled = 1
+        left join ( select user_id, count(*) thread_num from thread group by user_id ) ut on ut.user_id = u.id and u.enabled = 1
+        left join ( select user_id, count(*) post_num from post group by user_id ) up on up.user_id = u.id and u.enabled = 1
+        where t.id = #{threadId}
+        order by p.floor
+    </select>
+</mapper>
