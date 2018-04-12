@@ -9,15 +9,16 @@
     </select>
 
     <select id="getThreadByForumId" resultType="DataSet">
-        select t.id, t.title, tu.username, rep.last_reply_time, rep.reply_num
+        select t.id, t.title, tu.username, ifnull(rep.last_reply_time, t.create_time) last_reply_time, rep.reply_num, t.create_time
         from thread t
         left join forum f on t.forum_id = f.id
         left join admin_user tu on tu.id = t.create_user_id
-        left join (select thread_id, max(create_time) last_reply_time, count(*) reply_num from post group by thread_id) rep on rep.thread_id = t.id
+        left join (select thread_id, max(ifnull(create_time, 0)) last_reply_time, count(*) reply_num from post group by thread_id) rep on rep.thread_id = t.id
         where f.id = #{forumId}
         <if test="search != null and search.length() > 0">
             <bind name="searchLike" value="'%'+search+'%'"/>
             and t.title like #{searchLike}
         </if>
+        order by last_reply_time desc, t.modify_time desc, t.create_time desc
     </select>
 </mapper>
