@@ -2,11 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ahao.forum.guitar.module.thread.dao.ThreadMapper">
 
+    <insert id="saveThread" useGeneratedKeys="true" keyProperty="baseDO.id" keyColumn="id">
+        insert into thread (title, content, create_user_id, forum_id, create_time, modify_time)
+        values (#{title}, #{content}, #{userId}, #{forumId}, #{createTime}, #{createTime});
+    </insert>
+
+    <update id="updateThread">
+        update thread
+        <set>
+            <if test="title != null and title.length() > 0">title = #{title},</if>
+            <if test="content != null and content.length() > 0">content = #{content},</if>
+            <if test="userId >= 0">modify_user_id = #{userId},</if>
+            <if test="forumId >= 0">forum_id = #{forumId},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime}</if>
+        </set>
+        where id = #{threadId}
+    </update>
+
+    <select id="getForumById" resultType="DataSet">
+        select * from forum f where f.id = #{forumId}
+    </select>
+
     <select id="getThreadById" resultType="DataSet">
-        select t.id thread_id, t.title thread_title, f.id forum_id, f.name forum_name, tu.username
+        select t.id thread_id, t.title thread_title, t.content thread_content,
+            t.create_time thread_create_time, t.modify_time thread_modify_time,
+            f.id forum_id, f.name forum_name,
+            tu.username, ut.thread_num, up.post_num
         from thread t
         left join forum f on t.forum_id = f.id
-        left join admin_user tu on tu.id = t.user_id
+        left join admin_user tu on tu.id = t.create_user_id
+        left join ( select create_user_id, count(*) thread_num from thread group by create_user_id ) ut on ut.create_user_id = tu.id and tu.enabled = 1
+        left join ( select create_user_id, count(*) post_num from post group by create_user_id ) up on up.create_user_id = tu.id and tu.enabled = 1
         where t.id = #{threadId}
     </select>
 
@@ -17,9 +43,9 @@
             p.modify_time, p.content
         from post p
         left join thread t on t.id = p.thread_id
-        left join admin_user u on u.id = p.user_id and u.enabled = 1
-        left join ( select user_id, count(*) thread_num from thread group by user_id ) ut on ut.user_id = u.id and u.enabled = 1
-        left join ( select user_id, count(*) post_num from post group by user_id ) up on up.user_id = u.id and u.enabled = 1
+        left join admin_user u on u.id = p.create_user_id and u.enabled = 1
+        left join ( select create_user_id, count(*) thread_num from thread group by create_user_id ) ut on ut.create_user_id = u.id and u.enabled = 1
+        left join ( select create_user_id, count(*) post_num from post group by create_user_id ) up on up.create_user_id = u.id and u.enabled = 1
         where t.id = #{threadId}
         order by p.floor
     </select>

@@ -6,6 +6,11 @@ import java.util.List;
 
 public interface ThreadService {
 
+    long saveThread(Long threadId, String title, String content, Long userId, Long forumId);
+
+    IDataSet getForum(Long forumId);
     IDataSet getThread(Long threadId);
+
+
     List<IDataSet> getPosts(Long threadId);
 }

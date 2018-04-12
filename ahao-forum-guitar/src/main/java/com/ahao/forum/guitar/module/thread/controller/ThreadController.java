@@ -1,19 +1,18 @@
 package com.ahao.forum.guitar.module.thread.controller;
 
 import com.ahao.core.entity.AjaxDTO;
+import com.ahao.core.entity.DataSet;
 import com.ahao.core.entity.IDataSet;
 import com.ahao.core.util.lang.CollectionHelper;
 import com.ahao.core.util.web.PageIndicator;
+import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import com.ahao.forum.guitar.module.thread.service.ThreadService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,17 +23,53 @@ public class ThreadController {
         this.threadService = threadService;
     }
 
+    @GetMapping("/forum-{forumId}/new")
+    public String newThread(@PathVariable Long forumId, Model model){
+        if(forumId == null || forumId <= 0){
+            return "redirect: /";
+        }
+        model.addAttribute("isExist", false);
+//        IDataSet forumData = threadService.getForum(forumId);
+        IDataSet data = new DataSet();
+        data.put("forum_id", forumId);
+        model.addAttribute("thread", data);
+        return "thread/thread-detail";
+    }
+
+    @GetMapping("/thread-{threadId}/modify")
+    public String modifyThread(@PathVariable Long threadId, Model model){
+        boolean isExist = false;
+        if (threadId != null && threadId > 0) {
+            IDataSet thread = threadService.getThread(threadId);
+            if (thread != null){
+                isExist = true;
+                model.addAttribute("thread", thread);
+            }
+        }
+        model.addAttribute("isExist", isExist);
+        return "thread/thread-detail";
+    }
+
     @GetMapping("/thread-{threadId}")
-    public String thread(@PathVariable Long threadId, Model model){
+    public String threadAndPosts(@PathVariable Long threadId, Model model){
         IDataSet thread = threadService.getThread(threadId);
         model.addAttribute("thread", thread);
-        return "thread/thread";
+        return "thread/thread-posts";
+    }
+
+    @PostMapping("/api/thread-{threadId}/save")
+    @ResponseBody
+    public AjaxDTO save(@PathVariable Long threadId, @RequestParam Long forumId,
+                        @RequestParam String title, @RequestParam String content) {
+        // 1. 保存当前用户的实体联系, 返回 分区id
+        long userId = ShiroHelper.getMyUserId();
+        Long id = threadService.saveThread(threadId, title, content, userId, forumId);
+        return AjaxDTO.get(id>0, "", id);
     }
 
     @GetMapping("/api/thread-{threadId}/posts")
     @ResponseBody
-    public AjaxDTO posts(@PathVariable Long threadId,
-                         @RequestParam Integer page){
+    public AjaxDTO posts(@PathVariable Long threadId, @RequestParam Integer page){
         JSONObject result = new JSONObject();
 
         // 1. 分页获取

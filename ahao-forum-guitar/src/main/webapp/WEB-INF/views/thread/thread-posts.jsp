@@ -30,42 +30,25 @@
             <div class="list-group-item" id="item-thread">
                 <div class="row">
                     <div class="col-md-2 text-center">
-                        <div class="row"><p>用户1</p></div>
-                        <div class="row"><img style="width: 80%"
-                                              src="${contextPath}/img/93b09a57-93a8-43f3-bf2b-6cc62530dd81%E7%89%88%E5%9B%BE1.jpg"/>
+                        <div class="row"><p>${thread.getString("username")}</p></div>
+                        <div class="row">
+                            <img style="width: 80%" src="${contextPath}/img/93b09a57-93a8-43f3-bf2b-6cc62530dd81%E7%89%88%E5%9B%BE1.jpg"/>
                         </div>
-                        <div class="row"><p>主题数量: 100<br/>回帖数量: 100</p></div>
+                        <div class="row"><p>主题数量: ${thread.getInt("thread_num")}<br/>回帖数量: ${thread.getInt("post_num")}</p></div>
                     </div>
                     <div class="col-md-10">
                         <div class="row">
-                            <div class="col-md-10">
-                                <small>发布时间:2018年04月11日 11:22:33</small>
-                            </div>
-
+                            <div class="col-md-10"><small>发布时间:${thread.getString('thread_create_time')}</small></div>
                             <div class="col-md-2 text-right">主题</div>
                         </div>
                         <hr/>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <small>修改时间:2018年04月11日 11:22:33</small>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Maecenas sed diam eget risus varius blandit sit amet non magna. Lorem ipsum dolor sit
-                                amet,
-                                consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl
-                                consectetur et.
-                                Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus,
-                                nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean lacinia bibendum
-                                nulla sed consectetur.
-                            </div>
-                        </div>
+                        <div class="row"><div class="col-md-5"><small>修改时间:${thread.getString('thread_modify_time')}</small></div></div>
+                        <div class="row"><div class="col-md-12">${thread.getString("thread_content")}</div></div>
                         <hr/>
                         <div class="row">
                             <div class="col-md-12">
                                 <a class="btn btn-default" href="#" role="button">回复</a>
+                                <a class="btn btn-default" href="${contextPath}/thread-${thread.getInt("thread_id")}/modify" role="button">编辑</a>
                                 <a class="btn btn-default" href="#" role="button">删帖</a>
                             </div>
                         </div>
@@ -119,7 +102,7 @@
         (function ($) {
             var $postDiv = $('<div class="col-md-10">' +
                 '    <div class="row">' +
-                '        <div class="col-md-10"><small>' + options.createTime + '</small></div>' +
+                '        <div class="col-md-10"><small>发布时间:' + options.createTime + '</small></div>' +
                 '        <div class="col-md-2 text-right">' + options.floor + '楼</div>' +
                 '    </div>' +
                 '    <hr/>' +
