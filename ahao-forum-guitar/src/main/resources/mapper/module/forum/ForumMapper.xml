@@ -12,7 +12,7 @@
         select t.id, t.title, tu.username, rep.last_reply_time, rep.reply_num
         from thread t
         left join forum f on t.forum_id = f.id
-        left join admin_user tu on tu.id = t.user_id
+        left join admin_user tu on tu.id = t.create_user_id
         left join (select thread_id, max(create_time) last_reply_time, count(*) reply_num from post group by thread_id) rep on rep.thread_id = t.id
         where f.id = #{forumId}
         <if test="search != null and search.length() > 0">
