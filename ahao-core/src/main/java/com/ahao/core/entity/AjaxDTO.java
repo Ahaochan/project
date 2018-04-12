@@ -25,6 +25,14 @@ public class AjaxDTO {
         return new AjaxDTO(success ? SUCCESS : FAILURE, "", null);
     }
 
+    public static AjaxDTO get(boolean success, String msg) {
+        return new AjaxDTO(success ? SUCCESS : FAILURE, msg, null);
+    }
+
+    public static AjaxDTO get(boolean success, String msg, Object obj) {
+        return new AjaxDTO(success ? SUCCESS : FAILURE, msg, obj);
+    }
+
     public static AjaxDTO get(int result) {
         return new AjaxDTO(result, "", null);
     }
