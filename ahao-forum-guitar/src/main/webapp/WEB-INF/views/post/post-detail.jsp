@@ -126,7 +126,7 @@
                 // 3. 保存
                 $.ajax({
                     type: 'post',
-                    url: ctx + '/api/post-' + postId + '/save',
+                    url: ctx + '/api/post/save',
                     data: {
                         postId: postId,
                         prePostId: prePostId,
