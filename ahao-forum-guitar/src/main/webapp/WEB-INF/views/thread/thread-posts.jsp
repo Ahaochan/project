@@ -5,6 +5,7 @@
     <%@include file="/WEB-INF/views/static/head.jsp" %>
     <%--@elvariable id="thread" type="com.ahao.core.entity.IDataSet"--%>
     <meta name="threadId" content="${thread.getInt("thread_id")}"/>
+    <meta name="forumId" content="${thread.getInt("forum_id")}"/>
     <title>${thread.getString("thread_title")}-电吉他设备选购及知识普及软件平台</title>
 </head>
 <body>
@@ -247,7 +248,31 @@
             });
         })(jQuery);
 
-        
+        // 3. 删除主题帖
+        (function ($) {
+            $('#list-post').on('click', 'a[thread-id]', function () {
+                var $this = $(this);
+                var threadId = $this.attr('thread-id');
+
+                $.ajax({
+                    type: 'post',
+                    url: ctx + '/manager/api/thread/delete',
+                    data: { threadIds: [].concat(threadId) },
+                    success: function (json) {
+                        if (!json.result || !json.obj) {
+                            swal({type: 'warning', title: '警告', text: '删除失败'});
+                            return;
+                        }
+                        swal({type: 'success', title: '成功', text: '删除成功'});
+
+                        var forumId = $('meta[name="forumId"]').attr('content');
+                        setTimeout(function () {
+                            window.location.href = ctx + '/forum-'+forumId;
+                        }, 3000)
+                    }
+                });
+            });
+        })(jQuery);
 
         // 2. 初始化回复表单
         (function () {

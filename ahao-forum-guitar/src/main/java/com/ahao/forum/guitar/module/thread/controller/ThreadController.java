@@ -87,4 +87,14 @@ public class ThreadController {
         result.put("pageIndicator", pageIndicator);
         return AjaxDTO.success(result);
     }
+
+    @PostMapping("/manager/api/thread/delete")
+    @ResponseBody
+    public AjaxDTO delete(@RequestParam("threadIds[]") Long... threadIds) {
+        int deleteCount = threadService.deleteThread(threadIds);
+        if (deleteCount > 0) {
+            return AjaxDTO.success("删除成功, 删除" + deleteCount + "条记录");
+        }
+        return AjaxDTO.failure("删除失败, 请联系管理员");
+    }
 }

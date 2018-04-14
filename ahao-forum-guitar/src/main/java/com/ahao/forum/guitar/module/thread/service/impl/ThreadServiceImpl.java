@@ -2,6 +2,7 @@ package com.ahao.forum.guitar.module.thread.service.impl;
 
 import com.ahao.core.entity.BaseDO;
 import com.ahao.core.entity.IDataSet;
+import com.ahao.core.util.lang.math.NumberHelper;
 import com.ahao.core.util.lang.time.DateHelper;
 import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import com.ahao.forum.guitar.module.thread.dao.ThreadMapper;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +54,30 @@ public class ThreadServiceImpl implements ThreadService {
             boolean success = threadMapper.updateThread(threadId, title, content, userId, forumId, new Date());
         }
         return threadId;
+    }
+
+    @Override
+    public int deleteThread(Long... threadIds) {
+        // 1. 判断至少有一条记录存在
+        boolean oneExist = false;
+        for (Long threadId : threadIds) {
+            if (threadId == null || threadId <= 0) {
+                continue;
+            }
+            IDataSet data = threadMapper.getThreadById(threadId);
+            if (data != null) {
+                oneExist = true;
+                break;
+            }
+        }
+        // 2. 如果存在, 则删除选择的数据
+        if (oneExist) {
+            int deleteCount = threadMapper.deleteThread(NumberHelper.unboxing(threadIds));
+            return deleteCount;
+        }
+        // 3. 如果不存在, 则返回0
+        logger.debug("删除分区失败, 数据表中不存在id:" + Arrays.toString(threadIds) + "的记录");
+        return 0;
     }
 
     @Override

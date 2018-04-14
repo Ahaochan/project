@@ -16,10 +16,13 @@ public interface ThreadMapper {
     boolean updateThread(@Param("threadId") long threadId, @Param("title") String title, @Param("content") String content,
                          @Param("userId") long userId, @Param("forumId") long forumId, @Param("modifyTime") Date modifyTime);
 
+    int deleteThread(@Param("threadIds") long... threadIds);
+
     IDataSet getThreadById(@Param("threadId") long threadId);
 
     List<IDataSet> getPosts(@Param("threadId") long threadId);
 
     boolean isModerator(@Param("userId") long userId, @Param("threadId") long threadId);
     boolean isSuperModerator(@Param("userId") long userId, @Param("threadId") long threadId);
+
 }
