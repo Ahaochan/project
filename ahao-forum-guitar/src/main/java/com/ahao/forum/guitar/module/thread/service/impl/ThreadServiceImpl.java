@@ -3,6 +3,7 @@ package com.ahao.forum.guitar.module.thread.service.impl;
 import com.ahao.core.entity.BaseDO;
 import com.ahao.core.entity.IDataSet;
 import com.ahao.core.util.lang.time.DateHelper;
+import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import com.ahao.forum.guitar.module.thread.dao.ThreadMapper;
 import com.ahao.forum.guitar.module.thread.service.ThreadService;
 import org.slf4j.Logger;
@@ -77,7 +78,29 @@ public class ThreadServiceImpl implements ThreadService {
             logger.debug("主题id非法:" + threadId);
             return null;
         }
+        // 1. 获得该主题下所有回复
         List<IDataSet> list = threadMapper.getPosts(threadId);
+
+        // 2. 对该回复的权限进行过滤
+        IDataSet thread = threadMapper.getThreadById(threadId);
+        long threadCreateUserId = thread.getLong("create_user_id");
+        for (IDataSet data : list) {
+            // TODO RBAC0不够用
+            // 2.1. 该回复的创建人可以编辑和删除该回复
+            boolean postMaster = data.getLong("user_id") == ShiroHelper.getMyUserId();
+            // 2.2. 该主题帖的版主可以编辑和删除该回复
+            boolean forumMaster = threadMapper.isModerator(ShiroHelper.getMyUserId(), threadId);
+            // 2.3. 该主题帖所在分区的版主可以编辑和删除该回复
+            boolean categoryMaster = threadMapper.isSuperModerator(ShiroHelper.getMyUserId(), threadId);
+            // 2.4. 最高管理员可以编辑和删除该回复
+            boolean root = ShiroHelper.isRoot();
+
+            if(postMaster || forumMaster || categoryMaster || root) {
+                data.put("can_edit", true);
+                data.put("can_delete", true);
+            }
+        }
+
         return list;
 
     }

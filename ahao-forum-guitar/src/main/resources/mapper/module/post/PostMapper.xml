@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.forum.guitar.module.post.dao.PostMapper">
+
+    <insert id="savePost" useGeneratedKeys="true" keyProperty="baseDO.id" keyColumn="id">
+        insert into post (pre_post_id, floor, content, create_user_id, thread_id, create_time, modify_time)
+        select #{prePostId} pre_post_id, ifnull(max(floor), 1)+1 floor,
+            #{content} content, #{userId} create_user_id,
+            #{threadId} thread_id, #{createTime} create_time, #{createTime} modify_time
+        from post p
+        where p.thread_id =  #{threadId}
+    </insert>
+
+    <update id="updatePost">
+        update post
+        <set>
+            <if test="prePostId >= 0">pre_post_id = #{prePostId},</if>
+            <if test="content != null and content.length() > 0">content = #{content},</if>
+            <if test="userId >= 0">modify_user_id = #{userId},</if>
+            <if test="threadId >= 0">thread_id = #{threadId},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime}</if>
+        </set>
+        where id = #{postId}
+    </update>
+
+    <delete id="deletePost">
+        delete from post where id in <foreach collection="postIds" item="item" open="(" separator="," close=")">#{item}</foreach>;
+    </delete>
+
+    <select id="getThreadById" resultType="DataSet">
+        select t.id thread_id, t.title thread_title, t.content thread_content,
+            f.id forum_id, f.name forum_name
+        from thread t
+        left join forum f on t.forum_id = f.id
+        where t.id = #{threadId}
+    </select>
+    <select id="getThreadByPostId" resultType="DataSet">
+        select t.id thread_id, t.title thread_title, t.content thread_content,
+            f.id forum_id, f.name forum_name
+        from post p
+        left join thread t on p.thread_id = t.id
+        left join forum f on t.forum_id = f.id
+        where p.id = #{postId}
+    </select>
+
+    <select id="getPost" resultType="DataSet">
+        select p.*
+        from post p
+        where p.id = #{postId}
+    </select>
+</mapper>
