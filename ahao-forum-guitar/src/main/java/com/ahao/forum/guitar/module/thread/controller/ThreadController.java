@@ -23,7 +23,7 @@ public class ThreadController {
         this.threadService = threadService;
     }
 
-    @GetMapping("/forum-{forumId}/new")
+    @GetMapping("/forum-{forumId}/new-thread")
     public String newThread(@PathVariable Long forumId, Model model){
         if(forumId == null || forumId <= 0){
             return "redirect: /";

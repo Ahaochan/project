@@ -25,7 +25,7 @@
     </div>
     <div class="row">
         <div class="col-md-1">
-            <a class="btn btn-primary" href="${contextPath}/forum-${forum.getInt("id")}/new">发帖</a>
+            <a class="btn btn-primary" href="${contextPath}/forum-${forum.getInt("id")}/new-thread">发帖</a>
         </div>
         <div class="col-md-4 col-md-offset-7">
             <form id="form-search">
