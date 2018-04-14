@@ -59,16 +59,6 @@ public class PostController {
 
     @PostMapping("/manager/api/post/delete")
     @ResponseBody
-    public AjaxDTO delete(@RequestParam Long postId) {
-        int deleteCount = postService.deletePost(postId);
-        if (deleteCount > 0) {
-            return AjaxDTO.success("删除成功, 删除" + deleteCount + "条记录");
-        }
-        return AjaxDTO.failure("删除失败, 请联系管理员");
-    }
-
-    @PostMapping("/manager/api/posts/delete")
-    @ResponseBody
     public AjaxDTO delete(@RequestParam("postId[]") Long... postIds) {
         int deleteCount = postService.deletePost(postIds);
         if (deleteCount > 0) {

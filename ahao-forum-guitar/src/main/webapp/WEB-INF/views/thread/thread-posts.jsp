@@ -231,7 +231,7 @@
                 $.ajax({
                     type: 'post',
                     url: ctx + '/manager/api/post/delete',
-                    data: { postId: postId },
+                    data: { postId: [].concat(postId) },
                     success: function (json) {
                         if (!json.result || !json.obj) {
                             swal({type: 'warning', title: '警告', text: '删除失败'});
