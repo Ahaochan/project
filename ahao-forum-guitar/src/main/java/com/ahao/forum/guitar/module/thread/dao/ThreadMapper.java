@@ -39,8 +39,6 @@ public interface ThreadMapper {
     boolean updateThread(@Param("threadId") long threadId, @Param("title") String title, @Param("content") String content,
                          @Param("userId") long userId, @Param("forumId") long forumId, @Param("modifyTime") Date modifyTime);
 
-    IDataSet getForumById(@Param("forumId") long forumId);
-
     IDataSet getThreadById(@Param("threadId") long threadId);
 
     List<IDataSet> getPosts(@Param("threadId") long threadId);

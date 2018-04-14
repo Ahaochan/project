@@ -19,10 +19,6 @@
         where id = #{threadId}
     </update>
 
-    <select id="getForumById" resultType="DataSet">
-        select * from forum f where f.id = #{forumId}
-    </select>
-
     <select id="getThreadById" resultType="DataSet">
         select t.id thread_id, t.title thread_title, t.content thread_content,
             t.create_time thread_create_time, t.modify_time thread_modify_time,

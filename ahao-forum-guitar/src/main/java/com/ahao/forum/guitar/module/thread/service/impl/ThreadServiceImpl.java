@@ -53,40 +53,6 @@ public class ThreadServiceImpl implements ThreadService {
         return threadId;
     }
 
-//    @Override
-//    public int deleteAuth(Long... authIds) {
-//        // 1. 判断至少有一条记录存在
-//        boolean oneExist = false;
-//        for (Long authId : authIds) {
-//            if (authId == null || authId <= 0) {
-//                continue;
-//            }
-//            IDataSet data = authMapper.getAuthById(authId, "id");
-//            if (data != null) {
-//                oneExist = true;
-//                break;
-//            }
-//        }
-//        // 2. 如果存在, 则删除选择的数据
-//        if (oneExist) {
-//            int deleteCount = authMapper.deleteAuth(NumberHelper.unboxing(authIds));
-//            return deleteCount;
-//        }
-//        // 3. 如果不存在, 则返回0
-//        logger.debug("删除权限失败, 数据表中不存在id:" + Arrays.toString(authIds) + "的记录");
-//        return 0;
-//    }
-
-    @Override
-    public IDataSet getForum(Long forumId) {
-        if (forumId == null || forumId <= 0) {
-            logger.debug("板块id非法:" + forumId);
-            return null;
-        }
-        IDataSet data = threadMapper.getForumById(forumId);
-        return data;
-    }
-
     @Override
     public IDataSet getThread(Long threadId) {
         if (threadId == null || threadId <= 0) {

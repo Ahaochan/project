@@ -29,7 +29,6 @@ public class ThreadController {
             return "redirect: /";
         }
         model.addAttribute("isExist", false);
-//        IDataSet forumData = threadService.getForum(forumId);
         IDataSet data = new DataSet();
         data.put("forum_id", forumId);
         model.addAttribute("thread", data);
