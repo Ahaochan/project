@@ -58,12 +58,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <a class="btn btn-default"
-                                   href="${contextPath}/thread-${thread.getInt("thread_id")}/new-post"
-                                   role="button">回复</a>
+                                   href="${contextPath}/thread-${thread.getInt("thread_id")}/new-post">回复</a>
                                 <a class="btn btn-default"
-                                   href="${contextPath}/thread-${thread.getInt("thread_id")}/modify"
-                                   role="button">编辑</a>
-                                <a class="btn btn-default" href="#" role="button">删帖</a>
+                                   href="${contextPath}/thread-${thread.getInt("thread_id")}/modify">编辑</a>
+                                <a class="btn btn-default" href="javascript:void(0)" thread-id="${thread.getInt("thread_id")}">删帖</a>
                             </div>
                         </div>
                     </div>
@@ -232,7 +230,7 @@
 
                 $.ajax({
                     type: 'post',
-                    url: ctx + '/api/post/delete',
+                    url: ctx + '/manager/api/post/delete',
                     data: { postId: postId },
                     success: function (json) {
                         if (!json.result || !json.obj) {
@@ -248,6 +246,8 @@
                 });
             });
         })(jQuery);
+
+        
 
         // 2. 初始化回复表单
         (function () {
