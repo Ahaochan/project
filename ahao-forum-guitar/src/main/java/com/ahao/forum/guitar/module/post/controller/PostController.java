@@ -59,7 +59,7 @@ public class PostController {
 
     @PostMapping("/manager/api/post/delete")
     @ResponseBody
-    public AjaxDTO delete(@RequestParam("postId[]") Long... postIds) {
+    public AjaxDTO delete(@RequestParam("postIds[]") Long... postIds) {
         int deleteCount = postService.deletePost(postIds);
         if (deleteCount > 0) {
             return AjaxDTO.success("删除成功, 删除" + deleteCount + "条记录");
