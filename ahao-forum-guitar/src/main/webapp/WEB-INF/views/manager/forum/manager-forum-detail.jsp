@@ -5,6 +5,7 @@
     <%@include file="/WEB-INF/views/static/head.jsp" %>
     <title>板块管理</title>
     <meta name="icon-url" content="${forum.getString('icon_url')}"/>
+        <meta name="forumId" content="${forum.getInt('id')}"/>
     <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/css/fileinput.min.css" rel="stylesheet"/>
     <style>
         .kv-avatar .krajee-default.file-preview-frame, .kv-avatar .krajee-default.file-preview-frame:hover {
@@ -22,12 +23,6 @@
         .kv-avatar .file-input {
             display: table-cell;
             width: 213px;
-        }
-
-        .kv-reqd {
-            color: red;
-            font-family: monospace;
-            font-weight: normal;
         }
     </style>
 </head>
@@ -117,6 +112,55 @@
                     </div>
                 </div>
             </div>
+            <c:if test="${isExist}">
+            <div class="tab-content tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">主题管理</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="btn-group">
+                                    <a id="btn_delete_list" class="btn btn-warning">
+                                        <span class="glyphicon glyphicon-remove"></span>删除
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-md-offset-6">
+                                <form id="form-thread-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="搜索主题名"
+                                               name="thread-name"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit">搜索</button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th class="col-md-1"></th>
+                            <th class="col-md-1">主题id</th>
+                            <th class="col-md-2">主题标题</th>
+                            <th class="col-md-2">发表用户</th>
+                            <th class="col-md-2">回复数量</th>
+                            <th class="col-md-2">最后回复时间</th>
+                            <th class="col-md-4">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody-thread">
+                        <%-- Ajax加载数据 --%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="text-right" id="pagination">
+                <%-- Ajax加载数据 获取分页器 --%>
+                    哈哈哈
+            </div>
+            </c:if>
         </div>
     </div>
 </div>
@@ -136,6 +180,55 @@
 
 <script src="${contextPath}/js/core.js"></script>
 <script>
+    var jump = function (page) {
+        var search = $('input[name="thread-name"]').val();
+        getListFun({page: page, search: search});
+    };
+    var getListFun = function (option) {
+        var options = $.extend({
+            page: 1,
+            search: ''
+        }, option);
+
+        var page = options.page, search = options.search;
+        var forumId = $('meta[name="forumId"]').attr('content');
+        $.ajax({
+            type: 'get',
+            url: ctx + '/api/forum-' + forumId + '/thread/list-' + page,
+            data: {search: search},
+            success: function (json) {
+                var $tbody = $('#tbody-thread');
+                $tbody.empty();
+
+                if (!json.result) {
+                    $tbody.append('<tr><td colspan="6" class="text-center">暂无数据</tr>');
+                    return;
+                }
+
+                var list = json.obj.list;
+                for (var i = 0, len = list.length; i < len; i++) {
+                    var item = list[i];
+                    $tbody.append('<tr>' +
+                        '   <td><input type="checkbox" name="thread-id" value="' + item.id + '"/></td>' +
+                        '   <td>' + item.id + '</td>' +
+                        '   <td><a href="' + ctx + '/thread-' + item.id + '">' + item.title + '</a></td>' +
+                        '   <td>' + item.username + '</td>' +
+                        '   <td>' + (item.reply_num || '0') + '</td>' +
+                        '   <td>' + ($.format.date(item.last_reply_time, 'yyyy-MM-dd hh:mm:ss')) + '</td>' +
+                        '   <td>' +
+                        '       <a type="button" class="btn btn-primary btn-circle btn-sm" href="' + ctx + '/thread-' + item.id + '/modify">' +
+                        '           <i class="glyphicon glyphicon-pencil"></i>' +
+                        '       </a> &nbsp;' +
+                        '       <a class="btn btn-warning btn-circle btn-sm btn-delete" ahao-thread-id="' + item.id + '">' +
+                        '           <i class="glyphicon glyphicon-remove"></i>' +
+                        '       </a>' +
+                        '   </td>' +
+                        '</tr>');
+                }
+                $('#pagination').empty().append(json.obj.pageIndicator);
+            }
+        });
+    };
 
     $(function () {
         // 1. 文件上传插件
@@ -210,6 +303,63 @@
                         }, 3000)
                     }
                 });
+            });
+        })(jQuery);
+
+        // 4. 加载主题列表
+        (function ($) {
+
+            // 4.1. 加载主题列表
+            getListFun();
+
+            // 4.2. 加载搜索功能
+            $('#form-thread-search').submit(function (event) {
+                event.preventDefault();
+
+                var search = $('input[name="thread-name"]').val();
+                getListFun({search: search});
+            });
+            $('input[name="thread-name"]').on('keyup', function () {
+                var $this = $(this);
+                clearTimeout(parseInt($this.data('timer')));
+                var search = $this.val();
+                $this.data('timer', setTimeout(function () {
+                    getListFun({search: search});
+                }, 500));
+            });
+
+            // 4.3. 加载删除功能
+            var deleteFun = function (threadIds) {
+                $.ajax({
+                    type: 'post',
+                    url: ctx + '/manager/api/thread/delete',
+                    data: {threadIds: [].concat(threadIds)},
+                    dataType: 'json',
+                    success: function (json) {
+                        if (!json.result) {
+                            swal({type: 'warning', title: '警告', text: json.msg});
+                            return;
+                        }
+                        swal({type: 'success', title: '成功', text: json.msg});
+                        $('#form-thread-search').submit();
+                    }
+                });
+            };
+            // 4.3.1 批量删除
+            $('#btn_delete_list').on('click', function () {
+                var forumIds = $('input[name="thread-id"]:checked').map(function () {
+                    return this.value;
+                }).get();
+                deleteFun(forumIds);
+            });
+            // 4.3.2. 单个删除
+            $('#tbody-thread').on('click', 'a.btn-delete', function () {
+                console.log("测试2");
+                var $this = $(this);
+                var threadId = $this.attr('ahao-thread-id');
+                if (!!threadId) {
+                    deleteFun(threadId);
+                }
             });
         })(jQuery);
     });
