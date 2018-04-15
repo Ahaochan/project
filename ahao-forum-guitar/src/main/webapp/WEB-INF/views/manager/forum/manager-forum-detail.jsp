@@ -5,7 +5,7 @@
     <%@include file="/WEB-INF/views/static/head.jsp" %>
     <title>板块管理</title>
     <meta name="icon-url" content="${forum.getString('icon_url')}"/>
-        <meta name="forumId" content="${forum.getInt('id')}"/>
+    <meta name="forumId" content="${forum.getInt('id')}"/>
     <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/css/fileinput.min.css" rel="stylesheet"/>
 </head>
 <body>
