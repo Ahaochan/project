@@ -7,24 +7,6 @@
     <meta name="icon-url" content="${forum.getString('icon_url')}"/>
         <meta name="forumId" content="${forum.getInt('id')}"/>
     <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/css/fileinput.min.css" rel="stylesheet"/>
-    <style>
-        .kv-avatar .krajee-default.file-preview-frame, .kv-avatar .krajee-default.file-preview-frame:hover {
-            margin: 0;
-            padding: 0;
-            border: none;
-            box-shadow: none;
-            text-align: center;
-        }
-
-        .kv-avatar {
-            display: inline-block;
-        }
-
-        .kv-avatar .file-input {
-            display: table-cell;
-            width: 213px;
-        }
-    </style>
 </head>
 <body>
 <%-- 导航条 --%>
@@ -88,7 +70,7 @@
                                 <input type="hidden" id="input_icon_url" name="forum-icon-url"/>
                                 <label for="input_icon" class="col-md-2 control-label">版图</label>
                                 <div class="col-md-10 ">
-                                    <div class="kv-avatar">
+                                    <div class="ahao-avatar">
                                         <div class="file-loading">
                                             <input type="file" id="input_icon" name="file"/>
                                         </div>
