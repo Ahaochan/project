@@ -43,8 +43,8 @@
                                 </div>
                                 <div class="media-body">
                                     <a href="${contextPath}/forum-${forum.getInt("id")}">${forum.getString("name")}</a><br/>
-                                    数量:1000, 回复:1000<br/>
-                                    最后发表时间: 4天前
+                                    数量:${forum.getInt("thread_num")}, 回复:${forum.getInt("post_num")}<br/>
+                                    最后发表时间: <br/>${forum.getDate("last_reply_time")}
                                 </div>
                             </div>
                         </c:forEach>

@@ -9,11 +9,17 @@
         order by c.id, c.name
     </select>
     <select id="getForumsByCategoryId" resultType="DataSet">
-        select f.id, f.name, f.icon_url
+        select f.id, f.name, f.icon_url,
+            ifnull(num.thread_num, 0) thread_num, ifnull(num.post_num, 0) post_num, num.last_reply_time
         from forum f
         left join category_forum cf on cf.forum_id = f.id
         left join category c on cf.category_id = c.id
-        where c.status = 1 and f.status = 1 and c.id = ${categoryId}
+        left join (
+            select t.forum_id, count(distinct t.id) thread_num, count(distinct p.id) post_num,
+                max(p.create_time) last_reply_time
+            from thread t
+            left join post p on p.thread_id = t.id) num on num.forum_id = f.id
+        where c.status = 1 and f.status = 1 and c.id = #{categoryId}
         order by f.id, f.name
     </select>
 </mapper>
