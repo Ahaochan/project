@@ -3,7 +3,7 @@
 <head>
     <%-- 样式 --%>
     <%@include file="/WEB-INF/views/static/head.jsp" %>
-    <title>分区管理</title>
+    <title>板块管理</title>
 </head>
 <body>
 <%-- 导航条 --%>
