@@ -4,6 +4,8 @@
     <%-- 样式 --%>
     <%@include file="/WEB-INF/views/static/head.jsp" %>
     <title>个人资料</title>
+    <meta name="avatar-url" content="${profile.getString("avatar_url")}"/>
+    <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/css/fileinput.min.css" rel="stylesheet"/>
 </head>
 <body>
 <%-- 导航条 --%>
@@ -34,6 +36,17 @@
                             <input class="form-control" type="hidden" name="user-id"
                                    value="${profile.getInt("id")}"/>
                             <div class="form-group">
+                                <input type="hidden" id="input_avatar_url" name="profile-avatar-url"/>
+                                <label for="input_avatar" class="col-md-2 control-label">用户头像</label>
+                                <div class="col-md-10 ">
+                                    <div class="ahao-avatar">
+                                        <div class="file-loading">
+                                            <input type="file" id="input_avatar" name="file"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="input-username" class="col-md-2 control-label">用户名</label>
                                 <div class="col-md-3">
                                     <input class="form-control" placeholder="用户名"
@@ -42,7 +55,8 @@
                                 </div>
                                 <label for="input-email" class="col-md-2 control-label">电子邮箱</label>
                                 <div class="col-md-3">
-                                    <input type="email" class="form-control" placeholder="电子邮箱" value="${profile.getString('email')}"
+                                    <input type="email" class="form-control" placeholder="电子邮箱"
+                                           value="${profile.getString('email')}"
                                            id="input-email" name="profile-email"/>
                                 </div>
                             </div>
@@ -95,13 +109,13 @@
                                 <div class="col-md-3">
                                     <input class="form-control" placeholder="上次登录时间" disabled
                                            id="input-last-login-time"
-                                           value="${user.getString('last_login_time')}" />
+                                           value="${user.getString('last_login_time')}"/>
                                 </div>
                                 <label for="input-last-login-ip" class="col-md-2 control-label">上次登录ip</label>
                                 <div class="col-md-3">
                                     <input class="form-control" placeholder="上次登录ip" disabled
                                            id="input-last-login-ip"
-                                           value="${user.getString('last_login_ip')}" />
+                                           value="${user.getString('last_login_ip')}"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -172,9 +186,36 @@
 </body>
 <%-- 通用脚本 --%>
 <%@include file="/WEB-INF/views/static/script.jsp" %>
+<%-- Boostrap 文件上传 --%>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/plugins/purify.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/plugins/piexif.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/fileinput.min.js"></script>
 <script src="${contextPath}/js/core.js"></script>
 <script>
     $(function () {
+        // 1. 文件上传插件
+        (function ($) {
+            var url = $('meta[name="avatar-url"]').attr('content');
+            url = (!!url) ? ctx + url : undefined;
+
+            var fileInput = new FileInput();
+            fileInput.initImg({
+                selector: '#input_avatar',
+                uploadUrl: ctx + '/upload/img',
+                placeholderImg: url,
+                filePath: 'user_avatar'
+            }).on('fileuploaded', function (event, data, previewId, index) {
+                var json = data.response;
+                if (!json.result) {
+                    swal({type: 'warning', title: '警告', text: '上传失败'});
+                    return;
+                }
+                $('input[name="profile-avatar-url"]').val(json.obj.url || '');
+            });
+        })(jQuery);
+
+
+        // 2. 保存用户信息
         (function () {
             $('#form-profile').submit(function (e) {
                 e.preventDefault();
@@ -184,6 +225,7 @@
                     swal({type: 'warning', title: '警告', text: '保存失败, 当前用户非法!'});
                     return;
                 }
+                var avatarUrl = $('input[name="profile-avatar-url"]').val();
                 var email = $('input[name="profile-email"]').val() || '';
                 var sex = $('input[name="profile-sex"]:checked').val() || '0';
                 var qq = $('input[name="profile-qq"]').val() || '';
@@ -192,7 +234,7 @@
                 $.ajax({
                     type: 'post',
                     url: ctx + '/manager/api/profile/save',
-                    data: {userId: userId, email: email, sex: sex, qq: qq, city: city},
+                    data: {userId: userId, email: email, sex: sex, qq: qq, city: city, avatarUrl: avatarUrl},
                     success: function (json) {
                         if (!json.result) {
                             swal({type: 'warning', title: '警告', text: '保存错误!'});

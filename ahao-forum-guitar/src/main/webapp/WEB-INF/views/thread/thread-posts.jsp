@@ -34,7 +34,7 @@
                         <div class="row"><p>${thread.getString("username")}</p></div>
                         <div class="row">
                             <img style="width: 80%; max-height: 400px"
-                                 src="${contextPath}/img/93b09a57-93a8-43f3-bf2b-6cc62530dd81%E7%89%88%E5%9B%BE1.jpg"/>
+                                 src="${contextPath}/${thread.getString("avatar_url")}"/>
                         </div>
                         <div class="row"><p>主题数量: ${thread.getInt("thread_num")}<br/>回帖数量: ${thread.getInt("post_num")}
                         </p></div>
@@ -199,7 +199,7 @@
                         selector: '#list-post',
                         threadId: threadId,
                         username: item.username,
-                        avatarUrl: ctx + '/img/93b09a57-93a8-43f3-bf2b-6cc62530dd81%E7%89%88%E5%9B%BE1.jpg',
+                        avatarUrl: ctx + (!!item.avatar_url ?  item.avatar_url : '/img/default_avatar_male.jpg'),
                         threadNum: item.thread_num,
                         postNum: item.post_num,
                         postId: item.post_id,

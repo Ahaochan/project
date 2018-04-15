@@ -5,7 +5,7 @@ import com.ahao.core.entity.IDataSet;
 import java.util.List;
 
 public interface ProfileService {
-    boolean saveProfile(Long userId, String email, Integer sex, String qq, String city);
+    boolean saveProfile(Long userId, String avatarUrl, String email, Integer sex, String qq, String city);
 
 
     IDataSet getProfile(Long userId);

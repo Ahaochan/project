@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface ProfileMapper {
-    int updateProfile(@Param("userId") long userId,
+    int updateProfile(@Param("userId") long userId, @Param("avatarUrl") String avatarUrl,
                       @Param("email") String email, @Param("sex") int sex,
                       @Param("qq") String qq, @Param("city") String city);
 

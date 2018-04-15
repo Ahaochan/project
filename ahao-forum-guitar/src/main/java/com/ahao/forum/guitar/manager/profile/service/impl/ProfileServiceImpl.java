@@ -23,7 +23,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public boolean saveProfile(Long userId, String email, Integer sex, String qq, String city) {
+    public boolean saveProfile(Long userId, String avatarUrl, String email, Integer sex, String qq, String city) {
         if (userId == null || userId <= 0) {
             logger.debug("用户id非法:" + userId);
             return false;
@@ -31,7 +31,7 @@ public class ProfileServiceImpl implements ProfileService {
         if (sex == null || sex < 0) {
             sex = 0;
         }
-        profileMapper.updateProfile(userId, email, sex, qq, city);
+        profileMapper.updateProfile(userId, avatarUrl, email, sex, qq, city);
         return true;
     }
 

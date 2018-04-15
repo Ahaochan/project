@@ -12,3 +12,4 @@
 /* 上传头像样式 */
 .ahao-avatar { display: inline-block; }
 .ahao-avatar .file-input { display: table-cell; width: 213px; }
+.ahao-avatar img { display: table-cell; max-width: 213px; }

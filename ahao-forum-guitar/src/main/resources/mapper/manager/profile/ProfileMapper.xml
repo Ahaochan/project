@@ -5,6 +5,7 @@
         update user_profile
         <set>
             sex = #{sex},
+            <if test="avatarUrl != null || email.length()>0">avatar_url = #{avatarUrl},</if>
             <if test="email != null || email.length()>0">email = #{email},</if>
             <if test="qq    != null || qq.length()>0   ">qq    = #{qq},</if>
             <if test="city  != null || city.length()>0 ">city  = #{city},</if>
@@ -14,7 +15,7 @@
 
 
     <select id="getProfile" resultType="DataSet">
-        select u.id, u.username, uf.email, uf.sex, uf.qq, uf.city, u.enabled, u.last_login_time, u.last_login_ip
+        select u.id, u.username, uf.avatar_url, uf.email, uf.sex, uf.qq, uf.city, u.enabled, u.last_login_time, u.last_login_ip
         from admin_user u
         left join user_profile uf on uf.user_id = u.id
         where u.id = ${userId}

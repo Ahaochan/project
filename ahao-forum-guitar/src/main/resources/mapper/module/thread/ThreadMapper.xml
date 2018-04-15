@@ -28,10 +28,11 @@
         select t.id thread_id, t.title thread_title, t.content thread_content, t.create_user_id create_user_id,
             t.create_time thread_create_time, t.modify_time thread_modify_time,
             f.id forum_id, f.name forum_name,
-            tu.username, ut.thread_num, up.post_num
+            tu.username, up.avatar_url, ut.thread_num, up.post_num
         from thread t
         left join forum f on t.forum_id = f.id
         left join admin_user tu on tu.id = t.create_user_id
+        left join user_profile up on up.user_id = tu.id
         left join ( select create_user_id, count(*) thread_num from thread group by create_user_id ) ut on ut.create_user_id = tu.id and tu.enabled = 1
         left join ( select create_user_id, count(*) post_num from post group by create_user_id ) up on up.create_user_id = tu.id and tu.enabled = 1
         where t.id = #{threadId}
@@ -39,12 +40,13 @@
 
     <select id="getPosts" resultType="DataSet">
         select p.id post_id,
-            u.id user_id, u.username, ut.thread_num, up.post_num,
+            u.id user_id, u.username, profile.avatar_url, ut.thread_num, up.post_num,
             p.create_time, p.floor,
             p.modify_time, p.content
         from post p
         left join thread t on t.id = p.thread_id
         left join admin_user u on u.id = p.create_user_id and u.enabled = 1
+        left join user_profile profile on profile.user_id = u.id
         left join ( select create_user_id, count(*) thread_num from thread group by create_user_id ) ut on ut.create_user_id = u.id and u.enabled = 1
         left join ( select create_user_id, count(*) post_num from post group by create_user_id ) up on up.create_user_id = u.id and u.enabled = 1
         where t.id = #{threadId}

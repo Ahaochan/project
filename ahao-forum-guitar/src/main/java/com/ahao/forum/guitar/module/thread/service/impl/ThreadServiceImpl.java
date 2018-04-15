@@ -108,8 +108,6 @@ public class ThreadServiceImpl implements ThreadService {
         List<IDataSet> list = threadMapper.getPosts(threadId);
 
         // 2. 对该回复的权限进行过滤
-        IDataSet thread = threadMapper.getThreadById(threadId);
-        long threadCreateUserId = thread.getLong("create_user_id");
         for (IDataSet data : list) {
             // TODO RBAC0不够用
             // 2.1. 该回复的创建人可以编辑和删除该回复

@@ -1,13 +1,12 @@
 package com.ahao.forum.guitar.manager.profile.controller;
 
+import com.ahao.core.entity.AjaxDTO;
 import com.ahao.core.entity.IDataSet;
 import com.ahao.forum.guitar.manager.profile.service.ProfileService;
 import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +20,6 @@ public class ProfileController {
         this.profileService = profileService;
     }
 
-    @RequiresAuthentication
     @GetMapping("/profile")
     public String profile(Model model) {
         // 1. 获取用户信息
@@ -41,6 +39,18 @@ public class ProfileController {
         model.addAttribute("auths", auths);
 
         return "manager/profile/manager-profile";
+    }
+
+    @PostMapping("/api/profile/save")
+    @ResponseBody
+    public AjaxDTO save(@RequestParam Long userId,
+                        @RequestParam(defaultValue = "") String avatarUrl,
+                        @RequestParam(defaultValue = "") String email,
+                        @RequestParam(defaultValue = "0") Integer sex,
+                        @RequestParam(defaultValue = "") String qq,
+                        @RequestParam(defaultValue = "") String city) {
+        boolean success = profileService.saveProfile(userId, avatarUrl, email, sex, qq, city);
+        return AjaxDTO.get(success);
     }
 
 }
