@@ -5,7 +5,7 @@ import com.ahao.core.entity.IDataSet;
 import java.util.List;
 
 public interface UserService {
-    long saveUser(Long userId, String username, String password, String email, Integer sex, String qq, String city, Integer enabled, Long roleId, Long[] categoryIds, Long[] forumIds);
+    long saveUser(Long userId, String username, String password, String avatarUrl, String email, Integer sex, String qq, String city, Integer enabled, Long roleId, Long[] categoryIds, Long[] forumIds);
 
     int deleteUser(Long... userIds);
 

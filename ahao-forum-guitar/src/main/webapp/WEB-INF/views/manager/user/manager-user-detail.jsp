@@ -6,6 +6,8 @@
     <title>用户管理</title>
     <meta name="superModeratorId" content="${superModeratorId}"/>
     <meta name="moderatorId" content="${moderatorId}"/>
+    <meta name="avatar-url" content="${user.getString("avatar_url")}"/>
+    <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/css/fileinput.min.css" rel="stylesheet"/>
 </head>
 <body>
 <%-- 导航条 --%>
@@ -33,6 +35,17 @@
                     <div class="panel-heading">${isExist?'编辑用户':'增加用户'}</div>
                     <div class="panel-body">
                         <form class="form-horizontal" id="form-user">
+                            <div class="form-group">
+                                <input type="hidden" id="input_avatar_url" name="profile-avatar-url"/>
+                                <label for="input_avatar" class="col-md-2 control-label">用户头像</label>
+                                <div class="col-md-10 ">
+                                    <div class="ahao-avatar">
+                                        <div class="file-loading">
+                                            <input type="file" id="input_avatar" name="file"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <c:if test="${isExist}">
                                 <label for="input-id" class="col-md-2 control-label">用户id</label>
@@ -307,6 +320,10 @@
 </body>
 <%-- 通用脚本 --%>
 <%@include file="/WEB-INF/views/static/script.jsp" %>
+<%-- Boostrap 文件上传 --%>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/plugins/purify.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/plugins/piexif.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.7/js/fileinput.min.js"></script>
 <script src="${contextPath}/js/core.js"></script>
 <script src="${contextPath}/js/manager/user/manager-user-detail.js"></script>
 </html>

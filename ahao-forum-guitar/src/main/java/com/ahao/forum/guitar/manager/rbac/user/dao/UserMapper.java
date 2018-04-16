@@ -13,14 +13,15 @@ public interface UserMapper {
     int saveUser(@Param("idDO") BaseDO idDO,
                  @Param("username") String username, @Param("password") String password, @Param("enabled") int enabled);
 
-    int saveProfile(@Param("userId") long userId,
-                    @Param("email") String email, @Param("password") int sex,
+    int saveProfile(@Param("userId") long userId, @Param("avatarUrl") String avatarUrl,
+                    @Param("email") String email, @Param("sex") int sex,
                     @Param("qq") String qq, @Param("city") String city);
 
     boolean updateUserAndProfile(@Param("userId") long userId,
-                             @Param("password") String password, @Param("enabled") int enabled,
-                             @Param("email") String email, @Param("sex") int sex,
-                             @Param("qq") String qq, @Param("city") String city);
+                                 @Param("password") String password, @Param("enabled") int enabled,
+                                 @Param("avatarUrl") String avatarUrl,
+                                 @Param("email") String email, @Param("sex") int sex,
+                                 @Param("qq") String qq, @Param("city") String city);
 
     int relateUserRole(@Param("userId") long userId, @Param("roleIds") long... roleIds);
 

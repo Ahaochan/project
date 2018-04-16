@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public long saveUser(Long userId, String username, String password,
+    public long saveUser(Long userId, String username, String password, String avatarUrl,
                          String email, Integer sex, String qq, String city,
                          Integer enabled,
                          Long roleId, Long[] categoryIds, Long[] forumIds) {
@@ -49,11 +49,13 @@ public class UserServiceImpl implements UserService {
             if (userId == null || userId < 0) {
                 return -1;
             }
+            // 2.3. 插入用户信息
+            userMapper.saveProfile(userId, avatarUrl, email, sex, qq, city);
         }
         // 3. 如果 userId 存在, 则更新数据
         else {
             // 3.1. 更新数据
-            boolean success = userMapper.updateUserAndProfile(userId, password, enabled, email, sex, qq, city);
+            boolean success = userMapper.updateUserAndProfile(userId, password, enabled, avatarUrl, email, sex, qq, city);
         }
 
         // 4. 添加用户角色关联

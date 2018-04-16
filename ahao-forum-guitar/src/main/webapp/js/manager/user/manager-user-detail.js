@@ -17,16 +17,18 @@ $(function () {
             var userId = $('input[name="user-id"]').val();
             var username = $('input[name="user-username"]').val();
             var password = $('input[name="user-password"]').val();
+            var enabled = $('input[name="user-enabled"]:checked').val();
+
+            var avatarUrl = $('input[name="profile-avatar-url"]').val();
             var email = $('input[name="profile-email"]').val();
             var sex = $('input[name="profile-sex"]:checked').val();
             var qq = $('input[name="profile-qq"]').val();
             var city = $('input[name="profile-city"]').val();
-            var enabled = $('input[name="user-enabled"]:checked').val();
 
             var role = $('select[name="select-role"]').val();
             var data = {
                 userId: userId, username: username, password: password, enabled: enabled,
-                email: email, sex: sex, qq: qq, city: city,
+                email: email, sex: sex, qq: qq, city: city, avatarUrl: avatarUrl,
                 roleId: role
             };
 
@@ -47,11 +49,32 @@ $(function () {
                     }
                     swal({type: 'success', title: '成功', text: '保存成功'});
 
-                    // setTimeout(function () {
-                    //     window.location.href = ctx + '/manager/categories';
-                    // })
+                    setTimeout(function () {
+                        window.location.href = ctx + '/manager/users';
+                    })
                 }
             });
+        });
+    })(jQuery);
+
+    // 3. 文件上传插件
+    (function ($) {
+        var url = $('meta[name="avatar-url"]').attr('content');
+        url = (!!url) ? ctx + url : undefined;
+
+        var fileInput = new FileInput();
+        fileInput.initImg({
+            selector: '#input_avatar',
+            uploadUrl: ctx + '/upload/img',
+            placeholderImg: url,
+            filePath: 'user_avatar'
+        }).on('fileuploaded', function (event, data, previewId, index) {
+            var json = data.response;
+            if (!json.result) {
+                swal({type: 'warning', title: '警告', text: '上传失败'});
+                return;
+            }
+            $('input[name="profile-avatar-url"]').val(json.obj.url || '');
         });
     })(jQuery);
 });

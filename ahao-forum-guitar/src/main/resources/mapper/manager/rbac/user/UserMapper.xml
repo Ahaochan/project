@@ -6,7 +6,7 @@
         insert into admin_user (username, password, enabled) values (#{username}, #{password}, #{enabled});
     </insert>
     <insert id="saveProfile">
-        insert into user_profile (user_id, email, sex, qq, city) values (#{userId}, #{email}, #{sex}, #{qq}, #{city});
+        insert into user_profile (user_id, avatar_url, email, sex, qq, city) values (#{userId}, #{avatarUrl}, #{email}, #{sex}, #{qq}, #{city});
     </insert>
     <update id="updateUserAndProfile">
         update admin_user
@@ -18,6 +18,7 @@
 
         update user_profile
         <set>
+            <if test="avatarUrl != null and avatarUrl.length() > 0">avatar_url = #{avatarUrl},</if>
             <if test="email != null and email.length() > 0">email = #{email},</if>
             <if test="qq != null and qq.length() > 0">qq = #{qq},</if>
             <if test="city != null and city.length() > 0">city = #{city},</if>
@@ -28,7 +29,7 @@
 
     <select id="getUser" resultType="DataSet">
         select u.id, u.username, u.enabled, u.last_login_time, u.last_login_ip,
-            p.email, p.sex, p.qq, p.city,
+            p.email, p.sex, p.qq, p.city, p.avatar_url,
             uw.weight
         from admin_user u
         left join user_profile p on p.user_id = u.id

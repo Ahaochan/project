@@ -114,6 +114,7 @@ public class UserController {
     public AjaxDTO save(@RequestParam(required = false) Long userId,
                         @RequestParam String username,
                         @RequestParam String password,
+                        @RequestParam(defaultValue = "") String avatarUrl,
                         @RequestParam(defaultValue = "") String email,
                         @RequestParam(defaultValue = "0") Integer sex,
                         @RequestParam(defaultValue = "") String qq,
@@ -124,7 +125,7 @@ public class UserController {
                         @RequestParam(value = "forumIds[]", required = false) Long[] forumIds) {
         // 1. 保存当前用户的实体联系, 返回 分区id
         long id = userService.saveUser(userId, username, password,
-                email, sex, qq, city, enabled, roleId, categoryIds, forumIds);
+                avatarUrl, email, sex, qq, city, enabled, roleId, categoryIds, forumIds);
         return AjaxDTO.get(id>0);
     }
 
