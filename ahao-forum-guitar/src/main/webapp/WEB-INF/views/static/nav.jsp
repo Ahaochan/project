@@ -18,7 +18,7 @@
                 </c:if>
                 <c:if test="${username == null}">
                     <li><a href="${contextPath}/login">登录</a></li>
-                    <li><a href="../navbar/">注册</a></li>
+                    <li><a href="${contextPath}/register">注册</a></li>
                 </c:if>
             </ul>
         </div>

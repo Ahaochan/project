@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ahao.forum.guitar.manager.rbac.shiro.dao.RegisterMapper">
+    <select id="isExistUsername" resultType="boolean">
+        select exists( select id from admin_user where username = #{username});
+    </select>
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="idDO.id" keyColumn="id">
+        insert into admin_user (username, password, enabled) values (#{username}, #{password}, 1);
+    </insert>
+    <insert id="createProfile">
+        insert into user_profile (user_id, sex) values (#{userId}, 0);
+    </insert>
+</mapper>

@@ -101,6 +101,24 @@ var RichEditor = function () {
 };
 //==================封装wangEditor富文本编辑器的函数===============================
 
+$.fn.extend({
+    delayKeyUp: function (fun) {
+        var $this = $(this);
+        $this.on('keyup', function () {
+            clearTimeout(parseInt($this.data('timer')));
+            var val = $this.val();
+            $this.data('timer', setTimeout(function () {
+                fun(val);
+            }, 500));
+        });
+    },
+    disable: function(state) {
+        return this.each(function() {
+            this.disabled = state;
+        });
+    }
+});
+
 $(function () {
 
     // 1. panel 伸缩按钮样式变化
