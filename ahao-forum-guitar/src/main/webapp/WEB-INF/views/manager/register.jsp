@@ -70,10 +70,10 @@
                     swal({type: 'warning', title: '警告', text: '用户名或密码不能为空!'});
                     return;
                 }
-                // if ($('#ajax-error-msg').css('display') !== 'none') {
-                //     swal({type: 'warning', title: '警告', text: '注册失败! 请检查错误信息!'});
-                //     return;
-                // }
+                if ($('#ajax-error-msg').css('display') !== 'none') {
+                    swal({type: 'warning', title: '警告', text: '注册失败! 请检查错误信息!'});
+                    return;
+                }
 
                 $('#btn-submit').disable(true);
                 $.ajax({
