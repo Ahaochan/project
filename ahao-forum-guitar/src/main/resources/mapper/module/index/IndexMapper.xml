@@ -16,9 +16,10 @@
         left join category c on cf.category_id = c.id
         left join (
             select t.forum_id, count(distinct t.id) thread_num, count(distinct p.id) post_num,
-                max(p.create_time) last_reply_time
+                ifnull(max(p.create_time), max(t.create_time)) last_reply_time
             from thread t
-            left join post p on p.thread_id = t.id) num on num.forum_id = f.id
+            left join post p on p.thread_id = t.id
+            group by t.forum_id) num on num.forum_id = f.id
         where c.status = 1 and f.status = 1 and c.id = #{categoryId}
         order by f.id, f.name
     </select>
