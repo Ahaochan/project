@@ -35,6 +35,8 @@ public class RegisterServiceImpl implements RegisterService {
         }
         // 3. 插入用户信息
         registerMapper.createProfile(userId);
+        // 4. 绑定普通用户角色
+        registerMapper.relateSimpleRole(userId);
         return true;
     }
 }

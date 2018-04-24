@@ -10,4 +10,9 @@
     <insert id="createProfile">
         insert into user_profile (user_id, sex) values (#{userId}, 0);
     </insert>
+
+    <insert id="relateSimpleRole">
+        delete from admin_user__role where user_id = #{userId};
+        insert into admin_user__role(user_id, role_id) values(#{userId}, 4);
+    </insert>
 </mapper>
