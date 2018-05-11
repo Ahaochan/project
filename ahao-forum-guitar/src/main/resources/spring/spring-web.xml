@@ -37,7 +37,7 @@
     </bean>
 
     <!--4: 扫描web相关的bean -->
-    <context:component-scan base-package="com.ahao.forum.guitar" use-default-filters="false">
+    <context:component-scan base-package="com.ahao.forum.guitar" use-default-filters="false" name-generator="com.ahao.core.spring.bean.PackageBeanNameGenerator">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
     </context:component-scan>
