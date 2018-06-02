@@ -1,7 +1,7 @@
 package com.ahao.core.net;
 
 import com.ahao.core.net.method.GetMethod;
-import com.ahao.core.net.method.PostJSONMethod;
+import com.ahao.core.net.method.PostMethod;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -31,12 +31,18 @@ public abstract class HttpClientHelper {
      * 使用 json 格式进行 post 传输
      *
      * @param url 访问 url 地址
-     * @return 返回 PostJSONMethod 用于链式调用
+     * @return 返回 PostMethod 用于链式调用
      */
-    public static PostJSONMethod postJson(String url) {
-        return new PostJSONMethod(url);
+    public static PostMethod post(String url) {
+        return new PostMethod(url);
     }
 
+    /**
+     * 发送 get 请求
+     *
+     * @param url 访问 url 地址
+     * @return 返回 GetMethod 用于链式调用
+     */
     public static GetMethod get(String url) {
         return new GetMethod(url);
     }

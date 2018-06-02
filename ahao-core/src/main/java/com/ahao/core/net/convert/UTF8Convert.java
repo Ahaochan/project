@@ -2,7 +2,7 @@ package com.ahao.core.net.convert;
 
 import com.ahao.core.util.lang.StringHelper;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by Ahaochan on 2017/8/14.
@@ -17,6 +17,6 @@ public class UTF8Convert implements Convert<String> {
 
     @Override
     public String convert(byte[] origin) {
-        return StringHelper.toCharacters(origin, Charset.forName("UTF-8"));
+        return StringHelper.toCharacters(origin, StandardCharsets.UTF_8);
     }
 }

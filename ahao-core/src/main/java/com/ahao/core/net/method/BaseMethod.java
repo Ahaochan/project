@@ -1,10 +1,16 @@
 package com.ahao.core.net.method;
 
 import com.ahao.core.net.HttpClientHelper;
-import com.ahao.core.net.Response;
+import com.ahao.core.net.base.Response;
+import com.ahao.core.net.param.ParamFormatter;
+import com.ahao.core.net.param.impl.UrlEncodedFormParam;
+import com.ahao.core.util.JSONHelper;
 import com.ahao.core.util.io.IOHelper;
+import com.ahao.core.util.lang.ReflectHelper;
 import com.ahao.core.util.lang.time.DateHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -31,43 +37,65 @@ public abstract class BaseMethod<M extends BaseMethod> {
 
     private String url;
     private Map<String, String> header = new LinkedHashMap<>();
+    private ParamFormatter paramFormatter = new UrlEncodedFormParam();
 
     public BaseMethod(String url) {
         this.url = url;
     }
 
     /**
-     * 加入请求头, 注意并未实际加入, 实际加入要在 {@link #initHttpMethod} 方法实现
+     * 加入请求头, 注意并未实际加入, 在{@link #execute()}中实现
      *
      * @param key   键
      * @param value 值
      * @return 返回this自身, 用于链式调用
      */
+    @SuppressWarnings("unchecked")
     public M addHeader(String key, String value) {
         header.put(key, value);
         return (M) this;
     }
 
     /**
-     * 加入请求头, 注意并未实际加入, 实际加入要在 {@link #initHttpMethod} 方法实现
+     * 加入请求头, 注意并未实际加入, 在{@link #execute()}中实现
      *
      * @param headers 请求头集合
      * @return 返回this自身, 用于链式调用
      */
+    @SuppressWarnings("unchecked")
     public M addHeader(Map<String, String> headers) {
         header.putAll(headers);
         return (M) this;
     }
 
+    /**
+     * @param paramFormatter 不同数据源的参数格式化器
+     * @return 返回this自身, 用于链式调用
+     */
+    @SuppressWarnings("unchecked")
+    public M paramType(ParamFormatter paramFormatter) {
+        this.paramFormatter = paramFormatter;
+        return (M) this;
+    }
+
+    /**
+     * @param paramFormatter 不同数据源的参数格式化器
+     * @return 返回this自身, 用于链式调用
+     */
+    @SuppressWarnings("unchecked")
+    public <T  extends ParamFormatter> M paramType(Class<T> paramFormatter) {
+        this.paramFormatter = ReflectHelper.create(paramFormatter);
+        return (M) this;
+    }
 
     /**
      * 模板方法, 交由子类实现
-     * 初始化请求方法, 配置请求头和请求体
+     * 初始化请求方法, 配置请求体
      *
      * @param url 请求路径
      * @return 返回 apache 的请求实体, 如 {@link org.apache.http.client.methods.HttpPost} 等.
      */
-    protected abstract HttpRequestBase initHttpMethod(String url);
+    protected abstract HttpRequestBase initRequestBody(String url);
 
     /**
      * 默认不使用 https
@@ -86,11 +114,19 @@ public abstract class BaseMethod<M extends BaseMethod> {
      * @return 响应体, 用于格式化数据
      */
     public Response execute(boolean https) {
-        logger.debug("[" + url + "]: 初始化请求头, url为:" + url);
-        // 初始化请求头和请求体
-        HttpRequestBase http = initHttpMethod(url);
+        // 1. 初始化请求头和请求体
+        HttpRequestBase http = initRequestBody(url);
+        // 1.1 初始化请求头
+        String contentType = paramFormatter.contentType();
+        if(StringUtils.isNotEmpty(contentType)){
+            header.put(HttpHeaders.CONTENT_TYPE, contentType);
+        }
+        for (Map.Entry<String, String> entry : header.entrySet()) {
+            http.addHeader(entry.getKey(), entry.getValue());
+        }
+        logger.debug("["+url+"]: 初始化请求头:"+ JSONHelper.toJSONString(header));
 
-        // 设置超时限制
+        // 2. 配置http, 设置超时限制
         RequestConfig requestConfig = RequestConfig.custom()
                 .setConnectTimeout(1000 * 100)
                 .build();
@@ -99,9 +135,9 @@ public abstract class BaseMethod<M extends BaseMethod> {
         long start = System.currentTimeMillis();
         logger.debug("[" + url + ": 开始进行Http请求, 开始时间: " + DateHelper.getString(start, DateHelper.yyyyMMdd_hhmmssSSS));
 
-        // 打开 HttpClientUtils 客户端
+        // 3. 打开 HttpClientUtils 客户端
         try (CloseableHttpClient httpClient = HttpClientHelper.getClient(https);
-             CloseableHttpResponse response = httpClient.execute(http);) {
+             CloseableHttpResponse response = httpClient.execute(http)) {
             // 获取IO
             HttpEntity entity = response.getEntity();
             InputStream inputStream = entity.getContent();
@@ -114,7 +150,7 @@ public abstract class BaseMethod<M extends BaseMethod> {
             EntityUtils.consume(entity);
 
             // 将返回的 byte[] 封装到 Response 中, 用于格式化.
-            return new Response(url, data);
+            return new Response(url, response.getStatusLine().getStatusCode(), data);
         } catch (IOException e) {
             logger.warn("[" + url + "]@: IO异常: ", e);
         } finally {
@@ -123,7 +159,15 @@ public abstract class BaseMethod<M extends BaseMethod> {
                     ", 总耗时: " + DateHelper.getBetween(start, end, TimeUnit.MILLISECONDS) + "毫秒");
             http.releaseConnection();
         }
-        return null;
+        return new Response(url, -1, new byte[0]);
+    }
+
+
+    protected ParamFormatter getFormatter(){
+        if(paramFormatter == null){
+            return new UrlEncodedFormParam();
+        }
+        return paramFormatter;
     }
 
     // ---------------------返回头部信息-------------------------------

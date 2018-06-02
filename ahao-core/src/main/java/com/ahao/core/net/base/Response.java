@@ -1,4 +1,4 @@
-package com.ahao.core.net;
+package com.ahao.core.net.base;
 
 import com.ahao.core.net.adapter.Adapter;
 import com.ahao.core.net.convert.Convert;
@@ -11,7 +11,7 @@ import com.ahao.core.util.lang.time.DateHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,13 +23,18 @@ public class Response {
     private static final Logger logger = LoggerFactory.getLogger(Response.class);
 
     private String url;
-    private byte[] data;
+    private int statusCode; // 状态码
+    private byte[] data;    // 响应体
 
-    public Response(String url, byte[] data) {
+    public Response(String url, int statusCode, byte[] data) {
         this.url = url;
-        this.data = CloneHelper.clone(data);
+        this.statusCode = statusCode;
+        this.data = data.clone();
     }
 
+    /**
+     * 返回状态码
+     */
     public byte[] getByte() {
         return CloneHelper.clone(data);
     }
@@ -43,6 +48,7 @@ public class Response {
     public String toString() {
         return adapter(UTF8Convert.class, (Adapter<String>) null);
     }
+
     /**
      * 格式化数据, 不进行二次加工数据, 反射创建转换器
      *
@@ -120,7 +126,7 @@ public class Response {
 
         long convertStart = System.currentTimeMillis();
         logger.trace("[" + url + "]: 开始转换响应体为" + clazz + ", 开始时间:" + DateHelper.getString(convertStart, DateHelper.yyyyMMdd_hhmmssSSS));
-        logger.trace("[" + url + "]: 转换前的数据为(UTF-8):" + StringHelper.replace(new String(data, Charset.forName("UTF-8")), "\n", " "));
+        logger.trace("[" + url + "]: 转换前的数据为(UTF-8):" + StringHelper.replace(new String(data, StandardCharsets.UTF_8), "\n", " "));
         T origin = convert.convert(data);
         long convertEnd = System.currentTimeMillis();
         logger.trace("[" + url + "]: 转换后的数据为:" + JSONHelper.toJSONString(origin));

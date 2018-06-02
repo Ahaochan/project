@@ -1,4 +1,4 @@
-package com.ahao.core.net;
+package com.ahao.core.net.param;
 
 import com.ahao.core.net.method.BaseMethod;
 
@@ -13,4 +13,6 @@ public interface Parameterizable<T extends BaseMethod> {
     T addParam(String key, String value);
 
     T addParam(Map<String, String> params);
+
+    T setRequestBody(String requestBody);
 }
