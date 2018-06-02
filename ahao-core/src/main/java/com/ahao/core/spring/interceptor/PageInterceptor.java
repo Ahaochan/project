@@ -1,41 +1,34 @@
-package com.ahao.core.filter;
+package com.ahao.core.spring.interceptor;
 
 
 import com.ahao.core.context.PageContext;
+import com.ahao.core.spring.interceptor.annotation.Interceptor;
 import com.ahao.core.util.lang.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.*;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
-
-public class PageFilter implements Filter {
-    private static final Logger logger = LoggerFactory.getLogger(PageFilter.class);
+@Interceptor
+public class PageInterceptor extends HandlerInterceptorAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(PageInterceptor.class);
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
-            throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) req;
-        if (!StringHelper.endsWith(request.getRequestURI(),
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        // 1. 静态资源不处理
+        if (StringHelper.endsWithAnyIgnoreCase(request.getRequestURI(),
                 ".css", ".js", ".png", ".jpg", ".woff2", ".map", ".ico")) {
-            logger.debug("请求路径: " + request.getRequestURL());
-            initPageSize(req);
-            initOrder(req);
-            initSort(req);
+            return true;
         }
-        chain.doFilter(req, resp);
-    }
 
-    @Override
-    public void init(FilterConfig cfg) throws ServletException {
-
-    }
-
-    @Override
-    public void destroy() {
-
+        // 2. 初始化分页大小, 排序方式, 排序字段
+        initPageSize(request);
+        initOrder(request);
+        initSort(request);
+        return true;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.ahao.core.annotation;
+package com.ahao.core.spring.interceptor.annotation;
 
 import org.springframework.stereotype.Component;
 
