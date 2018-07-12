@@ -1,13 +1,11 @@
 package com.ahao.core.util.lang;
 
-import com.ahao.core.util.lang.math.NumberHelper;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 
 /**
