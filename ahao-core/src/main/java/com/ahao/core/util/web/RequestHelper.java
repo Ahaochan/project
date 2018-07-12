@@ -1,8 +1,8 @@
 package com.ahao.core.util.web;
 
-import com.ahao.core.util.lang.ArrayHelper;
-import com.ahao.core.util.lang.StringHelper;
+import com.ahao.core.util.lang.math.NumberHelper;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ public abstract class RequestHelper {
      * @param request request
      */
     public static <T> void setAttr(String key, T value, ServletRequest request) {
-        if (StringHelper.isEmpty(key)) {
+        if (StringUtils.isEmpty(key)) {
             logger.debug("key:" + key + "为空, 未向request存入" + value);
             return;
         }
@@ -116,7 +116,7 @@ public abstract class RequestHelper {
      */
     public static String getString(String key, String defaultValue, ServletRequest request) {
         String value = request.getParameter(key);
-        if (StringHelper.isEmpty(value)) {
+        if (StringUtils.isEmpty(value)) {
             return defaultValue;
         }
         return value;
@@ -142,7 +142,7 @@ public abstract class RequestHelper {
      */
     public static String[] getStringArray(String key, String[] defaultValue, ServletRequest request) {
         String[] params = request.getParameterValues(key);
-        if (ArrayHelper.isEmpty(params)) {
+        if (ArrayUtils.isEmpty(params)) {
             return defaultValue;
         }
         return params;
@@ -169,7 +169,7 @@ public abstract class RequestHelper {
      */
     public static int getInt(String fieldName, int defaultValue, ServletRequest request) {
         String value = getString(fieldName, request);
-        if (StringHelper.isEmpty(value) || !StringHelper.isNumeric(value)) {
+        if (StringUtils.isEmpty(value) || !NumberHelper.isNumber(value)) {
             return defaultValue;
         }
         return Integer.parseInt(value);
@@ -195,20 +195,30 @@ public abstract class RequestHelper {
      */
     public static int[] getIntArray(String fieldName, int[] defaultValue, ServletRequest request) {
         String[] array = getStringArray(fieldName, request);
-        if (ArrayHelper.isEmpty(array)) {
+        if (ArrayUtils.isEmpty(array)) {
             return defaultValue;
         }
 
         int len = array.length;
         int[] value = new int[len];
         for (int i = 0; i < len; i++) {
-            if (StringHelper.isNumeric(array[i])) {
+            if (NumberHelper.isNumber(array[i])) {
                 value[i] = Integer.parseInt(array[i]);
             } else {
                 logger.error(fieldName + "属性下标为[" + i + "]的值:" + array[i] + "不是int型");
             }
         }
         return value;
+    }
+
+    /**
+     * 判断user-agent是否为桌面端
+     */
+    public static boolean isPC(){
+        HttpServletRequest request = RequestHelper.getRequest();
+        String[] mobileUserAgent = {"Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"};
+        String userAgent = request.getHeader("User-Agent");
+        return !StringUtils.containsAny(userAgent, mobileUserAgent);
     }
 
     /**
