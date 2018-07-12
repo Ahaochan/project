@@ -6,6 +6,8 @@ import java.util.*;
 
 /**
  * Created by Ahaochan on 2017/8/22.
+ * dao返回对象, 不使用Entity的形式, 返回Map集合
+ * 在Map基础上追加转化基本数据类型的方法
  */
 @Alias("IDataSet")
 public interface IDataSet extends Map<String, Object> {

@@ -1,10 +1,4 @@
-package com.ahao.core.interceptor;
-
-/**
- * Created by Ahaochan on 2017/7/21.
- * <p>
- * 打印真实调用的SQL, 开发环境使用, 生产环境去除
- */
+package com.ahao.core.mybatis.interceptor;
 
 import com.ahao.core.util.CloneHelper;
 import org.apache.ibatis.executor.Executor;
@@ -24,13 +18,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
-
 /**
- * 注解拦截接口的方法
- * Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
- * ParameterHandler (getParameterObject, setParameters)
- * ResultSetHandler (handleResultSets, handleOutputParameters)
- * StatementHandler (prepare, parameterize, batch, update, query)
+ * Mybatis 插件
+ * 打印真实调用的SQL, 开发环境使用, 生产环境去除。
+ * 在mybatis-config.xml加入下面代码即可。
+ * <plugins>
+ *     <plugin interceptor="com.ahao.core.mybatis.interceptor.MybatisSqlInterceptor"/>
+ * </plugins>
  */
 @Intercepts({
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),

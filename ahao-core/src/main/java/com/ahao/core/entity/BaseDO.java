@@ -8,8 +8,12 @@ import java.util.Date;
 
 /**
  * Created by Ahaochan on 2017/6/5.
- * <p>
- * 数据库中的数据必须有id和createTime和gmt_modify
+ * dao返回的entity父类, 也可用于Mybatis返回插入id
+ * 返回插入id的Mybatis用法:
+ * int saveUser(@Param("baseDO") BaseDO baseDO, @Param("name") String name);
+ * <insert id="saveUser" useGeneratedKeys="true" keyProperty="baseDO.id" keyColumn="id">
+ *     insert into user (name) values (#{name});
+ * </insert>
  */
 public class BaseDO {
     private Long id;
