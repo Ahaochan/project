@@ -19,33 +19,39 @@ public class PageContext {
 	public static final String DEFAULT_ORDER = "asc";
 	public static final String DEFAULT_SORT = "id";
 
+	private static ThreadLocal<Integer> pageSize = new ThreadLocal<>();
+	private static ThreadLocal<Integer> page = new ThreadLocal<>();
+	private static ThreadLocal<String> sort = new ThreadLocal<>();
+	private static ThreadLocal<String> order = new ThreadLocal<>();
+	static {
+		pageSize.set(DEFAULT_PAGE_SIZE);
+		page.set(1);
+		sort.set(DEFAULT_SORT);
+		order.set(DEFAULT_SORT);
+	}
+
+
 	public static String getOrder() {
-		HttpSession session = SessionHelper.getSession();
-		return SessionHelper.get(ORDER, DEFAULT_ORDER, session);
+		return order.get();
 	}
 
 	public static void setOrder(String order) {
-		HttpSession session = SessionHelper.getSession();
-	 	SessionHelper.set(ORDER, order, session);
+		PageContext.order.set(order);
 	}
 
 	public static String getSort() {
-		HttpSession session = SessionHelper.getSession();
-		return SessionHelper.get(SORT, DEFAULT_SORT, session);
+		return sort.get();
 	}
 
 	public static void setSort(String sort) {
-		HttpSession session = SessionHelper.getSession();
-		SessionHelper.set(SORT, sort, session);
+		PageContext.sort.set(sort);
+	}
+
+	public static int getPageSize() {
+		return pageSize.get();
 	}
 
 	public static void setPageSize(int pageSize) {
-		HttpSession session = SessionHelper.getSession();
-		SessionHelper.set(PAGE_SIZE, pageSize, session);
+		PageContext.pageSize.set(pageSize);
 	}
-
-    public static int getPageSize() {
-        HttpSession session = SessionHelper.getSession();
-        return SessionHelper.get(PAGE_SIZE, DEFAULT_PAGE_SIZE, session);
-    }
 }
