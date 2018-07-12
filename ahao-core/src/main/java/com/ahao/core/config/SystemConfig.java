@@ -1,14 +1,22 @@
 package com.ahao.core.config;
 
+import com.ahao.core.util.io.FileHelper;
+import com.ahao.core.util.io.IOHelper;
 import com.ahao.core.util.lang.CollectionHelper;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +31,15 @@ public class SystemConfig {
     /**
      * 系统配置文件名
      */
-    private static final String APPLICATION_SETTING_FILE = "application_setting.xml";
+    private static final String APPLICATION_SETTING_PRO_FILE = "application_setting_pro.xml"; // 正式环境配置文件名
+    private static final String APPLICATION_SETTING_DEV_FILE = "application_setting_dev.xml"; // 测试环境配置文件名
+    private static final String APPLICATION_SETTING_FILE = APPLICATION_SETTING_PRO_FILE; // 选择哪个文件
     private static final String ATTR_VALUE = "value";
 
     private Configuration configuration = null;
 
     private static volatile SystemConfig instance;
+
     public static SystemConfig instance() {
         if (instance == null) {
             synchronized (SystemConfig.class) {
@@ -39,13 +50,13 @@ public class SystemConfig {
         }
         return instance;
     }
+
     private SystemConfig() {
         if (configuration != null) {
             throw new IllegalStateException("Already instantiated");
         }
         init();
     }
-
 
 
     private void init() {
@@ -57,29 +68,32 @@ public class SystemConfig {
 
     /**
      * 获取 int 型数据
+     *
      * @param key XPath节点路径, 默认取 value 属性
      */
-    public boolean getBoolean(String key){
+    public boolean getBoolean(String key) {
         return getBoolean(key, ATTR_VALUE);
     }
 
     /**
      * 获取 boolean 型数据
-     * @param key XPath节点路径
+     *
+     * @param key  XPath节点路径
      * @param attr 指定 attr 属性, 相当于 key[@attr]
      */
-    public boolean getBoolean(String key, String attr){
+    public boolean getBoolean(String key, String attr) {
         key = generateKey(key, attr);
         return configuration.getBoolean(key);
     }
 
     /**
      * 获取 boolean 型数据
-     * @param key XPath节点路径
-     * @param attr 指定 attr 属性, 相当于 key[@attr]
+     *
+     * @param key   XPath节点路径
+     * @param attr  指定 attr 属性, 相当于 key[@attr]
      * @param attrs 指定 attr 属性, 相当于 key[@attr]
      */
-    public Map<String, Boolean> getBoolean(String key, String attr, String... attrs){
+    public Map<String, Boolean> getBoolean(String key, String attr, String... attrs) {
         List<String> attrList = CollectionHelper.toList(attrs);
         attrList.add(attr);
 
@@ -92,29 +106,32 @@ public class SystemConfig {
 
     /**
      * 获取 int 型数据
+     *
      * @param key XPath节点路径, 默认取 value 属性
      */
-    public int getInt(String key){
+    public int getInt(String key) {
         return getInt(key, ATTR_VALUE);
     }
 
     /**
      * 获取 int 型数据
-     * @param key XPath节点路径
+     *
+     * @param key  XPath节点路径
      * @param attr 指定 attr 属性, 相当于 key[@attr]
      */
-    public int getInt(String key, String attr){
+    public int getInt(String key, String attr) {
         key = generateKey(key, attr);
         return configuration.getInt(key);
     }
 
     /**
      * 获取 boolean 型数据
-     * @param key XPath节点路径
-     * @param attr 指定 attr 属性, 相当于 key[@attr]
+     *
+     * @param key   XPath节点路径
+     * @param attr  指定 attr 属性, 相当于 key[@attr]
      * @param attrs 指定 attr 属性, 相当于 key[@attr]
      */
-    public Map<String, Integer> getInt(String key, String attr, String... attrs){
+    public Map<String, Integer> getInt(String key, String attr, String... attrs) {
         List<String> attrList = CollectionHelper.toList(attrs);
         attrList.add(attr);
 
@@ -127,6 +144,7 @@ public class SystemConfig {
 
     /**
      * 获取 String 型数据
+     *
      * @param key XPath节点路径, 默认取 value 属性
      */
     public String getString(String key) {
@@ -135,21 +153,23 @@ public class SystemConfig {
 
     /**
      * 获取 String 型数据
-     * @param key XPath节点路径
+     *
+     * @param key  XPath节点路径
      * @param attr 指定 attr 属性, 相当于 key[@attr]
      */
-    public String getString(String key, String attr){
+    public String getString(String key, String attr) {
         key = generateKey(key, attr);
         return configuration.getString(key);
     }
 
     /**
      * 获取 String 型数据
-     * @param key XPath节点路径
-     * @param attr 指定 attr 属性, 相当于 key[@attr]
+     *
+     * @param key   XPath节点路径
+     * @param attr  指定 attr 属性, 相当于 key[@attr]
      * @param attrs 指定 attr 属性, 相当于 key[@attr]
      */
-    public Map<String, String> getString(String key, String attr, String... attrs){
+    public Map<String, String> getString(String key, String attr, String... attrs) {
         List<String> attrList = CollectionHelper.toList(attrs);
         attrList.add(attr);
 
@@ -159,6 +179,17 @@ public class SystemConfig {
         }
         return result;
     }
+
+    /**
+     * 获取 String 集合数据
+     * @param key XPath节点路径
+     */
+    public List<String> getStringList(String key) {
+        String[] array = configuration.getStringArray(key);
+        return CollectionHelper.toList(array);
+    }
+
+    //====================================================================================
 
     /**
      * 封装Key
@@ -191,5 +222,4 @@ public class SystemConfig {
         }
         return null;
     }
-
 }

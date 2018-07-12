@@ -1,4 +1,4 @@
-package com.ahao.core.config;
+package com.ahao.core.spring.config;
 
 import com.ahao.core.util.web.RequestHelper;
 import org.slf4j.Logger;
