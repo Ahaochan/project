@@ -2,10 +2,12 @@ package com.ahao.core.util.lang;
 
 import com.ahao.core.util.lang.math.NumberHelper;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 /**
@@ -17,39 +19,6 @@ public abstract class ArrayHelper {
 
     private ArrayHelper() {
         throw new AssertionError("工具类不允许实例化");
-    }
-
-    /**
-     * 判断数组是否为空
-     *
-     * @param elements 数组
-     * @param <T>   泛型
-     * @return true为空数组
-     */
-    public static <T> boolean isEmpty(T[] elements) {
-        return ArrayUtils.isEmpty(elements);
-    }
-
-    public static <T> boolean isNotEmpty(T[] elements) {
-        return !isEmpty(elements);
-    }
-
-    /**
-     * array数组是否包含item元素
-     *
-     * @param array 数组
-     * @param item
-     * @return
-     */
-    public static <T> boolean contains(T[] array, T item) {
-        return ArrayUtils.contains(array, item);
-    }
-
-    public static <T> T get(int index, T... array) {
-        if (ArrayHelper.isNotEmpty(array) && array.length > index) {
-            return array[index];
-        }
-        return null;
     }
 
     /**
@@ -72,7 +41,7 @@ public abstract class ArrayHelper {
      */
     public static <T> T[] toArray(Collection<T> collection, int offset, int limit) {
         if (CollectionHelper.isEmpty(collection) || offset > collection.size()) {
-            return null;
+            return (T[]) new Object[0];
         }
 
         // 反射获取元素Class
@@ -86,24 +55,17 @@ public abstract class ArrayHelper {
             array[index++] = iterator.next();
         }
 
-        offset = NumberHelper.max(0, offset);
+        offset = NumberUtils.max(0, offset);
         int end = limit == 0 ? collection.size() : offset + limit;
         return ArrayUtils.subarray(array, offset, end);
     }
 
     /**
-     * 返回子数组, 兼容越界情况
-     *
-     * @param array 数组
-     * @param startIndexInclusive 开始位置, 包括
-     * @param endIndexExclusive   结束位置, 不包括
-     * @return 子集合
+     * 快速创建数组
+     * @param elements 数组元素
      */
-    public static <T> T[] subArray(T[] array, int startIndexInclusive, int endIndexExclusive) {
-        return ArrayUtils.subarray(array, startIndexInclusive, endIndexExclusive);
-    }
-    public static <T> T[] subArray(T[] array, int startIndexInclusive) {
-        return ArrayUtils.subarray(array, startIndexInclusive, length(array));
+    public static <T> T[] toArray(T... elements) {
+        return elements;
     }
 
     /**
@@ -116,7 +78,6 @@ public abstract class ArrayHelper {
 
     /**
      * 将数组转化为 String 类型
-     *
      * @param elements 数组
      * @return 字符串
      */
