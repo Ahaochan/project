@@ -18,15 +18,16 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class DateHelper {
     private static final Logger logger = LoggerFactory.getLogger(DateHelper.class);
-    public static final String yyyyMMdd_hhmmssSSS = "yyyy-MM-dd hh:mm:ss:SSS";
+    public static final int DAY_TIME = 24 * 60 * 60 * 1000; // 1天的毫秒数
+    public static final String yyyyMMdd = "yyyy-MM-dd";
+    public static final String yyyyMMdd_hhmmssSSS = "yyyy-MM-dd HH:mm:ss:SSS";
 
     private DateHelper() {
         throw new AssertionError("工具类不允许实例化");
     }
 
     /**
-     * 将 Date 格式化为 format格式 的日期
-     *
+     * 格式化为 format格式 的日期
      * @param date   时间
      * @param format 格式
      * @return 格式化后的日期
@@ -48,7 +49,6 @@ public abstract class DateHelper {
 
     /**
      * 获取 format 格式化的当前时间
-     *
      * @param format 日期格式
      * @return 当前时间
      */
@@ -73,8 +73,7 @@ public abstract class DateHelper {
     }
 
     /**
-     * 将 format形式的date字符串转化为 long型日期
-     *
+     * 将 format形式的date字符串 转化为 long 格式的日期
      * @param date   日期字符串
      * @param format 格式
      * @return 返回自1970年1月1日00:00:00 GMT以来的毫秒数
@@ -84,7 +83,7 @@ public abstract class DateHelper {
             SimpleDateFormat sdf = new SimpleDateFormat(format);
             return sdf.parse(date).getTime();
         } catch (ParseException e) {
-            logger.error("时间"+date+"解析异常:", e);
+            logger.error("时间解析异常:" + date, e);
         }
         return -1L;
     }
@@ -106,7 +105,6 @@ public abstract class DateHelper {
 
     /**
      * 获取开始日期和结束日期的间隔
-     *
      * @param start    开始日期
      * @param end      结束日期
      * @param timeUnit 转化后的时间格式, 天数、秒数、毫秒数等
