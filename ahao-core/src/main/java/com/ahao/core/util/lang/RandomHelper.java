@@ -1,5 +1,6 @@
 package com.ahao.core.util.lang;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.RandomStringGenerator;
 
 import java.awt.*;
@@ -48,9 +49,6 @@ public abstract class RandomHelper {
         if (startInclusive > endExclusive) {
             throw new IndexOutOfBoundsException("随机数的最小值必须小于最大值");
         }
-        if (startInclusive < 0) {
-            throw new IndexOutOfBoundsException("随机数的最小值必须为正数");
-        }
 
         if (startInclusive == endExclusive) {
             return startInclusive;
@@ -68,7 +66,7 @@ public abstract class RandomHelper {
      */
     public static String getString(int size, String origin) {
         return new RandomStringGenerator.Builder()
-                .selectFrom(StringHelper.isEmpty(origin) ? new char[0] : origin.toCharArray())
+                .selectFrom(StringUtils.isEmpty(origin) ? new char[0] : origin.toCharArray())
                 .build()
                 .generate(size);
     }
