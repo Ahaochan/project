@@ -3,11 +3,10 @@ package com.ahao.core.net.base;
 import com.ahao.core.net.adapter.Adapter;
 import com.ahao.core.net.convert.Convert;
 import com.ahao.core.net.convert.UTF8Convert;
-import com.ahao.core.util.CloneHelper;
 import com.ahao.core.util.JSONHelper;
 import com.ahao.core.util.lang.ReflectHelper;
-import com.ahao.core.util.lang.StringHelper;
 import com.ahao.core.util.lang.time.DateHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +34,8 @@ public class Response {
     /**
      * 返回状态码
      */
-    public byte[] getByte() {
-        return CloneHelper.clone(data);
+    public int getStatusCode() {
+        return statusCode;
     }
 
     /**
@@ -126,7 +125,7 @@ public class Response {
 
         long convertStart = System.currentTimeMillis();
         logger.trace("[" + url + "]: 开始转换响应体为" + clazz + ", 开始时间:" + DateHelper.getString(convertStart, DateHelper.yyyyMMdd_hhmmssSSS));
-        logger.trace("[" + url + "]: 转换前的数据为(UTF-8):" + StringHelper.replace(new String(data, StandardCharsets.UTF_8), "\n", " "));
+        logger.trace("[" + url + "]: 转换前的数据为(UTF-8):" + StringUtils.replace(new String(data, StandardCharsets.UTF_8), "\n", " "));
         T origin = convert.convert(data);
         long convertEnd = System.currentTimeMillis();
         logger.trace("[" + url + "]: 转换后的数据为:" + JSONHelper.toJSONString(origin));

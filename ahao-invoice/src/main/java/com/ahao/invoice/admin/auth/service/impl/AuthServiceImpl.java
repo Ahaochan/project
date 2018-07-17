@@ -1,6 +1,6 @@
 package com.ahao.invoice.admin.auth.service.impl;
 
-import com.ahao.core.config.SpringConfig;
+import com.ahao.core.spring.config.SpringConfig;
 import com.ahao.core.util.lang.ArrayHelper;
 import com.ahao.core.util.lang.StringHelper;
 import com.ahao.invoice.admin.auth.dao.AuthDAO;

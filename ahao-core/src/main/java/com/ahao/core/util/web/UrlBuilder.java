@@ -1,6 +1,6 @@
 package com.ahao.core.util.web;
 
-import com.ahao.core.util.lang.StringHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +60,7 @@ public class UrlBuilder {
 
 
     public UrlBuilder restUrl(String key, Object value) {
-        if (StringHelper.isNotEmpty(key) && value != null) {
+        if (StringUtils.isNotEmpty(key) && value != null) {
             restfulParams.put(key, value);
         } else {
             logger.warn("key:" + key + " or value:" + value + " must not Null!!!");
@@ -74,7 +74,7 @@ public class UrlBuilder {
     }
 
     public UrlBuilder param(String key, Object value) {
-        if (StringHelper.isNotEmpty(key) && value != null) {
+        if (StringUtils.isNotEmpty(key) && value != null) {
             this.requestParams.put(key, value);
         } else {
             logger.warn("key:" + key + " or value:" + value + " must not Null!!!");

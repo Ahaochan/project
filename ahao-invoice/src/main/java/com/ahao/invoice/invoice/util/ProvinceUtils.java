@@ -1,8 +1,10 @@
 package com.ahao.invoice.invoice.util;
 
-import com.ahao.core.config.SystemConfig;
+import com.ahao.core.config.Setter;
 import com.ahao.core.util.lang.StringHelper;
+import com.ahao.core.util.lang.math.NumberHelper;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,7 +30,7 @@ public abstract class ProvinceUtils {
     static {
         Map<String, String> jsoup = new HashMap<>(100);
         try {
-            String url = SystemConfig.instance().getString("provinceUrl");
+            String url = Setter.getString("provinceUrl");
             Document doc = Jsoup.connect(url).get();
             Elements msoNormals = doc.getElementsByClass("MsoNormal");
             for (Element msoNormal : msoNormals) {
@@ -36,10 +38,10 @@ public abstract class ProvinceUtils {
                 JSONObject province = new JSONObject();
 
                 spans.stream()
-                        .filter(s -> StringHelper.isNotEmpty(s.text()))
+                        .filter(s -> StringUtils.isNotEmpty(s.text()))
                         .forEach(s -> {
                             String text = StringHelper.trim(s.text());
-                            if (StringHelper.isNumeric(text)) {
+                            if (NumberHelper.isNumber(text)) {
                                 province.put("code", text);
                             } else if (province.containsKey("code")) {
                                 province.put("city", text);

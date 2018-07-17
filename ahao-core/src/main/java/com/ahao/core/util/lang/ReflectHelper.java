@@ -1,5 +1,6 @@
 package com.ahao.core.util.lang;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,7 +77,7 @@ public abstract class ReflectHelper {
      */
     @SuppressWarnings("unchecked")
     public static <T> Class<T> getElementClass(T... array) {
-        if (ArrayHelper.isEmpty(array)) {
+        if (ArrayUtils.isEmpty(array)) {
             return null;
         }
         return (Class<T>) array[0].getClass();

@@ -1,6 +1,6 @@
 package com.ahao.forum.guitar.manager.rbac.user.controller;
 
-import com.ahao.core.config.SystemConfig;
+import com.ahao.core.config.Setter;
 import com.ahao.core.context.PageContext;
 import com.ahao.core.entity.AjaxDTO;
 import com.ahao.core.entity.IDataSet;
@@ -76,8 +76,8 @@ public class UserController {
         model.addAttribute("roles", roles);
 
         // 4. 检测是否包含分区, 板块角色
-        final int superModeratorId = SystemConfig.instance().getInt("role.super-moderator", "id");
-        final int moderatorId = SystemConfig.instance().getInt("role.moderator", "id");
+        final int superModeratorId = Setter.getInt("role.super-moderator", "id");
+        final int moderatorId = Setter.getInt("role.moderator", "id");
         model.addAttribute("superModeratorId", superModeratorId);
         model.addAttribute("moderatorId", moderatorId);
         for (IDataSet role : roles) {

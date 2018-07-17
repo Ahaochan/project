@@ -1,6 +1,6 @@
 package com.ahao.core.net.convert;
 
-import com.ahao.core.util.lang.StringHelper;
+import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 
@@ -17,6 +17,6 @@ public class UTF8Convert implements Convert<String> {
 
     @Override
     public String convert(byte[] origin) {
-        return StringHelper.toCharacters(origin, StandardCharsets.UTF_8);
+        return StringUtils.toEncodedString(origin, StandardCharsets.UTF_8);
     }
 }

@@ -22,7 +22,7 @@
     </listener>
 
     <listener>
-        <listener-class>com.ahao.core.listener.SpringConfigInitListener</listener-class>
+        <listener-class>com.ahao.core.spring.listener.SpringConfigInitListener</listener-class>
     </listener>
 
     <listener>

@@ -1,7 +1,7 @@
 package com.ahao.core.net.convert;
 
-import com.ahao.core.util.lang.StringHelper;
 import com.alibaba.fastjson.JSONArray;
+import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 
@@ -18,7 +18,7 @@ public class JSONArrayConvert implements Convert<JSONArray> {
 
     @Override
     public JSONArray convert(byte[] origin) {
-        String json = StringHelper.toCharacters(origin, StandardCharsets.UTF_8);
+        String json = StringUtils.toEncodedString(origin, StandardCharsets.UTF_8);
         return JSONArray.parseArray(json);
     }
 }

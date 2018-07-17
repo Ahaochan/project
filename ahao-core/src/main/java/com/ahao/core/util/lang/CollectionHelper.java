@@ -1,8 +1,8 @@
 package com.ahao.core.util.lang;
 
-import com.ahao.core.util.lang.math.NumberHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.*;
 
@@ -18,7 +18,6 @@ public abstract class CollectionHelper {
 
     /**
      * 返回集合是否为空
-     *
      * @param collection 集合
      * @return 当集合为null, 或没有元素时返回true, 否则返回false
      */
@@ -88,7 +87,7 @@ public abstract class CollectionHelper {
      * @return 集合, 一般为 ArrayList
      */
     public static <T> List<T> toList(T[] elements) {
-        if (ArrayHelper.isEmpty(elements)) {
+        if (ArrayUtils.isEmpty(elements)) {
             return new ArrayList<>();
         }
         List<T> list = new ArrayList<>(elements.length);
@@ -106,11 +105,11 @@ public abstract class CollectionHelper {
      */
     @SuppressWarnings("unchecked")
     public static <T> List<T> toList(T[] elements, int offset, int limit) {
-        if (ArrayHelper.isEmpty(elements) || offset > elements.length) {
+        if (ArrayUtils.isEmpty(elements) || offset > elements.length) {
             return new ArrayList<>();
         }
 
-        offset = NumberHelper.max(0, offset);
+        offset = NumberUtils.max(0, offset);
         int end = limit == 0 ? elements.length : offset + limit;
 
         return toList(ArrayUtils.subarray(elements,
@@ -150,6 +149,24 @@ public abstract class CollectionHelper {
      */
     public static <T> boolean contains(Collection<? super T> collection, T elements) {
         return !isEmpty(collection) && collection.contains(elements);
+    }
+
+    /**
+     * 检测 集合 是否包含 任意一个值
+     * @param collection 集合
+     * @param search 待查找的值
+     * @return 如果集合为空, 则返回false. 包含任意一个search, 则返回true.
+     */
+    public static <T> boolean containAny(Collection<T> collection, T... search){
+        if(isEmpty(collection)){
+            return false;
+        }
+        for(T element : collection){
+            if(element.equals(search)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.ahao.core.net.convert;
 
-import com.ahao.core.util.lang.StringHelper;
+import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.Charset;
 
@@ -18,6 +18,6 @@ public class GBKConvert implements Convert<String> {
 
     @Override
     public String convert(byte[] origin) {
-        return StringHelper.toCharacters(origin, Charset.forName("GBK"));
+        return StringUtils.toEncodedString(origin, Charset.forName("GBK"));
     }
 }

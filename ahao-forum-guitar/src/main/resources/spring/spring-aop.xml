@@ -13,7 +13,7 @@
         <!--  扫描Controller通知  -->
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
         <!--  扫描拦截器  -->
-        <context:include-filter type="annotation" expression="com.ahao.core.annotation.Interceptor"/>
+        <context:include-filter type="annotation" expression="com.ahao.core.shiro.annotation.Interceptor"/>
     </context:component-scan>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 

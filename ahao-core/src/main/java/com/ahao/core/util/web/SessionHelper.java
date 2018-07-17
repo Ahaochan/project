@@ -1,12 +1,9 @@
 package com.ahao.core.util.web;
 
-import com.ahao.core.util.lang.StringHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -35,7 +32,7 @@ public abstract class SessionHelper {
      * @param session session
      */
     public static <T> void set(String key, T value, HttpSession session) {
-        if (StringHelper.isEmpty(key)) {
+        if (StringUtils.isEmpty(key)) {
             logger.debug("key:" + key + "为空, 未向session存入" + value);
             return;
         }

@@ -4,7 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.charset.Charset;
 import java.util.stream.Stream;
 
 /**
@@ -38,36 +37,6 @@ public abstract class StringHelper {
     public static final char SINGLE_QUOTE = '\'';
 
     public static final String CRLF = "\r\n";
-
-
-
-    /**
-     * 判断字符串是否为数字
-     * @param num 数字字符串
-     * @return true为数字
-     */
-    public static boolean isNumeric(String num) {
-        return StringUtils.isNumeric(num);
-    }
-
-    /**
-     * 判断字符串数组中, 有一个为空则返回true
-     *
-     * @param str 字符串数组
-     * @return 有一个为空则返回true
-     */
-    public static boolean isEmpty(String... str) {
-        return StringUtils.isAnyEmpty(str);
-    }
-
-    /**
-     * 判断字符串数组中, 有一个为空则返回false
-     * @param str 字符串数组
-     * @return 有一个为空则返回false
-     */
-    public static boolean isNotEmpty(String... str) {
-        return StringUtils.isNoneEmpty(str);
-    }
 
     /**
      * 字符串 search 中包含任意一个字符 match, 则返回true
@@ -130,17 +99,6 @@ public abstract class StringHelper {
             }
         }
         return false;
-    }
-
-    /**
-     * 以 searchStrings 中任意一个元素开头的字符串返回true
-     *
-     * @param string        字符串
-     * @param searchStrings 待匹配字符串
-     * @return 以 searchStrings 中任意一个元素开头的字符串返回true
-     */
-    public static boolean startsWithAny(final CharSequence string, final CharSequence... searchStrings) {
-        return StringUtils.startsWithAny(string, searchStrings);
     }
 
     /**
@@ -256,39 +214,5 @@ public abstract class StringHelper {
             return true;
         }
         return false;
-    }
-
-    public static String[] split(final String str, final String separatorChars){
-        return StringUtils.split(str, separatorChars);
-    }
-
-    /**
-     * 将 byte[] 数组解码为UTF8的字符串
-     * @param bytes 字节数组
-     * @return UTF8编码的字符串
-     */
-    public static String toUTF8(byte[] bytes) {
-        return StringUtils.toEncodedString(bytes, Charset.forName("UTF-8"));
-    }
-
-    /**
-     * 字符串替换，将 source 中的 oldString 全部换成 newString
-     * 注意, 效率比{@link String#replace(CharSequence, CharSequence)} 高, 其内部使用正则表达式
-     * https://stackoverflow.com/questions/16228992/
-     *
-     * @param source    源字符串
-     * @param oldString 老的字符串
-     * @param newString 新的字符串
-     * @return 替换后的字符串
-     */
-    public static String replace(String source, String oldString, String newString) {
-        return StringUtils.replace(source, oldString, newString);
-    }
-
-    /**
-     * 将byte[]编码转为charset
-     */
-    public static String toCharacters(byte[] bytes, Charset charset) {
-        return StringUtils.toEncodedString(bytes, charset);
     }
 }

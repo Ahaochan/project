@@ -1,6 +1,5 @@
 package com.ahao.core.net.convert;
 
-import com.ahao.core.util.lang.StringHelper;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,7 +17,7 @@ public class JSONObjectConvert implements Convert<JSONObject> {
 
     @Override
     public JSONObject convert(byte[] origin) {
-        String json = StringHelper.toCharacters(origin, StandardCharsets.UTF_8);
+        String json = StringUtils.toEncodedString(origin, StandardCharsets.UTF_8);
         if(StringUtils.isEmpty(json)){
             return new JSONObject();
         }

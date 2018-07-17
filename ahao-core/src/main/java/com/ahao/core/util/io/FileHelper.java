@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 /**
  * Created by Ahaochan on 2017/11/25.
@@ -21,7 +20,7 @@ public abstract class FileHelper {
 
     public static String readString(String path){
         try {
-            return FileUtils.readFileToString(new File(path), Charset.forName("UTF-8"));
+            return FileUtils.readFileToString(new File(path), "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error("读取文件"+path+"错误:", e);

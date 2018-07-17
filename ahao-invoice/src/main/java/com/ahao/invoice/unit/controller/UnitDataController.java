@@ -1,7 +1,7 @@
 package com.ahao.invoice.unit.controller;
 
-import com.ahao.core.config.SpringConfig;
 import com.ahao.core.entity.AjaxDTO;
+import com.ahao.core.spring.config.SpringConfig;
 import com.ahao.core.util.lang.math.NumberHelper;
 import com.ahao.invoice.invoice.util.ValidUtils;
 import com.ahao.invoice.unit.entity.UnitDO;

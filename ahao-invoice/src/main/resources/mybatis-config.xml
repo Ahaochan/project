@@ -20,6 +20,6 @@
     </typeAliases>
 
     <!--<plugins>-->
-        <!--<plugin interceptor="com.ahao.core.interceptor.MybatisSqlInterceptor"/>-->
+        <!--<plugin interceptor="com.ahao.core.mybatis.interceptor.MybatisSqlInterceptor"/>-->
     <!--</plugins>-->
 </configuration>

@@ -18,7 +18,6 @@ public abstract class NumberHelper {
 
     /**
      * num 是否在 [min, max] 之间
-     *
      * @param num 当前值
      * @param min 最小值下限
      * @param max 最大值上限
@@ -30,33 +29,19 @@ public abstract class NumberHelper {
     public static boolean isBetween(long num, long min, long max) {
         return num >= min && num <= max;
     }
+    public static int between(int min, int max, int number) {
+        if (min > max) {
+            max = min;
+        }
 
-    public static int max(int... array) {
-        return NumberUtils.max(array);
+        if (number < min) {
+            return min;
+        } else if (number > max) {
+            return max;
+        } else {
+            return number;
+        }
     }
-    public static long max(long... array) {
-        return NumberUtils.max(array);
-    }
-    public static float max(float... array) {
-        return NumberUtils.max(array);
-    }
-    public static double max(double... array) {
-        return NumberUtils.max(array);
-    }
-
-    public static int min(int... array) {
-        return NumberUtils.min(array);
-    }
-    public static long min(long... array) {
-        return NumberUtils.min(array);
-    }
-    public static float min(float... array) {
-        return NumberUtils.min(array);
-    }
-    public static double min(double... array) {
-        return NumberUtils.min(array);
-    }
-
 
     /**
      * 数组拆箱
@@ -139,21 +124,6 @@ public abstract class NumberHelper {
     public static <T> boolean isNumber(T obj) {
         return obj != null && NumberUtils.isCreatable(obj.toString());
     }
-
-    public static int between(int min, int max, int number) {
-        if (min > max) {
-            max = min;
-        }
-
-        if (number < min) {
-            return min;
-        } else if (number > max) {
-            return max;
-        } else {
-            return number;
-        }
-    }
-
 
     public static int parseInt(Object obj) {
         if(obj == null) {

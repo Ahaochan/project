@@ -1,6 +1,6 @@
 package com.ahao.core.util.io;
 
-import com.ahao.core.util.lang.StringHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -20,7 +20,7 @@ public abstract class WordHelper {
         try (XWPFDocument doc = new XWPFDocument();
              FileOutputStream out = new FileOutputStream(path)) {
 
-            String[] rows = StringHelper.split(text, "\n");
+            String[] rows = StringUtils.split(text, "\n");
 
             for(String row : rows){
                 XWPFParagraph p = doc.createParagraph();
