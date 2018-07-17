@@ -1,7 +1,6 @@
 package com.ahao.core.servlet;
 
 import com.ahao.core.config.SystemConfig;
-import com.ahao.core.context.ApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HttpServletBean;
@@ -41,14 +40,7 @@ public class ConfigServlet extends HttpServletBean {
      * 初始化系统参数
      */
     private void initSystem(ServletConfig config) throws ServletException {
-        try {
-            // 取得系统的目录路径
-            ApplicationContext.setSystemRoot(config.getServletContext().getRealPath("/"));
-            // 载入系统配置信息
-            SystemConfig.instance();
-        } catch (Exception e) {
-            logger.error("初始化系统参数出错", e);
-            throw new ServletException(e.getMessage());
-        }
+        // 载入系统配置信息
+        SystemConfig.instance();
     }
 }
