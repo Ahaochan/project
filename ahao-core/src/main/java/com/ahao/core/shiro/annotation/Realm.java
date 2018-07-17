@@ -1,4 +1,4 @@
-package com.ahao.core.annotation;
+package com.ahao.core.shiro.annotation;
 
 import org.springframework.stereotype.Component;
 

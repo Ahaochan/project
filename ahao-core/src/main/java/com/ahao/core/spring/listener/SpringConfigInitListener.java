@@ -1,6 +1,6 @@
-package com.ahao.core.listener;
+package com.ahao.core.spring.listener;
 
-import com.ahao.core.config.SpringConfig;
+import com.ahao.core.spring.config.SpringConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
