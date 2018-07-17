@@ -3,6 +3,7 @@ package com.ahao.core.net.base;
 import com.ahao.core.net.adapter.Adapter;
 import com.ahao.core.net.convert.Convert;
 import com.ahao.core.net.convert.UTF8Convert;
+import com.ahao.core.util.CloneHelper;
 import com.ahao.core.util.JSONHelper;
 import com.ahao.core.util.lang.ReflectHelper;
 import com.ahao.core.util.lang.time.DateHelper;
@@ -39,8 +40,14 @@ public class Response {
     }
 
     /**
+     * 返回字节码
+     */
+    public byte[] getByte() {
+        return CloneHelper.clone(data);
+    }
+
+    /**
      * 默认返回 String 格式数据
-     *
      * @return 返回格式化后的数据
      */
     @Override
@@ -64,7 +71,6 @@ public class Response {
 
     /**
      * 格式化数据, 不进行二次加工数据
-     *
      * @param convert 进行格式化的转换器
      * @param <T>     返回数据类型
      * @return 返回格式化后的数据
@@ -78,7 +84,6 @@ public class Response {
 
     /**
      * 格式化数据, 进行二次加工数据, 反射创建转换器和适配器
-     *
      * @param convertClass 进行格式化的转换器
      * @param adapterClass 进行二次加工的适配器
      * @param <T>          返回数据类型
@@ -97,7 +102,6 @@ public class Response {
 
     /**
      * 格式化数据, 进行二次加工数据, 反射创建转换器
-     *
      * @param convertClass 进行格式化的转换器
      * @param adapter      进行二次加工的适配器
      * @param <T>          返回数据类型
@@ -114,7 +118,6 @@ public class Response {
 
     /**
      * 格式化数据
-     *
      * @param convert 进行格式化的转换器
      * @param adapter 进行二次加工的适配器
      * @param <T>     返回数据类型
