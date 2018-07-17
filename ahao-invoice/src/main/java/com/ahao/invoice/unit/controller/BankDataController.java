@@ -2,9 +2,9 @@ package com.ahao.invoice.unit.controller;
 
 import com.ahao.core.entity.AjaxDTO;
 import com.ahao.core.spring.config.SpringConfig;
-import com.ahao.core.util.lang.StringHelper;
 import com.ahao.invoice.unit.net.BankApi;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +22,7 @@ public class BankDataController {
     @GetMapping("/invoice/bank/{account}")
     public AjaxDTO parseCode(@PathVariable("account") String account){
         String bank = BankApi.getCode(account);
-        if(StringHelper.isEmpty(bank)){
+        if(StringUtils.isEmpty(bank)){
             return AjaxDTO.failure(SpringConfig.getString("invoice.unit.account.illegal"));
         }
 
