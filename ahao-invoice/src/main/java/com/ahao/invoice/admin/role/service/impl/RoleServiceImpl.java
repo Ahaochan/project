@@ -3,13 +3,13 @@ package com.ahao.invoice.admin.role.service.impl;
 import com.ahao.core.entity.DataSet;
 import com.ahao.core.spring.config.SpringConfig;
 import com.ahao.core.util.lang.ArrayHelper;
-import com.ahao.core.util.lang.StringHelper;
 import com.ahao.invoice.admin.role.dao.RoleDAO;
 import com.ahao.invoice.admin.role.entity.RoleDO;
 import com.ahao.invoice.admin.role.service.RoleService;
 import com.ahao.invoice.base.service.impl.PageServiceImpl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class RoleServiceImpl extends PageServiceImpl<RoleDO> implements RoleServ
 
     @Override
     public boolean existName(String name) {
-        if (StringHelper.isEmpty(name)) {
+        if (StringUtils.isEmpty(name)) {
             return false;
         }
         Example example = new Example(RoleDO.class);
