@@ -2,8 +2,8 @@ package com.ahao.forum.guitar.manager.rbac.user.controller;
 
 import com.ahao.core.entity.AjaxDTO;
 import com.ahao.core.entity.IDataSet;
-import com.ahao.core.util.lang.StringHelper;
 import com.ahao.forum.guitar.manager.rbac.user.service.PasswordService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ public class PasswordController {
                                   @RequestParam String newPassword){
         IDataSet userData = (IDataSet) SecurityUtils.getSubject().getPrincipal();
         String errorMsg = passwordService.modifyPassword(userData.getLong("id"), oldPassword, newPassword);
-        if(StringHelper.isNotEmpty(errorMsg)){
+        if(StringUtils.isNotEmpty(errorMsg)){
             return AjaxDTO.failure(errorMsg);
         }
         return AjaxDTO.success("密码修改成功");

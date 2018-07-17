@@ -1,8 +1,8 @@
 package com.ahao.forum.guitar.manager.rbac.user.service.impl;
 
-import com.ahao.core.util.lang.StringHelper;
 import com.ahao.forum.guitar.manager.rbac.user.dao.PasswordMapper;
 import com.ahao.forum.guitar.manager.rbac.user.service.PasswordService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class PasswordServiceImpl implements PasswordService {
             logger.debug(msg + ":" + userId);
             return msg;
         }
-        if (StringHelper.isEmpty(oldPassword, newPassword)) {
+        if (StringUtils.isAnyEmpty(oldPassword, newPassword)) {
             String msg = "修改密码失败, password为空";
             logger.debug(msg + ":" + oldPassword + "," + newPassword);
             return msg;

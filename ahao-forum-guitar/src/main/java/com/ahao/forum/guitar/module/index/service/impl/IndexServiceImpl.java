@@ -1,10 +1,10 @@
 package com.ahao.forum.guitar.module.index.service.impl;
 
 import com.ahao.core.entity.IDataSet;
-import com.ahao.core.util.lang.StringHelper;
 import com.ahao.core.util.web.RequestHelper;
 import com.ahao.forum.guitar.module.index.dao.IndexMapper;
 import com.ahao.forum.guitar.module.index.service.IndexService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class IndexServiceImpl implements IndexService {
         List<IDataSet> list = indexMapper.getForumsByCategoryId(categoryId);
         for (IDataSet data : list) {
             String url = data.getString("icon_url");
-            if(!StringHelper.startsWithAny(url, "http")){
+            if(!StringUtils.startsWithAny(url, "http")){
                 data.put("icon_url", RequestHelper.getContextPath()+"/"+url);
             }
         }

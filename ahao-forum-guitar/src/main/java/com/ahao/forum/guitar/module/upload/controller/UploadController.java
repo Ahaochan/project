@@ -1,9 +1,9 @@
 package com.ahao.forum.guitar.module.upload.controller;
 
 import com.ahao.core.entity.AjaxDTO;
-import com.ahao.core.util.lang.StringHelper;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class UploadController {
         String path = context.getRealPath(File.separator + "img" + File.separator + filePath);
         File pathDir = new File(path);
         // 上传图片
-        if(StringHelper.isEmpty(oldFileName)){
+        if(StringUtils.isEmpty(oldFileName)){
             return AjaxDTO.failure("文件为空");
         }
 
