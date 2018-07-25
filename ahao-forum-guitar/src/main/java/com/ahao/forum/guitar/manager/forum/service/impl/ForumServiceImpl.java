@@ -1,9 +1,9 @@
 package com.ahao.forum.guitar.manager.forum.service.impl;
 
-import com.ahao.core.entity.BaseDO;
-import com.ahao.core.entity.IDataSet;
-import com.ahao.core.util.lang.CollectionHelper;
-import com.ahao.core.util.lang.math.NumberHelper;
+import com.ahao.commons.entity.BaseDO;
+import com.ahao.commons.entity.IDataSet;
+import com.ahao.commons.util.lang.CollectionHelper;
+import com.ahao.commons.util.lang.math.NumberHelper;
 import com.ahao.forum.guitar.manager.forum.dao.ForumMapper;
 import com.ahao.forum.guitar.manager.forum.service.ForumService;
 import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;

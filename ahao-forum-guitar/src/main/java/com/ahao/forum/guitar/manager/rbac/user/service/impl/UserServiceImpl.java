@@ -1,9 +1,9 @@
 package com.ahao.forum.guitar.manager.rbac.user.service.impl;
 
-import com.ahao.core.config.Setter;
-import com.ahao.core.entity.BaseDO;
-import com.ahao.core.entity.IDataSet;
-import com.ahao.core.util.lang.math.NumberHelper;
+import com.ahao.commons.config.Setter;
+import com.ahao.commons.entity.BaseDO;
+import com.ahao.commons.entity.IDataSet;
+import com.ahao.commons.util.lang.math.NumberHelper;
 import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import com.ahao.forum.guitar.manager.rbac.user.dao.UserMapper;
 import com.ahao.forum.guitar.manager.rbac.user.service.UserService;

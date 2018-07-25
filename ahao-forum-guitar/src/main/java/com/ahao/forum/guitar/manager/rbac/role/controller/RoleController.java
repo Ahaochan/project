@@ -1,10 +1,10 @@
 package com.ahao.forum.guitar.manager.rbac.role.controller;
 
-import com.ahao.core.context.PageContext;
-import com.ahao.core.entity.AjaxDTO;
-import com.ahao.core.entity.IDataSet;
-import com.ahao.core.util.lang.CollectionHelper;
-import com.ahao.core.util.web.PageIndicator;
+import com.ahao.commons.entity.AjaxDTO;
+import com.ahao.commons.entity.IDataSet;
+import com.ahao.commons.html.page.PaginationBootstrap;
+import com.ahao.commons.spring.context.PageContext;
+import com.ahao.commons.util.lang.CollectionHelper;
 import com.ahao.forum.guitar.manager.rbac.role.service.RoleService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
@@ -92,7 +92,7 @@ public class RoleController {
         // 3. 获取分页器
         PageInfo<IDataSet> pageInfo = new PageInfo<>(list);
         long total = pageInfo.getTotal();
-        String pageIndicator = PageIndicator.getBootstrap(total, page, pageSize);
+        String pageIndicator = PaginationBootstrap.getBootstrap(total, page, pageSize);
         result.put("pageIndicator", pageIndicator);
         return AjaxDTO.success(result);
     }

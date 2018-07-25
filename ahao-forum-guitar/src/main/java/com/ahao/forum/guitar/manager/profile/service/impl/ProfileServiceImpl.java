@@ -1,7 +1,7 @@
 package com.ahao.forum.guitar.manager.profile.service.impl;
 
-import com.ahao.core.entity.DataSet;
-import com.ahao.core.entity.IDataSet;
+import com.ahao.commons.entity.DataSet;
+import com.ahao.commons.entity.IDataSet;
 import com.ahao.forum.guitar.manager.profile.dao.ProfileMapper;
 import com.ahao.forum.guitar.manager.profile.service.ProfileService;
 import org.slf4j.Logger;

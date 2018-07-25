@@ -1,7 +1,7 @@
 package com.ahao.forum.guitar.module.thread.dao;
 
-import com.ahao.core.entity.BaseDO;
-import com.ahao.core.entity.IDataSet;
+import com.ahao.commons.entity.BaseDO;
+import com.ahao.commons.entity.IDataSet;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

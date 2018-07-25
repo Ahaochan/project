@@ -15,11 +15,11 @@
     </settings>
 
     <typeAliases>
-        <typeAlias alias="DataSet" type="com.ahao.core.entity.DataSet"/>
-        <typeAlias alias="IDataSet" type="com.ahao.core.entity.IDataSet"/>
+        <typeAlias alias="DataSet" type="com.ahao.commons.entity.DataSet"/>
+        <typeAlias alias="IDataSet" type="com.ahao.commons.entity.IDataSet"/>
     </typeAliases>
 
     <!--<plugins>-->
-        <!--<plugin interceptor="com.ahao.core.mybatis.interceptor.MybatisSqlInterceptor"/>-->
+        <!--<plugin interceptor="com.ahao.commonsons.mybatis.interceptor.MybatisSqlInterceptor"/>-->
     <!--</plugins>-->
 </configuration>

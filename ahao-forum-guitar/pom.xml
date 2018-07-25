@@ -20,14 +20,15 @@
     <dependencies>
         <dependency>
             <groupId>com.ahao</groupId>
-            <artifactId>ahao-core</artifactId>
-            <version>1.0</version>
+            <artifactId>ahao-core-commons</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>5.1.2</version>
+            <groupId>com.ahao</groupId>
+            <artifactId>ahao-core-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ahao</groupId>
+            <artifactId>ahao-core-mybatis</artifactId>
         </dependency>
 
         <!-- Shiro -->

@@ -1,6 +1,6 @@
 package com.ahao.invoice.invoice.controller;
 
-import com.ahao.core.entity.IDataSet;
+import com.ahao.commons.entity.IDataSet;
 import com.ahao.invoice.invoice.service.InvoiceService;
 import com.ahao.invoice.product.goods.sevice.GoodsService;
 import com.ahao.invoice.unit.service.UnitService;

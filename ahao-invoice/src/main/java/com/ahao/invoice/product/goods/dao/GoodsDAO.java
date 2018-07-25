@@ -1,6 +1,6 @@
 package com.ahao.invoice.product.goods.dao;
 
-import com.ahao.core.entity.DataSet;
+import com.ahao.commons.entity.DataSet;
 import com.ahao.invoice.product.goods.entity.GoodsDO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

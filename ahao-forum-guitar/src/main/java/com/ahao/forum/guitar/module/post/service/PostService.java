@@ -1,6 +1,6 @@
 package com.ahao.forum.guitar.module.post.service;
 
-import com.ahao.core.entity.IDataSet;
+import com.ahao.commons.entity.IDataSet;
 
 public interface PostService {
 

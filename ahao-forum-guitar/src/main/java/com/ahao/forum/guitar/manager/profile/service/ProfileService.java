@@ -1,6 +1,6 @@
 package com.ahao.forum.guitar.manager.profile.service;
 
-import com.ahao.core.entity.IDataSet;
+import com.ahao.commons.entity.IDataSet;
 
 import java.util.List;
 

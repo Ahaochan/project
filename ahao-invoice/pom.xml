@@ -22,8 +22,15 @@
     <dependencies>
         <dependency>
             <groupId>com.ahao</groupId>
-            <artifactId>ahao-core</artifactId>
-            <version>1.0</version>
+            <artifactId>ahao-core-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ahao</groupId>
+            <artifactId>ahao-core-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ahao</groupId>
+            <artifactId>ahao-core-mybatis</artifactId>
         </dependency>
 
         <!-- spring security -->

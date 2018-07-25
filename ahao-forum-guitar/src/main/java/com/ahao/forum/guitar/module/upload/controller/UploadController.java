@@ -1,6 +1,6 @@
 package com.ahao.forum.guitar.module.upload.controller;
 
-import com.ahao.core.entity.AjaxDTO;
+import com.ahao.commons.entity.AjaxDTO;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;

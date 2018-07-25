@@ -1,6 +1,6 @@
 package com.ahao.forum.guitar.manager.rbac.shiro.dao;
 
-import com.ahao.core.entity.BaseDO;
+import com.ahao.commons.entity.BaseDO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

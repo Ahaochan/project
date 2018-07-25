@@ -1,10 +1,10 @@
 package com.ahao.invoice.admin.role.controller;
 
-import com.ahao.core.entity.AjaxDTO;
-import com.ahao.core.spring.config.SpringConfig;
-import com.ahao.core.util.lang.CollectionHelper;
-import com.ahao.core.util.lang.StringHelper;
-import com.ahao.core.util.lang.math.NumberHelper;
+import com.ahao.commons.entity.AjaxDTO;
+import com.ahao.commons.spring.config.SpringConfig;
+import com.ahao.commons.util.lang.CollectionHelper;
+import com.ahao.commons.util.lang.StringHelper;
+import com.ahao.commons.util.lang.math.NumberHelper;
 import com.ahao.invoice.admin.auth.service.AuthService;
 import com.ahao.invoice.admin.role.entity.RoleDO;
 import com.ahao.invoice.admin.role.service.RoleService;

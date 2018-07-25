@@ -1,11 +1,11 @@
 package com.ahao.invoice.admin.user.service.impl;
 
-import com.ahao.core.util.lang.StringHelper;
 import com.ahao.invoice.admin.user.dao.UserDAO;
 import com.ahao.invoice.admin.user.entity.UserDO;
 import com.ahao.invoice.admin.user.service.UserService;
 import com.ahao.invoice.admin.util.SecurityHelper;
 import com.ahao.invoice.base.service.impl.PageServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class UserServiceImpl extends PageServiceImpl<UserDO> implements UserServ
 
     @Override
     public boolean existUsername(String username) {
-        if (StringHelper.isEmpty(username)) {
+        if (StringUtils.isEmpty(username)) {
             return false;
         }
         Example example = new Example(UserDO.class);

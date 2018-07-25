@@ -1,7 +1,7 @@
 package com.ahao.invoice.invoice.controller;
 
-import com.ahao.core.entity.AjaxDTO;
-import com.ahao.core.util.lang.CollectionHelper;
+import com.ahao.commons.entity.AjaxDTO;
+import com.ahao.commons.util.lang.CollectionHelper;
 import com.ahao.invoice.invoice.service.InvoiceService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

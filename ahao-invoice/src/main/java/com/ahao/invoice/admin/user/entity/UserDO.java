@@ -1,6 +1,6 @@
 package com.ahao.invoice.admin.user.entity;
 
-import com.ahao.core.util.CloneHelper;
+import com.ahao.commons.util.CloneHelper;
 import com.ahao.invoice.base.entity.BaseDO;
 import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.Email;

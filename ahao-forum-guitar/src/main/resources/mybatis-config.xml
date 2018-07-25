@@ -15,12 +15,12 @@
     </settings>
 
     <typeAliases>
-        <typeAlias alias="DataSet" type="com.ahao.core.entity.DataSet"/>
-        <!--<typeAlias alias="IDataSet" type="com.ahao.core.entity.IDataSet"/>-->
+        <typeAlias alias="DataSet" type="com.ahao.commons.entity.DataSet"/>
+        <!--<typeAlias alias="IDataSet" type="com.ahao.commonsons.entity.IDataSet"/>-->
     </typeAliases>
 
     <plugins>
-        <!--<plugin interceptor="com.ahao.core.mybatis.interceptor.MybatisSqlInterceptor"/>-->
+        <!--<plugin interceptor="com.ahao.commonsons.mybatis.interceptor.MybatisSqlInterceptor"/>-->
 
         <!-- com.github.pagehelper为PageHelper类所在包名 -->
         <plugin interceptor="com.github.pagehelper.PageInterceptor">

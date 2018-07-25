@@ -1,8 +1,8 @@
 package com.ahao.forum.guitar.manager.rbac.shiro.realm;
 
-import com.ahao.core.entity.IDataSet;
-import com.ahao.core.shiro.annotation.Realm;
-import com.ahao.core.util.web.RequestHelper;
+import com.ahao.commons.entity.IDataSet;
+import com.ahao.commons.spring.annotation.shiro.Realm;
+import com.ahao.commons.spring.util.RequestHelper;
 import com.ahao.forum.guitar.manager.rbac.shiro.dao.ShiroMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

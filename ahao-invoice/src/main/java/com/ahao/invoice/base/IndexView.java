@@ -1,6 +1,6 @@
 package com.ahao.invoice.base;
 
-import com.ahao.core.util.CloneHelper;
+import com.ahao.commons.util.CloneHelper;
 
 import java.util.Date;
 

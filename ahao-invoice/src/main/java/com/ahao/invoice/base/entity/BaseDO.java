@@ -1,6 +1,6 @@
 package com.ahao.invoice.base.entity;
 
-import com.ahao.core.util.CloneHelper;
+import com.ahao.commons.util.CloneHelper;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

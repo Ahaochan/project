@@ -27,7 +27,7 @@
             <div class="tab-content tab-pane">
                 <div class="panel panel-default">
                     <%--@elvariable id="isExist" type="java.lang.Boolean"--%>
-                    <%--@elvariable id="category" type="com.ahao.core.entity.IDataSet"--%>
+                    <%--@elvariable id="category" type="com.ahao.commons.entity.IDataSet"--%>
                     <div class="panel-heading">${isExist?'编辑分区':'增加分区'}</div>
                     <div class="panel-body">
                         <form class="form-horizontal" id="form-category">

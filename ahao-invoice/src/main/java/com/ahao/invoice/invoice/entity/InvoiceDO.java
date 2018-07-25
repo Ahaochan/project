@@ -1,6 +1,6 @@
 package com.ahao.invoice.invoice.entity;
 
-import com.ahao.core.util.CloneHelper;
+import com.ahao.commons.util.CloneHelper;
 import com.ahao.invoice.base.entity.BaseDO;
 import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;

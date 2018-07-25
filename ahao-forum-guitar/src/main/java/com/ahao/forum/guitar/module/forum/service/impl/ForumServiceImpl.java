@@ -1,6 +1,6 @@
 package com.ahao.forum.guitar.module.forum.service.impl;
 
-import com.ahao.core.entity.IDataSet;
+import com.ahao.commons.entity.IDataSet;
 import com.ahao.forum.guitar.module.forum.dao.ForumMapper;
 import com.ahao.forum.guitar.module.forum.service.ForumService;
 import org.slf4j.Logger;

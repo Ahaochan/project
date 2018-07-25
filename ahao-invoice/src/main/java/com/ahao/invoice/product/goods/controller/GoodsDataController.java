@@ -1,8 +1,8 @@
 package com.ahao.invoice.product.goods.controller;
 
-import com.ahao.core.entity.AjaxDTO;
-import com.ahao.core.spring.config.SpringConfig;
-import com.ahao.core.util.lang.math.NumberHelper;
+import com.ahao.commons.entity.AjaxDTO;
+import com.ahao.commons.spring.config.SpringConfig;
+import com.ahao.commons.util.lang.math.NumberHelper;
 import com.ahao.invoice.invoice.util.ValidUtils;
 import com.ahao.invoice.product.goods.entity.GoodsDO;
 import com.ahao.invoice.product.goods.sevice.GoodsService;

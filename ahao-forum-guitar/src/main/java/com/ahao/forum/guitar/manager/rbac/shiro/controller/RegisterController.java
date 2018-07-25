@@ -1,6 +1,6 @@
 package com.ahao.forum.guitar.manager.rbac.shiro.controller;
 
-import com.ahao.core.entity.AjaxDTO;
+import com.ahao.commons.entity.AjaxDTO;
 import com.ahao.forum.guitar.manager.rbac.shiro.service.RegisterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

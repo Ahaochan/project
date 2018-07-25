@@ -1,14 +1,14 @@
 package com.ahao.invoice.admin.auth.service.impl;
 
-import com.ahao.core.spring.config.SpringConfig;
-import com.ahao.core.util.lang.ArrayHelper;
-import com.ahao.core.util.lang.StringHelper;
+import com.ahao.commons.spring.config.SpringConfig;
+import com.ahao.commons.util.lang.ArrayHelper;
 import com.ahao.invoice.admin.auth.dao.AuthDAO;
 import com.ahao.invoice.admin.auth.entity.AuthDO;
 import com.ahao.invoice.admin.auth.service.AuthService;
 import com.ahao.invoice.base.service.impl.PageServiceImpl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class AuthServiceImpl extends PageServiceImpl<AuthDO> implements AuthServ
 
     @Override
     public boolean existName(String name) {
-        if (StringHelper.isEmpty(name)) {
+        if (StringUtils.isEmpty(name)) {
             return false;
         }
 

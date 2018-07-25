@@ -1,7 +1,7 @@
 package com.ahao.forum.guitar.manager.profile.controller;
 
-import com.ahao.core.entity.AjaxDTO;
-import com.ahao.core.entity.IDataSet;
+import com.ahao.commons.entity.AjaxDTO;
+import com.ahao.commons.entity.IDataSet;
 import com.ahao.forum.guitar.manager.profile.service.ProfileService;
 import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import org.springframework.stereotype.Controller;

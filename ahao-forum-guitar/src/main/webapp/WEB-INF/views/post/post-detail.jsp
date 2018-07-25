@@ -4,7 +4,7 @@
     <%-- 样式 --%>
     <%@include file="/WEB-INF/views/static/head.jsp" %>
     <%--@elvariable id="isExist" type="java.lang.Boolean"--%>
-    <%--@elvariable id="thread" type="com.ahao.core.entity.IDataSet"--%>
+    <%--@elvariable id="thread" type="com.ahao.commons.entity.IDataSet"--%>
     <title>${isExist ? '编辑回复' : '发表回复'}-电吉他设备选购及知识普及软件平台</title>
     <meta name="threadId" content="${thread.getInt("thread_id")}"/>
 </head>
@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <%--@elvariable id="prePost" type="com.ahao.core.entity.IDataSet"--%>
+    <%--@elvariable id="prePost" type="com.ahao.commons.entity.IDataSet"--%>
     <c:if test="${prePost != null}">
     <div class="row">
         <input type="hidden" name="pre-post-id" value="${prePost.getInt("id")}"/>
@@ -51,7 +51,7 @@
         </div>
     </div>
     </c:if>
-    <%--@elvariable id="post" type="com.ahao.core.entity.IDataSet"--%>
+    <%--@elvariable id="post" type="com.ahao.commons.entity.IDataSet"--%>
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-body">

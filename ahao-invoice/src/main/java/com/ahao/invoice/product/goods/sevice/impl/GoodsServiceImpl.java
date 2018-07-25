@@ -1,6 +1,6 @@
 package com.ahao.invoice.product.goods.sevice.impl;
 
-import com.ahao.core.entity.DataSet;
+import com.ahao.commons.entity.DataSet;
 import com.ahao.invoice.base.service.impl.PageServiceImpl;
 import com.ahao.invoice.product.goods.dao.GoodsDAO;
 import com.ahao.invoice.product.goods.entity.GoodsDO;

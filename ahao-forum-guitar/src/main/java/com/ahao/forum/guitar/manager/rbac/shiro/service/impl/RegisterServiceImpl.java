@@ -1,6 +1,6 @@
 package com.ahao.forum.guitar.manager.rbac.shiro.service.impl;
 
-import com.ahao.core.entity.BaseDO;
+import com.ahao.commons.entity.BaseDO;
 import com.ahao.forum.guitar.manager.rbac.shiro.dao.RegisterMapper;
 import com.ahao.forum.guitar.manager.rbac.shiro.service.RegisterService;
 import org.apache.commons.lang3.StringUtils;

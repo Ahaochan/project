@@ -1,7 +1,7 @@
 package com.ahao.forum.guitar.manager.rbac.user.controller;
 
-import com.ahao.core.entity.AjaxDTO;
-import com.ahao.core.entity.IDataSet;
+import com.ahao.commons.entity.AjaxDTO;
+import com.ahao.commons.entity.IDataSet;
 import com.ahao.forum.guitar.manager.rbac.user.service.PasswordService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;

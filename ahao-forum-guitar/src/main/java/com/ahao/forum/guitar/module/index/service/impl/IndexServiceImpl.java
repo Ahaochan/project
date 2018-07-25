@@ -1,7 +1,7 @@
 package com.ahao.forum.guitar.module.index.service.impl;
 
-import com.ahao.core.entity.IDataSet;
-import com.ahao.core.util.web.RequestHelper;
+import com.ahao.commons.entity.IDataSet;
+import com.ahao.commons.spring.util.RequestHelper;
 import com.ahao.forum.guitar.module.index.dao.IndexMapper;
 import com.ahao.forum.guitar.module.index.service.IndexService;
 import org.apache.commons.lang3.StringUtils;

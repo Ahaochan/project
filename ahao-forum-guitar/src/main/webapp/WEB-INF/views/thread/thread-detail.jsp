@@ -4,7 +4,7 @@
     <%-- 样式 --%>
     <%@include file="/WEB-INF/views/static/head.jsp" %>
     <%--@elvariable id="isExist" type="java.lang.Boolean"--%>
-    <%--@elvariable id="thread" type="com.ahao.core.entity.IDataSet"--%>
+    <%--@elvariable id="thread" type="com.ahao.commons.entity.IDataSet"--%>
     <title>${isExist ? '编辑主题' : '发表主题'}-电吉他设备选购及知识普及软件平台</title>
     <meta name="forumId" content="${thread.getInt("forum_id")}"/>
 </head>

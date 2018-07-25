@@ -1,7 +1,7 @@
 package com.ahao.invoice.unit.controller;
 
-import com.ahao.core.entity.AjaxDTO;
-import com.ahao.core.spring.config.SpringConfig;
+import com.ahao.commons.entity.AjaxDTO;
+import com.ahao.commons.spring.config.SpringConfig;
 import com.ahao.invoice.unit.net.BankApi;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;

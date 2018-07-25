@@ -1,6 +1,6 @@
 package com.ahao.invoice.invoice.service;
 
-import com.ahao.core.entity.IDataSet;
+import com.ahao.commons.entity.IDataSet;
 import com.ahao.invoice.base.service.PageService;
 import com.ahao.invoice.invoice.entity.InvoiceDO;
 import com.alibaba.fastjson.JSONObject;

@@ -29,7 +29,7 @@
             <div class="tab-content tab-pane">
                 <div class="panel panel-default">
                     <%--@elvariable id="isExist" type="java.lang.Boolean"--%>
-                    <%--@elvariable id="profile" type="com.ahao.core.entity.IDataSet"--%>
+                    <%--@elvariable id="profile" type="com.ahao.commons.entity.IDataSet"--%>
                     <div class="panel-heading">个人资料</div>
                     <div class="panel-body">
                         <form class="form-horizontal" id="form-profile">

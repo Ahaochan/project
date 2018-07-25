@@ -1,9 +1,9 @@
 package com.ahao.forum.guitar.manager.rbac.shiro.util;
 
-import com.ahao.core.entity.DataSet;
-import com.ahao.core.entity.IDataSet;
-import com.ahao.core.spring.config.SpringConfig;
-import com.ahao.core.util.lang.CollectionHelper;
+import com.ahao.commons.entity.DataSet;
+import com.ahao.commons.entity.IDataSet;
+import com.ahao.commons.spring.config.SpringConfig;
+import com.ahao.commons.util.lang.CollectionHelper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -1,8 +1,8 @@
 package com.ahao.invoice.invoice.service.impl;
 
-import com.ahao.core.entity.DataSet;
-import com.ahao.core.entity.IDataSet;
-import com.ahao.core.util.lang.math.NumberHelper;
+import com.ahao.commons.entity.DataSet;
+import com.ahao.commons.entity.IDataSet;
+import com.ahao.commons.util.lang.math.NumberHelper;
 import com.ahao.invoice.base.service.impl.PageServiceImpl;
 import com.ahao.invoice.invoice.dao.InvoiceDAO;
 import com.ahao.invoice.invoice.entity.InvoiceDO;

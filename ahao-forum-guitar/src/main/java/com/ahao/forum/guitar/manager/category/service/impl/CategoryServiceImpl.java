@@ -1,8 +1,8 @@
 package com.ahao.forum.guitar.manager.category.service.impl;
 
-import com.ahao.core.entity.BaseDO;
-import com.ahao.core.entity.IDataSet;
-import com.ahao.core.util.lang.math.NumberHelper;
+import com.ahao.commons.entity.BaseDO;
+import com.ahao.commons.entity.IDataSet;
+import com.ahao.commons.util.lang.math.NumberHelper;
 import com.ahao.forum.guitar.manager.category.dao.CategoryMapper;
 import com.ahao.forum.guitar.manager.category.service.CategoryService;
 import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;

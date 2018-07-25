@@ -1,10 +1,10 @@
 package com.ahao.forum.guitar.module.thread.controller;
 
-import com.ahao.core.entity.AjaxDTO;
-import com.ahao.core.entity.DataSet;
-import com.ahao.core.entity.IDataSet;
-import com.ahao.core.util.lang.CollectionHelper;
-import com.ahao.core.util.web.PageIndicator;
+import com.ahao.commons.entity.AjaxDTO;
+import com.ahao.commons.entity.DataSet;
+import com.ahao.commons.entity.IDataSet;
+import com.ahao.commons.html.page.PaginationBootstrap;
+import com.ahao.commons.util.lang.CollectionHelper;
 import com.ahao.forum.guitar.manager.rbac.shiro.util.ShiroHelper;
 import com.ahao.forum.guitar.module.thread.service.ThreadService;
 import com.alibaba.fastjson.JSONObject;
@@ -83,7 +83,7 @@ public class ThreadController {
         // 2. 获取分页器
         PageInfo<IDataSet> pageInfo = new PageInfo<>(list);
         long total = pageInfo.getTotal();
-        String pageIndicator = PageIndicator.getBootstrap(total, page, pageSize);
+        String pageIndicator = PaginationBootstrap.getBootstrap(total, page, pageSize);
         result.put("pageIndicator", pageIndicator);
         return AjaxDTO.success(result);
     }

@@ -8,7 +8,9 @@
     <artifactId>ahao-all</artifactId>
     <version>1.0</version>
     <modules>
-        <module>ahao-core</module>
+        <module>ahao-core-commons</module>
+        <module>ahao-core-spring</module>
+        <module>ahao-core-mybatis</module>
         <module>ahao-invoice</module>
         <module>ahao-forum-guitar</module>
     </modules>
@@ -40,13 +42,36 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--======================== 自定义通用类库 =========================-->
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>com.ahao</groupId>
+                <artifactId>ahao-core-commons</artifactId>
+                <version>1.0</version>
             </dependency>
+            <dependency>
+                <groupId>com.ahao</groupId>
+                <artifactId>ahao-core-mybatis</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ahao</groupId>
+                <artifactId>ahao-core-spring</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <!--======================== 自定义通用类库 =========================-->
+
+            <!--======================== 数据库相关 =========================-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.44</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.1.0</version>
+            </dependency>
+            <!--======================== 数据库相关 =========================-->
         </dependencies>
     </dependencyManagement>
 
@@ -66,89 +91,7 @@
             <version>1.2.34</version>
         </dependency>
 
-        <!-- apache通用工具 -->
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.3.3</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.5</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>3.2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>1.10</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>3.17</version>
-        </dependency>
-
-        <!--spring start -->
-        <!-- spring dao 依赖 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
-
-        <!--spring web依赖 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-        </dependency>
-
-        <!--spring 单元测试依赖 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-        </dependency>
-        <!--spring end -->
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.8.9</version>
-        </dependency>
-
+        <!--======================== JSP相关 =========================-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -171,11 +114,9 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+        <!--======================== JSP相关 =========================-->
 
-
-
-
-        <!-- 日志 java 日志：slf4j 是规范、接口 log4j\logback\common-logging 是实现 -->
+        <!--======================== 日志相关 =========================-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -196,34 +137,7 @@
             <artifactId>jcl-over-slf4j</artifactId>
             <version>1.7.25</version>
         </dependency>
-
-        <!-- connection pool start -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-        <!-- connection pool end -->
-
-        <!--MySQL 数据库连接-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.44</version>
-        </dependency>
-
-
-        <!--MyBatis Spring 整合-->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.4.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>1.3.1</version>
-        </dependency>
+        <!--======================== 日志相关 =========================-->
     </dependencies>
 
 

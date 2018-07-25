@@ -22,7 +22,7 @@
     </listener>
 
     <listener>
-        <listener-class>com.ahao.core.spring.listener.SpringConfigInitListener</listener-class>
+        <listener-class>com.ahao.commons.spring.listener.SpringConfigInitListener</listener-class>
     </listener>
 
     <listener>
@@ -68,7 +68,7 @@
 
     <filter>
         <filter-name>PageFilter</filter-name>
-        <filter-class>com.ahao.core.filter.PageFilter</filter-class>
+        <filter-class>com.ahao.commons.filter.PageFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>PageFilter</filter-name>
@@ -101,7 +101,7 @@
     <!-- =================================================================== -->
     <servlet>
         <servlet-name>ConfigServlet</servlet-name>
-        <servlet-class>com.ahao.core.servlet.ConfigServlet</servlet-class>
+        <servlet-class>com.ahao.commons.servlet.ConfigServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

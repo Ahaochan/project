@@ -3,7 +3,7 @@
 <head>
     <%-- 样式 --%>
     <%@include file="/WEB-INF/views/static/head.jsp" %>
-    <%--@elvariable id="forum" type="com.ahao.core.entity.IDataSet"--%>
+    <%--@elvariable id="forum" type="com.ahao.commons.entity.IDataSet"--%>
     <meta name="forumId" content="${forum.getInt("id")}"/>
     <title>电吉他设备选购及知识普及软件平台-${forum.getString("name")}</title>
 </head>

@@ -9,11 +9,11 @@
         http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 扫描aop相关的bean  -->
-    <context:component-scan base-package="com.ahao.forum.guitar" use-default-filters="false" name-generator="com.ahao.core.spring.bean.PackageBeanNameGenerator">
+    <context:component-scan base-package="com.ahao.forum.guitar" use-default-filters="false" name-generator="com.ahao.commons.spring.bean.PackageBeanNameGenerator">
         <!--  扫描Controller通知  -->
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
         <!--  扫描拦截器  -->
-        <context:include-filter type="annotation" expression="com.ahao.core.shiro.annotation.Interceptor"/>
+        <context:include-filter type="annotation" expression="com.ahao.commons.spring.annotation.Interceptor"/>
     </context:component-scan>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 

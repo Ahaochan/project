@@ -1,7 +1,7 @@
 package com.ahao.invoice.unit.net;
 
-import com.ahao.core.net.HttpClientHelper;
-import com.ahao.core.net.convert.JSONObjectConvert;
+import com.ahao.commons.net.HttpClientHelper;
+import com.ahao.commons.net.convert.JSONObjectConvert;
 
 /**
  * Created by Ahaochan on 2017/8/14.
