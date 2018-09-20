@@ -1,4 +1,4 @@
-package com.ahao.commons.net.convert;
+package com.ahao.commons.http.convert;
 
 import org.apache.commons.lang3.StringUtils;
 

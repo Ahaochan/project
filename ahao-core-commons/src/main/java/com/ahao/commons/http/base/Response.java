@@ -1,12 +1,12 @@
-package com.ahao.commons.net.base;
+package com.ahao.commons.http.base;
 
-import com.ahao.commons.net.adapter.Adapter;
-import com.ahao.commons.net.convert.Convert;
-import com.ahao.commons.net.convert.UTF8Convert;
+import com.ahao.commons.http.adapter.Adapter;
+import com.ahao.commons.http.convert.Convert;
+import com.ahao.commons.http.convert.UTF8Convert;
 import com.ahao.commons.util.CloneHelper;
-import com.ahao.commons.util.JSONHelper;
 import com.ahao.commons.util.lang.ReflectHelper;
 import com.ahao.commons.util.lang.time.DateHelper;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -131,7 +131,7 @@ public class Response {
         logger.trace("[" + url + "]: 转换前的数据为(UTF-8):" + StringUtils.replace(new String(data, StandardCharsets.UTF_8), "\n", " "));
         T origin = convert.convert(data);
         long convertEnd = System.currentTimeMillis();
-        logger.trace("[" + url + "]: 转换后的数据为:" + JSONHelper.toJSONString(origin));
+        logger.trace("[" + url + "]: 转换后的数据为:" + JSONObject.toJSONString(origin));
         logger.trace("[" + url + "]: 转换响应体为" + clazz + "结束, 结束时间:" + DateHelper.getString(convertEnd, DateHelper.yyyyMMdd_hhmmssSSS) +
                 ", 总耗时: " + DateHelper.getBetween(convertStart, convertEnd, TimeUnit.MILLISECONDS) + "毫秒");
 
@@ -139,10 +139,10 @@ public class Response {
         if (adapter != null && origin != null) {
             long adapterStart = System.currentTimeMillis();
             logger.trace("[" + url + "]: 开始加工" + clazz + ", 开始时间:" + DateHelper.getString(adapterStart, DateHelper.yyyyMMdd_hhmmssSSS));
-            logger.trace("[" + url + "]: 加工前的数据为:" + JSONHelper.toJSONString(origin));
+            logger.trace("[" + url + "]: 加工前的数据为:" + JSONObject.toJSONString(origin));
             T result = adapter.adapter(origin);
             long adapterEnd = System.currentTimeMillis();
-            logger.trace("[" + url + "]: 加工后的数据为:" + JSONHelper.toJSONString(result));
+            logger.trace("[" + url + "]: 加工后的数据为:" + JSONObject.toJSONString(result));
             logger.trace("[" + url + "]: 加工" + clazz + "结束, 结束时间:" + DateHelper.getString(adapterEnd, DateHelper.yyyyMMdd_hhmmssSSS) +
                     ", 总耗时: " + DateHelper.getBetween(convertStart, convertEnd, TimeUnit.MILLISECONDS) + "毫秒");
             return result;

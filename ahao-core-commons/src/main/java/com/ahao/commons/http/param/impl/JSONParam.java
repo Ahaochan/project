@@ -1,7 +1,7 @@
-package com.ahao.commons.net.param.impl;
+package com.ahao.commons.http.param.impl;
 
-import com.ahao.commons.net.param.ParamFormatter;
-import com.ahao.commons.util.JSONHelper;
+import com.ahao.commons.http.param.ParamFormatter;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 
@@ -15,7 +15,7 @@ public class JSONParam implements ParamFormatter {
 
     @Override
     public HttpEntity format(Map<String, String> params) {
-        String jsonParam = JSONHelper.toJSONString(params);
+        String jsonParam = JSONObject.toJSONString(params);
         return new StringEntity(jsonParam, "UTF-8");
     }
 

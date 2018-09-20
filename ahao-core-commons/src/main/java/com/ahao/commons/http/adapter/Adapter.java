@@ -1,4 +1,4 @@
-package com.ahao.commons.net.adapter;
+package com.ahao.commons.http.adapter;
 
 /**
  * Created by Ahaochan on 2017/8/14.

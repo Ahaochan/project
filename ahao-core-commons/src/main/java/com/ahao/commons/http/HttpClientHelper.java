@@ -1,7 +1,7 @@
-package com.ahao.commons.net;
+package com.ahao.commons.http;
 
-import com.ahao.commons.net.method.GetMethod;
-import com.ahao.commons.net.method.PostMethod;
+import com.ahao.commons.http.method.GetMethod;
+import com.ahao.commons.http.method.PostMethod;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;

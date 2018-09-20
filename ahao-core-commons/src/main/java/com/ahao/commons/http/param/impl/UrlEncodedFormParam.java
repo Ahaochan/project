@@ -1,6 +1,6 @@
-package com.ahao.commons.net.param.impl;
+package com.ahao.commons.http.param.impl;
 
-import com.ahao.commons.net.param.ParamFormatter;
+import com.ahao.commons.http.param.ParamFormatter;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;

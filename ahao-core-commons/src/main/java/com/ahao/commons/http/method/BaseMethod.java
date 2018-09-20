@@ -1,13 +1,14 @@
-package com.ahao.commons.net.method;
+package com.ahao.commons.http.method;
 
-import com.ahao.commons.net.HttpClientHelper;
-import com.ahao.commons.net.base.Response;
-import com.ahao.commons.net.param.ParamFormatter;
-import com.ahao.commons.net.param.impl.UrlEncodedFormParam;
-import com.ahao.commons.util.JSONHelper;
+import com.ahao.commons.http.HttpClientHelper;
+import com.ahao.commons.http.base.Response;
+import com.ahao.commons.http.param.ParamFormatter;
+import com.ahao.commons.http.param.impl.UrlEncodedFormParam;
 import com.ahao.commons.util.io.IOHelper;
 import com.ahao.commons.util.lang.ReflectHelper;
 import com.ahao.commons.util.lang.time.DateHelper;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -124,7 +125,7 @@ public abstract class BaseMethod<M extends BaseMethod> {
         for (Map.Entry<String, String> entry : header.entrySet()) {
             http.addHeader(entry.getKey(), entry.getValue());
         }
-        logger.debug("["+url+"]: 初始化请求头:"+ JSONHelper.toJSONString(header));
+        logger.debug("["+url+"]: 初始化请求头:"+ JSONObject.toJSONString(header));
 
         // 2. 配置http, 设置超时限制
         RequestConfig requestConfig = RequestConfig.custom()
@@ -146,7 +147,7 @@ public abstract class BaseMethod<M extends BaseMethod> {
             byte[] data = IOHelper.toByte(inputStream);
 
             // 释放IO
-            IOHelper.close(inputStream);
+            IOUtils.closeQuietly(inputStream);
             EntityUtils.consume(entity);
 
             // 将返回的 byte[] 封装到 Response 中, 用于格式化.

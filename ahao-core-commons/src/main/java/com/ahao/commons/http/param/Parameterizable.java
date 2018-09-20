@@ -1,6 +1,6 @@
-package com.ahao.commons.net.param;
+package com.ahao.commons.http.param;
 
-import com.ahao.commons.net.method.BaseMethod;
+import com.ahao.commons.http.method.BaseMethod;
 
 import java.util.Map;
 

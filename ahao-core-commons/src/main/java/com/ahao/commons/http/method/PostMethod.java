@@ -1,7 +1,8 @@
-package com.ahao.commons.net.method;
+package com.ahao.commons.http.method;
 
-import com.ahao.commons.net.param.Parameterizable;
+import com.ahao.commons.http.param.Parameterizable;
 import com.ahao.commons.util.lang.CollectionHelper;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -46,7 +47,7 @@ public class PostMethod extends BaseMethod<PostMethod> implements Parameterizabl
 
     @Override
     public PostMethod setRequestBody(String requestBody) {
-        if(CollectionHelper.isNotEmpty(params)){
+        if(MapUtils.isNotEmpty(params)){
             logger.warn("params已有值:"+params+", requestBody将会覆盖params");
         }
         this.requestBody = requestBody;

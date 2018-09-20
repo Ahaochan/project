@@ -1,4 +1,4 @@
-package com.ahao.commons.net.param;
+package com.ahao.commons.http.param;
 
 import org.apache.http.HttpEntity;
 

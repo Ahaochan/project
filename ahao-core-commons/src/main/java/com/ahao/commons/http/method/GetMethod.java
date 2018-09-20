@@ -1,6 +1,6 @@
-package com.ahao.commons.net.method;
+package com.ahao.commons.http.method;
 
-import com.ahao.commons.net.param.Parameterizable;
+import com.ahao.commons.http.param.Parameterizable;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.slf4j.Logger;
