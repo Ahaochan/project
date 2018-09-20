@@ -1,4 +1,4 @@
-package com.ahao.commons.entity;
+package com.ahao.core.commons.entity;
 
 /**
  * Created by Ahaochan on 2017/7/18.
