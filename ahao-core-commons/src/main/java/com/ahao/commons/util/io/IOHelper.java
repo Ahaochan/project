@@ -49,8 +49,4 @@ public abstract class IOHelper {
         }
         return false;
     }
-
-    public static void close(Closeable closeable) {
-        IOUtils.closeQuietly(closeable);
-    }
 }
