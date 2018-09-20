@@ -1,10 +1,10 @@
-package com.ahao.commons.spring.interceptor;
+package com.ahao.core.spring.interceptor;
 
 
-import com.ahao.commons.spring.context.PageContext;
-import com.ahao.commons.spring.interceptor.annotation.Interceptor;
-import com.ahao.commons.util.lang.StringHelper;
-import com.ahao.commons.util.lang.math.NumberHelper;
+import com.ahao.core.commons.util.lang.StringHelper;
+import com.ahao.core.spring.annotation.Interceptor;
+import com.ahao.core.spring.context.PageContext;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -43,8 +43,8 @@ public class PageInterceptor extends HandlerInterceptorAdapter {
      */
     private void initPageSize(ServletRequest request) {
         String pageSize = request.getParameter(PageContext.PAGE_SIZE);
-//        logger.debug("分页大小:" + pageSize);
-        if (NumberHelper.isNumber(pageSize)) {
+        logger.trace("分页大小:" + pageSize);
+        if (StringUtils.isNumeric(pageSize)) {
             PageContext.setPageSize(Integer.parseInt(pageSize));
         } else {
             PageContext.setPageSize(PageContext.DEFAULT_PAGE_SIZE);
@@ -57,8 +57,8 @@ public class PageInterceptor extends HandlerInterceptorAdapter {
      */
     private void initOrder(ServletRequest request) {
         String order = request.getParameter(PageContext.ORDER);
-//        logger.debug("排序方式:" + order);
-        if (NumberHelper.isNumber(order)) {
+        logger.trace("排序方式:" + order);
+        if (StringUtils.isNotEmpty(order)) {
             PageContext.setOrder(order);
         } else {
             PageContext.setOrder(PageContext.DEFAULT_ORDER);
@@ -71,8 +71,8 @@ public class PageInterceptor extends HandlerInterceptorAdapter {
      */
     private void initSort(ServletRequest request) {
         String sort = request.getParameter(PageContext.SORT);
-//        logger.debug("排序字段:" + sort);
-        if (NumberHelper.isNumber(sort)) {
+        logger.trace("排序字段:" + sort);
+        if (StringUtils.isNotEmpty(sort)) {
             PageContext.setSort(sort);
         } else {
             PageContext.setSort(PageContext.DEFAULT_SORT);
