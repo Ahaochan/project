@@ -2,6 +2,7 @@ package com.ahao.commons.html.page;
 
 import com.ahao.commons.util.lang.StringHelper;
 import com.ahao.commons.util.lang.math.NumberHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +55,7 @@ public class PaginationBootstrap {
     }
 
     private static String createLiTag(int page, String clazz, String text) {
-        String js = StringHelper.equalsAny(clazz, "disabled", "active") ? "void(0)" : "jump(" + page + ")";
+        String js = StringUtils.equalsAny(clazz, "disabled", "active") ? "void(0)" : "jump(" + page + ")";
         return "<li class=\"" + clazz + "\"><a href=\"javascript:" + js + "\">" + text + "</a></li>";
     }
 }
