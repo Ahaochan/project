@@ -1,4 +1,4 @@
-package com.ahao.mybatis.model;
+package com.ahao.core.mybatis.model;
 
 import com.ahao.core.commons.util.lang.math.NumberHelper;
 import com.baomidou.mybatisplus.toolkit.MapUtils;

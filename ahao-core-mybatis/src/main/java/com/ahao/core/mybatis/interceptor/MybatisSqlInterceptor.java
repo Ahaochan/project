@@ -1,4 +1,4 @@
-package com.ahao.mybatis.interceptor;
+package com.ahao.core.mybatis.interceptor;
 
 import com.ahao.commons.util.CloneHelper;
 import org.apache.ibatis.executor.Executor;
@@ -23,7 +23,7 @@ import java.util.Properties;
  * 打印真实调用的SQL, 开发环境使用, 生产环境去除。
  * 在mybatis-config.xml加入下面代码即可。
  * <plugins>
- *     <plugin interceptor="com.ahao.mybatis.interceptor.MybatisSqlInterceptor"/>
+ *     <plugin interceptor="com.ahao.core.mybatis.interceptor.MybatisSqlInterceptor"/>
  * </plugins>
  */
 @Intercepts({
