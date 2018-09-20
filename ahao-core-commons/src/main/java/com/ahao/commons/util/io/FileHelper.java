@@ -11,12 +11,8 @@ import java.io.IOException;
  * Created by Ahaochan on 2017/11/25.
  * 文件操作工具类
  */
-public abstract class FileHelper {
+public class FileHelper {
     private static final Logger logger = LoggerFactory.getLogger(FileHelper.class);
-
-    private FileHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
 
     public static String readString(String path){
         try {

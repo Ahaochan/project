@@ -13,12 +13,8 @@ import java.io.IOException;
  * Created by Ahaochan on 2017/11/23.
  * 简单的Excel处理工具
  */
-public abstract class ExcelHelper {
+public class ExcelHelper {
     private static final Logger logger = LoggerFactory.getLogger(ExcelHelper.class);
-    private ExcelHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
-
 
     public static String[][] readSingleSheet(String path) {
         return readSingleSheet(path, 0);

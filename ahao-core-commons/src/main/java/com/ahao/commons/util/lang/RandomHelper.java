@@ -11,7 +11,7 @@ import java.util.Random;
  * <p>
  * 随机数工具类
  */
-public abstract class RandomHelper {
+public class RandomHelper {
     // 数字数据字典
     public static final String DIST_NUMBER = "0123456789";
     // 小写字母数据字典
@@ -22,11 +22,6 @@ public abstract class RandomHelper {
     public static final String DIST_LETTER = DIST_LETTER_LOWER + DIST_LETTER_UPPER;
     // 数字+字母的数据字典
     public static final String DIST_NUMBER_LETTER = DIST_NUMBER + DIST_LETTER;
-
-
-    private RandomHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
 
     /**
      * 生成[0, endExclusive) 区间内的随机数

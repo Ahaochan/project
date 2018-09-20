@@ -10,12 +10,7 @@ import java.util.*;
  * Created by Ahaochan on 2017/8/6.
  * 集合的操作工具类
  */
-public abstract class CollectionHelper {
-
-    private CollectionHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
-
+public class CollectionHelper {
     /**
      * 获取集合长度, 防止空指针
      */

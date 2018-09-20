@@ -9,12 +9,8 @@ import org.slf4j.LoggerFactory;
  *
  * 数字操作的工具类
  */
-public abstract class NumberHelper {
+public class NumberHelper {
     private static final Logger logger = LoggerFactory.getLogger(NumberHelper.class);
-
-    private NumberHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
 
     /**
      * num 是否在 [min, max] 之间

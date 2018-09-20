@@ -13,13 +13,7 @@ import java.util.Iterator;
  * Created by Ahaochan on 2017/8/10.
  */
 @SuppressWarnings("unchecked")
-public abstract class ArrayHelper {
-    private static final Logger logger = LoggerFactory.getLogger(ArrayHelper.class);
-
-    private ArrayHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
-
+public class ArrayHelper {
     /**
      * 将 collection 转化为数组
      *

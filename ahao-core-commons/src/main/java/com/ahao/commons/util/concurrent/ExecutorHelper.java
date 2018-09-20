@@ -14,7 +14,7 @@ import java.util.concurrent.*;
  * Created by Ahaochan on 2017/10/23.
  * 线程池工具类
  */
-public abstract class ExecutorHelper {
+public class ExecutorHelper {
     private static final Logger logger = LoggerFactory.getLogger(ExecutorHelper.class);
     private static final ExecutorService executor = Executors.newCachedThreadPool();
 

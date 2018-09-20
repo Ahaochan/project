@@ -9,13 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public abstract class WordHelper {
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(WordHelper.class);
-
-    private WordHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
-
+public class WordHelper {
     public static void write(String text, String path) {
         try (XWPFDocument doc = new XWPFDocument();
              FileOutputStream out = new FileOutputStream(path)) {

@@ -9,11 +9,8 @@ import org.slf4j.LoggerFactory;
  * <p>
  * 对未实现复制构造函数的jdk的类进行clone
  */
-public abstract class CloneHelper {
+public class CloneHelper {
     private static final Logger logger = LoggerFactory.getLogger(CloneHelper.class);
-
-    private CloneHelper() {
-    }
 
     public static <T extends Cloneable> T clone(T instance) {
         return ObjectUtils.clone(instance);

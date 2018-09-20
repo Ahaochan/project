@@ -11,13 +11,9 @@ import java.util.Collection;
  * Created by Ahaochan on 2017/8/10.
  * 反射工具类
  */
-public abstract class ReflectHelper {
+public class ReflectHelper {
     private static final Logger logger = LoggerFactory.getLogger(ReflectHelper.class);
     private static final int DEFAULT_ARRAY_LENGTH = 16;
-
-    private ReflectHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
 
     /**
      * 反射创建无参实例

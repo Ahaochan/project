@@ -11,13 +11,7 @@ import java.util.stream.Stream;
  *
  * @author Ahaochan
  */
-public abstract class StringHelper {
-    private static final Logger logger = LoggerFactory.getLogger(StringHelper.class);
-
-    private StringHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
-
+public class StringHelper {
     private static final String IGNORE_SEPARATOR_REGEX = "[\\u0000-\\u002F\\u003A-\\u0040\\u005B-\\u0060\\u007B-\\u007F\\u0080-\\u00FF\\u2000-\\u206F\\u3000-\\u3020\\uFF00-\\uFFEF]{0,20}";
     /* 空字符串 */
     public static final String EMPTY_STRING = StringUtils.EMPTY;

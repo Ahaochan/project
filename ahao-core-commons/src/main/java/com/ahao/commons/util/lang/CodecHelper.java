@@ -12,10 +12,7 @@ import java.nio.charset.StandardCharsets;
  *
  * 加解密工具类
  */
-public abstract class CodecHelper {
-    private CodecHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
+public class CodecHelper {
 
     public static String toBase64(String data){
         return Base64.encodeBase64String(data.getBytes(StandardCharsets.UTF_8));

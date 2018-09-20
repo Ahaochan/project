@@ -16,12 +16,8 @@ import java.io.OutputStream;
  *
  * 对IO的工具类
  */
-public abstract class IOHelper {
+public class IOHelper {
     private static final Logger logger = LoggerFactory.getLogger(IOHelper.class);
-
-    private IOHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
 
     public static String toString(InputStream inputStream) {
         try {

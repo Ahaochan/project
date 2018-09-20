@@ -16,15 +16,11 @@ import java.util.concurrent.TimeUnit;
  * 时间帮助类
  * Created by Ahaochan on 2017/8/21.
  */
-public abstract class DateHelper {
+public class DateHelper {
     private static final Logger logger = LoggerFactory.getLogger(DateHelper.class);
     public static final int DAY_TIME = 24 * 60 * 60 * 1000; // 1天的毫秒数
     public static final String yyyyMMdd = "yyyy-MM-dd";
     public static final String yyyyMMdd_hhmmssSSS = "yyyy-MM-dd HH:mm:ss:SSS";
-
-    private DateHelper() {
-        throw new AssertionError("工具类不允许实例化");
-    }
 
     /**
      * 格式化为 format格式 的日期
