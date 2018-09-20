@@ -1,8 +1,9 @@
-package com.ahao.commons.entity;
+package com.ahao.mybatis.model;
 
-import com.ahao.commons.util.lang.CollectionHelper;
-import com.ahao.commons.util.lang.math.NumberHelper;
+import com.ahao.core.commons.util.lang.math.NumberHelper;
+import com.baomidou.mybatisplus.toolkit.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.type.Alias;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ import java.util.stream.Stream;
  * dao返回对象, 不使用Entity的形式, 返回Map集合
  * 在Map基础上追加转化基本数据类型的方法
  */
+@Alias("DataSet")
 public class DataSet implements IDataSet, Serializable {
     private static final Logger logger = LoggerFactory.getLogger(DataSet.class);
     private static final long serialVersionUID = 7641097398093605780L;
@@ -60,7 +62,7 @@ public class DataSet implements IDataSet, Serializable {
 
     @Override
     public void putAll(Map<? extends String, ?> m) {
-        if (CollectionHelper.isNotEmpty(m)) {
+        if (MapUtils.isNotEmpty(m)) {
             dataMap.putAll(m);
         }
     }

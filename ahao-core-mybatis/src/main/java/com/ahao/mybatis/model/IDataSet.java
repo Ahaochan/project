@@ -1,5 +1,6 @@
-package com.ahao.commons.entity;
+package com.ahao.mybatis.model;
 
+import org.apache.ibatis.type.Alias;
 
 import java.util.*;
 
@@ -8,6 +9,7 @@ import java.util.*;
  * dao返回对象, 不使用Entity的形式, 返回Map集合
  * 在Map基础上追加转化基本数据类型的方法
  */
+@Alias("IDataSet")
 public interface IDataSet extends Map<String, Object> {
 
     @Override

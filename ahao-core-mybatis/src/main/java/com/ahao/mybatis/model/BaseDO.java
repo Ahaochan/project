@@ -1,6 +1,6 @@
-package com.ahao.commons.entity;
+package com.ahao.mybatis.model;
 
-import com.ahao.commons.util.CloneHelper;
+import com.ahao.core.commons.util.CloneHelper;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
