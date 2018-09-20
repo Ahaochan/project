@@ -56,11 +56,13 @@ public abstract class NumberHelper {
             if (obj instanceof Boolean) {
                 return Boolean.valueOf(obj.toString()) ? 1 : 0;
             }
-            return Integer.parseInt(obj.toString());
+            if(!NumberUtils.isCreatable(obj.toString())) {
+                return 0;
+            }
+            return (int) Double.parseDouble(obj.toString());
         } catch (NumberFormatException e) {
-            logger.error("解析数字" + obj + "失败:", e);
+            return 0;
         }
-        return 0;
     }
 
 }
