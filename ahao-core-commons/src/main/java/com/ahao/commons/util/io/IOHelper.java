@@ -29,7 +29,7 @@ public abstract class IOHelper {
         } catch (IOException e) {
             logger.warn("InputStream转换String时发生IO异常:", e);
         }
-        return null;
+        return "";
     }
 
     public static byte[] toByte(InputStream inputStream) {
@@ -38,7 +38,7 @@ public abstract class IOHelper {
         } catch (IOException e) {
             logger.warn("InputStream转换byte[]时发生IO异常:", e);
         }
-        return null;
+        return new byte[0];
     }
 
     public static boolean writeJpg(RenderedImage image, OutputStream output) {
