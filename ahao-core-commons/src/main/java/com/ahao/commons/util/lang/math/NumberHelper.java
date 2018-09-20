@@ -29,7 +29,8 @@ public abstract class NumberHelper {
     public static boolean isBetween(long num, long min, long max) {
         return num >= min && num <= max;
     }
-    public static int between(int min, int max, int number) {
+
+    public static int between(int number, int min, int max) {
         if (min > max) {
             max = min;
         }
