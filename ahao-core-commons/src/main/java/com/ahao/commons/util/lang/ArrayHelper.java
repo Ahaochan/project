@@ -1,5 +1,6 @@
 package com.ahao.commons.util.lang;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public abstract class ArrayHelper {
      * @return 数组
      */
     public static <T> T[] toArray(Collection<T> collection, int offset, int limit) {
-        if (CollectionHelper.isEmpty(collection) || offset > collection.size()) {
+        if (CollectionUtils.isEmpty(collection) || offset > collection.size()) {
             return (T[]) new Object[0];
         }
 
@@ -72,14 +73,5 @@ public abstract class ArrayHelper {
      */
     public static <T> int length(T... array){
         return array == null ? 0 : array.length;
-    }
-
-    /**
-     * 将数组转化为 String 类型
-     * @param elements 数组
-     * @return 字符串
-     */
-    public static <T> String toString(T... elements) {
-        return ArrayUtils.toString(elements);
     }
 }
