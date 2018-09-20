@@ -17,31 +17,6 @@ public abstract class CollectionHelper {
     }
 
     /**
-     * 返回集合是否为空
-     * @param collection 集合
-     * @return 当集合为null, 或没有元素时返回true, 否则返回false
-     */
-    public static boolean isEmpty(Collection<?> collection) {
-        return collection == null || collection.isEmpty();
-    }
-    public static boolean isEmpty(Map<?, ?> map) {
-        return map == null || map.isEmpty();
-    }
-    public static boolean isEmpty(Enumeration<?> enumeration) {
-        return enumeration == null || enumeration.hasMoreElements();
-    }
-
-    public static boolean isNotEmpty(Collection<?> collection) {
-        return !isEmpty(collection);
-    }
-    public static boolean isNotEmpty(Map<?, ?> map) {
-        return !isEmpty(map);
-    }
-    public static boolean isNotEmpty(Enumeration<?> enumeration) {
-        return !isEmpty(enumeration);
-    }
-
-    /**
      * 获取集合长度, 防止空指针
      */
     public static int size(Collection<?> collection) {
@@ -52,19 +27,6 @@ public abstract class CollectionHelper {
     }
     public static int size(Enumeration<?> enumeration) {
         return enumeration == null ? 0 : CollectionUtils.size(enumeration);
-    }
-
-    /**
-     * 返回空集合, 避免返回null, 导致NPE
-     */
-    public static <T> List<T> emptyList(){
-        return Collections.emptyList();
-    }
-    public static <K,V> Map<K,V> emptyMap(){
-        return Collections.emptyMap();
-    }
-    public static <T> Set<T> emptySet(){
-        return Collections.emptySet();
     }
 
     /**
@@ -148,7 +110,7 @@ public abstract class CollectionHelper {
      * @return 若集合为null, 返回false, 若集合中存在元素, 返回true, 若集合中不存在元素, 返回false
      */
     public static <T> boolean contains(Collection<? super T> collection, T elements) {
-        return !isEmpty(collection) && collection.contains(elements);
+        return !CollectionUtils.isEmpty(collection) && collection.contains(elements);
     }
 
     /**
@@ -158,7 +120,7 @@ public abstract class CollectionHelper {
      * @return 如果集合为空, 则返回false. 包含任意一个search, 则返回true.
      */
     public static <T> boolean containAny(Collection<T> collection, T... search){
-        if(isEmpty(collection)){
+        if(CollectionUtils.isEmpty(collection)){
             return false;
         }
         for(T element : collection){
@@ -178,7 +140,7 @@ public abstract class CollectionHelper {
     public static <M extends Map<K, V>, K, V> List<M> retain(List<M> maps, K... keys) {
         @SuppressWarnings("unchecked")
         List<M> list = ReflectHelper.create(maps.getClass());
-        if (isEmpty(maps) || list == null) {
+        if (CollectionUtils.isEmpty(maps) || list == null) {
             return null;
         }
         for (M map : maps) {
@@ -186,23 +148,5 @@ public abstract class CollectionHelper {
             list.add(map);
         }
         return list;
-    }
-
-    /**
-     * 打印输出集合中的元素
-     *
-     * @param collection 集合
-     */
-    public static <T> void print(Collection<T> collection) {
-        if (isEmpty(collection)) {
-            return;
-        }
-        System.out.println("元素类型为:" + collection.iterator().next().getClass());
-        StringBuilder sb = new StringBuilder();
-        for (T item : collection) {
-            sb.append(item).append(",");
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        System.out.println(sb.toString());
     }
 }
