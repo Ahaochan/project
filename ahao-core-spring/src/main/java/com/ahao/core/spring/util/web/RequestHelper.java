@@ -13,6 +13,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Ahaochan on 2017/8/1.
@@ -38,6 +40,32 @@ public abstract class RequestHelper {
     public static String getContextPath(){
         return getRequest().getContextPath();
     }
+
+    // ----------------------- 获取 Header 属性------------------------------
+    public static String getHeader(String key) {
+        HttpServletRequest request = getRequest();
+        return getHeader(key, request);
+    }
+
+    public static String getHeader(String key, HttpServletRequest request) {
+        if(StringUtils.isEmpty(key) || request == null) {
+            return "";
+        }
+        return request.getHeader(key);
+    }
+
+    public static List<String> getHeaders(String key) {
+        HttpServletRequest request = getRequest();
+        return getHeaders(key, request);
+    }
+
+    public static List<String> getHeaders(String key, HttpServletRequest request) {
+        if(StringUtils.isEmpty(key) || request == null) {
+            return Collections.emptyList();
+        }
+        return Collections.list(request.getHeaders(key));
+    }
+    // ----------------------- 获取 Header 属性------------------------------
 
     // ----------------------- 设置 Attribute 属性------------------------------
     /**
