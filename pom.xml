@@ -78,6 +78,11 @@
                 <artifactId>ahao-core-spring</artifactId>
                 <version>${ahao.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.ahao</groupId>
+                <artifactId>ahao-core-mybatis</artifactId>
+                <version>${ahao.version}</version>
+            </dependency>
             <!--======================================================= 自定义的模块 =======================================================-->
 
             <!--======================================================= Spring Boot =======================================================-->
@@ -178,6 +183,11 @@
                 <artifactId>shiro-ehcache</artifactId>
                 <version>${shiro.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
             <!--======================================================= 权限相关 =======================================================-->
 
             <!--======================================================= swagger相关 =======================================================-->
@@ -213,16 +223,6 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.penggle</groupId>
-                <artifactId>kaptcha</artifactId>
-                <version>${kaptcha.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.ehcache</groupId>
