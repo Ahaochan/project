@@ -1,0 +1,6 @@
+spring:
+  quartz:
+    enabled: false
+    invoke-method: execute # 默认的定时任务类的方法, 无参
+    cron-task:  # 定时任务, 格式为   Spring Bean名: cron表达式
+#      com.ahao.DemoTask: 0 0 0 ? ? 6 *
