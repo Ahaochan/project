@@ -16,11 +16,11 @@
     <dependencies>
         <dependency>
             <groupId>com.ahao</groupId>
-            <artifactId>ahao-core-mybatis</artifactId>
+            <artifactId>ahao-mybatis</artifactId>
         </dependency>
         <dependency>
             <groupId>com.ahao</groupId>
-            <artifactId>ahao-core-spring</artifactId>
+            <artifactId>ahao-spring</artifactId>
         </dependency>
 
         <dependency>

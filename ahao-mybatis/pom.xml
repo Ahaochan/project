@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0</version>
 
-    <artifactId>ahao-core-mybatis</artifactId>
+    <artifactId>ahao-mybatis</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -38,6 +38,11 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
             <scope>provided</scope>
         </dependency>
         <!--======================================================= 数据库相关 =======================================================-->

@@ -1,4 +1,4 @@
-package com.ahao.core.mybatis.model;
+package com.ahao.mybatis.model;
 
 import com.ahao.core.commons.util.CloneHelper;
 import org.apache.commons.lang3.builder.EqualsBuilder;
