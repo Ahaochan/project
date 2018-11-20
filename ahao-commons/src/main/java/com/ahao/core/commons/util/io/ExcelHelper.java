@@ -64,4 +64,15 @@ public class ExcelHelper {
         return cell.getStringCellValue();
     }
 
+
+    public static void main(String[] args) {
+
+        for(int i = 1; i <= 200; i++) {
+            for (int j = 0; j <= 200; j++){
+                if((6*i+17*j)==200) {
+                    System.out.println(i+","+j+","+(6*i+17*j)+","+(6*i)+","+(17*j));
+                }
+            }
+        }
+    }
 }

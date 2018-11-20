@@ -17,7 +17,7 @@
     </parent>
 
     <modules>
-        <module>ahao-core-commons</module>
+        <module>ahao-commons</module>
         <module>ahao-spring</module>
         <module>ahao-mybatis</module>
         <module>ahao-invoice</module>
@@ -71,7 +71,7 @@
             <!--======================================================= 自定义的模块 =======================================================-->
             <dependency>
                 <groupId>com.ahao</groupId>
-                <artifactId>ahao-core-commons</artifactId>
+                <artifactId>ahao-commons</artifactId>
                 <version>${ahao.version}</version>
             </dependency>
             <dependency>
