@@ -12,7 +12,16 @@ import org.slf4j.LoggerFactory;
 public class CloneHelper {
     private static final Logger logger = LoggerFactory.getLogger(CloneHelper.class);
 
-    public static <T extends Cloneable> T clone(T instance) {
-        return ObjectUtils.clone(instance);
+    public static <T> T clone(T instance) {
+        if(instance == null) {
+            return null;
+        }
+
+        if(instance instanceof Cloneable) {
+            return ObjectUtils.clone(instance);
+        } else if(instance instanceof String) {
+            return (T) new String(String.valueOf(instance));
+        }
+        return null;
     }
 }
