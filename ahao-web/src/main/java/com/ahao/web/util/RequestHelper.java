@@ -1,4 +1,4 @@
-package com.ahao.core.spring.util.web;
+package com.ahao.web.util;
 
 import com.ahao.core.commons.util.lang.math.NumberHelper;
 import org.apache.commons.lang3.ArrayUtils;

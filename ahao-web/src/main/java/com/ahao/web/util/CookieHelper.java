@@ -1,4 +1,4 @@
-package com.ahao.core.spring.util.web;
+package com.ahao.web.util;
 
 
 import org.apache.commons.lang3.ArrayUtils;
