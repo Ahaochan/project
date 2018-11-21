@@ -1,6 +1,6 @@
 package com.ahao.commons.util.lang.math;
 
-import com.ahao.core.commons.util.lang.math.NumberHelper;
+import com.ahao.commons.util.lang.math.NumberHelper;
 import org.junit.Test;
 
 import java.math.BigDecimal;

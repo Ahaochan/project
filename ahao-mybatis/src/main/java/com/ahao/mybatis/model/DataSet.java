@@ -1,6 +1,6 @@
 package com.ahao.mybatis.model;
 
-import com.ahao.core.commons.util.lang.math.NumberHelper;
+import com.ahao.commons.util.lang.math.NumberHelper;
 import com.baomidou.mybatisplus.toolkit.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.Alias;

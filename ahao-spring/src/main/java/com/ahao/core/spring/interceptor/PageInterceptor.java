@@ -1,7 +1,7 @@
 package com.ahao.core.spring.interceptor;
 
 
-import com.ahao.core.commons.util.lang.StringHelper;
+import com.ahao.commons.util.lang.StringHelper;
 import com.ahao.core.spring.annotation.Interceptor;
 import com.ahao.core.spring.context.PageContext;
 import org.apache.commons.lang3.StringUtils;

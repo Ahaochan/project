@@ -1,6 +1,6 @@
 package com.ahao.web.aop;
 
-import com.ahao.core.commons.entity.AjaxDTO;
+import com.ahao.commons.entity.AjaxDTO;
 import com.ahao.web.exception.AhaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

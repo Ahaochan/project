@@ -1,6 +1,6 @@
 package com.ahao.commons.util.lang;
 
-import com.ahao.core.commons.util.lang.ArrayHelper;
+import com.ahao.commons.util.lang.ArrayHelper;
 import org.junit.Assert;
 import org.junit.Test;
 
