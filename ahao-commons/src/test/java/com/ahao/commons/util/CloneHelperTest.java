@@ -16,6 +16,13 @@ public class CloneHelperTest {
     }
 
     @Test
+    public void testNullClone() {
+        Object null1 = null;
+        Object null2 = CloneHelper.clone(null1);
+        Assert.assertTrue(null1 == null2);
+    }
+
+    @Test
     public void testStringClone() {
         String str1 = "hello";
         String str2 = CloneHelper.clone(str1);
@@ -30,4 +37,6 @@ public class CloneHelperTest {
         }
         Assert.assertTrue(eq);
     }
+
+
 }
