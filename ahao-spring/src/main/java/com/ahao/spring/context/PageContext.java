@@ -1,6 +1,6 @@
-package com.ahao.core.spring.context;
+package com.ahao.spring.context;
 
-import com.ahao.core.spring.util.web.SessionHelper;
+import com.ahao.spring.util.web.SessionHelper;
 
 import javax.servlet.http.HttpSession;
 

@@ -1,9 +1,9 @@
-package com.ahao.core.spring.interceptor;
+package com.ahao.spring.interceptor;
 
 
 import com.ahao.commons.util.lang.StringHelper;
-import com.ahao.core.spring.annotation.Interceptor;
-import com.ahao.core.spring.context.PageContext;
+import com.ahao.spring.annotation.Interceptor;
+import com.ahao.spring.context.PageContext;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

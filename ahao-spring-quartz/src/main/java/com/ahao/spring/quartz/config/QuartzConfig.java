@@ -1,8 +1,8 @@
 package com.ahao.spring.quartz.config;
 
-import com.ahao.core.spring.util.SpringContextHolder;
 import com.ahao.spring.beans.AutowiringSpringBeanJobFactory;
 import com.ahao.spring.quartz.config.properties.QuartzProperties;
+import com.ahao.spring.util.SpringContextHolder;
 import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ import java.text.ParseException;
 import java.util.Properties;
 
 @Configuration
-@DependsOn("com.ahao.core.spring.util.SpringContextHolder")
+@DependsOn("com.ahao.spring.util.SpringContextHolder")
 @ConditionalOnProperty(name = "spring.quartz.enabled", havingValue = "true")
 public class QuartzConfig {
     private static final Logger logger = LoggerFactory.getLogger(QuartzConfig.class);

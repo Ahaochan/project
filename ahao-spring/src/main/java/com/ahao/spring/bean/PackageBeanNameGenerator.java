@@ -1,4 +1,4 @@
-package com.ahao.core.spring.bean;
+package com.ahao.spring.bean;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.ahao.core.spring.util;
+package com.ahao.spring.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
