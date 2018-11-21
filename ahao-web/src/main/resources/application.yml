@@ -1,0 +1,5 @@
+ahao:
+  web:
+    upload:
+      file-upload-path: d:/tmp/        # 文件上传目录(不配置的话为java.io.tmpdir目录), 推荐设置绝对路径
+      file-prefix-path: /UploadFile/   # 文件上传返回的路径, 用于外部用户访问文件
