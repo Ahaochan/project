@@ -2,9 +2,9 @@ package com.ahao.commons.util.lang;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Ahaochan on 2017/8/6.
@@ -47,30 +47,7 @@ public class CollectionHelper {
         if (ArrayUtils.isEmpty(elements)) {
             return new ArrayList<>();
         }
-        List<T> list = new ArrayList<>(elements.length);
-        add(list, elements);
-        return list;
-    }
-
-    /**
-     * 将 数组 转化为 collection
-     *
-     * @param elements 数组
-     * @param offset   起始偏移，小于等于0代表不偏移。如果偏移大于数组长度，则返回空列表.
-     * @param limit    要转换的记录数，不能大于数组长度，小于等于0代表不限制
-     * @return 数组
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> List<T> toList(T[] elements, int offset, int limit) {
-        if (ArrayUtils.isEmpty(elements) || offset > elements.length) {
-            return new ArrayList<>();
-        }
-
-        offset = NumberUtils.max(0, offset);
-        int end = limit == 0 ? elements.length : offset + limit;
-
-        return toList(ArrayUtils.subarray(elements,
-                offset, end));
+        return Arrays.stream(elements).collect(Collectors.toList());
     }
 
     /**
@@ -80,9 +57,10 @@ public class CollectionHelper {
      * @return 集合, 一般为 HashSet
      */
     public static <T> Set<T> toSet(T... elements) {
-        Set<T> set = new HashSet<>(elements.length);
-        add(set, elements);
-        return set;
+        if (ArrayUtils.isEmpty(elements)) {
+            return new HashSet<>();
+        }
+        return Arrays.stream(elements).collect(Collectors.toSet());
     }
 
     /**
@@ -133,15 +111,8 @@ public class CollectionHelper {
      * @return 压缩后的Map
      */
     public static <M extends Map<K, V>, K, V> List<M> retain(List<M> maps, K... keys) {
-        @SuppressWarnings("unchecked")
-        List<M> list = ReflectHelper.create(maps.getClass());
-        if (CollectionUtils.isEmpty(maps) || list == null) {
-            return null;
-        }
-        for (M map : maps) {
-            map.keySet().retainAll(toList(keys));
-            list.add(map);
-        }
-        return list;
+        return maps.stream()
+                .peek(m -> m.keySet().retainAll(toList(keys)))
+                .collect(Collectors.toList());
     }
 }
