@@ -58,4 +58,24 @@ public class CollectionHelperTest {
         Assert.assertTrue (CollectionHelper.containAny(list, "1", "5"));
     }
 
+
+    @Test
+    public void retain() {
+        // TODO lambda 能否直接将 Array 转为 List<Map> ?
+        List<Map<String, String>> list = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            final int j = i;
+            list.add(Stream.of("1", "2", "3").collect(Collectors.toMap(s -> "key" + s, s -> "value" + s + j)));
+        }
+
+        Assert.assertEquals(0, CollectionHelper.retain(null).size());
+
+        List<Map<String, String>> retain = CollectionHelper.retain(list, "key1", "key3");
+        for (Map<String, String> item : retain) {
+            Assert.assertEquals(2, item.keySet().size());
+            Assert.assertTrue(item.keySet().contains("key1"));
+            Assert.assertFalse(item.keySet().contains("key2"));
+            Assert.assertTrue(item.keySet().contains("key3"));
+        }
+    }
 }
