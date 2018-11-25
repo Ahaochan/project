@@ -3,7 +3,7 @@ ahao:
     upload:
       profile: local # 上传环境, local上传到本机, remote上传到远程服务器
       file-save-uri: d:/tmp/        # 文件上传uri(不配置的话为java.io.tmpdir目录), 推荐设置绝对路径
-      file-prifix-uri: /UploadFile/ # 文件上传返回的路径, 用于外部用户访问文件
+      file-prefix-uri: /UploadFile/ # 文件上传返回的路径, 用于外部用户访问文件
 
 spring:
   mvc:
