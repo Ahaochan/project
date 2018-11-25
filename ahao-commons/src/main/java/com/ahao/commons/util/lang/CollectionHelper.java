@@ -26,7 +26,6 @@ public class CollectionHelper {
 
     /**
      * 往 collection 集合中添加元素
-     *
      * @param collection 集合
      * @param elements   变长数组的元素
      * @param <T>        集合元素类型
@@ -39,7 +38,6 @@ public class CollectionHelper {
 
     /**
      * 将数组元素变为 List 集合类型
-     *
      * @param elements 所有元素
      * @return 集合, 一般为 ArrayList
      */
@@ -53,7 +51,6 @@ public class CollectionHelper {
 
     /**
      * 将数组元素变为 Set 集合类型
-     *
      * @param elements 所有元素
      * @return 集合, 一般为 HashSet
      */
@@ -66,7 +63,6 @@ public class CollectionHelper {
 
     /**
      * 返回子集合, 兼容越界情况
-     *
      * @param list                集合
      * @param startIndexInclusive 开始位置, 包括
      * @param endIndexExclusive   结束位置, 不包括
@@ -78,7 +74,6 @@ public class CollectionHelper {
 
     /**
      * collection 集合是否存在元素 elements
-     *
      * @param collection 集合
      * @param elements   元素
      * @return 若集合为null, 返回false, 若集合中存在元素, 返回true, 若集合中不存在元素, 返回false
