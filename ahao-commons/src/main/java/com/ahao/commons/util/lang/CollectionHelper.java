@@ -88,12 +88,12 @@ public class CollectionHelper {
      * @param search 待查找的值
      * @return 如果集合为空, 则返回false. 包含任意一个search, 则返回true.
      */
-    public static <T> boolean containAny(Collection<T> collection, T... search){
-        if(CollectionUtils.isEmpty(collection)){
+    public static <T> boolean containAny(Collection<T> collection, T... search) {
+        if (CollectionUtils.isEmpty(collection)) {
             return false;
         }
-        for(T element : collection){
-            if(element.equals(search)){
+        for (T element : search) {
+            if (contains(collection, element)) {
                 return true;
             }
         }
