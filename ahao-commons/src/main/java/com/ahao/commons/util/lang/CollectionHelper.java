@@ -69,7 +69,7 @@ public class CollectionHelper {
      * @return 子集合
      */
     public static <T> List<T> subList(List<T> list, int startIndexInclusive, int endIndexExclusive) {
-        return list.subList(Math.max(0, startIndexInclusive), Math.min(list.size(), endIndexExclusive));
+        return list == null ? Collections.emptyList() : list.subList(Math.max(0, startIndexInclusive), Math.min(list.size(), endIndexExclusive));
     }
 
     /**
