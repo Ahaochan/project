@@ -78,4 +78,12 @@ public class CollectionHelperTest {
             Assert.assertTrue(item.keySet().contains("key3"));
         }
     }
+
+    @Test
+    public void getFirst() {
+        List<String> list = CollectionHelper.toList("1", "2", "3", "4");
+
+        Assert.assertNull(CollectionHelper.getFirst(null));
+        Assert.assertEquals("1", CollectionHelper.getFirst(list));
+    }
 }
