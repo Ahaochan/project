@@ -114,9 +114,7 @@ public class CollectionHelper {
 
     /**
      * 获取第一个子元素
-     * @param collection
-     * @param <T>
-     * @return
+     * @param collection 集合
      */
     public static <T> T getFirst(Collection<T> collection) {
         return CollectionUtils.isEmpty(collection) ? null : collection.iterator().next();
