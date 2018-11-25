@@ -107,9 +107,10 @@ public class CollectionHelper {
      * @return 压缩后的Map
      */
     public static <M extends Map<K, V>, K, V> List<M> retain(List<M> maps, K... keys) {
-        return maps.stream()
-                .peek(m -> m.keySet().retainAll(toList(keys)))
-                .collect(Collectors.toList());
+        return CollectionUtils.isEmpty(maps) ? Collections.emptyList() :
+                maps.stream()
+                        .peek(m -> m.keySet().retainAll(toList(keys)))
+                        .collect(Collectors.toList());
     }
 
     /**
