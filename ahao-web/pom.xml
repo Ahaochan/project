@@ -22,5 +22,13 @@
             <groupId>com.ahao</groupId>
             <artifactId>ahao-spring</artifactId>
         </dependency>
+
+
+        <!--======================================================= web相关 =======================================================-->
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <!--======================================================= web相关 =======================================================-->
     </dependencies>
 </project>
