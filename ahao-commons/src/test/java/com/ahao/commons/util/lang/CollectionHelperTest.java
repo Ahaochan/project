@@ -42,7 +42,20 @@ public class CollectionHelperTest {
         Assert.assertEquals(2, CollectionHelper.subList(list, 0, 2).size());
         Assert.assertEquals(2, CollectionHelper.subList(list, -1, 2).size());
         Assert.assertEquals(4, CollectionHelper.subList(list, 0, 999).size());
+    }
 
+
+    @Test
+    public void contains() {
+        List<String> list = CollectionHelper.toList("1", "2", "3", "4");
+
+        Assert.assertFalse(CollectionHelper.contains(null, "1"));
+        Assert.assertFalse(CollectionHelper.contains(list, "5"));
+        Assert.assertTrue (CollectionHelper.contains(list, "1"));
+
+        Assert.assertFalse(CollectionHelper.containAny(null, "1", null));
+        Assert.assertFalse(CollectionHelper.containAny(list, "5", "6"));
+        Assert.assertTrue (CollectionHelper.containAny(list, "1", "5"));
     }
 
 }
