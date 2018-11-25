@@ -43,7 +43,8 @@ public class CollectionHelper {
      * @param elements 所有元素
      * @return 集合, 一般为 ArrayList
      */
-    public static <T> List<T> toList(T[] elements) {
+    @SafeVarargs
+    public static <T> List<T> toList(T... elements) {
         if (ArrayUtils.isEmpty(elements)) {
             return new ArrayList<>();
         }
@@ -114,5 +115,15 @@ public class CollectionHelper {
         return maps.stream()
                 .peek(m -> m.keySet().retainAll(toList(keys)))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 获取第一个子元素
+     * @param collection
+     * @param <T>
+     * @return
+     */
+    public static <T> T getFirst(Collection<T> collection) {
+        return CollectionUtils.isEmpty(collection) ? null : collection.iterator().next();
     }
 }
