@@ -17,7 +17,7 @@
 <p id="json"></p>
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script>
-    jQuery(function () {
+    jQuery(function ($) {
         var ctx = $('meta[name="ctx"]').attr('content');
 
         if(window.FormData === undefined) {
