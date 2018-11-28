@@ -31,10 +31,10 @@
             $.ajax({
                 type: 'POST',
                 url: ctx+'/upload/file',
-                cache: false,
+                cache: false,       // 上传文件不需要缓存
                 data: formData,
-                processData: false,
-                contentType: false,
+                processData: false, // 因为data值是formData对象，不需要对数据进行处理
+                contentType: false, // 因为是由<form>表单构造的FormData对象，且已经声明了属性enctype="multipart/form-data"，所以这里设置为false
                 success: function (json) {
                     $('#json').html('返回结果:'+JSON.stringify(json));
                 }
