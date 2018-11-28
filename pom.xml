@@ -23,6 +23,8 @@
         <module>ahao-invoice</module>
         <module>ahao-forum-guitar</module>
         <module>ahao-shiro-sso</module>
+        <module>ahao-spring-quartz</module>
+        <module>ahao-web</module>
     </modules>
 
     <properties>
