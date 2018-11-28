@@ -17,21 +17,28 @@
 <p id="json"></p>
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script>
-    var ctx = $('meta[name="ctx"]').attr('content');
+    jQuery(function () {
+        var ctx = $('meta[name="ctx"]').attr('content');
 
-    $('#upload').on('click', function () {
-        var formData = new FormData();
-        formData.append('file', $('#file')[0].files[0]);
-        $.ajax({
-            type: 'POST',
-            url: ctx+'/upload/file',
-            cache: false,
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (json) {
-                $('#json').html('返回结果:'+JSON.stringify(json));
-            }
+        if(window.FormData === undefined) {
+            $('#json').html('该浏览器不支持FormData');
+            return;
+        }
+
+        $('#upload').on('click', function () {
+            var formData = new FormData();
+            formData.append('file', $('#file')[0].files[0]);
+            $.ajax({
+                type: 'POST',
+                url: ctx+'/upload/file',
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (json) {
+                    $('#json').html('返回结果:'+JSON.stringify(json));
+                }
+            });
         });
     });
 </script>
