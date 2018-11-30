@@ -2,6 +2,7 @@ package com.ahao.web.module.upload.controller;
 
 import com.ahao.web.module.upload.model.UploadDTO;
 import com.ahao.web.module.upload.service.UploadService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +32,15 @@ public class UploadController {
     @PostMapping("/file")
     public UploadDTO file(@RequestParam("file") MultipartFile upload) {
         return uploadService.file(upload);
+    }
+
+    /**
+     * 上传 input[type="file"] 的文件, 兼容 IE8 及 IE8以下
+     * 设置 produces = text/json;charset=UTF-8, 避免 IE 将 JSON 自动下载的问题
+     * @param upload 文件
+     */
+    @PostMapping(value = "/ie/file", produces = "text/json;charset=UTF-8")
+    public String ieFile(@RequestParam("file") MultipartFile upload) {
+        return JSONObject.toJSONString(uploadService.file(upload));
     }
 }
