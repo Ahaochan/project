@@ -23,6 +23,14 @@
             <artifactId>ahao-spring</artifactId>
         </dependency>
 
+        <!--======================================================= Spring Boot =======================================================-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--======================================================= Spring Boot =======================================================-->
+
 
         <!--======================================================= JSP相关 =======================================================-->
         <dependency>
