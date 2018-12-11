@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 /**
  * Created by Ahaochan on 2017/8/10.
@@ -70,6 +71,20 @@ public class Response {
     }
 
     /**
+     * 格式化数据, 不进行二次加工数据, 反射创建转换器, 适配 java8
+     *
+     * @param convert 进行格式化的转换器
+     * @param <T>     返回数据类型
+     * @param <C>     进行格式化的转换器的类型
+     * @return 返回格式化后的数据
+     */
+    public <T, C extends Convert<T>> T convert(Supplier<C> convert) {
+        // 进行转换和加工
+        T result = adapter(convert.get(), (Adapter<T>) null);
+        return result;
+    }
+
+    /**
      * 格式化数据, 不进行二次加工数据
      * @param convert 进行格式化的转换器
      * @param <T>     返回数据类型
@@ -101,6 +116,21 @@ public class Response {
     }
 
     /**
+     * 格式化数据, 进行二次加工数据, 反射创建转换器和适配器, 适配 java8
+     * @param convert 进行格式化的转换器
+     * @param adapter 进行二次加工的适配器
+     * @param <T>          返回数据类型
+     * @param <C>          进行格式化的转换器的类型
+     * @param <A>          进行二次加工的适配器的类型
+     * @return 返回格式化后的数据
+     */
+    public <T, C extends Convert<T>, A extends Adapter<T>> T adapter(Supplier<C> convert, Supplier<A> adapter) {
+        // 进行转换和加工
+        T result = adapter(convert.get(), adapter.get());
+        return result;
+    }
+
+    /**
      * 格式化数据, 进行二次加工数据, 反射创建转换器
      * @param convertClass 进行格式化的转换器
      * @param adapter      进行二次加工的适配器
@@ -113,6 +143,20 @@ public class Response {
         C converter = ReflectHelper.create(convertClass);
         // 进行转换和加工
         T result = adapter(converter, adapter);
+        return result;
+    }
+
+    /**
+     * 格式化数据, 进行二次加工数据, 反射创建转换器, 适配 java8
+     * @param convert 进行格式化的转换器
+     * @param adapter      进行二次加工的适配器
+     * @param <T>          返回数据类型
+     * @param <C>          进行格式化的转换器的类型
+     * @return 返回格式化后的数据
+     */
+    public <T, C extends Convert<T>> T adapter(Supplier<C> convert, Adapter<T> adapter) {
+        // 进行转换和加工
+        T result = adapter(convert.get(), adapter);
         return result;
     }
 

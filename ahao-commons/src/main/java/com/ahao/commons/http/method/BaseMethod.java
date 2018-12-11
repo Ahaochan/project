@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 /**
  * Created by Ahaochan on 2017/8/10.
@@ -76,6 +77,15 @@ public abstract class BaseMethod<M extends BaseMethod> {
     @SuppressWarnings("unchecked")
     public M paramType(ParamFormatter paramFormatter) {
         this.paramFormatter = paramFormatter;
+        return (M) this;
+    }
+
+    /**
+     * @param paramFormatter 不同数据源的参数格式化器, 适配 java8
+     * @return 返回this自身, 用于链式调用
+     */
+    public M paramType(Supplier<ParamFormatter> paramFormatter) {
+        this.paramFormatter = paramFormatter.get();
         return (M) this;
     }
 
