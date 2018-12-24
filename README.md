@@ -8,6 +8,7 @@
   - ahao-shiro-sso (基于Shiro的单点登录系统, 开发中)
   - ahao-spring
   - ahao-spring-quartz (使用yml自动配置定时任务)
+  - ahoa-spring-cloud-eureka (服务注册中心 Demo)
   - ahao-web (Web项目通用代码)
   - ahao-forum-guitar (论坛项目, 放弃维护)
   - ahao-invoice (企业增值税数据分析系统, 放弃维护)
