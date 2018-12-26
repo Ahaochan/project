@@ -18,39 +18,28 @@
 
     <modules>
         <module>ahao-commons</module>
-        <module>ahao-spring</module>
         <module>ahao-mybatis</module>
-        <module>ahao-invoice</module>
-        <module>ahao-forum-guitar</module>
         <module>ahao-shiro-sso</module>
+        <module>ahao-spring</module>
+        <module>ahao-spring-cloud-eureka</module>
         <module>ahao-spring-quartz</module>
         <module>ahao-web</module>
+
+        <!--<module>ahao-forum-guitar</module>-->
+        <!--<module>ahao-invoice</module>-->
     </modules>
 
     <properties>
-        <ahao.version>1.0.0</ahao.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+
+        <ahao.version>1.0.0</ahao.version>
+
         <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.RC2</spring-cloud.version>
 
-        <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
-        <shiro.version>1.3.2</shiro.version>
-        <mybatis-plus.version>2.3</mybatis-plus.version>
         <fastjson.version>1.2.47</fastjson.version>
-        <velocity.version>1.7</velocity.version>
-        <kaptcha.version>2.3.2</kaptcha.version>
-        <ehcache.version>3.3.1</ehcache.version>
-        <zxing.version>3.2.1</zxing.version>
-        <druid.version>1.1.10</druid.version>
-        <beetl.version>2.8.5</beetl.version>
-        <swagger.version>2.9.2</swagger.version>
-        <commons-lang3.version>3.7</commons-lang3.version>
-        <ehcache.core.version>2.6.11</ehcache.core.version>
-        <mysql-connector-java.version>8.0.11</mysql-connector-java.version>
-        <jwt.version>0.9.0</jwt.version>
-        <hutool.version>4.1.1</hutool.version>
     </properties>
 
     <repositories>
@@ -114,194 +103,11 @@
             </dependency>
             <!--======================================================= Spring Boot =======================================================-->
 
-            <!--======================================================= 数据库相关 =======================================================-->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatisplus-spring-boot-starter</artifactId>
-                <version>${mybatisplus-spring-boot-starter.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql-connector-java.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generate</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <!--======================================================= 数据库相关 =======================================================-->
-
-            <!--======================================================= 权限相关 =======================================================-->
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-core</artifactId>
-                <version>${shiro.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring</artifactId>
-                <version>${shiro.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-ehcache</artifactId>
-                <version>${shiro.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
-            <!--======================================================= 权限相关 =======================================================-->
-
-            <!--======================================================= swagger相关 =======================================================-->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            <!--======================================================= swagger相关 =======================================================-->
-
-            <!--======================================================= JSP相关 =======================================================-->
-            <dependency>
-                <groupId>javax.servlet.jsp.jstl</groupId>
-                <artifactId>jstl</artifactId>
-                <version>1.2</version>
-            </dependency>
-            <dependency>
-                <groupId>taglibs</groupId>
-                <artifactId>standard</artifactId>
-                <version>1.1.2</version>
-            </dependency>
-            <!--======================================================= JSP相关 =======================================================-->
-
-            <dependency>
-                <groupId>net.sf.ehcache</groupId>
-                <artifactId>ehcache-core</artifactId>
-                <version>${ehcache.core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jwt.version}</version>
-            </dependency>
-            <!--<dependency>-->
-            <!--<groupId>cn.hutool</groupId>-->
-            <!--<artifactId>hutool-all</artifactId>-->
-            <!--<version>${hutool.version}</version>-->
-            <!--</dependency>-->
-
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.ehcache</groupId>
-                <artifactId>ehcache</artifactId>
-                <version>${ehcache.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.zxing</groupId>
-                <artifactId>core</artifactId>
-                <version>${zxing.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity</artifactId>
-                <version>${velocity.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ibeetl</groupId>
-                <artifactId>beetl</artifactId>
-                <version>${beetl.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.1</version>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <delimiters>
-                        <delimiter>@</delimiter>
-                    </delimiters>
-                    <useDefaultDelimiters>false</useDefaultDelimiters>
-                </configuration>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
-
-    <profiles>
-        <profile>
-            <id>local</id>
-            <properties>
-                <spring.active>local</spring.active>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <spring.active>dev</spring.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>test</id>
-            <properties>
-                <spring.active>test</spring.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>produce</id>
-            <properties>
-                <spring.active>produce</spring.active>
-            </properties>
-        </profile>
-    </profiles>
 </project>
