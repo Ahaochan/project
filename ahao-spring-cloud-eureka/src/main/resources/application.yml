@@ -1,8 +1,8 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka/   # ·şÎñÖĞĞÄµÄµØÖ·
-    register-with-eureka: false                    # ·şÎñÖĞĞÄÃ»±ØÒª×¢²á
+      defaultZone: http://127.0.0.1:8761/eureka/   # æœåŠ¡ä¸­å¿ƒçš„åœ°å€
+    register-with-eureka: false                    # æœåŠ¡ä¸­å¿ƒæ²¡å¿…è¦æ³¨å†Œ
 spring:
   application:
     name: eureka
