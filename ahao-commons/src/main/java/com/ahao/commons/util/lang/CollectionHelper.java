@@ -37,6 +37,26 @@ public class CollectionHelper {
     }
 
     /**
+     * 为 LinkedHashMap 添加插入到指定位置的方法
+     * @param index 指定位置, 负数为倒数第 index 个
+     */
+    public static <K, V> void add(LinkedHashMap<K, V> map, int index, K key, V value) {
+        if(index < 0) {
+            index = map.size() + index + 1;
+        }
+        LinkedHashMap<K, V> newMap = new LinkedHashMap<>();
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            index--;
+            newMap.put(entry.getKey(), entry.getValue());
+            if(index == 0) {
+                newMap.put(key, value);
+            }
+        }
+        map.clear();
+        map.putAll(newMap);
+    }
+
+    /**
      * 将数组元素变为 List 集合类型
      * @param elements 所有元素
      * @return 集合, 一般为 ArrayList

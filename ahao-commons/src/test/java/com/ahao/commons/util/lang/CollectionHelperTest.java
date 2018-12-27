@@ -34,6 +34,26 @@ public class CollectionHelperTest {
     }
 
     @Test
+    public void addToLinkedHashMap() {
+        LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
+        for (int i = 0; i < 10; i++) {
+            map.put(i, i + 1000);
+        }
+        CollectionHelper.add(map, 2, 888, 8888);
+        CollectionHelper.add(map, -2, 999, 999);
+        int i = 0;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getKey() == 888) {
+                Assert.assertEquals(2, i);
+            }
+            if (entry.getKey() == 999) {
+                Assert.assertEquals(map.size() - 2, i);
+            }
+            i++;
+        }
+    }
+
+    @Test
     public void subList() {
         List<String> list = CollectionHelper.toList("1", "2", "3", "4");
 
