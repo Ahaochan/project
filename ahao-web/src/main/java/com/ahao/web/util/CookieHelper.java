@@ -29,7 +29,8 @@ public abstract class CookieHelper {
         // 设置Maximum Age
         cookie.setMaxAge(1000);
         // 设置cookie路径为当前项目路径
-        cookie.setPath(RequestHelper.getContextPath());
+//        cookie.setDomain("");
+        cookie.setPath("/");
         // 添加cookie
         response.addCookie(cookie);
     }
