@@ -2,14 +2,19 @@ package com.ahao.commons.util.lang;
 
 import com.ahao.commons.util.lang.time.DateHelper;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Ahaochan on 2017/8/10.
@@ -35,9 +40,7 @@ public class ReflectHelper {
 
     /**
      * 反射创建一个数组, 默认长度为16
-     *
      * @param clazz 类型
-     * @return 数组
      */
     public static <T> T[] createArray(Class<T> clazz) {
         return createArray(clazz, DEFAULT_ARRAY_LENGTH);
@@ -45,10 +48,8 @@ public class ReflectHelper {
 
     /**
      * 反射创建一个数组
-     *
      * @param clazz  类型
      * @param length 数组长度
-     * @return 数组
      */
     @SuppressWarnings("unchecked")
     public static <T> T[] createArray(Class<T> clazz, int length) {
@@ -57,9 +58,7 @@ public class ReflectHelper {
 
     /**
      * 获取 collection 集合中子元素的泛型类型
-     *
      * @param collection 集合
-     * @return Class类
      */
     @SuppressWarnings("unchecked")
     public static <T> Class<T> getElementClass(Collection<T> collection) {
@@ -71,9 +70,7 @@ public class ReflectHelper {
 
     /**
      * 获取数组中子元素的泛型类型
-     *
      * @param array 数组
-     * @return Class类
      */
     @SuppressWarnings("unchecked")
     public static <T> Class<T> getElementClass(T... array) {
@@ -230,5 +227,42 @@ public class ReflectHelper {
             field.setAccessible(accessible);
         }
         return true;
+    }
+
+    /**
+     * 获取指定包 pkg 下的所有 Class 对象
+     * @param pkg 包
+     */
+    public static List<Class> getClass(String pkg) {
+        String[] extensions = { "class" };
+        List<Class> result = new ArrayList<>();
+        try {
+            // 1. 获取不同模块的 URL
+            Enumeration<URL> roots = ReflectHelper.class.getClassLoader().getResources("");
+            while (roots.hasMoreElements()) {
+                // 2. 获取每个模块的 target/class 目录 和 指定包所在目录
+                File classesPath = new File(roots.nextElement().getFile());
+                File packagePath = new File(classesPath, StringUtils.replace(pkg, ".", "/"));
+                // 3. 获取当前模块下的所有 class 文件
+                Collection<File> classes = FileUtils.listFiles(packagePath, extensions, true);
+
+                // 4. 将 class 文件 转为 Class 对象
+                List<Class> list = classes.stream()
+                        .map(File::getPath)
+                        .map(p -> StringUtils.removeStart(p, classesPath.getAbsolutePath()))
+                        .map(p -> StringUtils.replace(p, "\\", "."))
+                        .map(p -> StringUtils.removeStart(p, "."))
+                        .map(p -> StringUtils.removeEnd(p, ".class"))
+                        .map(p -> { try { return Class.forName(p); }
+                        catch (ClassNotFoundException e) { e.printStackTrace(); return null; }
+                        })
+                        .collect(Collectors.toList());
+                result.addAll(list);
+            }
+            return result;
+        } catch (IOException e) {
+            logger.error("获取" + pkg + "下的class失败", e);
+        }
+        return Collections.emptyList();
     }
 }
