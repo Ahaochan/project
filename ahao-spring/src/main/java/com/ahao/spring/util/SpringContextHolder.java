@@ -1,12 +1,15 @@
 package com.ahao.spring.util;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
-@Component
-public class SpringContextHolder implements ApplicationContextAware {
+@Service
+@Lazy(false)
+public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
     private static ApplicationContext applicationContext;
 
@@ -31,11 +34,20 @@ public class SpringContextHolder implements ApplicationContextAware {
         return applicationContext.getBean(requiredType);
     }
 
-    private static void assertApplicationContext() {
-        if (SpringContextHolder.applicationContext == null) {
-            throw new RuntimeException("applicaitonContext属性为null,请检查是否注入了SpringContextHolder!");
-        }
+    public static void clearHolder() {
+        applicationContext = null;
     }
 
+
+    @Override
+    public void destroy() throws Exception {
+        SpringContextHolder.clearHolder();
+    }
+
+    private static void assertApplicationContext() {
+        if (SpringContextHolder.applicationContext == null) {
+            throw new RuntimeException("applicationContext属性为null,请检查是否注入了SpringContextHolder!");
+        }
+    }
 }
 
