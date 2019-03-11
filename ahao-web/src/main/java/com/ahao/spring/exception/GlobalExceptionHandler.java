@@ -1,4 +1,4 @@
-package com.ahao.web.aop;
+package com.ahao.spring.exception;
 
 import com.ahao.commons.entity.AjaxDTO;
 import com.ahao.web.exception.AhaoException;

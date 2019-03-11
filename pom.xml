@@ -20,9 +20,7 @@
         <module>ahao-commons</module>
         <module>ahao-mybatis</module>
         <module>ahao-shiro-sso</module>
-        <module>ahao-spring</module>
         <module>ahao-spring-cloud-eureka</module>
-        <module>ahao-spring-quartz</module>
         <module>ahao-web</module>
 
         <!--<module>ahao-forum-guitar</module>-->
@@ -71,11 +69,6 @@
             <dependency>
                 <groupId>com.ahao</groupId>
                 <artifactId>ahao-commons</artifactId>
-                <version>${ahao.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ahao</groupId>
-                <artifactId>ahao-spring</artifactId>
                 <version>${ahao.version}</version>
             </dependency>
             <dependency>

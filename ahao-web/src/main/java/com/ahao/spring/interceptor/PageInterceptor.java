@@ -1,12 +1,12 @@
-package com.ahao.web.interceptor;
+package com.ahao.spring.interceptor;
 
 
 import com.ahao.commons.util.lang.StringHelper;
-import com.ahao.spring.annotation.Interceptor;
 import com.ahao.web.context.PageContext;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.ServletRequest;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * 拦截分页参数传入 {@link PageContext} 中
  * 用于在全局获取, 避免污染函数调用链的参数列表
  */
-@Interceptor
+@Component
 public class PageInterceptor extends HandlerInterceptorAdapter {
     private static final Logger logger = LoggerFactory.getLogger(PageInterceptor.class);
 

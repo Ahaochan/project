@@ -18,12 +18,12 @@
             <groupId>com.ahao</groupId>
             <artifactId>ahao-commons</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.ahao</groupId>
-            <artifactId>ahao-spring</artifactId>
-        </dependency>
 
         <!--======================================================= Spring Boot =======================================================-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
