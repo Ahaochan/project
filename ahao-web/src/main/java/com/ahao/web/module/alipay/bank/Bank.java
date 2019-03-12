@@ -3,8 +3,8 @@ package com.ahao.web.module.alipay.bank;
 import com.ahao.commons.http.HttpClientHelper;
 import com.ahao.commons.http.convert.JSONObjectConvert;
 import com.ahao.commons.http.param.impl.UrlEncodedFormParam;
-import com.ahao.commons.util.lang.CollectionHelper;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -210,7 +210,7 @@ public enum Bank {
         List<Bank> filter = Arrays.stream(values())
                 .filter(e -> e.code.equals(bankCode))
                 .collect(Collectors.toList());
-        int filterSize = CollectionHelper.size(filter);
+        int filterSize = CollectionUtils.size(filter);
         if (filterSize > 1) {
             logger.error("匹配到的银行数目大于1! " + JSONObject.toJSONString(filter));
             throw new IllegalStateException("匹配到的银行数目大于1!" + JSONObject.toJSONString(filter));

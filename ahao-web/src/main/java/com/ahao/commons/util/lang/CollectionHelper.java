@@ -12,19 +12,6 @@ import java.util.stream.Collectors;
  */
 public class CollectionHelper {
     /**
-     * 获取集合长度, 防止空指针
-     */
-    public static int size(Collection<?> collection) {
-        return collection == null ? 0 : collection.size();
-    }
-    public static int size(Map<?, ?> map) {
-        return map == null ? 0 : map.size();
-    }
-    public static int size(Enumeration<?> enumeration) {
-        return enumeration == null ? 0 : CollectionUtils.size(enumeration);
-    }
-
-    /**
      * 往 collection 集合中添加元素
      * @param collection 集合
      * @param elements   变长数组的元素
