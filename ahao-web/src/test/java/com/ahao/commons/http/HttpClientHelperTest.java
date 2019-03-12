@@ -12,5 +12,4 @@ public class HttpClientHelperTest {
                 .getStatusCode();
         Assert.assertEquals(200, code);
     }
-
 }

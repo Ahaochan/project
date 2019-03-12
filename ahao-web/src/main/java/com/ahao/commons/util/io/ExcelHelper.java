@@ -1,8 +1,6 @@
 package com.ahao.commons.util.io;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -48,8 +46,6 @@ public class ExcelHelper {
             return result;
         } catch (IOException e) {
             logger.error("文件存在, 但是IO式错误: "+e.getMessage(), e);
-        } catch (InvalidFormatException e) {
-            logger.error("文件存在, 但是格式错误: "+e.getMessage(), e);
         }
         return new String[0][0];
     }
@@ -84,36 +80,31 @@ public class ExcelHelper {
             return false;
         }
         // 1. 创建Excel文件, 配置默认属性
-        Workbook workbook = new XSSFWorkbook();
+        try(Workbook workbook = new XSSFWorkbook()) {
+            for (int i = 0, len = datas.size(); i < len; i++) {
+                T[][] data = datas.get(i);
 
-        for (int i = 0, len = datas.size(); i < len; i++) {
-            T[][] data = datas.get(i);
+                // 2. 每个 T[][] 为一个 Sheet
+                Sheet sheet = workbook.createSheet("sheet" + i);
+                sheet.setDefaultColumnWidth(15);
 
-            // 2. 每个 T[][] 为一个 Sheet
-            Sheet sheet = workbook.createSheet("sheet" + i);
-            sheet.setDefaultColumnWidth(15);
-
-            // 3. 填充数据到 Sheet
-            for (int r = 0, rowLen = data.length; r < rowLen; r++) {
-                T[] row = data[r];
-                Row excelRow = sheet.createRow(r);
-                for(int c = 0, colLen = row.length; c < colLen; c++){
-                    Cell cell = excelRow.createCell(c, CellType.STRING);
-                    cell.setCellValue(row[c].toString());
+                // 3. 填充数据到 Sheet
+                for (int r = 0, rowLen = data.length; r < rowLen; r++) {
+                    T[] row = data[r];
+                    Row excelRow = sheet.createRow(r);
+                    for(int c = 0, colLen = row.length; c < colLen; c++){
+                        Cell cell = excelRow.createCell(c, CellType.STRING);
+                        cell.setCellValue(row[c].toString());
+                    }
                 }
             }
-        }
 
-        // 4. 写入文件
-        try {
+            // 4. 写入文件
             workbook.write(os);
             os.flush();
         } catch (IOException e) {
             logger.error("IO错误, 写入失败", e);
             return false;
-        } finally {
-            // 5. 关闭流文件
-            IOUtils.closeQuietly(workbook);
         }
         return true;
     }

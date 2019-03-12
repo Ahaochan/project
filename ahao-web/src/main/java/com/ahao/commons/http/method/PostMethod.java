@@ -1,7 +1,7 @@
 package com.ahao.commons.http.method;
 
 import com.ahao.commons.http.param.Parameterizable;
-import org.apache.commons.collections.MapUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;

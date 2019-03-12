@@ -8,7 +8,6 @@ import com.ahao.commons.util.io.IOHelper;
 import com.ahao.commons.util.lang.ReflectHelper;
 import com.ahao.commons.util.lang.time.DateHelper;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -151,14 +150,14 @@ public abstract class BaseMethod<M extends BaseMethod> {
              CloseableHttpResponse response = httpClient.execute(http)) {
             // 获取IO
             HttpEntity entity = response.getEntity();
-            InputStream inputStream = entity.getContent();
 
             // 获取 字节数组
-            byte[] data = IOHelper.toByte(inputStream);
-
-            // 释放IO
-            IOUtils.closeQuietly(inputStream);
-            EntityUtils.consume(entity);
+            byte[] data;
+            try(InputStream inputStream = entity.getContent()) {
+                data = IOHelper.toByte(inputStream);
+            } finally {
+                EntityUtils.consume(entity);
+            }
 
             // 将返回的 byte[] 封装到 Response 中, 用于格式化.
             return new Response(url, response.getStatusLine().getStatusCode(), data);

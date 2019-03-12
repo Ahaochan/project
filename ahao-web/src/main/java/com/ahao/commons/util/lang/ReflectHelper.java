@@ -1,7 +1,7 @@
 package com.ahao.commons.util.lang;
 
 import com.ahao.commons.util.lang.time.DateHelper;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
