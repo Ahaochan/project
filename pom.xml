@@ -17,9 +17,8 @@
     </parent>
 
     <modules>
-        <module>ahao-commons</module>
-        <module>ahao-mybatis</module>
-        <module>ahao-shiro-sso</module>
+        <!--<module>ahao-mybatis</module>-->
+        <!--<module>ahao-shiro-sso</module>-->
         <module>ahao-spring-cloud-eureka</module>
         <module>ahao-web</module>
 
@@ -36,8 +35,6 @@
 
         <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.RC2</spring-cloud.version>
-
-        <fastjson.version>1.2.47</fastjson.version>
     </properties>
 
     <repositories>
@@ -68,11 +65,6 @@
             <!--======================================================= 自定义的模块 =======================================================-->
             <dependency>
                 <groupId>com.ahao</groupId>
-                <artifactId>ahao-commons</artifactId>
-                <version>${ahao.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ahao</groupId>
                 <artifactId>ahao-mybatis</artifactId>
                 <version>${ahao.version}</version>
             </dependency>
@@ -95,12 +87,6 @@
                 <scope>import</scope>
             </dependency>
             <!--======================================================= Spring Boot =======================================================-->
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
