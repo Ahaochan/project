@@ -1,10 +1,13 @@
 package com.ahao.commons.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Ahaochan on 2017/7/18.
  * 传递Ajax的Data Transfer Object
  */
-public class AjaxDTO {
+public class AjaxDTO implements Serializable{
+    private static final long serialVersionUID = 1L;
     private static final int FAILURE = 0;
     private static final int SUCCESS = 1;
 
