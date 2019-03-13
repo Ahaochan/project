@@ -1,9 +1,5 @@
+# https://github.com/alibaba/druid/wiki/DruidDataSource配置
 ahao:
-  web:
-    upload:
-      profile: local # 上传环境, local上传到本机, remote上传到远程服务器
-      file-save-uri: d:/tmp/        # 文件上传uri(不配置的话为java.io.tmpdir目录), 推荐设置绝对路径
-      file-prefix-uri: /UploadFile/ # 文件上传返回的路径, 用于外部用户访问文件
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     master-bean-name: masterDataSource
@@ -104,36 +100,4 @@ ahao:
       asyncInit: true   # asyncInit是1.1.4中新增加的配置，如果有initialSize数量较多时，打开会加快应用启动时间
 
 
-    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-    #filters: stat
-
-    # 配置初始化大小、最小、最大
-    maxActive: 20
-    initialSize: 5
-    maxWait: 60000  # 配置获取连接等待超时的时间
-    minIdle: 10
-
-    timeBetweenEvictionRunsMillis: 2000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-    minEvictableIdleTimeMillis: 600000  # 配置一个连接在池中最小生存的时间，单位是毫秒
-    #      maxEvictableIdleTimeMillis: 900000  # 配置一个连接在池中最大生存的时间，单位是毫秒
-
-    validationQuery: SELECT 1
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-
-    keepAlive: true
-    phyMaxUseCount: 100000
-
-    poolPreparedStatements: true    # 打开PSCache，并且指定每个连接上PSCache的大小
-    maxPoolPreparedStatementPerConnectionSize: 20
-
-    asyncInit: true   # asyncInit是1.1.4中新增加的配置，如果有initialSize数量较多时，打开会加快应用启动时间
-
-
-spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
 

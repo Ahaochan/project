@@ -59,6 +59,19 @@
         </dependency>
         <!--======================================================= Apache工具类 =======================================================-->
 
+        <!--======================================================= Alibaba =======================================================-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.14</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.56</version>
+        </dependency>
+        <!--======================================================= Alibaba =======================================================-->
+
         <!--======================================================= Spring Boot =======================================================-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -89,11 +102,7 @@
         </dependency>
         <!--======================================================= JSP相关 =======================================================-->
 
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.56</version>
-        </dependency>
+
 
     </dependencies>
 </project>

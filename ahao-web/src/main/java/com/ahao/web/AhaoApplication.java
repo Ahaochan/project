@@ -5,12 +5,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * SpringBoot方式启动类
  * @author Ahaochan
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.ahao", exclude = {DataSourceAutoConfiguration.class})
+@EnableAspectJAutoProxy(exposeProxy = true, proxyTargetClass = true)
 public class AhaoApplication {
 
     private final static Logger logger = LoggerFactory.getLogger(AhaoApplication.class);
