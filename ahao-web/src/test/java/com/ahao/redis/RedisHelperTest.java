@@ -1,5 +1,6 @@
 package com.ahao.redis;
 
+import com.ahao.rbac.shiro.entity.ShiroUser;
 import com.ahao.spring.util.SpringContextHolder;
 import org.junit.After;
 import org.junit.Assert;
@@ -11,6 +12,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +33,21 @@ public class RedisHelperTest {
         long now = System.currentTimeMillis();
         RedisHelper.set(REDIS_KEY, now);
         assertEquals(now, RedisHelper.getLong(REDIS_KEY));
+    }
+
+    @Test
+    public void hset() throws Exception {
+        Map<String, String> obj = new HashMap<>();
+        for(int i = 0; i < 100; i++) {
+            obj.put("key"+i, "value"+i);
+        }
+
+        RedisHelper.set(REDIS_KEY, obj);
+        Map<String, String> value = RedisHelper.get(REDIS_KEY);
+
+        for (Map.Entry<String, String> entry : obj.entrySet()) {
+            assertEquals(entry.getValue(), value.get(entry.getKey()));
+        }
     }
 
     @Test

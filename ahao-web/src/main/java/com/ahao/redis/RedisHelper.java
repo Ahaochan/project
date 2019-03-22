@@ -17,8 +17,8 @@ public class RedisHelper {
         return getRedisTemplate().delete(Arrays.asList(keys));
     }
 
-    public static Object get(String key) {
-        return getRedisTemplate().opsForValue().get(key);
+    public static <T> T get(String key) {
+        return (T) getRedisTemplate().opsForValue().get(key);
     }
     public static int getInt(String key) {
         Object value = getRedisTemplate().opsForValue().get(key);
