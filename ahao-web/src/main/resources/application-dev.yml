@@ -136,3 +136,8 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+  redis:
+    host: 192.168.75.134
+    port: 6379
+#    password: redis
+    timeout: 10000
