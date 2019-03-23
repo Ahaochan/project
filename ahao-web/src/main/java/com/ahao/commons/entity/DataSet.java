@@ -1,7 +1,7 @@
-package com.ahao.mybatis.model;
+package com.ahao.commons.entity;
 
 import com.ahao.commons.util.lang.math.NumberHelper;
-import com.baomidou.mybatisplus.toolkit.MapUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.Alias;
 import org.slf4j.Logger;
