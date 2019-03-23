@@ -1,4 +1,4 @@
-package com.ahao.mybatis.model;
+package com.ahao.commons.entity;
 
 import org.apache.ibatis.type.Alias;
 
