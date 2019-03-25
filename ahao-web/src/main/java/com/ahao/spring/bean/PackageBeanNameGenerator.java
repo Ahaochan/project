@@ -12,21 +12,21 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
- * 将当前类的包名下的所有 Bean 以 包名+类名 的形式作为 BeanName
+ * 将当前类的包名下的所有用注解声明的 Bean, 以 包名+类名 的形式作为 BeanName
  * 包名前缀为2个分割符以内, 如本项目为: com.ahao
  */
 public class PackageBeanNameGenerator extends AnnotationBeanNameGenerator {
     private static final Logger logger = LoggerFactory.getLogger(PackageBeanNameGenerator.class);
 
     @Override
-    public String generateBeanName(BeanDefinition definition, BeanDefinitionRegistry registry) {
+    protected String buildDefaultBeanName(BeanDefinition definition, BeanDefinitionRegistry registry) {
         String beanClassName = Introspector.decapitalize(definition.getBeanClassName());
         // 只初始化本项目的Bean
-        if(StringUtils.startsWith(beanClassName, getPackageNamePrefix())) {
+        if(StringUtils.startsWithIgnoreCase(beanClassName, getPackageNamePrefix())) {
             logger.debug("初始化Bean: " + beanClassName);
             return beanClassName;
         }
-        return super.generateBeanName(definition, registry);
+        return buildDefaultBeanName(definition);
     }
 
     /**
