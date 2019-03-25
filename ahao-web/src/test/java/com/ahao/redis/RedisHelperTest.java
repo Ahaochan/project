@@ -1,6 +1,5 @@
 package com.ahao.redis;
 
-import com.ahao.rbac.shiro.entity.ShiroUser;
 import com.ahao.spring.util.SpringContextHolder;
 import org.junit.After;
 import org.junit.Assert;
@@ -12,7 +11,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
