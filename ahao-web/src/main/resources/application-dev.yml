@@ -12,7 +12,7 @@ ahao:
     master:
       username: root
       password: root
-      url: jdbc:mysql://172.20.2.135:3306/my_db1?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+      url: jdbc:mysql://192.168.75.139:3307/my_db1?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
 
 
       # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
@@ -43,7 +43,7 @@ ahao:
     slave1:
       username: root
       password: root
-      url: jdbc:mysql://172.20.2.135:3306/my_db2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+      url: jdbc:mysql://192.168.75.139:3307/my_db2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
 
 
       # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
@@ -74,7 +74,7 @@ ahao:
     slave2:
       username: root
       password: root
-      url: jdbc:mysql://172.20.2.135:3306/my_db3?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+      url: jdbc:mysql://192.168.75.139:3307/my_db3?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
 
 
       # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
@@ -137,7 +137,21 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
   redis:
-    host: 192.168.75.134
+    host: 192.168.75.139
     port: 6379
 #    password: redis
     timeout: 10000
+
+mybatis:
+  mapperLocations: classpath*:mapper/**/*.xml
+  type-handlers-package: com.ahao.mybatis.handler
+  configuration:
+    #mybatis开启驼峰自动转换
+    map-underscore-to-camel-case: true
+    #cache-enabled: false
+    #local-cache-scope: statement
+
+shiro:
+  enabled: true
+  web.enabled: true
+  annotations.enabled: true
