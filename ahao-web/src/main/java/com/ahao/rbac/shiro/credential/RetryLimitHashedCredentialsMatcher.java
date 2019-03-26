@@ -1,5 +1,6 @@
 package com.ahao.rbac.shiro.credential;
 
+import com.ahao.rbac.shiro.dao.UserMapper;
 import com.ahao.rbac.shiro.entity.ShiroUser;
 import com.ahao.redis.RedisHelper;
 import com.ahao.redis.RedisKeys;
@@ -10,6 +11,7 @@ import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,10 +24,14 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
 
     private int maxRetryCount = 3;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
         // 1. 根据 principal 获取用户
-        ShiroUser user = new ShiroUser();
+        String principal = (String) token.getPrincipal();
+        ShiroUser user = userMapper.selectByUsernameOrEmail(principal);
         // 2. 查询获取用户登录次数, 没有则初始化
         String redisKey = String.format(RedisKeys.SHIRO_RETRY, user.getId());
         AtomicInteger retryCount = RedisHelper.get(redisKey);
@@ -37,7 +43,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         if (retryCount.incrementAndGet() > maxRetryCount) {
             if (user.getLocked() == null || !user.getLocked()){
                 user.setLocked(true);
-                // TODO 更新数据库字段
+                userMapper.updateByPrimaryKeySelective(user);
             }
             logger.info("锁定用户{}", user.getId());
             throw new LockedAccountException("重试次数过多, 该用户已被锁定!");
