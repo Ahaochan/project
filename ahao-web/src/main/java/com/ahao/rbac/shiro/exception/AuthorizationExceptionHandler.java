@@ -4,15 +4,18 @@ import com.ahao.spring.util.AppUtils;
 import org.apache.shiro.authc.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice("com.ahao")
 public class AuthorizationExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(AuthorizationExceptionHandler.class);
 
     @ExceptionHandler(value = DisabledAccountException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public String disabledAccountException(DisabledAccountException ex) {
         if(AppUtils.isDev()) {
@@ -23,6 +26,7 @@ public class AuthorizationExceptionHandler {
     }
 
     @ExceptionHandler(value = LockedAccountException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public String lockedAccountException(LockedAccountException ex) {
         if(AppUtils.isDev()) {
@@ -33,6 +37,7 @@ public class AuthorizationExceptionHandler {
     }
 
     @ExceptionHandler(value = UnknownAccountException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public String unknownAccountException(UnknownAccountException ex) {
         if(AppUtils.isDev()) {
@@ -43,6 +48,7 @@ public class AuthorizationExceptionHandler {
     }
 
     @ExceptionHandler(value = ExcessiveAttemptsException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public String excessiveAttemptsException(ExcessiveAttemptsException ex) {
         if(AppUtils.isDev()) {
@@ -53,6 +59,7 @@ public class AuthorizationExceptionHandler {
     }
 
     @ExceptionHandler(value = IncorrectCredentialsException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public String incorrectCredentialsException(IncorrectCredentialsException ex) {
         if(AppUtils.isDev()) {
@@ -63,6 +70,7 @@ public class AuthorizationExceptionHandler {
     }
 
     @ExceptionHandler(value = ExpiredCredentialsException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public String expiredCredentialsException(ExpiredCredentialsException ex) {
         if(AppUtils.isDev()) {
@@ -73,6 +81,7 @@ public class AuthorizationExceptionHandler {
     }
 
     @ExceptionHandler(value = AuthenticationException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public String authenticationException(AuthenticationException ex) {
         logger.error("未知的权限异常, {}", ex);
