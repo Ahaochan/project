@@ -1,5 +1,7 @@
 package com.ahao.redis;
 
+import com.ahao.redis.config.RedisConfig;
+import com.ahao.redis.util.RedisHelper;
 import com.ahao.spring.util.SpringContextHolder;
 import org.junit.After;
 import org.junit.Assert;
@@ -31,6 +33,10 @@ public class RedisHelperTest {
         long now = System.currentTimeMillis();
         RedisHelper.set(REDIS_KEY, now);
         assertEquals(now, RedisHelper.getLong(REDIS_KEY));
+        RedisHelper.set(REDIS_KEY, null);
+        assertEquals((Object) null, RedisHelper.get(REDIS_KEY));
+        RedisHelper.set(REDIS_KEY, "null");
+        assertEquals("null", RedisHelper.get(REDIS_KEY));
     }
 
     @Test

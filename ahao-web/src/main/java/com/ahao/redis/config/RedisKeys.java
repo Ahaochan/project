@@ -1,4 +1,4 @@
-package com.ahao.redis;
+package com.ahao.redis.config;
 
 /**
  * Redis Key 存储, 避免 Key 覆盖
@@ -13,5 +13,5 @@ package com.ahao.redis;
  * 比如 String 类型, s:user:1:name
  */
 public interface RedisKeys {
-    String SHIRO_RETRY = "s:shiro:user:%s:retry";
+    String SHIRO_RETRY = "s:shiro:user:%s:retry"; // 用户id
 }

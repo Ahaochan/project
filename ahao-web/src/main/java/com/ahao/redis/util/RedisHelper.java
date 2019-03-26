@@ -1,4 +1,4 @@
-package com.ahao.redis;
+package com.ahao.redis.util;
 
 import com.ahao.spring.util.SpringContextHolder;
 import org.springframework.data.redis.core.RedisTemplate;
