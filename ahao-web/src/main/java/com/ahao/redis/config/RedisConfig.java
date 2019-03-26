@@ -1,4 +1,4 @@
-package com.ahao.redis;
+package com.ahao.redis.config;
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
