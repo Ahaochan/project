@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 @Aspect
 //@EnableAspectJAutoProxy(exposeProxy = true, proxyTargetClass = true)
 @Component
-public class DataSourceAop implements PriorityOrdered {
-    private static Logger logger = LoggerFactory.getLogger(DataSourceAop.class);
+public class DataSourceAOP implements PriorityOrdered {
+    private static Logger logger = LoggerFactory.getLogger(DataSourceAOP.class);
 
     @Before("@annotation(com.ahao.spring.jdbc.annotation.MasterDataSource)")
     public void master() {
