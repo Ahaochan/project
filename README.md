@@ -14,7 +14,7 @@
 1. 阿里银行数据接口: `com.ahao.web.module.alipay.bank`
 1. 文件上传: `com.ahao.web.module.upload`
 1. 负载均衡的主从数据源: `com.ahao.spring.jdbc`
-1. 异步任务: `com.ahao.async`
+1. 异步任务: `com.ahao.spring.async`
 1. `Redis`整合: `com.ahao.redis`
   
 # TODO

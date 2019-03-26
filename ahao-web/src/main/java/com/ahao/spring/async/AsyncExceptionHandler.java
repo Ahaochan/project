@@ -1,4 +1,4 @@
-package com.ahao.async;
+package com.ahao.spring.async;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
