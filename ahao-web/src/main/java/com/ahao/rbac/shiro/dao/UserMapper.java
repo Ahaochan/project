@@ -2,8 +2,9 @@ package com.ahao.rbac.shiro.dao;
 
 import com.ahao.rbac.shiro.entity.ShiroUser;
 import org.apache.ibatis.annotations.Param;
+import tk.mybatis.mapper.common.Mapper;
 
-public interface UserMapper {
+public interface UserMapper extends Mapper<ShiroUser> {
     /**
      * 根据 principal 查询用户名或邮箱对应的用户
      * @param principal 用户名或邮箱

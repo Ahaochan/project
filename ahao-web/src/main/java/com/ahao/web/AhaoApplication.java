@@ -1,13 +1,13 @@
 package com.ahao.web;
 
 import com.ahao.spring.bean.PackageBeanNameGenerator;
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * SpringBoot方式启动类
