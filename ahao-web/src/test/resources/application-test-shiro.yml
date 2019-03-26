@@ -1,0 +1,31 @@
+ahao:
+  datasource:
+    type: org.h2.jdbcx.JdbcDataSource
+    master-bean-name: masterDataSource
+    salve-bean-name: slave1DataSource,slave2DataSource
+    master:
+      url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=MySQL
+    slave1:
+      url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=MySQL
+    slave2:
+      url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=MySQL
+spring:
+  redis:
+    host: 192.168.75.141
+    port: 6379
+    #    password: redis
+    timeout: 10000
+
+mybatis:
+  mapperLocations: classpath*:mapper/**/*.xml
+  type-handlers-package: com.ahao.mybatis.handler
+  configuration:
+    #mybatis开启驼峰自动转换
+    map-underscore-to-camel-case: true
+    #cache-enabled: false
+    #local-cache-scope: statement
+
+shiro:
+  enabled: true
+  web.enabled: true
+  annotations.enabled: true

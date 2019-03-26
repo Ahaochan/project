@@ -2,7 +2,6 @@ package com.ahao.rbac.shiro.config;
 
 import com.ahao.rbac.shiro.credential.RetryLimitHashedCredentialsMatcher;
 import com.ahao.rbac.shiro.realm.PasswordRealm;
-import com.ahao.rbac.shiro.realm.WeChatRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
@@ -185,18 +184,6 @@ public class ShiroConfig {
     }
 
     // ====================================== Realm 初始化, 不能从外部 @Autowire =====================================
-    @Bean
-    public AuthorizingRealm weChatRealm() {
-        // TODO 微信登陆
-        WeChatRealm realm = new WeChatRealm();
-//        realm.setCachingEnabled(true);
-//        realm.setAuthenticationCachingEnabled(true);
-//        realm.setAuthenticationCacheName("authenticationCache");
-//        realm.setAuthorizationCachingEnabled(true);
-//        realm.setAuthorizationCacheName("authorizationCache");
-        realm.setCredentialsMatcher(hashedCredentialsMatcher());
-        return realm;
-    }
     @Bean
     public AuthorizingRealm passwordRealm() {
         PasswordRealm realm = new PasswordRealm();

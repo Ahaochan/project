@@ -10,7 +10,6 @@ import org.apache.shiro.crypto.hash.Sha512Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -20,7 +19,6 @@ import javax.annotation.Resource;
  * 1. 用户名密码登陆
  * 2. 邮箱密码登陆
  */
-@Component
 public class PasswordRealm extends AuthorizingRealm {
     public static final String REALM_NAME = PasswordRealm.class.getSimpleName();
 
