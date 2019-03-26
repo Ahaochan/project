@@ -1,4 +1,4 @@
-package com.ahao.jdbc.annotation;
+package com.ahao.spring.jdbc.annotation;
 
 import java.lang.annotation.*;
 

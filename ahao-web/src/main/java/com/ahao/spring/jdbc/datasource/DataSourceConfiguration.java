@@ -1,4 +1,4 @@
-package com.ahao.jdbc.datasource;
+package com.ahao.spring.jdbc.datasource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;

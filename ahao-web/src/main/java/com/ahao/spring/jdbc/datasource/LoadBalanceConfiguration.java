@@ -1,7 +1,7 @@
-package com.ahao.jdbc.datasource;
+package com.ahao.spring.jdbc.datasource;
 
 import com.ahao.commons.util.lang.RandomHelper;
-import com.ahao.jdbc.DataSourceContextHolder;
+import com.ahao.spring.jdbc.DataSourceContextHolder;
 import com.ahao.spring.util.SpringContextHolder;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
