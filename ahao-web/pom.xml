@@ -14,10 +14,21 @@
     <packaging>war</packaging>
 
     <dependencies>
+        <!--============================================= JDBC ====================================================-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.10</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -28,6 +39,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <!--============================================= JDBC ====================================================-->
 
         <!--======================================================= Apache工具类 =======================================================-->
         <dependency>

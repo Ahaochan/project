@@ -143,13 +143,18 @@ spring:
     timeout: 10000
 
 mybatis:
-  mapperLocations: classpath*:mapper/**/*.xml
+  mapper-locations: classpath*:mapper/**/*.xml
   type-handlers-package: com.ahao.mybatis.handler
   configuration:
     #mybatis开启驼峰自动转换
     map-underscore-to-camel-case: true
     #cache-enabled: false
     #local-cache-scope: statement
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 
 shiro:
   enabled: true
