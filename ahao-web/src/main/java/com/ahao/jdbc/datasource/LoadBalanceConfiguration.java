@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
@@ -23,6 +24,7 @@ import java.util.stream.Stream;
 
 @Configuration
 @AutoConfigureAfter(value = DataSourceConfiguration.class)
+@DependsOn(SpringContextHolder.BEAN_NAME)
 public class LoadBalanceConfiguration {
 	public static final Logger logger = LoggerFactory.getLogger(LoadBalanceConfiguration.class);
 

@@ -4,13 +4,20 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.Ordered;
+import org.springframework.core.PriorityOrdered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
-@Service
+/**
+ * 使用 {@code @DependsOn(SpringContextHolder.BEAN_NAME)} 解决 applicationContext 为 null 的依赖问题
+ */
+@Service(SpringContextHolder.BEAN_NAME)
 @Lazy(false)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
-
+    public static final String BEAN_NAME = "SpringContextHolder";
     private static ApplicationContext applicationContext;
 
     @Override
