@@ -2,8 +2,8 @@ package com.ahao.rbac.shiro.credential;
 
 import com.ahao.rbac.shiro.dao.UserMapper;
 import com.ahao.rbac.shiro.entity.ShiroUser;
-import com.ahao.redis.RedisHelper;
-import com.ahao.redis.RedisKeys;
+import com.ahao.redis.config.RedisKeys;
+import com.ahao.redis.util.RedisHelper;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.LockedAccountException;
