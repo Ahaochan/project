@@ -1,7 +1,9 @@
 package com.ahao.rbac.shiro;
 
+import com.ahao.commons.entity.AjaxDTO;
 import com.ahao.spring.util.SpringContextHolder;
 import com.ahao.web.AhaoApplication;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -16,13 +18,21 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Statement;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +43,10 @@ public class PasswordRealmTest {
     public static final String PASSWORD = "asd";
 
     @Autowired
+    protected WebApplicationContext wac;
+    @Autowired
     private DataSource dataSource;
+
 
     @Before
     public void initSQL() throws Exception{
@@ -58,14 +71,17 @@ public class PasswordRealmTest {
 
     @Test
     public void loginSuccess() throws Exception {
-        UsernamePasswordToken passwordToken = new UsernamePasswordToken("admin", PASSWORD, false);
-        Subject subject = SecurityUtils.getSubject();
-        try {
-            subject.login(passwordToken);
-        } finally {
-            passwordToken.clear();
-        }
-        Assert.assertTrue(subject.isAuthenticated());
+        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        String responseString = mockMvc.perform(post("/login")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username", "admin")
+                .param("password", "asd"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn()
+                .getResponse().getContentAsString();   //将相应的数据转换为字符串
+        JSONObject json = JSONObject.parseObject(responseString);
+        Assert.assertEquals(AjaxDTO.SUCCESS, json.getIntValue("result"));
     }
 
     @Test(expected = IncorrectCredentialsException.class)
