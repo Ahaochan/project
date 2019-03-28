@@ -8,8 +8,8 @@ import java.io.Serializable;
  */
 public class AjaxDTO implements Serializable{
     private static final long serialVersionUID = 1L;
-    private static final int FAILURE = 0;
-    private static final int SUCCESS = 1;
+    public static final int FAILURE = 0;
+    public static final int SUCCESS = 1;
 
     public static AjaxDTO failure(String msg) {
         return new AjaxDTO(FAILURE, msg, null);
