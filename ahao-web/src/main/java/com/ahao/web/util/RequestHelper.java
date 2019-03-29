@@ -13,6 +13,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,14 +47,20 @@ public abstract class RequestHelper {
     // ----------------------- 获取 Header 属性------------------------------
     public static String getHeader(String key) {
         HttpServletRequest request = getRequest();
-        return getHeader(key, request);
+        return getHeader(key, null, request);
     }
 
-    public static String getHeader(String key, HttpServletRequest request) {
+    public static String getHeader(String key, String defaultValue) {
+        HttpServletRequest request = getRequest();
+        return getHeader(key, defaultValue, request);
+    }
+
+    public static String getHeader(String key,  String defaultValue, HttpServletRequest request) {
         if(StringUtils.isEmpty(key) || request == null) {
             return "";
         }
-        return request.getHeader(key);
+        String value = request.getHeader(key);
+        return StringUtils.isEmpty(value) ? defaultValue : value;
     }
 
     public static List<String> getHeaders(String key) {
@@ -238,15 +247,37 @@ public abstract class RequestHelper {
      * 判断user-agent是否为桌面端
      */
     public static boolean isPC(){
-        HttpServletRequest request = RequestHelper.getRequest();
-        String[] mobileUserAgent = {"Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"};
-        String userAgent = request.getHeader("User-Agent");
-        return !StringUtils.containsAny(userAgent, mobileUserAgent);
+        String[] mobileUserAgent = {"ANDROID", "IPHONE", "SYMBIANOS", "WINDOWS PHONE", "IPAD", "IPOD"};
+        String userAgent = getHeader("User-Agent", "").toUpperCase();
+        boolean isMobile = StringUtils.containsAny(userAgent, mobileUserAgent);
+        return !isMobile;
+    }
+
+    /**
+     * 判断user-agent是否为IE浏览器
+     */
+    public static boolean isIE() {
+        String[] ieUserAgent = {"MSIE", "TRIDENT", "EDGE"};
+        String userAgent = getHeader("User-Agent", "").toUpperCase();
+        return StringUtils.containsAny(userAgent, ieUserAgent);
+    }
+
+    public static String ensureFilename(String filename) {
+        try {
+            if (isIE()) {
+                filename = URLEncoder.encode(filename, "UTF-8");
+                filename = StringUtils.replace(filename, "+", "%20");
+            } else {
+                filename = new String(filename.getBytes(StandardCharsets.UTF_8), "ISO8859-1");
+            }
+        } catch (UnsupportedEncodingException e) {
+            logger.error("文件名{}转换编码失败, {}", filename, e.getMessage());
+        }
+        return filename;
     }
 
     /**
      * 转发请求.
-     *
      * @param request  HTTP请求.
      * @param response HTTP响应.
      * @param url      需转发到的URL.
