@@ -13,7 +13,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,24 +35,32 @@ public class RedisHelperTest {
         long now = System.currentTimeMillis();
         RedisHelper.set(REDIS_KEY, now);
         assertEquals(now, RedisHelper.getLong(REDIS_KEY));
+
         RedisHelper.set(REDIS_KEY, null);
         assertEquals((Object) null, RedisHelper.get(REDIS_KEY));
         RedisHelper.set(REDIS_KEY, "null");
         assertEquals("null", RedisHelper.get(REDIS_KEY));
+
+        List<Long> longList = Arrays.asList(1L, 2L, 3L, 4L);
+        RedisHelper.set(REDIS_KEY, longList);
+        assertEquals(longList, RedisHelper.get(REDIS_KEY));
     }
 
     @Test
     public void hset() throws Exception {
-        Map<String, String> obj = new HashMap<>();
-        for(int i = 0; i < 100; i++) {
-            obj.put("key"+i, "value"+i);
+        // !!! Key 必须为 String, 因为 JSON 的 Key 只能是 String 类型 !!!
+        Map<String, Object> obj = new HashMap<>();
+        for (int i = 0; i < 10; i++) {
+            obj.put("key" + i, "value" + i);
+        }
+        for (int i = 11; i < 20; i++) {
+            obj.put(String.valueOf(i), i * 10);
         }
 
         RedisHelper.set(REDIS_KEY, obj);
-        Map<String, String> value = RedisHelper.get(REDIS_KEY);
-
-        for (Map.Entry<String, String> entry : obj.entrySet()) {
-            assertEquals(entry.getValue(), value.get(entry.getKey()));
+        Map<Object, Object> redisObj = RedisHelper.get(REDIS_KEY);
+        for (Map.Entry<String, Object> entry : obj.entrySet()) {
+            assertEquals(entry.getValue(), redisObj.get(entry.getKey()));
         }
     }
 
