@@ -5,6 +5,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class RedisHelper {
     public static RedisTemplate<String, Object> getRedisTemplate() {
@@ -68,6 +69,9 @@ public class RedisHelper {
 
     public static void set(String key, Object value) {
         getRedisTemplate().opsForValue().set(key, value);
+    }
+    public static void setEx(String key, Object value, long seconds) {
+        getRedisTemplate().opsForValue().set(key, value, seconds, TimeUnit.SECONDS);
     }
 
     public static Long incr(String key) {

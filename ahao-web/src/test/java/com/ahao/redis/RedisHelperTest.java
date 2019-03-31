@@ -132,9 +132,22 @@ public class RedisHelperTest {
 
     @Test
     public void setObject() throws Exception {
+        String msg = "hello_world";
+        RedisHelper.set(REDIS_KEY, msg);
+        assertEquals(msg, RedisHelper.get(REDIS_KEY, String.class));
+
         List<Long> longList = Arrays.asList(1L, 2L, 3L, 4L);
         RedisHelper.set(REDIS_KEY, longList);
         assertEquals(longList, RedisHelper.get(REDIS_KEY, List.class));
+    }
+
+    @Test
+    public void setEx() throws Exception {
+        String msg = "hello_world";
+        RedisHelper.setEx(REDIS_KEY, msg, 2);
+        Assert.assertEquals(msg, RedisHelper.get(REDIS_KEY, String.class));
+        Thread.sleep(5000);
+        Assert.assertNull(RedisHelper.get(REDIS_KEY, String.class));
     }
 
     @Test
