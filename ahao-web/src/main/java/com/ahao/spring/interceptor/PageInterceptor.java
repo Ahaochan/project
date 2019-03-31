@@ -4,6 +4,7 @@ package com.ahao.spring.interceptor;
 import com.ahao.commons.util.lang.StringHelper;
 import com.ahao.web.context.PageContext;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -44,7 +45,7 @@ public class PageInterceptor extends HandlerInterceptorAdapter {
     private void initPageSize(ServletRequest request) {
         String pageSize = request.getParameter(PageContext.PAGE_SIZE);
         logger.trace("分页大小:" + pageSize);
-        if (StringUtils.isNumeric(pageSize)) {
+        if (NumberUtils.isCreatable(pageSize)) {
             PageContext.setPageSize(Integer.parseInt(pageSize));
         } else {
             PageContext.setPageSize(PageContext.DEFAULT_PAGE_SIZE);
