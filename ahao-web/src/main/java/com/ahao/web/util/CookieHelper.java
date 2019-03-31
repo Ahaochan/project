@@ -3,6 +3,7 @@ package com.ahao.web.util;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,7 +86,7 @@ public abstract class CookieHelper {
      */
     public static int getInt(String name, int defaultValue, HttpServletRequest request) {
         String value = getString(name, request);
-        if (StringUtils.isEmpty(value) || !StringUtils.isNumeric(value)) {
+        if (StringUtils.isEmpty(value) || !NumberUtils.isCreatable(value)) {
             return defaultValue;
         }
         return Integer.parseInt(value);
@@ -113,7 +114,7 @@ public abstract class CookieHelper {
         int len = array.length;
         int[] value = new int[len];
         for (int i = 0; i < len; i++) {
-            if (StringUtils.isNumeric(array[i])) {
+            if (NumberUtils.isCreatable(array[i])) {
                 value[i] = Integer.parseInt(array[i]);
             } else {
                 logger.error(name + "属性下标为[" + i + "]的值:" + array[i] + "不是int型");

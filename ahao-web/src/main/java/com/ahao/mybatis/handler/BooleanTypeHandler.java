@@ -1,6 +1,6 @@
 package com.ahao.mybatis.handler;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
@@ -37,8 +37,8 @@ public class BooleanTypeHandler extends BaseTypeHandler<Boolean> {
     }
 
     private Boolean convert(String s) {
-        boolean isNumeric = StringUtils.isNumeric(s);
-        if(!isNumeric) {
+        boolean isNumber = NumberUtils.isCreatable(s);
+        if(!isNumber) {
             return Boolean.FALSE;
         }
         return Integer.parseInt(s) > 0 ? Boolean.TRUE : Boolean.FALSE;
