@@ -34,7 +34,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         ShiroUser user = userMapper.selectByUsernameOrEmail(principal);
         // 2. 查询获取用户登录次数, 没有则初始化
         String redisKey = String.format(RedisKeys.SHIRO_RETRY, user.getId());
-        AtomicInteger retryCount = RedisHelper.get(redisKey);
+        AtomicInteger retryCount = RedisHelper.get(redisKey, AtomicInteger.class);
         if (retryCount == null) {
             retryCount = new AtomicInteger(0);
         }
