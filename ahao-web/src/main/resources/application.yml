@@ -1,6 +1,16 @@
+# =================================== 内置 Tomcat 通用配置 ==========================================
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# =================================== Spring 通用配置 ==========================================
 spring:
   profiles:
     active: dev
+  http:
+    encoding:
+      charset: UTF-8
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: non_null # 不允许输出 null 值
