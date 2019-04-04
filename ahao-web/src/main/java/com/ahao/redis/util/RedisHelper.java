@@ -8,8 +8,16 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class RedisHelper {
+    private volatile static RedisTemplate<String, Object> redisTemplate;
     public static RedisTemplate<String, Object> getRedisTemplate() {
-        return SpringContextHolder.getBean("redisTemplate");
+        if(redisTemplate == null) {
+            synchronized (RedisHelper.class) {
+                if(redisTemplate == null) {
+                    RedisHelper.redisTemplate = SpringContextHolder.getBean("redisTemplate");
+                }
+            }
+        }
+        return redisTemplate;
     }
 
     public static Boolean del(String key) {
