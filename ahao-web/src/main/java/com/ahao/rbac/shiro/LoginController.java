@@ -22,6 +22,32 @@ import java.util.Map;
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    /**
+     * 使用 Nginx 对 /login 的 GET 请求做拦截, 指定到静态页面.
+     * 其他请求走服务端.
+     * <pre>
+     * http {
+     *     upstream tomcats {
+     *         server 192.168.0.100:8080;
+     *     }
+     *     server {
+     *         location /login {
+     *             if ($request_method != GET ) {
+     *                 proxy_pass http://tomcats;
+     *             }
+     *             root      /usr/share/nginx/html;
+     *             try_files $uri $uri.html login.html;
+     *         }
+     *     }
+     * }
+     * </pre>
+     */
+    @GetMapping
+    @Deprecated
+    public String login() {
+        return "login.html";
+    }
+
     @PostMapping("/login")
     public Object passwordLogin(@RequestParam String username, @RequestParam String password,
                                 @RequestParam(defaultValue = "false") Boolean rememberMe) {
