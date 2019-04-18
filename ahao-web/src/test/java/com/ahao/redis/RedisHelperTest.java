@@ -3,16 +3,16 @@ package com.ahao.redis;
 import com.ahao.redis.config.RedisConfig;
 import com.ahao.redis.util.RedisHelper;
 import com.ahao.spring.util.SpringContextHolder;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import redis.embedded.RedisServer;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -29,22 +29,8 @@ import static org.junit.Assert.assertNull;
 @ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, SpringContextHolder.class})
 //@ContextConfiguration(classes = {SpringContextHolder.class})
 @ActiveProfiles("test-redis")
-public class RedisHelperTest {
+public class RedisHelperTest extends RedisBaseTest {
     private static final String REDIS_KEY = "key";
-
-    private static RedisServer redisServer;
-    @BeforeClass
-    public static void start() throws IOException {
-        redisServer = RedisServer.builder()
-                .port(6379)
-                .build();
-        redisServer.start();
-    }
-
-    @AfterClass
-    public static void stop() throws IOException {
-        redisServer.stop();
-    }
 
     @Test
     public void setVoid() throws Exception {
