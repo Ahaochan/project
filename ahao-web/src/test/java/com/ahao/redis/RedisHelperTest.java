@@ -5,6 +5,7 @@ import com.ahao.redis.util.RedisHelper;
 import com.ahao.spring.util.SpringContextHolder;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -29,8 +30,11 @@ import static org.junit.Assert.assertNull;
 @ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, SpringContextHolder.class})
 //@ContextConfiguration(classes = {SpringContextHolder.class})
 @ActiveProfiles("test-redis")
-public class RedisHelperTest extends RedisBaseTest {
+public class RedisHelperTest {
     private static final String REDIS_KEY = "key";
+
+    @ClassRule
+    public static final RedisExternalResource redis = new RedisExternalResource();
 
     @Test
     public void setVoid() throws Exception {

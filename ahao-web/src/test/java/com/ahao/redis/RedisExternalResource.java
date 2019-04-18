@@ -1,16 +1,13 @@
 package com.ahao.redis;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.rules.ExternalResource;
 import redis.embedded.RedisServer;
 
-import java.io.IOException;
-
-public class RedisBaseTest {
+public class RedisExternalResource extends ExternalResource {
     private static RedisServer redisServer;
 
-    @BeforeClass
-    public static void start() throws IOException {
+    @Override
+    protected void before() {
         redisServer = RedisServer.builder()
                 .port(6379)
                 .setting("maxmemory 128M")
@@ -18,8 +15,8 @@ public class RedisBaseTest {
         redisServer.start();
     }
 
-    @AfterClass
-    public static void stop() throws IOException {
+    @Override
+    protected void after() {
         redisServer.stop();
     }
 }

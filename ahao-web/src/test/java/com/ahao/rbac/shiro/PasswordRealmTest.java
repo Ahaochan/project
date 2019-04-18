@@ -1,7 +1,7 @@
 package com.ahao.rbac.shiro;
 
 import com.ahao.commons.entity.AjaxDTO;
-import com.ahao.redis.RedisBaseTest;
+import com.ahao.redis.RedisExternalResource;
 import com.ahao.spring.util.SpringContextHolder;
 import com.ahao.web.AhaoApplication;
 import com.alibaba.fastjson.JSONObject;
@@ -12,7 +12,10 @@ import org.apache.shiro.crypto.hash.Sha512Hash;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,10 +27,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import redis.embedded.RedisServer;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Statement;
 
@@ -40,28 +41,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @ContextConfiguration(classes = AhaoApplication.class)
 @ActiveProfiles("test-shiro")
-public class PasswordRealmTest extends RedisBaseTest {
+public class PasswordRealmTest {
     public static final String PASSWORD = "asd";
+
+    @ClassRule
+    public static final RedisExternalResource redis = new RedisExternalResource();
 
     @Autowired
     protected WebApplicationContext wac;
     @Autowired
     private DataSource dataSource;
-
-    private static RedisServer redisServer;
-    @BeforeClass
-    public static void start() throws IOException {
-        redisServer = RedisServer.builder()
-                .setting("maxmemory 128M")
-                .build();
-        redisServer.start();
-    }
-
-    @AfterClass
-    public static void stop() throws IOException {
-        redisServer.stop();
-    }
-
 
     @Before
     public void initSQL() throws Exception{
