@@ -1,6 +1,7 @@
 package com.ahao.rbac.shiro;
 
 import com.ahao.commons.entity.AjaxDTO;
+import com.ahao.redis.RedisBaseTest;
 import com.ahao.spring.util.SpringContextHolder;
 import com.ahao.web.AhaoApplication;
 import com.alibaba.fastjson.JSONObject;
@@ -39,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @ContextConfiguration(classes = AhaoApplication.class)
 @ActiveProfiles("test-shiro")
-public class PasswordRealmTest {
+public class PasswordRealmTest extends RedisBaseTest {
     public static final String PASSWORD = "asd";
 
     @Autowired
@@ -51,7 +52,7 @@ public class PasswordRealmTest {
     @BeforeClass
     public static void start() throws IOException {
         redisServer = RedisServer.builder()
-                .port(6379)
+                .setting("maxmemory 128M")
                 .build();
         redisServer.start();
     }
