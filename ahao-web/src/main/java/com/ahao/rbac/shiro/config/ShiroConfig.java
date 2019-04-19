@@ -1,6 +1,7 @@
 package com.ahao.rbac.shiro.config;
 
 import com.ahao.rbac.shiro.credential.RetryLimitHashedCredentialsMatcher;
+import com.ahao.rbac.shiro.listener.ShiroSessionListener;
 import com.ahao.rbac.shiro.realm.PasswordRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
@@ -125,7 +126,7 @@ public class ShiroConfig {
 
         // 1. 设置 Session 监听器
         List<SessionListener> listeners = new ArrayList<>();
-//        listeners.add(new ShiroSessionListener()); // TODO 在线人数统计
+        listeners.add(new ShiroSessionListener());
         sessionManager.setSessionListeners(listeners);
 
         // 2. 设置 缓存/Session 处理器
