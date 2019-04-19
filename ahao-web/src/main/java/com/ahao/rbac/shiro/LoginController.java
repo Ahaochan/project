@@ -60,6 +60,7 @@ public class LoginController {
         }
 
         if(SecurityUtils.getSubject().isAuthenticated()) {
+            // TODO 更新最后登录时间和最后登录IP
             return AjaxDTO.success("登录成功");
         }
         return AjaxDTO.failure("登录失败");
