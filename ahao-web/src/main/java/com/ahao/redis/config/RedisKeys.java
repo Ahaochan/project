@@ -13,5 +13,6 @@ package com.ahao.redis.config;
  * 比如 String 类型, s:user:1:name
  */
 public interface RedisKeys {
+    String SHIRO_SESSION_COUNT = "s:shiro:session:count"; // Shiro 在线人数
     String SHIRO_RETRY = "s:shiro:user:%s:retry"; // 用户id
 }

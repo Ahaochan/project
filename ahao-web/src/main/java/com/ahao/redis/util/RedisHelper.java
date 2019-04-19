@@ -85,4 +85,7 @@ public class RedisHelper {
     public static Long incr(String key) {
         return getRedisTemplate().opsForValue().increment(key);
     }
+    public static Long decr(String key) {
+        return getRedisTemplate().opsForValue().decrement(key);
+    }
 }
