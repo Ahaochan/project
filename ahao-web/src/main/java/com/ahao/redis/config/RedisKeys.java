@@ -10,9 +10,21 @@ package com.ahao.redis.config;
  * 4. Set: set
  * 5. Sorted Set: z
  *
+ * 6. Cache: c    {@link RedisConfig}
+ * 7. Function: f {@link com.ahao.redis.aop.RedisCacheAOP}
+ *
  * 比如 String 类型, s:user:1:name
  */
 public interface RedisKeys {
-    String SHIRO_SESSION_COUNT = "s:shiro:session:count"; // Shiro 在线人数
-    String SHIRO_RETRY = "s:shiro:user:%s:retry"; // 用户id
+    String PREFIX_S   = "s:"; // 字符串Key的前缀
+    String PREFIX_H   = "h:"; // Hash的Key的前缀
+    String PREFIX_L   = "l:"; // List的Key的前缀
+    String PREFIX_SET = "set:"; // Set的Key的前缀
+    String PREFIX_Z   = "z:"; // Sorted Set的Key的前缀
+    String PREFIX_C   = "c:"; // 缓存管理器生成的key
+    String PREFIX_F   = "f:"; // 方法拦截生成的key
+
+
+    String SHIRO_SESSION_COUNT = PREFIX_S + "shiro:session:count"; // Shiro 在线人数
+    String SHIRO_RETRY = PREFIX_S + "shiro:user:%s:retry"; // 用户id
 }

@@ -1,6 +1,7 @@
 package com.ahao.redis.aop;
 
 import com.ahao.redis.annotation.Redis;
+import com.ahao.redis.config.RedisKeys;
 import com.ahao.redis.util.RedisHelper;
 import com.ahao.spring.jdbc.DataSourceAOP;
 import com.ahao.spring.util.SpelHelper;
@@ -32,7 +33,7 @@ public class RedisCacheAOP {
         Method method = methodSignature.getMethod();
         Class<?> returnType = method.getReturnType();
 
-        String redisKey = getKey(redis.key(), method, args);
+        String redisKey = RedisKeys.PREFIX_F + getKey(redis.key(), method, args);
 
         // 2. 如果穿透缓存, 则从 DB 获取并再存入 Redis, 以便下次命中
         boolean stab = redis.action() == Redis.DB;
