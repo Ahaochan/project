@@ -17,23 +17,34 @@
 
 ## Spring 异步任务配置
 源码地址: [`com.ahao.spring.async`](https://github.com/Ahaochan/project/tree/master/ahao-web/src/main/java/com/ahao/spring/async)
+
 先开启`@EnableAsync`注解.
+
 写一个类继承自`AsyncConfigurerSupport`, 然后注册线程池`Bean`, `Spring Boot`会自动注入异步框架.
+
 注册完成后, 就可以在方法上使用`@Async`注解, 标记为一个异步方法.
+
 异步方法只能返回`void`或者`Feture<T>`.
 
 ## 负载均衡的主从数据源
 源码地址: [`com.ahao.spring.jdbc`](https://github.com/Ahaochan/project/tree/master/ahao-web/src/main/java/com/ahao/spring/jdbc)
+
 先在[`DataSourceConfiguration`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/spring/jdbc/datasource/DataSourceConfiguration.java)注册几个数据源`Bean`.
+
 然后在[`LoadBalanceConfiguration`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/spring/jdbc/datasource/LoadBalanceConfiguration.java)注册真正的负载均衡数据源.
+
 内置两种简单负载均衡算法
+
 1. 随机
 2. 顺序轮询
 
 ## Redis 方法级缓存 
 源码地址: [`com.ahao.redis`](https://github.com/Ahaochan/project/tree/master/ahao-web/src/main/java/com/ahao/redis)
+
 通过[`AOP`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/redis/aop/RedisCacheAOP.java)拦截[`@Redis`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/redis/annotation/Redis.java)注解.
+
 默认以`包名.类名.方法名(参数1,参数2)`为`key`, 也可以使用`Spring EL`表达式作为`Key`.
+
 1. 如果缓存命中, 则直接返回缓存
 2. 如果缓存未命中, 则查询`DB`后, 存入缓存, 再返回结果
 
