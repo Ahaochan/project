@@ -14,7 +14,13 @@ public class StringHelperTest {
         assertTrue(containChinese("你好, world"));
         assertTrue(containChinese("你好, 世界"));
         assertTrue(containChinese("hello world！"));
+        assertTrue(containChinese("！￥……（）——：；“”‘’《》，。？、"));
 
+
+        assertFalse(containChinese("やめて"));
+        assertFalse(containChinese("한글"));
+        assertFalse(containChinese("!@#$%^&*()_+{}[]|\"'?/:;<>,."));
+        assertFalse(containChinese("www.micmiu.com"));
         assertFalse(containChinese("hello world!"));
         assertFalse(containChinese("hello world"));
     }
