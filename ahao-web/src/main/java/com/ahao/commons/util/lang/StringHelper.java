@@ -1,5 +1,6 @@
 package com.ahao.commons.util.lang;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -78,4 +79,34 @@ public class StringHelper {
         }
         return ((st > 0) || (len < val.length)) ? str.substring(st, len) : str;
     }
+
+    // ====================================== 汉字处理相关 ==================================================
+    public static boolean containChinese(CharSequence charSequence) {
+        for (int i = 0, len = charSequence.length(); i < len; i++) {
+            char ch = charSequence.charAt(i);
+            if(isChinese(ch)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean isChinese(char c) {
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+
+        Character.UnicodeBlock[] chinese = {
+                // CJK的意思是 Chinese、Japanese、Korea 的简写 ，实际上就是指中日韩三国的象形文字的 Unicode 编码
+                Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS,              // 4E00-9FBF  : CJK 统一表意符号
+                Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS,        // F900-FAFF  : CJK 兼容象形文字
+                Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A,  // 3400-4DBF  : CJK 统一表意符号扩展 A
+                Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B,  // 20000-2A6DF: CJK 统一表意符号扩展 B
+                Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_C,  // 2A700–2B73F: CJK 统一表意符号扩展 C
+                Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_D,  // 2B740–2B81F: CJK 统一表意符号扩展 D
+                Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION,         // 3000-303F  : CJK 符号和标点
+                Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS,       // FF00-FFEF  : 半角及全角形式
+                Character.UnicodeBlock.GENERAL_PUNCTUATION,                 // 2000-206F  : 常用标点
+        };
+        return ArrayUtils.contains(chinese, ub);
+
+    }
+    // ====================================== 汉字处理相关 ==================================================
 }
