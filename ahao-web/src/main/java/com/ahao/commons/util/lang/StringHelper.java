@@ -3,6 +3,10 @@ package com.ahao.commons.util.lang;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+
 /**
  * 字符串工具类
  *
@@ -78,6 +82,18 @@ public class StringHelper {
             len--;
         }
         return ((st > 0) || (len < val.length)) ? str.substring(st, len) : str;
+    }
+
+    public static String urlEncode(char ch, Charset encoding) {
+        return urlEncode(String.valueOf(ch), encoding);
+    }
+
+    public static String urlEncode(String string, Charset encoding) {
+        try {
+            return URLEncoder.encode(string, encoding.name());
+        } catch (UnsupportedEncodingException ignored) { // 不可能捕获此异常, 此方法就是为了不捕获此异常所写
+        }
+        return null;
     }
 
     // ====================================== 汉字处理相关 ==================================================
