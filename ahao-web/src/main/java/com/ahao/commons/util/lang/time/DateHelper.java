@@ -1,6 +1,7 @@
 package com.ahao.commons.util.lang.time;
 
 import com.ahao.commons.util.lang.math.NumberHelper;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
@@ -70,27 +71,30 @@ public class DateHelper {
 
     /**
      * 将 format形式的date字符串 转化为 long 格式的日期
-     * @param date   日期字符串
-     * @param format 格式
+     * @param date    日期字符串
+     * @param format  格式
+     * @param formats 格式
      * @return 返回自1970年1月1日00:00:00 GMT以来的毫秒数
      */
-    public static long getTime(String date, String... format) {
+    public static long getTime(String date, String format, String... formats) {
         try {
-            Date time = DateUtils.parseDate(date, format);
+            Date time = DateUtils.parseDate(date, ArrayUtils.add(formats, format));
             return time.getTime();
         } catch (ParseException e) {
             logger.error("时间解析异常:" + date, e);
         }
         return -1L;
     }
+
     /**
      * 将 format形式的date字符串 转化为 Date 格式的日期
-     * @param date   日期字符串
-     * @param format 格式
+     * @param date    日期字符串
+     * @param format  格式
+     * @param formats 格式
      */
-    public static Date getDate(String date, String... format) {
+    public static Date getDate(String date, String format, String... formats) {
         try {
-            return DateUtils.parseDateStrictly(date, format);
+            return DateUtils.parseDateStrictly(date, ArrayUtils.add(formats, format));
         } catch (ParseException e) {
             logger.error("时间解析异常:" + date, e);
         }
