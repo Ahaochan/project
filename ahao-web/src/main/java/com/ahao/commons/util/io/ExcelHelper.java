@@ -1,5 +1,8 @@
 package com.ahao.commons.util.io;
 
+import com.ahao.commons.util.lang.StringHelper;
+import com.ahao.commons.util.lang.math.NumberHelper;
+import com.ahao.commons.util.lang.time.DateHelper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -8,17 +11,19 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Ahaochan on 2017/11/23.
  * 简单的Excel处理工具
+ * @see <a href="http://poi.apache.org/components/spreadsheet/quick-guide.html#CellContents">CellContents</a>
  */
 public class ExcelHelper {
     private static final Logger logger = LoggerFactory.getLogger(ExcelHelper.class);
 
     /**
-     * 加载单个Sheet为String矩阵的形式
+     * 加载单个Sheet为String矩阵的形式, InputStream 会消耗更多内存
      * @param sheetIndex 第几个Sheet, 从0开始计数
      * @return 内容的String矩阵
      */
@@ -122,5 +127,113 @@ public class ExcelHelper {
     public static <T> boolean writeSheet(T[][] data, String filePath) {
         return writeSheet(data, new File(filePath));
 
+    }
+
+    public static String getString(Cell cell) {
+        if (cell == null) {
+            return "";
+        }
+        String result;
+
+        // 如果是公式则获取缓存值, https://stackoverflow.com/a/7609587
+        DataFormatter dataFormatter = new DataFormatter();
+        CellType cellType = cell.getCellType() == CellType.FORMULA ? cell.getCachedFormulaResultType() : cell.getCellType();
+        switch (cellType) {
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    Date date = cell.getDateCellValue();
+                    result = date == null ? "" : DateHelper.getString(date, DateHelper.yyyyMMdd_hhmmssSSS);
+                } else {
+                    result = dataFormatter.formatCellValue(cell);
+                }
+                break;
+            default:      result = dataFormatter.formatCellValue(cell); break;
+        }
+
+        return StringHelper.null2Empty(result);
+    }
+    public static Date getDate(Cell cell, String dateFormat) {
+        if (cell == null) {
+            return null;
+        }
+        Date result;
+
+        // 如果是公式则获取缓存值, https://stackoverflow.com/a/7609587
+        CellType cellType = cell.getCellType() == CellType.FORMULA ? cell.getCachedFormulaResultType() : cell.getCellType();
+        switch (cellType) {
+            case STRING:
+                String string = cell.getRichStringCellValue().getString();
+                result = DateHelper.getDate(string, dateFormat);
+                break;
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getDateCellValue();
+                } else {
+                    result = new Date((long) cell.getNumericCellValue());
+                }
+                break;
+            default: result = null;
+        }
+        return result;
+    }
+    public static Integer getInteger(Cell cell) {
+        if (cell == null) {
+            return null;
+        }
+        Integer result;
+        // 如果是公式则获取缓存值, https://stackoverflow.com/a/7609587
+        CellType cellType = cell.getCellType() == CellType.FORMULA ? cell.getCachedFormulaResultType() : cell.getCellType();
+        switch (cellType) {
+            case STRING:
+                String string = cell.getRichStringCellValue().getString();
+                result = NumberHelper.isNumber(string) ? Integer.valueOf(string) : null;
+                break;
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    Date date = cell.getDateCellValue();
+                    result = date != null ? (int) date.getTime() : null;
+                } else {
+                    result = (int) cell.getNumericCellValue();
+                }
+                break;
+            case BOOLEAN: result = cell.getBooleanCellValue() ? 1 : 0; break;
+            default:      result = null; break;
+        }
+
+        return result;
+    }
+    public static Double getDouble(Cell cell) {
+        if (cell == null) {
+            return null;
+        }
+        Double result;
+        // 如果是公式则获取缓存值, https://stackoverflow.com/a/7609587
+        CellType cellType = cell.getCellType() == CellType.FORMULA ? cell.getCachedFormulaResultType() : cell.getCellType();
+        switch (cellType) {
+            case STRING:
+                String string = cell.getRichStringCellValue().getString();
+                result = NumberHelper.isNumber(string) ? Double.valueOf(string) : null;
+                break;
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    Date date = cell.getDateCellValue();
+                    result = date != null ? (double) date.getTime() : null;
+                } else {
+                    result = cell.getNumericCellValue();
+                }
+                break;
+            case BOOLEAN: result = cell.getBooleanCellValue() ? 1d : 0d; break;
+            default:      result = null; break;
+        }
+        return result;
+    }
+
+    public static boolean isRowEmpty(Row row) {
+        for (int i = row.getFirstCellNum(), len = row.getLastCellNum(); i < len; i++) {
+            Cell cell = row.getCell(i);
+            if (cell != null && cell.getCellType() != CellType.BLANK)
+                return false;
+        }
+        return true;
     }
 }
