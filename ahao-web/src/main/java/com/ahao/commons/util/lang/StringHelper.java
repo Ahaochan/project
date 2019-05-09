@@ -96,6 +96,10 @@ public class StringHelper {
         return null;
     }
 
+    public static String null2Empty(String str) {
+        return str == null ? "" : str;
+    }
+
     // ====================================== 汉字处理相关 ==================================================
     public static boolean containChinese(CharSequence charSequence) {
         for (int i = 0, len = charSequence.length(); i < len; i++) {

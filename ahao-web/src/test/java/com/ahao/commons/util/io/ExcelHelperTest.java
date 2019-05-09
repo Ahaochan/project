@@ -1,9 +1,14 @@
 package com.ahao.commons.util.io;
 
+import org.apache.commons.lang3.time.DateUtils;
+import org.apache.poi.ss.usermodel.*;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.Date;
+
+import static com.ahao.commons.util.io.ExcelHelper.*;
 
 public class ExcelHelperTest {
 
@@ -37,5 +42,55 @@ public class ExcelHelperTest {
         // 4. 删除excel
         boolean success = excelFile.delete();
         Assert.assertTrue(success);
+    }
+
+    @Test
+    public void getCellValueTest() {
+        File file = new File("src/test/resources/excel", "excel.xlsx");
+        int sheetIndex = 0;
+
+        try (Workbook workbook = WorkbookFactory.create(file)){
+            Sheet sheet = workbook.getSheetAt(sheetIndex);
+            if(sheet == null) {
+                Assert.fail();
+            }
+
+            for (int r = sheet.getFirstRowNum(), rowCount = sheet.getLastRowNum(); r < rowCount; r++) {
+                Row row = sheet.getRow(r);
+                if (row == null) {
+                    continue;
+                }
+
+                Cell cell0 = row.getCell(0);
+                Assert.assertEquals(Integer.valueOf("100"), getInteger(cell0));
+                Assert.assertEquals(String.valueOf("100"),  getString(cell0));
+                Assert.assertEquals(Double.valueOf("100"),  getDouble(cell0));
+                Assert.assertNull(getDate(cell0, "yyyy-MM-dd"));
+
+
+                Cell cell1 = row.getCell(1);
+                Assert.assertEquals(Integer.valueOf("100"),    getInteger(cell1));
+                Assert.assertEquals(String.valueOf("100.00"),  getString(cell1));
+                Assert.assertEquals(Double.valueOf("100.00"),  getDouble(cell1));
+                Assert.assertNull(getDate(cell1, "yyyy-MM-dd"));
+
+                Cell cell2 = row.getCell(2);
+                Assert.assertNull(getInteger(cell2));
+                Assert.assertEquals("测试数据",  getString(cell2));
+                Assert.assertNull(getDouble(cell2));
+                Assert.assertNull(getDate(cell2, "yyyy-MM-dd"));
+
+                Cell cell3 = row.getCell(3);
+                Date expect = DateUtils.parseDate("2019-01-01", "yyyy-MM-dd");
+                Assert.assertEquals(Integer.valueOf((int) expect.getTime()), getInteger(cell3));
+                Assert.assertEquals(String.valueOf(expect.getTime()),  getString(cell3));
+                Assert.assertEquals(Double.valueOf((double) expect.getTime()),  getDouble(cell3));
+                Assert.assertEquals(expect, getDate(cell3, "yyyy-MM-dd"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
     }
 }
