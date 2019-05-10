@@ -130,7 +130,6 @@ ahao:
 
     asyncInit: true   # asyncInit是1.1.4中新增加的配置，如果有initialSize数量较多时，打开会加快应用启动时间
 
-
 spring:
   mvc:
     view:
@@ -141,7 +140,15 @@ spring:
     port: 6379
 #    password: redis
     timeout: 10000
-
+    lettuce:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-active: 8
+        max-wait: -1ms
+#    sentinel:
+#      master: mymaster
+#      nodes: 127.0.0.1:26379,127.0.0.1:26380,127.0.0.1:26381
 mybatis:
   mapper-locations: classpath*:mapper/**/*.xml
   type-handlers-package: com.ahao.mybatis.handler
