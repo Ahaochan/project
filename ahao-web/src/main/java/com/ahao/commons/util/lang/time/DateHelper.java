@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -50,8 +49,7 @@ public class DateHelper {
      * @return 当前时间
      */
     public static String getNow(String format) {
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.format(new Date());
+        return  DateFormatUtils.format(new Date(), format);
     }
     public static int getNowYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
