@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.RandomStringGenerator;
 
 import java.awt.*;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Ahaochan on 2017/8/18.
@@ -48,8 +48,7 @@ public class RandomHelper {
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
-
-        return startInclusive + new Random().nextInt(endExclusive - startInclusive);
+        return startInclusive + ThreadLocalRandom.current().nextInt(endExclusive - startInclusive);
     }
 
     /**
