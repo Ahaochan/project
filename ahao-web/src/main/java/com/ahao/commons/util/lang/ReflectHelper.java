@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,11 +31,11 @@ public class ReflectHelper {
      */
     public static <T> T create(Class<T> clazz) {
         try {
-            return clazz.newInstance();
-        } catch (InstantiationException e) {
-            logger.warn("不能实例化" + clazz.getName() + ", 请查看该类是否为无法被实例化的类, 如接口, 抽象类, 或者没有无参构造函数.", e);
-        } catch (IllegalAccessException e) {
-            logger.warn("不能访问" + clazz.getName() + ", 请查看该类的构造函数是否为private", e);
+            Constructor<T> constructor = clazz.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            return constructor.newInstance();
+        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+            logger.error(String.format("实例化%s失败", clazz.getName()), e);
         }
         return null;
     }
