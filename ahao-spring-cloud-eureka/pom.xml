@@ -4,6 +4,7 @@
     <parent>
         <groupId>com.ahao</groupId>
         <artifactId>ahao-all</artifactId>
+        <relativePath>../pom.xml</relativePath>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
