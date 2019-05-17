@@ -1,0 +1,14 @@
+# 服务注册配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/,http://127.0.0.1:8762/eureka/ # 注册两个服务注册中心
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: eureka-client-8088
+spring:
+  application:
+    name: eureka-client
+server:
+  port: 8088

@@ -1,10 +1,7 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:8761/eureka/   # 服务中心的地址
-    register-with-eureka: false                    # 服务中心没必要注册
 spring:
+  profiles:
+    active: server
   application:
     name: eureka
 server:
-  port: 8761
+  port: 8762

@@ -1,0 +1,11 @@
+# 服务注册中心配置
+eureka:
+  client:
+    register-with-eureka: false
+  instance:
+    hostname: eureka-server-8761
+spring:
+  application:
+    name: eureka-server
+server:
+  port: 8761
