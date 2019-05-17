@@ -1,6 +1,6 @@
 package com.ahao.commons.entity;
 
-import com.ahao.commons.util.CloneHelper;
+import com.ahao.util.commons.CloneHelper;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

@@ -1,6 +1,5 @@
 package com.ahao.rbac.shiro.config;
 
-import com.ahao.rbac.shiro.credential.RetryLimitHashedCredentialsMatcher;
 import com.ahao.rbac.shiro.listener.ShiroSessionListener;
 import com.ahao.rbac.shiro.realm.PasswordRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -203,8 +202,8 @@ public class ShiroConfig {
      */
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher credentialsMatcher = new RetryLimitHashedCredentialsMatcher();
-//        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+//        HashedCredentialsMatcher credentialsMatcher = new RetryLimitHashedCredentialsMatcher();
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
         credentialsMatcher.setHashAlgorithmName("SHA-512");
         credentialsMatcher.setHashIterations(1024);
         credentialsMatcher.setStoredCredentialsHexEncoded(true);

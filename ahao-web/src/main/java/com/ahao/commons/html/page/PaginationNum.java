@@ -1,6 +1,6 @@
 package com.ahao.commons.html.page;
 
-import com.ahao.commons.util.lang.math.NumberHelper;
+import com.ahao.util.commons.lang.math.NumberHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
