@@ -1,6 +1,6 @@
 package com.ahao.web.module.download;
 
-import com.ahao.web.util.RequestHelper;
+import com.ahao.util.web.RequestHelper;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;

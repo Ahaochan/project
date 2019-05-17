@@ -1,8 +1,8 @@
 package com.ahao.spring.jdbc.datasource;
 
-import com.ahao.commons.util.lang.RandomHelper;
 import com.ahao.spring.jdbc.DataSourceContextHolder;
-import com.ahao.spring.util.SpringContextHolder;
+import com.ahao.util.commons.lang.RandomHelper;
+import com.ahao.util.spring.SpringContextHolder;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;

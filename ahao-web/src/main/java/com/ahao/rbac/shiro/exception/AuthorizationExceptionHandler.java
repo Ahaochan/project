@@ -1,6 +1,6 @@
 package com.ahao.rbac.shiro.exception;
 
-import com.ahao.spring.util.AppUtils;
+import com.ahao.util.spring.AppUtils;
 import org.apache.shiro.authc.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
