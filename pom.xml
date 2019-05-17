@@ -34,7 +34,7 @@
         <ahao.version>1.0.0</ahao.version>
 
         <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
-        <spring-cloud.version>Greenwich.RC2</spring-cloud.version>
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
     </properties>
 
     <repositories>
@@ -100,4 +100,15 @@
         </dependency>
         <!--======================================================= 单元测试 =======================================================-->
     </dependencies>
+
+
+    <build>
+        <plugins>
+            <!-- 解决 jar 中没有主清单属性 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
