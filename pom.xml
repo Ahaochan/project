@@ -19,7 +19,10 @@
     <modules>
         <!--<module>ahao-mybatis</module>-->
         <!--<module>ahao-shiro-sso</module>-->
+        <module>ahao-spring-boot-balance-datasources</module>
+        <module>ahao-spring-boot-redis</module>
         <module>ahao-spring-cloud-eureka</module>
+        <module>ahao-utils</module>
         <module>ahao-web</module>
 
         <!--<module>ahao-forum-guitar</module>-->
@@ -35,6 +38,8 @@
 
         <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+
+        <alibaba.druid.version>1.1.14</alibaba.druid.version>
     </properties>
 
     <repositories>

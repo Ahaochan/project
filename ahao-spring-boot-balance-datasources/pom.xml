@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ahao-all</artifactId>
+        <groupId>com.ahao</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <version>1.0.0</version>
+
+    <artifactId>ahao-spring-boot-balance-datasources</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!--======================================================= 自定义模块 =======================================================-->
+        <dependency>
+            <groupId>com.ahao</groupId>
+            <artifactId>ahao-utils</artifactId>
+        </dependency>
+        <!--======================================================= 自定义模块 =======================================================-->
+
+        <!--======================================================= 数据源 =======================================================-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${alibaba.druid.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!--======================================================= 数据源 =======================================================-->
+
+        <!--======================================================= Spring Boot =======================================================-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!--======================================================= Spring Boot =======================================================-->
+
+        <!--======================================================= 单元测试 =======================================================-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--======================================================= 单元测试 =======================================================-->
+    </dependencies>
+</project>

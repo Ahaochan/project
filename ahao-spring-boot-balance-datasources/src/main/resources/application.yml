@@ -1,5 +1,5 @@
 # https://github.com/alibaba/druid/wiki/DruidDataSource配置
-ahao:
+spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     master-bean-name: masterDataSource
@@ -98,6 +98,3 @@ ahao:
       maxPoolPreparedStatementPerConnectionSize: 20
 
       asyncInit: true   # asyncInit是1.1.4中新增加的配置，如果有initialSize数量较多时，打开会加快应用启动时间
-
-
-
