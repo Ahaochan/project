@@ -1,12 +1,10 @@
-package com.ahao.spring.jdbc.datasource;
+package com.ahao.spring.boot.datasources.datasource;
 
-import com.ahao.spring.jdbc.DataSourceContextHolder;
+import com.ahao.spring.boot.datasources.DataSourceContextHolder;
 import com.ahao.util.commons.lang.RandomHelper;
 import com.ahao.util.spring.SpringContextHolder;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
@@ -26,12 +24,10 @@ import java.util.stream.Stream;
 @AutoConfigureAfter(value = DataSourceConfiguration.class)
 @DependsOn(SpringContextHolder.BEAN_NAME)
 public class LoadBalanceConfiguration {
-	public static final Logger logger = LoggerFactory.getLogger(LoadBalanceConfiguration.class);
-
-	@Value("${ahao.datasource.master-bean-name}")
+	@Value("${spring.datasource.master-bean-name}")
 	private String[] masterNames;
 
-	@Value("${ahao.datasource.salve-bean-name}")
+	@Value("${spring.datasource.salve-bean-name}")
 	private String[] slaveNames;
 
 	@Bean

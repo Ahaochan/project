@@ -1,4 +1,4 @@
-package com.ahao.spring.jdbc;
+package com.ahao.spring.boot.datasources;
 
 /**
  * 当前数据源 key
