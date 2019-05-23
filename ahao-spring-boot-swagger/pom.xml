@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.ahao</groupId>
+        <artifactId>ahao-all</artifactId>
+        <relativePath>../pom.xml</relativePath>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <version>1.0.0</version>
+
+
+    <artifactId>ahao-spring-boot-swagger</artifactId>
+
+    <dependencies>
+        <!--======================================================= 自定义模块 =======================================================-->
+        <dependency>
+            <groupId>com.ahao</groupId>
+            <artifactId>ahao-utils</artifactId>
+        </dependency>
+        <!--======================================================= 自定义模块 =======================================================-->
+
+        <!--======================================================= Spring Boot =======================================================-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!--======================================================= Spring Boot =======================================================-->
+
+        <!--======================================================= Swagger =======================================================-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${spring.swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${spring.swagger.version}</version>
+        </dependency>
+        <!--======================================================= Swagger =======================================================-->
+    </dependencies>
+</project>
