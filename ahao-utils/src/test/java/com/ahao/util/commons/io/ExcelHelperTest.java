@@ -46,7 +46,7 @@ public class ExcelHelperTest {
     }
 
     @Test
-    public void getCellValueTest() {
+    public void getCellValueTest() throws Exception {
         File file = new File("src/test/resources", "excel.xlsx");
         int sheetIndex = 0;
 
@@ -88,10 +88,6 @@ public class ExcelHelperTest {
                 Assert.assertEquals(Double.valueOf((double) expect.getTime()),  getDouble(cell3));
                 Assert.assertEquals(expect, getDate(cell3, "yyyy-MM-dd"));
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail();
         }
     }
 }
