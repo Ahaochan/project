@@ -17,7 +17,32 @@ AbstractRoutingDataSource proxy = new AbstractRoutingDataSource() {
 # 配置数据源
 先在[`DataSourceConfiguration`](./ahao-spring-boot-balance-datasources/src/main/java/com/ahao/spring/boot/datasources/datasource/DataSourceConfiguration.java)注册几个数据源`Bean`.
 
-https://github.com/Ahaochan/project/blob/master/ahao-spring-boot-balance-datasources/src/main/java/com/ahao/spring/boot/datasources/datasource/DataSourceConfiguration.java#L14-L36
+```java
+// https://github.com/Ahaochan/project/blob/master/ahao-spring-boot-balance-datasources/src/main/java/com/ahao/spring/boot/datasources/datasource/DataSourceConfiguration.java#L14-L36
+@Configuration
+public class DataSourceConfiguration {
+    @Value("${spring.datasource.type}")
+    private Class<? extends DataSource> dataSourceType;
+
+    @Bean(name = "masterDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.master")
+    public DataSource masterDateSource() {
+        return DataSourceBuilder.create().type(dataSourceType).build();
+    }
+
+    @Bean(name = "slave1DataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.slave1")
+    public DataSource slave1DateSource() {
+        return DataSourceBuilder.create().type(dataSourceType).build();
+    }
+
+    @Bean(name = "slave2DataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.slave2")
+    public DataSource slave2DateSource() {
+        return DataSourceBuilder.create().type(dataSourceType).build();
+    }
+}
+```
 
 上面注册了三个数据源`Bean`, 并在[`yml`](./ahao-spring-boot-balance-datasources/src/main/resources/application.yml)配置文件`spring.datasource`配置数据源的参数.
 并且指定主从数据源.
