@@ -19,7 +19,12 @@
     jQuery(function ($) {
         var webSocket;
         $('#btn-connect').on('click', function () {
-            webSocket = new WebSocket('ws://localhost:8080/chat');
+            if (window.location.protocol === 'http:') {
+                webSocket = new WebSocket('ws://localhost:8080/chat');
+            } else {
+                webSocket = new WebSocket('wss://localhost:8080/chat');
+            }
+
 
             webSocket.onopen = function (event) {
                 $('#message').append('WebSocket打开连接<br/>');
