@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <title>ServerEndpoint 实现的 WebSocket</title>
+</head>
+
+<body>
+<input id="content" type="text"/>
+<button id="btn-connect">连接</button>
+<button id="btn-close" style="display: none">关闭</button>
+<button id="btn-send" style="display: none">发送</button>
+<button id="btn-clear" style="display: none">清空</button>
+<div id="message">
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+    jQuery(function ($) {
+        var webSocket;
+        $('#btn-connect').on('click', function () {
+            webSocket = new WebSocket('ws://localhost:8080/chat');
+
+            webSocket.onopen = function (event) {
+                $('#message').append('WebSocket打开连接<br/>');
+                $('#btn-connect').hide();
+                $('#btn-close').show();
+                $('#btn-send').show();
+                $('#btn-clear').show();
+            };
+            webSocket.onmessage = function (event) {
+                $('#message').append(event.data+'<br/>');
+            };
+            webSocket.onclose = function (event) {
+                $('#message').append('WebSocket关闭连接:'+event.reason+'<br/>');
+                $('#btn-connect').show();
+                $('#btn-close').hide();
+                $('#btn-send').hide();
+                $('#btn-clear').hide();
+            };
+            webSocket.onerror = function (event) {
+                $('#message').append('WebSocket发生异常<br/>');
+                $('#btn-connect').show();
+                $('#btn-send').hide();
+                $('#btn-clear').hide();
+            };
+
+        });
+
+        $('#btn-close').on('click', function () {
+            webSocket.close(1000, '正常关闭');
+        });
+
+        $('#btn-send').on('click', function () {
+            var $content = $('#content'), val = $content.val();
+            if (val) {
+                webSocket.send(val);
+                $content.val(null);
+            }
+        });
+
+        $('#btn-clear').on('click', function () {
+           $('#message').empty();
+        });
+    });
+</script>
+</body>
+</html>
