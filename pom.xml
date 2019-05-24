@@ -21,6 +21,8 @@
         <!--<module>ahao-shiro-sso</module>-->
         <module>ahao-spring-boot-balance-datasources</module>
         <module>ahao-spring-boot-redis</module>
+        <module>ahao-spring-boot-swagger</module>
+        <module>ahao-spring-boot-websocket-endpoint</module>
         <module>ahao-spring-cloud-eureka</module>
         <module>ahao-utils</module>
         <module>ahao-web</module>
@@ -41,6 +43,7 @@
         <spring.swagger.version>2.9.2</spring.swagger.version>
 
         <alibaba.druid.version>1.1.14</alibaba.druid.version>
+        <alibaba.fastjson.version>1.2.56</alibaba.fastjson.version>
     </properties>
 
     <repositories>
