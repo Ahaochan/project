@@ -5,6 +5,7 @@
   - [ahao-spring-boot-balance-datasources](./ahao-spring-boot-balance-datasources)(负载均衡的主从数据源)
   - [ahao-spring-boot-redis](./ahao-spring-boot-redis)(`Redis`方法级缓存和工具类)
   - [ahao-spring-boot-swagger](./ahao-spring-boot-swagger)(`Swagger`配置及使用)
+  - [ahao-spring-boot-websocket-endpoint](./ahao-spring-boot-websocket-endpoint)(`Java`提供的`WebSocket`实现方式)
   - [ahao-spring-cloud-eureka](./ahao-spring-cloud-eureka)(开箱即用的服务注册中心)
   - [ahao-utils](./ahao-utils)(常用工具类模块)
   - [ahao-web](./ahao-web) (常用业务代码)
