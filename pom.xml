@@ -22,6 +22,7 @@
         <module>ahao-spring-boot-balance-datasources</module>
         <module>ahao-spring-boot-redis</module>
         <module>ahao-spring-boot-swagger</module>
+        <module>ahao-spring-boot-websocket</module>
         <module>ahao-spring-boot-websocket-endpoint</module>
         <module>ahao-spring-cloud-eureka</module>
         <module>ahao-utils</module>

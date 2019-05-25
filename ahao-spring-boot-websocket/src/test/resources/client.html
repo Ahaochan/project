@@ -25,7 +25,6 @@
                 webSocket = new WebSocket('ws://127.0.0.1:8080/chat');
             }
 
-
             webSocket.onopen = function (event) {
                 $('#message').append('WebSocket打开连接<br/>');
                 $('#btn-connect').hide();

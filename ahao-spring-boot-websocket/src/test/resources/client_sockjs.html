@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8"/>
-    <title>ServerEndpoint 实现的 WebSocket</title>
+    <title>Spring Boot 低层级 Websocket 实现的 WebSocket</title>
 </head>
 
 <body>
@@ -15,16 +15,16 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdn.bootcss.com/sockjs-client/1.3.0/sockjs.min.js"></script>
 <script>
     jQuery(function ($) {
         var webSocket;
         $('#btn-connect').on('click', function () {
             if (window.location.protocol === 'https:') {
-                webSocket = new WebSocket('wss://127.0.0.1:8080/chat');
+                webSocket = new SockJS('https://127.0.0.1:8080/chat-sockjs');
             } else {
-                webSocket = new WebSocket('ws://127.0.0.1:8080/chat');
+                webSocket = new SockJS('http://127.0.0.1:8080/chat-sockjs');
             }
-
 
             webSocket.onopen = function (event) {
                 $('#message').append('WebSocket打开连接<br/>');
