@@ -109,15 +109,4 @@
         </dependency>
         <!--======================================================= 单元测试 =======================================================-->
     </dependencies>
-
-
-    <build>
-        <plugins>
-            <!-- 解决 jar 中没有主清单属性 -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>
