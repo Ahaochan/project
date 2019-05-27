@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ChangeReplayColorTest {
     enum Color {
-        RED(1);
+        RED(1), PURPLE(2);
         int code;
         Color(int code) { this.code = code; }
     }
@@ -26,7 +26,7 @@ public class ChangeReplayColorTest {
     public void test() {
         // 1. 获取所有 replay xml 文件
         Path dir = Paths.get("C:\\yio.tro.antiyoy.android\\shared_prefs");
-        if (!Files.exists(dir)) {
+        if (Files.notExists(dir)) {
             Assert.fail();
         }
 
