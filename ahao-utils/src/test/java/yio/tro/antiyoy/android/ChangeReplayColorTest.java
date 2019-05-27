@@ -15,11 +15,18 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class ChangeReplayColorTest {
+    enum Color {
+        RED(1);
+        int code;
+        Color(int code) { this.code = code; }
+    }
+
+
     @Test
     public void test() {
         // 1. 获取所有 replay xml 文件
         Path dir = Paths.get("C:\\yio.tro.antiyoy.android\\shared_prefs");
-        if(!Files.exists(dir)) {
+        if (!Files.exists(dir)) {
             Assert.fail();
         }
 
@@ -31,8 +38,8 @@ public class ChangeReplayColorTest {
                 List<String> lines = FileUtils.readLines(file, StandardCharsets.UTF_8);
                 for (int i = 0; i < lines.size(); i++) {
                     String line = lines.get(i);
-                    if(StringUtils.startsWith(line, "    <int name=\"color_offset\" value=\"")) {
-                        lines.set(i, "    <int name=\"color_offset\" value=\"2\" />");
+                    if (StringUtils.startsWith(line, "    <int name=\"color_offset\" value=\"")) {
+                        lines.set(i, "    <int name=\"color_offset\" value=\"" + Color.RED.code + "\" />");
                     }
                 }
                 // 4. 回写文件
