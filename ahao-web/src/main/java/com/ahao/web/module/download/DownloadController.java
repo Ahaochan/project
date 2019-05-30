@@ -19,7 +19,7 @@ public class DownloadController {
         Resource body = new ByteArrayResource(msg.getBytes(StandardCharsets.UTF_8));
 
         // 2. 初始化文件名, 避免IE中文乱码等问题
-        String filename = RequestHelper.ensureFilename("中文+- 测试.txt");
+        String filename = RequestHelper.safetyFilename("中文+- 测试.txt");
 
         // 3. 初始化响应头
         HttpHeaders headers = new HttpHeaders();
