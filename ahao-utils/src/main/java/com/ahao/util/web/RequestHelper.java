@@ -262,7 +262,7 @@ public abstract class RequestHelper {
         return StringUtils.containsAny(userAgent, ieUserAgent);
     }
 
-    public static String ensureFilename(String filename) {
+    public static String safetyFilename(String filename) {
         try {
             if (isIE()) {
                 filename = URLEncoder.encode(filename, "UTF-8");

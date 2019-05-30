@@ -99,6 +99,9 @@ public class StringHelper {
     public static String null2Empty(String str) {
         return str == null ? "" : str;
     }
+    public static String null2Empty(Object obj) {
+        return obj == null ? "" : String.valueOf(obj);
+    }
 
     // ====================================== 汉字处理相关 ==================================================
     public static boolean containChinese(CharSequence charSequence) {
