@@ -1,0 +1,21 @@
+# QQ邮箱->设置->账户->POP3/SMTP服务:开启服务后会获得QQ的授权码.
+spring:
+  mail:
+    host: smtp.exmail.qq.com
+    port: 465
+    username: 发件人@seeapp.com
+    password: 邮箱密码
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+            socketFactory:
+              fallback: false
+              class: javax.net.ssl.SSLSocketFactory
+
