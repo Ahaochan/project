@@ -1,6 +1,7 @@
 package com.ahao.spring.boot.mail;
 
 import com.ahao.spring.boot.Starter;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class MailTest {
     private JavaMailSender mailSender;
 
     @Test
+    @Ignore("需要配置实际的邮箱配置")
     public void sendSimpleMail() {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("发件人@qq.com");
@@ -36,6 +38,7 @@ public class MailTest {
     }
 
     @Test
+    @Ignore("需要配置实际的邮箱配置")
     public void sendAttachmentsMail() throws Exception {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 
@@ -54,6 +57,7 @@ public class MailTest {
     }
 
     @Test
+    @Ignore("需要配置实际的邮箱配置")
     public void sendHtmlMail() throws Exception {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 
