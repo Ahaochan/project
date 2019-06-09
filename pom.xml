@@ -25,6 +25,7 @@
         <module>ahao-spring-boot-webservice</module>
         <module>ahao-spring-boot-websocket</module>
         <module>ahao-spring-boot-websocket-endpoint</module>
+        <module>ahao-spring-boot-wechat</module>
         <module>ahao-spring-cloud-eureka</module>
         <module>ahao-utils</module>
         <module>ahao-web</module>
