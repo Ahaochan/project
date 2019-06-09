@@ -16,5 +16,8 @@ trim_trailing_whitespace = true
 # 在文件最后插入新一行
 insert_final_newline = true
 
+[*.yml]
+indent_size = 2
+
 [*.md]
 trim_trailing_whitespace = false
