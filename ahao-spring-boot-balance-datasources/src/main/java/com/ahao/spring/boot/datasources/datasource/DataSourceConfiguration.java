@@ -18,19 +18,19 @@ public class DataSourceConfiguration {
 
     @Bean(name = "masterDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.master")
-    public DataSource masterDateSource() {
+    public DataSource masterDataSource() {
         return DataSourceBuilder.create().type(dataSourceType).build();
     }
 
     @Bean(name = "slave1DataSource")
     @ConfigurationProperties(prefix = "spring.datasource.slave1")
-    public DataSource slave1DateSource() {
+    public DataSource slave1DataSource() {
         return DataSourceBuilder.create().type(dataSourceType).build();
     }
 
     @Bean(name = "slave2DataSource")
     @ConfigurationProperties(prefix = "spring.datasource.slave2")
-    public DataSource slave2DateSource() {
+    public DataSource slave2DataSource() {
         return DataSourceBuilder.create().type(dataSourceType).build();
     }
 }
