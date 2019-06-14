@@ -47,6 +47,8 @@
 
         <alibaba.druid.version>1.1.14</alibaba.druid.version>
         <alibaba.fastjson.version>1.2.56</alibaba.fastjson.version>
+
+        <mybatis.plus.version>3.1.1</mybatis.plus.version>
     </properties>
 
     <repositories>

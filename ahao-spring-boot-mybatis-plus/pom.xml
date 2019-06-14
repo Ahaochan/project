@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ahao-all</artifactId>
+        <groupId>com.ahao</groupId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <version>1.0.0</version>
+
+    <artifactId>ahao-spring-boot-mybatis-plus</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!--======================================================= 自定义模块 =======================================================-->
+        <dependency>
+            <groupId>com.ahao</groupId>
+            <artifactId>ahao-utils</artifactId>
+        </dependency>
+        <!--======================================================= 自定义模块 =======================================================-->
+
+        <!--======================================================= Spring Boot =======================================================-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!--======================================================= Spring Boot =======================================================-->
+
+        <!--======================================================= 数据库相关 =======================================================-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis.plus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis.plus.version}</version>
+        </dependency>
+        <!--======================================================= 数据库相关 =======================================================-->
+
+        <!--======================================================= 单元测试 =======================================================-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--======================================================= 单元测试 =======================================================-->
+    </dependencies>
+</project>
