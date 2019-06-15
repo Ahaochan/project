@@ -4,6 +4,8 @@ import com.ahao.spring.boot.Starter;
 import me.chanjar.weixin.mp.api.WxMpMenuService;
 import me.chanjar.weixin.mp.api.WxMpService;
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,4 +26,8 @@ public class BaseMpTest {
     public void init() {
         menuService = wxMpService.getMenuService();
     }
+
+    @Test
+    @Ignore
+    public void test() {}
 }

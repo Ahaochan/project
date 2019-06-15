@@ -7,9 +7,8 @@ import me.chanjar.weixin.common.bean.menu.WxMenu;
 import me.chanjar.weixin.common.bean.menu.WxMenuButton;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.List;
 
 public class CreateMenuTest extends BaseMpTest {
 
@@ -18,6 +17,7 @@ public class CreateMenuTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141013">自定义菜单创建接口</a>
      */
     @Test
+    @Ignore("需配置实际的权限数据")
     public void createMenuByJson() {
         String json = "{\"button\":[{\"type\":\"view\",\"name\":\"百度\",\"url\":\"http://www.baidu.com/\"}]}";
         try {
@@ -35,6 +35,7 @@ public class CreateMenuTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296">创建个性化菜单</a>
      */
     @Test
+    @Ignore("需配置实际的权限数据")
     public void createConditionalMenuByJson() {
         // 创建个性化菜单: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296
         JSONObject json = new JSONObject();
