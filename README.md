@@ -2,6 +2,7 @@
 本项目是本人自用的一套 `Java` 代码库.
 
 - ahao-all
+  - [ahao-common-utils](https://github.com/Ahaochan/ahao-common-utils)(常用工具类模块)
   - [ahao-spring-boot-balance-datasources](./ahao-spring-boot-balance-datasources)(负载均衡的主从数据源)
   - [ahao-spring-boot-file-download](./ahao-spring-boot-file-download)(常用的文件下载实例, `word`、`excel`、`pdf`)
   - [ahao-spring-boot-mail](./ahao-spring-boot-mail)(简单的邮件客户端)
@@ -11,7 +12,6 @@
   - [ahao-spring-boot-websocket](./ahao-spring-boot-websocket)(`Spring`提供的低层级`WebSocket`实现方式)
   - [ahao-spring-boot-websocket-endpoint](./ahao-spring-boot-websocket-endpoint)(`Java`提供的`WebSocket`实现方式)
   - [ahao-spring-cloud-eureka](./ahao-spring-cloud-eureka)(开箱即用的服务注册中心)
-  - [ahao-common-utils](./ahao-common-utils)(常用工具类模块)
   - [ahao-web](./ahao-web) (常用业务代码)
   - ~~ahao-forum-guitar (论坛项目, 放弃维护)~~
   - ~~ahao-invoice (企业增值税数据分析系统, 放弃维护)~~
