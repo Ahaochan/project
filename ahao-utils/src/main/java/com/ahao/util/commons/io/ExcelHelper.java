@@ -43,9 +43,8 @@ public class ExcelHelper {
                 // 4.1. 读取每一列, 加载为字符串
                 result[r] = new String[cellCount];
                 for(int c = 0; c < cellCount; c++){
-                    Cell cell = row.getCell(c, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK); // 保证不返回null
-                    cell.setCellType(CellType.STRING);
-                    result[r][c] = cell.getStringCellValue();
+                    Cell cell = row.getCell(c, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK); // 保证不返回null、
+                    result[r][c] = getString(cell);
                 }
             }
             return result;
