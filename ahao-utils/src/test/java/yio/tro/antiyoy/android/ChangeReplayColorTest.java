@@ -3,6 +3,7 @@ package yio.tro.antiyoy.android;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -23,6 +24,7 @@ public class ChangeReplayColorTest {
 
 
     @Test
+    @Ignore("业务代码")
     public void test() {
         // 1. 获取所有 replay xml 文件
         Path dir = Paths.get("C:\\yio.tro.antiyoy.android\\shared_prefs");
