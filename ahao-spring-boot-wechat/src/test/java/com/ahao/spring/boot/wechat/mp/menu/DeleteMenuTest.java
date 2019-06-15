@@ -3,6 +3,7 @@ package com.ahao.spring.boot.wechat.mp.menu;
 import com.ahao.spring.boot.wechat.mp.BaseMpTest;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class DeleteMenuTest extends BaseMpTest {
@@ -11,6 +12,7 @@ public class DeleteMenuTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141015">自定义菜单删除接口</a>
      */
     @Test
+    @Ignore("需配置实际的权限数据")
     public void deleteAllMenu() {
         try {
             menuService.menuDelete();
@@ -28,6 +30,7 @@ public class DeleteMenuTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296">删除个性化菜单</a>
      */
     @Test
+    @Ignore("需配置实际的权限数据")
     public void deleteMenuById() {
         String menuId = "";
         try {

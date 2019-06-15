@@ -6,6 +6,7 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.bean.menu.WxMpGetSelfMenuInfoResult;
 import me.chanjar.weixin.mp.bean.menu.WxMpMenu;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class GetMenuTest extends BaseMpTest {
@@ -15,6 +16,7 @@ public class GetMenuTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141014">自定义菜单查询接口</a>
      */
     @Test
+    @Ignore("需配置实际的权限数据")
     public void getMenu() {
         try {
             WxMpMenu wxMpMenu = menuService.menuGet();
@@ -32,6 +34,7 @@ public class GetMenuTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1434698695">获取自定义菜单配置接口</a>
      */
     @Test
+    @Ignore("需配置实际的权限数据")
     public void getAllMenu() {
         try {
             WxMpGetSelfMenuInfoResult selfMenuInfo = menuService.getSelfMenuInfo();
@@ -49,6 +52,7 @@ public class GetMenuTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296">测试个性化菜单匹配结果</a>
      */
     @Test
+    @Ignore("需配置实际的权限数据")
     public void getMenuByUserId() {
         String userId = "";
         try {
