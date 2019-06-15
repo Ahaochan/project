@@ -6,20 +6,9 @@ package com.ahao.spring.boot.datasources;
 public class DataSourceContextHolder {
 	private static final ThreadLocal<String> LOCAL = new ThreadLocal<String>();
 
-	public static final String MASTER = "master";
-	public static final String SLAVE  = "slave";
-
-	public static boolean isMaster() {
-		return MASTER.equals(LOCAL.get());
-	}
-
-	public static void master() {
-		LOCAL.set(MASTER);
-	}
-
-	public static void slave() {
-		LOCAL.set(SLAVE);
-	}
+	public static void set(String profile) {
+	    LOCAL.set(profile);
+    }
 
 	public static String get() {
 		return LOCAL.get();

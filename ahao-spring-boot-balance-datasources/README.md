@@ -1,106 +1,37 @@
-# 简介
-通过继承`AbstractRoutingDataSource`重写`determineCurrentLookupKey`方法, 进行切换数据源操作.
-
-```java
-// https://github.com/Ahaochan/project/blob/master/ahao-spring-boot-balance-datasources/src/main/java/com/ahao/spring/boot/datasources/datasource/LoadBalanceConfiguration.java#L40-L48
-AbstractRoutingDataSource proxy = new AbstractRoutingDataSource() {
-    @Override
-    protected Object determineCurrentLookupKey() {
-        boolean isMaster = DataSourceContextHolder.isMaster();
-        String key = loadBalance_polling(isMaster);
-        logger.info(String.format("当前数据源切换到 %s 数据库: %s", isMaster ? "Master" : "Slave", key));
-        return key;
-    }
-};
-```
-
-# 配置数据源
-先在[`DataSourceConfiguration`](./ahao-spring-boot-balance-datasources/src/main/java/com/ahao/spring/boot/datasources/datasource/DataSourceConfiguration.java)注册几个数据源`Bean`.
-
-```java
-// https://github.com/Ahaochan/project/blob/master/ahao-spring-boot-balance-datasources/src/main/java/com/ahao/spring/boot/datasources/datasource/DataSourceConfiguration.java#L14-L36
-@Configuration
-public class DataSourceConfiguration {
-    @Value("${spring.datasource.type}")
-    private Class<? extends DataSource> dataSourceType;
-
-    @Bean(name = "masterDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.master")
-    public DataSource masterDataSource() {
-        return DataSourceBuilder.create().type(dataSourceType).build();
-    }
-
-    @Bean(name = "slave1DataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.slave1")
-    public DataSource slave1DataSource() {
-        return DataSourceBuilder.create().type(dataSourceType).build();
-    }
-
-    @Bean(name = "slave2DataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.slave2")
-    public DataSource slave2DataSource() {
-        return DataSourceBuilder.create().type(dataSourceType).build();
-    }
-}
-```
-
-上面注册了三个数据源`Bean`, 并在[`yml`](./ahao-spring-boot-balance-datasources/src/main/resources/application.yml)配置文件`spring.datasource`配置数据源的参数.
-并且指定主从数据源.
-
-```yaml
-# https://github.com/Ahaochan/project/blob/master/ahao-spring-boot-balance-datasources/src/main/resources/application.yml#L2-L11
-spring:
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    master-bean-name: masterDataSource
-    salve-bean-name: slave1DataSource,slave2DataSource
-
-    master:
-      username: root
-      password: root
-      url: jdbc:mysql://172.20.2.135:3306/my_db1?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
-```
+# 特性
+1. 支持多数据源、读写分离、分组数据源
+1. 通过 `yml` 配置, 即可自动添加数据源
+1. 提供轮询、随机两种负载均衡算法
+1. 支持注解形式的切换数据源方式
 
 # 使用
-只要在方法上面加上注解即可.
+在`yml`配置文件`spring.datasource.dynamic`添加`datasource`属性, 配置数据源即可.
+```yaml
+spring:
+  datasource:
+    dynamic:
+      primary: master
+      datasource:
+        master_1:
+          url: jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MODE=MySQL;INIT=runscript from 'classpath:init-db1.sql';
+        slave_1:
+          url: jdbc:h2:mem:db2;DB_CLOSE_DELAY=-1;MODE=MySQL;INIT=runscript from 'classpath:init-db2.sql';
+        slave_2:
+          url: jdbc:h2:mem:db3;DB_CLOSE_DELAY=-1;MODE=MySQL;INIT=runscript from 'classpath:init-db3.sql';
+```
+如果是分组数据源, 只要用`_`分割组名即可, 比如`slave`.
+
+然后在方法上面加上注解即可.
 主数据源: `@MasterDataSource`
 从数据源: `@SlaveDataSource`
+自定义数据源: `@DataSource("数据源名称")`
 
 如果要手动切换, 调用以下代码即可, 和注解是等价的.
-主数据源: `DataSourceContextHolder.master();`
-从数据源: `DataSourceContextHolder.slave();`
+主数据源: `DataSourceContextHolder.set("master");`
+从数据源: `DataSourceContextHolder.set("slave");`
 清除配置: `DataSourceContextHolder.clear();`避免影响后续数据源切换.
 
-
 # 负载均衡算法
-内置两种简单负载均衡算法
+内置两种简单负载均衡算法, 参考[`strategy`包](./src/main/java/com/ahao/spring/boot/datasources/strategy).
 1. 随机
 2. 顺序轮询(可以改造, 接入`Redis`计数)
-
-```java
-// https://github.com/Ahaochan/project/blob/master/ahao-spring-boot-balance-datasources/src/main/java/com/ahao/spring/boot/datasources/datasource/LoadBalanceConfiguration.java#L62-L85
-/**
- * 负载均衡算法, 用随机数实现
- * @param isMaster 是否为 master 数据库
- * @return 加载数据源的 key, 当前使用 BeanName 作为 key
- */
-public String loadBalance_random(boolean isMaster) {
-    String[] names = isMaster ? masterNames : slaveNames;
-    int idx = RandomHelper.getInt(names.length);
-    return names[idx];
-}
-
-/**
- * 负载均衡算法, 轮询实现
- * @param isMaster 是否为 master 数据库
- * @return 加载数据源的 key, 当前使用 BeanName 作为 key
- */
-public String loadBalance_polling(boolean isMaster) {
-    String[] names = isMaster ? masterNames : slaveNames;
-    AtomicInteger idx = isMaster ? masterIdx : slaveIdx;
-    int i = idx.getAndIncrement();
-    return names[i % names.length];
-}
-private AtomicInteger masterIdx = new AtomicInteger(0);
-private AtomicInteger slaveIdx = new AtomicInteger(0);
-```

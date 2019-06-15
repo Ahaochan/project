@@ -107,6 +107,15 @@
     </dependencyManagement>
 
     <dependencies>
+        <!--======================================================= Spring Boot =======================================================-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+        <!--======================================================= Spring Boot =======================================================-->
+
         <!--======================================================= 单元测试 =======================================================-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
