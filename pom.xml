@@ -17,6 +17,7 @@
     </parent>
 
     <modules>
+        <module>ahao-common-utils</module>
         <module>ahao-spring-boot-balance-datasources</module>
         <module>ahao-spring-boot-file-download</module>
         <module>ahao-spring-boot-mail</module>
