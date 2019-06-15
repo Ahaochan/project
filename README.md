@@ -11,7 +11,7 @@
   - [ahao-spring-boot-websocket](./ahao-spring-boot-websocket)(`Spring`提供的低层级`WebSocket`实现方式)
   - [ahao-spring-boot-websocket-endpoint](./ahao-spring-boot-websocket-endpoint)(`Java`提供的`WebSocket`实现方式)
   - [ahao-spring-cloud-eureka](./ahao-spring-cloud-eureka)(开箱即用的服务注册中心)
-  - [ahao-utils](./ahao-utils)(常用工具类模块)
+  - [ahao-common-utils](./ahao-common-utils)(常用工具类模块)
   - [ahao-web](./ahao-web) (常用业务代码)
   - ~~ahao-forum-guitar (论坛项目, 放弃维护)~~
   - ~~ahao-invoice (企业增值税数据分析系统, 放弃维护)~~

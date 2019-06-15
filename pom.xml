@@ -29,7 +29,6 @@
         <module>ahao-spring-boot-websocket-endpoint</module>
         <module>ahao-spring-boot-wechat</module>
         <module>ahao-spring-cloud-eureka</module>
-        <module>ahao-utils</module>
         <module>ahao-web</module>
 
         <!--<module>ahao-forum-guitar</module>-->
@@ -81,7 +80,7 @@
             <!--======================================================= 自定义模块 =======================================================-->
             <dependency>
                 <groupId>com.ahao</groupId>
-                <artifactId>ahao-utils</artifactId>
+                <artifactId>ahao-common-utils</artifactId>
                 <version>1.0.0</version>
             </dependency>
             <!--======================================================= 自定义模块 =======================================================-->

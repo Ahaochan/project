@@ -31,7 +31,7 @@ public @interface Redis {
 
 # SpEL表达式
 ```java
-// https://github.com/Ahaochan/project/blob/master/ahao-utils/src/test/java/com/ahao/util/spring/SpelHelperTest.java#L12-L20
+// https://github.com/Ahaochan/project/blob/master/ahao-common-utils/src/test/java/com/ahao/util/spring/SpelHelperTest.java#L12-L20
 public void simple() {
     Map<String, Object> args = new HashMap<>();
     args.put("a", "aaa");
