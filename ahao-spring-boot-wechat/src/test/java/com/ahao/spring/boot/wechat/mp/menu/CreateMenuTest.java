@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.List;
+
 public class CreateMenuTest extends BaseMpTest {
 
     /**
