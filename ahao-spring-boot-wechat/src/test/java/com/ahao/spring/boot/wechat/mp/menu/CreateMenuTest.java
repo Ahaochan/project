@@ -6,9 +6,12 @@ import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.bean.menu.WxMenu;
 import me.chanjar.weixin.common.bean.menu.WxMenuButton;
 import me.chanjar.weixin.common.error.WxErrorException;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.platform.commons.util.StringUtils;
 
 import java.util.List;
 
@@ -18,26 +21,25 @@ public class CreateMenuTest extends BaseMpTest {
      * 通过 JSON 创建菜单
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141013">自定义菜单创建接口</a>
      */
-    @Test
-    @Ignore("需配置实际的权限数据")
-    public void createMenuByJson() {
-        String json = "{\"button\":[{\"type\":\"view\",\"name\":\"百度\",\"url\":\"http://www.baidu.com/\"}]}";
+    @ParameterizedTest
+    @ValueSource(strings = {"{\"button\":[{\"type\":\"view\",\"name\":\"百度\",\"url\":\"http://www.baidu.com/\"}]}"})
+    void createMenuByJson(String json) {
+        Assumptions.assumeTrue(StringUtils.isNotBlank(json), "需要配置菜单JSON");
         try {
             String responseJson = menuService.menuCreate(json);
-            Assert.assertNull(responseJson);
+            Assertions.assertNull(responseJson);
         } catch (WxErrorException e) {
             e.printStackTrace();
-            Assert.fail();
+            Assertions.fail();
         }
     }
 
     /**
      * 通过 JSON 创建菜单
-     * 在 {@link #createMenuByJson()} 的基础上添加 matchrule 字段, 匹配特定的用户群体
+     * 在 {@link #createMenuByJson(String json)} 的基础上添加 matchrule 字段, 匹配特定的用户群体
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296">创建个性化菜单</a>
      */
     @Test
-    @Ignore("需配置实际的权限数据")
     public void createConditionalMenuByJson() {
         // 创建个性化菜单: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296
         JSONObject json = new JSONObject();
@@ -46,11 +48,13 @@ public class CreateMenuTest extends BaseMpTest {
             String responseJson = menuService.menuCreate(json.toJSONString());
 
             JSONObject response = JSONObject.parseObject(responseJson);
-            Assert.assertEquals(0, response.getIntValue("errcode"));
-            Assert.assertEquals("ok", response.getString("errmsg"));
+            Assertions.assertAll("请求错误",
+                () -> Assertions.assertEquals(0, response.getIntValue("errcode")),
+                () -> Assertions.assertEquals("ok", response.getString("errmsg"))
+            );
         } catch (WxErrorException e) {
             e.printStackTrace();
-            Assert.fail();
+            Assertions.fail();
         }
     }
 

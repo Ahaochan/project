@@ -1,7 +1,8 @@
 package com.ahao.commons.http;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class HttpClientHelperTest {
 
@@ -10,6 +11,6 @@ public class HttpClientHelperTest {
         int code = HttpClientHelper.get("http://www.baidu.com")
                 .execute()
                 .getStatusCode();
-        Assert.assertEquals(200, code);
+        Assertions.assertEquals(200, code);
     }
 }

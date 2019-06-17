@@ -11,12 +11,13 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -27,22 +28,23 @@ import javax.xml.soap.SOAPMessage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ContextConfiguration(classes = Starter.class)
-public class WebServiceTest {
-    @Test
-    public void test() {
-        int id = 123;
+class WebServiceTest {
+
+    @ParameterizedTest
+    @ValueSource(ints = {1,2,3,4,5})
+    void selectById_Http(int id) throws Exception {
         String param = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"" +
-                "                  xmlns:gs=\""+StudentEndpoint.NS+"\">" +
-                "   <soapenv:Header/>" +
-                "   <soapenv:Body>" +
-                "      <gs:GetStudentRequest>" +
-                "         <gs:id>"+id+"</gs:id>" +
-                "      </gs:GetStudentRequest>" +
-                "   </soapenv:Body>" +
-                "</soapenv:Envelope>";
+            "                  xmlns:gs=\""+StudentEndpoint.NS+"\">" +
+            "   <soapenv:Header/>" +
+            "   <soapenv:Body>" +
+            "      <gs:GetStudentRequest>" +
+            "         <gs:id>"+id+"</gs:id>" +
+            "      </gs:GetStudentRequest>" +
+            "   </soapenv:Body>" +
+            "</soapenv:Envelope>";
 
         HttpPost post = new HttpPost("http://127.0.0.1:8080"+StudentEndpoint.URI);
         post.setEntity(new StringEntity(param, ContentType.APPLICATION_XML));
@@ -57,15 +59,18 @@ public class WebServiceTest {
 
             GetStudentResponse module = soap2Obj(xml, GetStudentResponse.class);
 
-            Assert.assertNotNull(module);
-            Assert.assertEquals(id, module.getStudent().getId());
-            Assert.assertEquals("Admin"+id, module.getStudent().getName());
-            Assert.assertEquals("China", module.getStudent().getAddress());
+            Assertions.assertAll("",
+                () -> Assertions.assertNotNull(module),
+                () -> Assertions.assertEquals(id, module.getStudent().getId()),
+                () -> Assertions.assertEquals("Admin" + id, module.getStudent().getName()),
+                () -> Assertions.assertEquals("China", module.getStudent().getAddress())
+            );
+
 
             EntityUtils.consume(entity);
         } catch (Exception e) {
             e.printStackTrace();
-            Assert.fail();
+            Assertions.fail();
         } finally {
             post.releaseConnection();
         }
