@@ -3,8 +3,8 @@ spring:
   mail:
     host: smtp.exmail.qq.com
     port: 465
-    username: 发件人@seeapp.com
-    password: 邮箱密码
+    username:
+    password:
     default-encoding: UTF-8
     properties:
       mail:
