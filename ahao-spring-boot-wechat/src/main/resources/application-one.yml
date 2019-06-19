@@ -1,0 +1,8 @@
+wechat:
+  mp:
+    properties:
+      - app-id: "wxb4cdac81aa7fe3f2"
+        secret: "c7cbbeaa12a294790ee8bcbc4eab0bdb"
+        token: "abcdefg"
+#        aes-key: d
+
