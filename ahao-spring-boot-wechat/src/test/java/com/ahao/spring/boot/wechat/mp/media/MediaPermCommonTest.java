@@ -10,11 +10,13 @@ import me.chanjar.weixin.mp.bean.material.WxMpMaterialUploadResult;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.stream.Stream;
 
 /**
  * 永久非图文素材单元测试
@@ -34,7 +36,7 @@ class MediaPermCommonTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729">新增永久素材</a>
      */
     @ParameterizedTest
-    @CsvSource({"素材名.png,image,D:\\123.png"})
+    @MethodSource("uploadFile")
     void uploadFile(String name, String mediaType, String filepath) throws WxErrorException {
         WxMpMaterial wxMaterial = new WxMpMaterial();
         wxMaterial.setFile(new File(filepath));
@@ -46,6 +48,11 @@ class MediaPermCommonTest extends BaseMpTest {
         System.out.println("错误码: " + result.getErrCode());
         System.out.println("错误信息:" + result.getErrMsg());
     }
+    static Stream<Arguments> uploadFile() {
+        return Stream.of(
+            Arguments.arguments("素材名.png", WxConsts.MediaFileType.IMAGE, "D:\\123.png")
+        );
+    }
 
     /**
      * 获取 {@link #uploadFile(String, String, String)} (String, String)} 上传的永久图片或声音素材
@@ -54,7 +61,7 @@ class MediaPermCommonTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738730">获取永久素材</a>
      */
     @ParameterizedTest
-    @CsvSource({"aXCEWuQAasl23bXTlZCnJ66Tuv677XLGkkDnJozdjtI,D:\\123.png"})
+    @MethodSource("downloadImageOrVoice")
     void downloadImageOrVoice(String mediaId, String filepath) throws Exception {
         InputStream is = materialService.materialImageOrVoiceDownload(mediaId);
 
@@ -64,9 +71,14 @@ class MediaPermCommonTest extends BaseMpTest {
         Assertions.assertTrue(file.exists());
         Assertions.assertTrue(file.length() > 0);
     }
+    static Stream<Arguments> downloadImageOrVoice() {
+        return Stream.of(
+            Arguments.arguments("aXCEWuQAasl23bXTlZCnJ66Tuv677XLGkkDnJozdjtI", "D:\\123.png")
+        );
+    }
 
     @ParameterizedTest
-    @CsvSource({"image,1,20"})
+    @MethodSource("selectFileByPage")
     void selectFileByPage(String type, int page, int pageSize) throws WxErrorException {
         WxMpMaterialCountResult count = materialService.materialCount();
         System.out.println("永久图文素材数量: " + count.getNewsCount());
@@ -93,6 +105,13 @@ class MediaPermCommonTest extends BaseMpTest {
             System.out.println(item.toString());
             System.out.println("--------------------------------------------------------------------------");
         }
+    }
+    static Stream<Arguments> selectFileByPage() {
+        return Stream.of(
+            Arguments.arguments(WxConsts.MediaFileType.VIDEO, 1, 20),
+            Arguments.arguments(WxConsts.MediaFileType.IMAGE, 1, 20),
+            Arguments.arguments(WxConsts.MediaFileType.VOICE, 1, 20)
+        );
     }
 
     /**

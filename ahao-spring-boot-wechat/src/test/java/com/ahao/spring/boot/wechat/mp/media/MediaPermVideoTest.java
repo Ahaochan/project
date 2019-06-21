@@ -9,11 +9,13 @@ import me.chanjar.weixin.mp.bean.material.WxMpMaterialVideoInfoResult;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.platform.commons.util.StringUtils;
 
 import java.io.File;
+import java.util.stream.Stream;
 
 /**
  * 永久视频素材单元测试
@@ -33,7 +35,7 @@ class MediaPermVideoTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729">新增永久素材</a>
      */
     @ParameterizedTest
-    @CsvSource({"素材名.mp4,D:\\123.mp4,视频标题,视频简介"})
+    @MethodSource("uploadVideo")
     void uploadVideo(String name, String filepath, String title, String introduction) throws WxErrorException {
         String extension = FilenameUtils.getExtension(name);
         Assertions.assertTrue(StringUtils.isNotBlank(extension), "name需要包含文件后缀, 否则微信服务器返回错误码");
@@ -49,6 +51,11 @@ class MediaPermVideoTest extends BaseMpTest {
         System.out.println("视频素材的media_id: " + result.getMediaId());
         System.out.println("错误码: " + result.getErrCode());
         System.out.println("错误信息:" + result.getErrMsg());
+    }
+    static Stream<Arguments> uploadVideo() {
+        return Stream.of(
+            Arguments.arguments("素材名.mp4", "D:\\123.mp4", "视频标题", "视频简介")
+        );
     }
 
     /**

@@ -40,7 +40,7 @@ public class CreateMenuTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296">创建个性化菜单</a>
      */
     @Test
-    public void createConditionalMenuByJson() {
+    void createConditionalMenuByJson() {
         // 创建个性化菜单: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296
         JSONObject json = new JSONObject();
         json.put("matchrule", "");
