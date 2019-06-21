@@ -11,6 +11,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.File;
 
+/**
+ * 临时素材单元测试
+ * 常见操作包括
+ * 1. 上传 {@link #upload(String, String)}
+ * 2. 下载 {@link #download(String, String)}
+ */
 class MediaTempTest extends BaseMpTest {
 
     /**
