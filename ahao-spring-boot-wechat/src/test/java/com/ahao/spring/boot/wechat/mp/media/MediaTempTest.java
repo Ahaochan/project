@@ -38,7 +38,6 @@ class MediaTempTest extends BaseMpTest {
      * 获取 {@link #upload(String, String)} 上传的临时素材
      * @param mediaId  	媒体文件标识
      * @param filepath  输出文件的路径
-     * @throws WxErrorException
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738727">获取临时素材</a>
      */
     @ParameterizedTest
