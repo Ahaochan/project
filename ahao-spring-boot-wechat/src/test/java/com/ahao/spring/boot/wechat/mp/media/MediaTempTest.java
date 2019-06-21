@@ -7,9 +7,11 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.File;
+import java.util.stream.Stream;
 
 /**
  * 临时素材单元测试
@@ -26,7 +28,7 @@ class MediaTempTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738726">新增临时素材</a>
      */
     @ParameterizedTest
-    @CsvSource({"image,D:\\123.png"})
+    @MethodSource("upload")
     void upload(String mediaFileType, String filepath) throws WxErrorException {
         File file = new File(filepath);
 
@@ -38,6 +40,11 @@ class MediaTempTest extends BaseMpTest {
         System.out.println("媒体文件标识: " + result.getMediaId());
         System.out.println("视频消息缩略图标识:" + result.getThumbMediaId());
     }
+    static Stream<Arguments> upload() {
+        return Stream.of(
+            Arguments.arguments(WxConsts.MediaFileType.IMAGE, "D:\\123.png")
+        );
+    }
 
 
     /**
@@ -47,7 +54,7 @@ class MediaTempTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738727">获取临时素材</a>
      */
     @ParameterizedTest
-    @CsvSource({"fbcMU8-_RNb2ins3AwdBIswrzNNkpTKC5YYoWVeY8IpACsWXfM3d6o9tf_WV9mz2,D:\\123.png"})
+    @MethodSource("download")
     void download(String mediaId, String filepath) throws Exception {
         File file = materialService.mediaDownload(mediaId);
 
@@ -55,5 +62,10 @@ class MediaTempTest extends BaseMpTest {
 
         Assertions.assertTrue(file.exists());
         Assertions.assertTrue(file.length() > 0);
+    }
+    static Stream<Arguments> download() {
+        return Stream.of(
+            Arguments.arguments("fbcMU8-_RNb2ins3AwdBIswrzNNkpTKC5YYoWVeY8IpACsWXfM3d6o9tf_WV9mz2", "D:\\123.png")
+        );
     }
 }

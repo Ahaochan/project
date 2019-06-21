@@ -5,8 +5,11 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.bean.material.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.stream.Stream;
 
 /**
  * 永久图文素材单元测试
@@ -33,7 +36,7 @@ class MediaPermNewsTest extends BaseMpTest {
      * @see <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729">新增永久素材</a>
      */
     @ParameterizedTest
-    @CsvSource({"Ahaochan,aXCEWuQAasl23bXTlZCnJ66Tuv677XLGkkDnJozdjtI,标题,内容,http://www.baidu.com,true,描述,true,false"})
+    @MethodSource("uploadNews")
     void uploadNews(String author, String thumbMediaId, String title, String content, String sourceUrl,
                     boolean showCoverPic, String digest, boolean openComment, boolean onlyFansComment) throws WxErrorException {
         // 单图文消息的例子
@@ -57,6 +60,12 @@ class MediaPermNewsTest extends BaseMpTest {
         System.out.println("图文消息素材的media_id: " + result.getMediaId());
         System.out.println("错误码: " + result.getErrCode());
         System.out.println("错误信息:" + result.getErrMsg());
+    }
+    static Stream<Arguments> uploadNews() {
+        return Stream.of(
+            Arguments.arguments("Ahaochan", "aXCEWuQAasl23bXTlZCnJ66Tuv677XLGkkDnJozdjtI", "标题", "内容", "http://www.baidu.com",
+                true, "描述", true, false)
+        );
     }
 
     /**
@@ -90,8 +99,7 @@ class MediaPermNewsTest extends BaseMpTest {
      * @param onlyFansComment 是否只能粉丝评论
      */
     @ParameterizedTest
-    @CsvSource({"aXCEWuQAasl23bXTlZCnJ1x7ffVXAobLRABWQr2R9Ok,0," +
-        "Ahaochan,aXCEWuQAasl23bXTlZCnJ66Tuv677XLGkkDnJozdjtI,新标题,新内容,http://www.baidu.com,true,新描述,true,false"})
+    @MethodSource("modifyNews")
     void modifyNews(String mediaId, int index,
                     String author, String thumbMediaId, String title, String content, String sourceUrl,
                     boolean showCoverPic, String digest, boolean openComment, boolean onlyFansComment) throws WxErrorException {
@@ -117,9 +125,17 @@ class MediaPermNewsTest extends BaseMpTest {
 
         // download
     }
+    static Stream<Arguments> modifyNews() {
+        return Stream.of(
+            Arguments.arguments("aXCEWuQAasl23bXTlZCnJ1x7ffVXAobLRABWQr2R9Ok", 0,
+                "Ahaochan", "aXCEWuQAasl23bXTlZCnJ66Tuv677XLGkkDnJozdjtI", "标题", "内容", "http://www.baidu.com",
+                true, "描述", true, false)
+        );
+    }
+
 
     @ParameterizedTest
-    @CsvSource({"1,20"})
+    @MethodSource("selectNewsByPage")
     void selectNewsByPage(int page, int pageSize) throws WxErrorException {
         WxMpMaterialCountResult count = materialService.materialCount();
         System.out.println("永久图文素材数量: " + count.getNewsCount());
@@ -139,5 +155,10 @@ class MediaPermNewsTest extends BaseMpTest {
             System.out.println(item.toString());
             System.out.println("--------------------------------------------------------------------------");
         }
+    }
+    static Stream<Arguments> selectNewsByPage() {
+        return Stream.of(
+            Arguments.arguments(1, 20)
+        );
     }
 }
