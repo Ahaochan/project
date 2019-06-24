@@ -1,5 +1,6 @@
 package com.ahao.spring.boot.wechat.mp.config;
 
+import com.ahao.spring.boot.wechat.mp.handler.LocationHandler;
 import com.ahao.spring.boot.wechat.mp.handler.LogHandler;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
@@ -16,23 +17,24 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
+import static me.chanjar.weixin.common.api.WxConsts.EventType.LOCATION;
 import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType.EVENT;
-import static me.chanjar.weixin.mp.constant.WxMpEventConstants.CustomerService.*;
 
 @Configuration
 @EnableConfigurationProperties(WxMpProperties.class)
 public class WxMpConfig {
     @Autowired
     private LogHandler logHandler;
-//    private final NullHandler nullHandler;
-//    private final KfSessionHandler kfSessionHandler;
-//    private final StoreCheckNotifyHandler storeCheckNotifyHandler;
-//    private final LocationHandler locationHandler;
-//    private final MenuHandler menuHandler;
-//    private final MsgHandler msgHandler;
-//    private final UnsubscribeHandler unsubscribeHandler;
-//    private final SubscribeHandler subscribeHandler;
-//    private final ScanHandler scanHandler;
+//    private NullHandler nullHandler;
+//    private KfSessionHandler kfSessionHandler;
+//    private StoreCheckNotifyHandler storeCheckNotifyHandler;
+    @Autowired
+    private LocationHandler locationHandler;
+//    private MenuHandler menuHandler;
+//    private MsgHandler msgHandler;
+//    private UnsubscribeHandler unsubscribeHandler;
+//    private SubscribeHandler subscribeHandler;
+//    private ScanHandler scanHandler;
 
     @Autowired
     private WxMpProperties properties;
@@ -59,9 +61,9 @@ public class WxMpConfig {
         newRouter.rule().handler(this.logHandler).next();
 
         // 接收客服会话管理事件
-        newRouter.rule().async(false).msgType(EVENT).event(KF_CREATE_SESSION).handler(this.kfSessionHandler).end();
-        newRouter.rule().async(false).msgType(EVENT).event(KF_CLOSE_SESSION).handler(this.kfSessionHandler).end();
-        newRouter.rule().async(false).msgType(EVENT).event(KF_SWITCH_SESSION).handler(this.kfSessionHandler).end();
+//        newRouter.rule().async(false).msgType(EVENT).event(KF_CREATE_SESSION).handler(this.kfSessionHandler).end();
+//        newRouter.rule().async(false).msgType(EVENT).event(KF_CLOSE_SESSION).handler(this.kfSessionHandler).end();
+//        newRouter.rule().async(false).msgType(EVENT).event(KF_SWITCH_SESSION).handler(this.kfSessionHandler).end();
 //
 //        // 门店审核事件
 //        newRouter.rule().async(false).msgType(EVENT).event(POI_CHECK_NOTIFY).handler(this.storeCheckNotifyHandler).end();
@@ -78,8 +80,8 @@ public class WxMpConfig {
 //        // 取消关注事件
 //        newRouter.rule().async(false).msgType(EVENT).event(UNSUBSCRIBE).handler(this.unsubscribeHandler).end();
 //
-//        // 上报地理位置事件
-//        newRouter.rule().async(false).msgType(EVENT).event(LOCATION).handler(this.locationHandler).end();
+        // 上报地理位置事件
+        newRouter.rule().async(false).msgType(EVENT).event(LOCATION).handler(this.locationHandler).end();
 //
 //        // 接收地理位置消息
 ////        newRouter.rule().async(false).msgType(LOCATION).handler(this.locationHandler).end();

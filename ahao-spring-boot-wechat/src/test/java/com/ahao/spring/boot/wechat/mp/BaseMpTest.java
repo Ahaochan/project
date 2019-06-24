@@ -24,10 +24,25 @@ public class BaseMpTest {
     @Autowired
     protected WxMpService wxMpService;
 
-    protected WxMpMenuService menuService;
     protected WxMpKefuService kefuService;
-    protected WxMpUserService userService;
     protected WxMpMaterialService materialService;
+    protected WxMpMenuService menuService;
+    protected WxMpUserService userService;
+    protected WxMpUserTagService tagService;
+    protected WxMpQrcodeService qrCodeService;
+    protected WxMpCardService cardService;
+    protected WxMpStoreService storeService;
+    protected WxMpDataCubeService dataCubeService;
+    protected WxMpUserBlacklistService blackListService;
+    protected WxMpTemplateMsgService templateMsgService;
+    protected WxMpSubscribeMsgService subscribeMsgService;
+    protected WxMpDeviceService deviceService;
+    protected WxMpShakeService shakeService;
+    protected WxMpMemberCardService memberCardService;
+    protected WxMpMassMessageService massMessageService;
+    protected WxMpAiOpenService aiOpenService;
+    protected WxMpWifiService wifiService;
+    protected WxMpMarketingService marketingService;
 
     @BeforeEach
     public void init() throws WxErrorException {
@@ -37,9 +52,11 @@ public class BaseMpTest {
         configStorageMap.forEach((k,v) -> System.out.println("加载微信公众配置:"+v.toString()));
         Assertions.assertEquals(1, configStorageMap.size(), "单元测试公众号测试只能配置一个公众号");
 
-        menuService = wxMpService.getMenuService();
+
         kefuService = wxMpService.getKefuService();
-        userService = wxMpService.getUserService();
         materialService = wxMpService.getMaterialService();
+        menuService = wxMpService.getMenuService();
+        userService = wxMpService.getUserService();
+        tagService = wxMpService.getUserTagService();
     }
 }
