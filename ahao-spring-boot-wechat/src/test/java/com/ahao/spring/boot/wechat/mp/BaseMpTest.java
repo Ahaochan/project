@@ -58,5 +58,10 @@ public class BaseMpTest {
         menuService = wxMpService.getMenuService();
         userService = wxMpService.getUserService();
         tagService = wxMpService.getUserTagService();
+        qrCodeService = wxMpService.getQrcodeService();
+        cardService = wxMpService.getCardService();
+        storeService = wxMpService.getStoreService();
+        dataCubeService = wxMpService.getDataCubeService();
+        blackListService = wxMpService.getBlackListService();
     }
 }
