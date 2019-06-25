@@ -1,8 +1,8 @@
 package com.ahao.spring.boot.redis;
 
 import com.ahao.spring.boot.redis.config.RedisConfig;
-import com.ahao.spring.boot.redis.util.RedisHelper;
 import com.ahao.util.spring.SpringContextHolder;
+import com.ahao.util.spring.redis.RedisHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
