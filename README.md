@@ -12,10 +12,15 @@
   - [ahao-spring-boot-websocket](./ahao-spring-boot-websocket)(`Spring`提供的低层级`WebSocket`实现方式)
   - [ahao-spring-boot-websocket-endpoint](./ahao-spring-boot-websocket-endpoint)(`Java`提供的`WebSocket`实现方式)
   - [ahao-spring-boot-wechat](./ahao-spring-boot-wechat)(基于[`WxJava`](https://github.com/Wechat-Group/WxJava)的微信开发`Demo`)
-  - [ahao-spring-cloud-eureka](./ahao-spring-cloud-eureka)(开箱即用的服务注册中心)
   - [ahao-web](./ahao-web) (常用业务代码)
   - ~~ahao-forum-guitar (论坛项目, 放弃维护)~~
   - ~~ahao-invoice (企业增值税数据分析系统, 放弃维护)~~
+  
+- 开箱即用
+  - [ahao-spring-cloud-config-server](./ahao-spring-cloud-config-server)(`Config`统一配置中心客户端)
+  - [ahao-spring-cloud-config-client](./ahao-spring-cloud-config-client)(`Config`统一配置中心)
+  - [ahao-spring-cloud-eureka](./ahao-spring-cloud-eureka)(`Eureka`服务注册中心)
+    
 
 ## Spring Cloud Eureka
 一个`Demo`, 提供了开箱即用的服务注册中心, 以及三种不同的客户端连接方式.

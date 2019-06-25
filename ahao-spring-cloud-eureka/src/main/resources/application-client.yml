@@ -1,4 +1,4 @@
-# 服务注册配置
+# 服务注册中心配置
 eureka:
   client:
     service-url:
@@ -6,7 +6,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
   instance:
-    hostname: eureka-client-8088
+    hostname: 127.0.0.1
 spring:
   application:
     name: eureka-client
