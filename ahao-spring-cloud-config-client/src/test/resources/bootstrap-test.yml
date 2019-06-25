@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: CONFIG-CLIENT
+  cloud:
+    config:
+      uri: http://127.0.0.1:8087
+      profile: dev
+      label: master

@@ -6,7 +6,7 @@ eureka:
     register-with-eureka: true                   # 服务中心向另外一个服务注册中心注册, 没有另外的服务注册中心则为false
     fetch-registry: true
   instance:
-    hostname: eureka-server-8761
+    hostname: 127.0.0.1
 spring:
   application:
     name: eureka-server

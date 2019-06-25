@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    config:
+#      uri: http://127.0.0.1:8081
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVER
+      profile: dev
+      label: master
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: 127.0.0.1
