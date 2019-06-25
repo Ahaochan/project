@@ -1,5 +1,6 @@
 package com.ahao.spring.boot.mybatis.plus.module.entity;
 
+import com.ahao.domain.entity.BaseDO;
 import com.ahao.spring.boot.mybatis.plus.module.enums.Sex;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
