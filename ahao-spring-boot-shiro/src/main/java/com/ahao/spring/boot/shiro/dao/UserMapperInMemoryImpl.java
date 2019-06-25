@@ -2,6 +2,8 @@ package com.ahao.spring.boot.shiro.dao;
 
 import com.ahao.spring.boot.shiro.entity.ShiroUser;
 import org.apache.shiro.crypto.hash.Sha512Hash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,10 +13,12 @@ import java.util.Objects;
 
 @Repository
 public class UserMapperInMemoryImpl implements UserMapper {
+    private static final Logger logger = LoggerFactory.getLogger(UserMapperInMemoryImpl.class);
     @Override
     public ShiroUser selectByUsernameOrEmail(String principal) {
         for (ShiroUser shiroUser : datasource) {
             if (Objects.equals(principal, shiroUser.getUsername()) || Objects.equals(principal, shiroUser.getEmail())) {
+                logger.debug("模拟数据库查询, 结果为:{}", shiroUser.toString());
                 return shiroUser;
             }
         }
