@@ -1,6 +1,6 @@
 package com.ahao.spring.boot.exception;
 
-import com.ahao.domain.AjaxDTO;
+import com.ahao.domain.entity.AjaxDTO;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
