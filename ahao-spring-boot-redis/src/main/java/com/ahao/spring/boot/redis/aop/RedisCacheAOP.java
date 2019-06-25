@@ -2,8 +2,8 @@ package com.ahao.spring.boot.redis.aop;
 
 import com.ahao.spring.boot.redis.annotation.Redis;
 import com.ahao.spring.boot.redis.config.RedisKeys;
-import com.ahao.spring.boot.redis.util.RedisHelper;
 import com.ahao.util.spring.SpelHelper;
+import com.ahao.util.spring.redis.RedisHelper;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
