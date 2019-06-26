@@ -20,7 +20,7 @@ import java.util.stream.Stream;
  * 4. 查询 {@link #selectNewsByPage(int, int)}
  * 5. 删除 {@link MediaPermCommonTest#delete(String)}
  */
-class MediaPermNewsTest extends BaseMpTest {
+public class MediaPermNewsTest extends BaseMpTest {
 
     /**
      * 上传永久图文素材
@@ -61,7 +61,7 @@ class MediaPermNewsTest extends BaseMpTest {
         System.out.println("错误码: " + result.getErrCode());
         System.out.println("错误信息:" + result.getErrMsg());
     }
-    static Stream<Arguments> uploadNews() {
+    public static Stream<Arguments> uploadNews() {
         return Stream.of(
             Arguments.arguments("Ahaochan", "aXCEWuQAasl23bXTlZCnJ66Tuv677XLGkkDnJozdjtI", "标题", "内容", "http://www.baidu.com",
                 true, "描述", true, false)
