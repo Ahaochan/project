@@ -3,7 +3,6 @@ package com.ahao.spring.boot.shiro.config;
 import com.ahao.spring.boot.shiro.listener.ShiroSessionListener;
 import com.ahao.spring.boot.shiro.realm.PasswordRealm;
 import org.apache.shiro.cache.CacheManager;
-import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SessionsSecurityManager;
 import org.apache.shiro.realm.Realm;
@@ -43,13 +42,16 @@ public class ShiroConfig {
     @Autowired
     private PasswordRealm passwordRealm;
 
+    @Autowired
+    private CacheManager cacheManager;
+
     /**
      * 将 {@link org.apache.shiro.web.servlet.ShiroFilter} 注册到 Servlet 容器
      * 若没配置, 则 {@link org.apache.shiro.spring.boot.autoconfigure.ShiroAutoConfiguration} 会自动注入.
      */
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
+        FilterRegistrationBean<DelegatingFilterProxy> filterRegistration = new FilterRegistrationBean<>();
         filterRegistration.setFilter(new DelegatingFilterProxy("shiroFilter"));
         filterRegistration.setEnabled(true);
         filterRegistration.addUrlPatterns("/*");
@@ -107,9 +109,9 @@ public class ShiroConfig {
         manager.setRealms(realms);
 
         // 2. 配置一堆 Manager
-        manager.setCacheManager(cacheManager());
+        manager.setCacheManager(cacheManager);
         manager.setRememberMeManager(rememberMeManager());
-        manager.setSessionManager(defaultWebSessionManager());
+        manager.setSessionManager(sessionManager());
         return manager;
     }
 
@@ -122,7 +124,7 @@ public class ShiroConfig {
      * @return 必须返回 {@link SessionsSecurityManager} 类型, 否则 {@link org.apache.shiro.spring.boot.autoconfigure.ShiroAutoConfiguration} 内会有 Bean 冲突.
      */
     @Bean
-    public DefaultWebSessionManager defaultWebSessionManager() {
+    public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 
         // 1. 设置 Session 监听器
@@ -131,7 +133,7 @@ public class ShiroConfig {
         sessionManager.setSessionListeners(listeners);
 
         // 2. 设置 缓存/Session 处理器
-        sessionManager.setCacheManager(cacheManager());
+        sessionManager.setCacheManager(cacheManager);
         sessionManager.setSessionDAO(sessionDAO());
 
         // 3. 设置参数
@@ -167,21 +169,14 @@ public class ShiroConfig {
         return rememberMeManager;
     }
 
+
     @Bean
     public SessionDAO sessionDAO() {
         // TODO 改为 Redis 分布式 Session
         EnterpriseCacheSessionDAO enterpriseCacheSessionDAO = new EnterpriseCacheSessionDAO();
-        enterpriseCacheSessionDAO.setCacheManager(cacheManager());
+        enterpriseCacheSessionDAO.setCacheManager(cacheManager);
         enterpriseCacheSessionDAO.setActiveSessionsCacheName(CachingSessionDAO.ACTIVE_SESSION_CACHE_NAME);
 //        enterpriseCacheSessionDAO.setSessionIdGenerator(new JavaUuidSessionIdGenerator());
         return enterpriseCacheSessionDAO;
-    }
-
-    @Bean
-    protected CacheManager cacheManager() {
-        // TODO 改为 Redis 分布式 缓存
-//        EhCacheManager cacheManager = new EhCacheManager();
-//        cacheManager.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
-        return new MemoryConstrainedCacheManager();
     }
 }
