@@ -9,3 +9,6 @@
 1. 修改接口配置信息, `token`随便写, `url`必须写成`http://内网穿透后的域名/wx/portal/测试号的appID`
 1. 修改`application.yml`, 加上自己的公众号配置.
 1. 根据需要, 配置`profile`, 启动 `Starter`.
+
+# 特性
+支持多公众号, 动态配置
