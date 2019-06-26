@@ -1,21 +1,16 @@
 package com.ahao.spring.boot.shiro.config;
 
-import com.ahao.spring.boot.shiro.listener.ShiroSessionListener;
 import com.ahao.spring.boot.shiro.realm.PasswordRealm;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SessionsSecurityManager;
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.session.SessionListener;
-import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
-import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
-import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.SimpleCookie;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -44,6 +39,9 @@ public class ShiroConfig {
 
     @Autowired
     private CacheManager cacheManager;
+
+    @Autowired
+    private SessionManager sessionManager;
 
     /**
      * 将 {@link org.apache.shiro.web.servlet.ShiroFilter} 注册到 Servlet 容器
@@ -100,56 +98,19 @@ public class ShiroConfig {
     @Bean
     public SessionsSecurityManager securityManager() {
         // TODO 微信小程序 session 会出bug
-        DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 
         // 1. 设置Realm
         List<Realm> realms = new ArrayList<>();
 //        realms.add(weChatRealm()); // TODO 微信登陆
         realms.add(passwordRealm);
-        manager.setRealms(realms);
+        securityManager.setRealms(realms);
 
         // 2. 配置一堆 Manager
-        manager.setCacheManager(cacheManager);
-        manager.setRememberMeManager(rememberMeManager());
-        manager.setSessionManager(sessionManager());
-        return manager;
-    }
-
-    /**
-     * 初始化 {@link DefaultWebSessionManager}.
-     * 1. 设置 Session 监听器
-     * 2. 设置 缓存/Session 处理器
-     * 3. 设置 参数
-     * 4. 设置 登陆后的 Cookie
-     * @return 必须返回 {@link SessionsSecurityManager} 类型, 否则 {@link org.apache.shiro.spring.boot.autoconfigure.ShiroAutoConfiguration} 内会有 Bean 冲突.
-     */
-    @Bean
-    public DefaultWebSessionManager sessionManager() {
-        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-
-        // 1. 设置 Session 监听器
-        List<SessionListener> listeners = new ArrayList<>();
-        listeners.add(new ShiroSessionListener());
-        sessionManager.setSessionListeners(listeners);
-
-        // 2. 设置 缓存/Session 处理器
-        sessionManager.setCacheManager(cacheManager);
-        sessionManager.setSessionDAO(sessionDAO());
-
-        // 3. 设置参数
-        sessionManager.setGlobalSessionTimeout(DefaultWebSessionManager.DEFAULT_GLOBAL_SESSION_TIMEOUT);
-        sessionManager.setDeleteInvalidSessions(true);
-        sessionManager.setSessionValidationSchedulerEnabled(true);
-        sessionManager.setSessionValidationInterval(DefaultWebSessionManager.DEFAULT_SESSION_VALIDATION_INTERVAL);
-        sessionManager.setSessionIdUrlRewritingEnabled(false); // 取消 url 后面的 JSESSIONID
-
-        // 4. 设置 登陆后的 Session 的 Cookie
-        sessionManager.setSessionIdCookieEnabled(true);
-        Cookie cookie = new SimpleCookie("shiroCookie");
-        cookie.setDomain(".ahao.moe");
-        cookie.setPath("/");
-        sessionManager.setSessionIdCookie(cookie);
-        return sessionManager;
+        securityManager.setCacheManager(cacheManager);
+        securityManager.setRememberMeManager(rememberMeManager());
+        securityManager.setSessionManager(sessionManager);
+        return securityManager;
     }
 
     @Bean
@@ -167,16 +128,5 @@ public class ShiroConfig {
         rememberMeManager.setEncryptionCipherKey(Base64.decode("YWhhby5tb2U="));
         rememberMeManager.setDecryptionCipherKey(Base64.decode("bW9lLmFoYW8="));
         return rememberMeManager;
-    }
-
-
-    @Bean
-    public SessionDAO sessionDAO() {
-        // TODO 改为 Redis 分布式 Session
-        EnterpriseCacheSessionDAO enterpriseCacheSessionDAO = new EnterpriseCacheSessionDAO();
-        enterpriseCacheSessionDAO.setCacheManager(cacheManager);
-        enterpriseCacheSessionDAO.setActiveSessionsCacheName(CachingSessionDAO.ACTIVE_SESSION_CACHE_NAME);
-//        enterpriseCacheSessionDAO.setSessionIdGenerator(new JavaUuidSessionIdGenerator());
-        return enterpriseCacheSessionDAO;
     }
 }

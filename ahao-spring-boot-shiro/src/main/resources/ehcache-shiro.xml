@@ -65,4 +65,14 @@
            overflowToDisk="false"
            statistics="true">
     </cache>
+
+    <!-- Session 缓存 -->
+    <cache name="shiro-activeSessionCache"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="0"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
 </ehcache>
