@@ -1,3 +1,8 @@
 logging:
   level:
     com.ahao: debug
+
+shiro:
+  enabled: true
+  web.enabled: true
+  annotations.enabled: true
