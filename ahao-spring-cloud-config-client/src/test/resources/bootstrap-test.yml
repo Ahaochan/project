@@ -3,6 +3,6 @@ spring:
     name: CONFIG-CLIENT
   cloud:
     config:
-      uri: http://127.0.0.1:8087
+      uri: http://127.0.0.1:8887
       profile: dev
       label: master
