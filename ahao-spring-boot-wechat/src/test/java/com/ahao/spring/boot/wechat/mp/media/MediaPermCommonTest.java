@@ -27,7 +27,7 @@ import java.util.stream.Stream;
  * 4. 查询 {@link #selectFileByPage(String, int, int)}
  * 5. 删除 {@link #delete(String)}
  */
-class MediaPermCommonTest extends BaseMpTest {
+public class MediaPermCommonTest extends BaseMpTest {
     /**
      * 上传永久非图文素材
      * @param name      素材名称
@@ -48,7 +48,7 @@ class MediaPermCommonTest extends BaseMpTest {
         System.out.println("错误码: " + result.getErrCode());
         System.out.println("错误信息:" + result.getErrMsg());
     }
-    static Stream<Arguments> uploadFile() {
+    public static Stream<Arguments> uploadFile() {
         return Stream.of(
             Arguments.arguments("素材名.png", WxConsts.MediaFileType.IMAGE, "D:\\123.png")
         );
