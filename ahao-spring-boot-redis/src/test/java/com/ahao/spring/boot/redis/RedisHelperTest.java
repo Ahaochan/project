@@ -1,6 +1,8 @@
 package com.ahao.spring.boot.redis;
 
 import com.ahao.spring.boot.redis.config.RedisConfig;
+import com.ahao.spring.boot.redis.entity.User;
+import com.ahao.util.commons.lang.RandomHelper;
 import com.ahao.util.spring.SpringContextHolder;
 import com.ahao.util.spring.redis.RedisHelper;
 import org.junit.jupiter.api.AfterEach;
@@ -158,12 +160,28 @@ class RedisHelperTest {
             obj.put(String.valueOf(i), i * 10);
         }
 
-        RedisHelper.set(REDIS_KEY, obj);
-        Map<Object, Object> redisObj = RedisHelper.get(REDIS_KEY, Map.class);
+        RedisHelper.hset(REDIS_KEY, obj);
+        Map<Object, Object> redisObj = RedisHelper.hget(REDIS_KEY, HashMap.class);
         for (Map.Entry<String, Object> entry : obj.entrySet()) {
             Assertions.assertEquals(entry.getValue(), redisObj.get(entry.getKey()));
         }
+
+
+        User user1 = new User();
+        user1.id = RandomHelper.getInt(100);
+        user1.name = "hello";
+        RedisHelper.hset(REDIS_KEY, user1);
+        User user2 = RedisHelper.hget(REDIS_KEY, User.class);
+        Assertions.assertEquals(user1.id, user2.id);
+        Assertions.assertEquals(user1.name, user2.name);
+
+        Integer id = RedisHelper.hget(REDIS_KEY, "id", Integer.class);
+        Assertions.assertEquals(user1.id, id);
+        String name = RedisHelper.hget(REDIS_KEY, "name", String.class);
+        Assertions.assertEquals(user2.name, name);
     }
+
+
 
     @Test
     void incr() throws Exception {
