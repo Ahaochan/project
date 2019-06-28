@@ -1,4 +1,4 @@
-package com.ahao.spring.boot.redis;
+package com.ahao.spring.boot.redis.config;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
