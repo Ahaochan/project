@@ -12,6 +12,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,6 +26,7 @@ public class PasswordRealm extends AuthorizingRealm implements InitializingBean 
     public static final String REALM_NAME = PasswordRealm.class.getSimpleName();
 
     @Autowired
+    @Lazy // https://stackoverflow.com/questions/21512791
     private UserMapper userMapper;
 
     @Override
