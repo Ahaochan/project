@@ -43,7 +43,7 @@ public class RedisCacheAOP {
         }
 
         // 3. 如果不穿透，从redis中获取数据
-        Object resultFromRedis = RedisHelper.get(redisKey, returnType);
+        Object resultFromRedis = RedisHelper.getObject(redisKey, returnType);
         if(resultFromRedis != null) {
             return resultFromRedis;
         }
