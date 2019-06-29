@@ -14,6 +14,11 @@
     <artifactId>ahao-spring-boot-shiro</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <shiro.version>1.4.1</shiro.version>
+        <shiro.redis.version>3.2.3</shiro.redis.version>
+    </properties>
+
     <dependencies>
         <!--======================================================= 自定义模块 =======================================================-->
         <dependency>
@@ -26,12 +31,17 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-starter</artifactId>
-            <version>1.4.1</version>
+            <version>${shiro.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-ehcache</artifactId>
-            <version>1.4.1</version>
+            <version>${shiro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.crazycake</groupId>
+            <artifactId>shiro-redis</artifactId>
+            <version>${shiro.redis.version}</version>
         </dependency>
         <!--======================================================= Shiro =======================================================-->
 
@@ -62,19 +72,6 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!--======================================================= Spring Boot =======================================================-->
-
-        <!--======================================================= JSP相关 =======================================================-->
-        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        <!--======================================================= JSP相关 =======================================================-->
 
         <!--======================================================= 单元测试 =======================================================-->
         <dependency>

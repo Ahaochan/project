@@ -11,10 +11,13 @@ import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.crazycake.shiro.IRedisManager;
+import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +38,7 @@ public class ShiroSessionConfig {
      * @return 必须返回 {@link SessionsSecurityManager} 类型, 否则 {@link org.apache.shiro.spring.boot.autoconfigure.ShiroAutoConfiguration} 内会有 Bean 冲突.
      */
     @Bean
-    public DefaultWebSessionManager sessionManager() {
+    public DefaultWebSessionManager sessionManager(CacheManager cacheManager, SessionDAO sessionDAO) {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 
         // 1. 设置 Session 监听器
@@ -45,7 +48,7 @@ public class ShiroSessionConfig {
 
         // 2. 设置 缓存/Session 处理器
         sessionManager.setCacheManager(cacheManager);
-        sessionManager.setSessionDAO(enterpriseCacheSessionDAO());
+        sessionManager.setSessionDAO(sessionDAO);
 
         // 3. 设置参数
         sessionManager.setGlobalSessionTimeout(DefaultWebSessionManager.DEFAULT_GLOBAL_SESSION_TIMEOUT);
@@ -64,11 +67,22 @@ public class ShiroSessionConfig {
     }
 
     @Bean
-    public SessionDAO enterpriseCacheSessionDAO() {
+    @Profile({"cache-memory", "cache-ehcache"})
+    public SessionDAO enterpriseCacheSessionDAO(CacheManager cacheManager) {
         EnterpriseCacheSessionDAO sessionDAO = new EnterpriseCacheSessionDAO();
         sessionDAO.setCacheManager(cacheManager);
         sessionDAO.setActiveSessionsCacheName(CachingSessionDAO.ACTIVE_SESSION_CACHE_NAME);
         sessionDAO.setSessionIdGenerator(new JavaUuidSessionIdGenerator());
+        return sessionDAO;
+    }
+
+    @Bean
+    @Profile("cache-redis")
+    public SessionDAO redisSessionDAO(IRedisManager redisManager) {
+        RedisSessionDAO sessionDAO = new RedisSessionDAO();
+        sessionDAO.setRedisManager(redisManager);
+        //session在redis中的保存时间,最好大于session会话超时时间
+        sessionDAO.setExpire(12000);
         return sessionDAO;
     }
 }

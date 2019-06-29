@@ -7,6 +7,7 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.Sha1Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -60,7 +61,7 @@ public class PasswordRealm extends AuthorizingRealm implements InitializingBean 
 
         // 3. 密码加盐处理
         String salt = user.getSalt();
-        ByteSource credentialsSalt = ByteSource.Util.bytes(salt);
+        ByteSource credentialsSalt = new Sha1Hash(salt);
 //        String hashedPassword = (new Sha512Hash(new String((char[]) token.getCredentials()), credentialsSalt, 1024)).toString();
 
         // 4. 返回正确的鉴权信息, 交由 Shiro 校验

@@ -1,7 +1,3 @@
-spring:
-  profiles:
-    active: cache-redis
-
 logging:
   level:
     com.ahao: debug
@@ -10,3 +6,9 @@ shiro:
   enabled: true
   web.enabled: true
   annotations.enabled: true
+
+spring:
+  redis:
+    host: 192.168.75.150
+    port: 6379
+    timeout: 10000
