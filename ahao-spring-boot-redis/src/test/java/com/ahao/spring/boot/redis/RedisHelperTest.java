@@ -202,6 +202,7 @@ class RedisHelperTest {
         Set<String> keys = RedisHelper.keys(REDIS_KEY+"*");
         keys.forEach(System.out::println);
         Assertions.assertEquals(size, keys.size());
+        Assertions.assertEquals(Long.valueOf(size), RedisHelper.dbSize());
 
         for (int i = 0; i < size; i++) {
             RedisHelper.del(REDIS_KEY+i);
