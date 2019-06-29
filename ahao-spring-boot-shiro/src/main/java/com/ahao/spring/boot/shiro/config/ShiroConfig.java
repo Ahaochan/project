@@ -1,6 +1,5 @@
 package com.ahao.spring.boot.shiro.config;
 
-import com.ahao.spring.boot.shiro.realm.PasswordRealm;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SessionsSecurityManager;
@@ -11,7 +10,6 @@ import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.SimpleCookie;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.servlet.DispatcherType;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,15 +30,6 @@ import java.util.Map;
 @Configuration
 @ConditionalOnProperty(name = "shiro.enabled", havingValue = "true", matchIfMissing = true)
 public class ShiroConfig {
-
-    @Autowired
-    private PasswordRealm passwordRealm;
-
-    @Autowired
-    private CacheManager cacheManager;
-
-    @Autowired
-    private SessionManager sessionManager;
 
     /**
      * 将 {@link org.apache.shiro.web.servlet.ShiroFilter} 注册到 Servlet 容器
@@ -65,10 +53,10 @@ public class ShiroConfig {
      * 2. 设置过滤器链
      */
     @Bean
-    public ShiroFilterFactoryBean shiroFilter(){
+    public ShiroFilterFactoryBean shiroFilter(List<Realm> realms, CacheManager cacheManager, SessionManager sessionManager){
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         // 1. 等价于 SecurityUtils.setSecurityManager(securityManager());
-        bean.setSecurityManager(securityManager());
+        bean.setSecurityManager(securityManager(realms, cacheManager, sessionManager));
 
         // 2. 设置拦截器
         Map<String, String> chains = new LinkedHashMap<>();
@@ -96,14 +84,11 @@ public class ShiroConfig {
      * @return 必须返回 {@link SessionsSecurityManager} 类型, 否则 {@link org.apache.shiro.spring.boot.autoconfigure.ShiroAutoConfiguration} 内会有 Bean 冲突.
      */
     @Bean
-    public SessionsSecurityManager securityManager() {
+    public SessionsSecurityManager securityManager(List<Realm> realms, CacheManager cacheManager, SessionManager sessionManager) {
         // TODO 微信小程序 session 会出bug
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 
         // 1. 设置Realm
-        List<Realm> realms = new ArrayList<>();
-//        realms.add(weChatRealm()); // TODO 微信登陆
-        realms.add(passwordRealm);
         securityManager.setRealms(realms);
 
         // 2. 配置一堆 Manager

@@ -1,6 +1,7 @@
 package com.ahao.spring.boot.shiro.dao;
 
 import com.ahao.spring.boot.shiro.entity.ShiroUser;
+import org.apache.shiro.crypto.hash.Sha1Hash;
 import org.apache.shiro.crypto.hash.Sha512Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,9 +34,9 @@ public class UserMapperInMemoryImpl implements UserMapper {
             Date now = new Date();
             ShiroUser user = new ShiroUser();
             user.setId((long) i);
-            user.setUsername("用户" + i);
+            user.setUsername("admin" + i);
             user.setEmail(i + "@qq.com");
-            String hashedPassword = (new Sha512Hash("pw" + i, "salt" + i, 1024)).toString();
+            String hashedPassword = (new Sha512Hash("pw" + i, new Sha1Hash("salt" + i), 1024)).toString();
             user.setPassword(hashedPassword);
             user.setSalt("salt" + i);
 
