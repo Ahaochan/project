@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -175,6 +176,50 @@ class RedisHelperTest {
         threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         // 3. 取值 assert
         Assertions.assertEquals(1000, RedisHelper.getInteger(REDIS_KEY).intValue());
+    }
+
+    @Test
+    void hincrBy() throws Exception {
+        // 1. 多线程并发执行
+        ExecutorService threadPool = Executors.newFixedThreadPool(1000);
+        for (int i = 0; i < 1000; i++) {
+            threadPool.execute(() -> RedisHelper.hincrBy(REDIS_KEY, REDIS_HASH_FIELD, 1));
+        }
+        // 2. 等待线程执行完毕
+        threadPool.shutdown();
+        threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        // 3. 取值 assert
+        Assertions.assertEquals(1000, RedisHelper.hgetInteger(REDIS_KEY, REDIS_HASH_FIELD).intValue());
+    }
+
+    @Test
+    void keys() {
+        int size = 100;
+        for (int i = 0; i < size; i++) {
+            RedisHelper.set(REDIS_KEY+i, "value"+i);
+        }
+
+        Set<String> keys = RedisHelper.keys(REDIS_KEY+"*");
+        keys.forEach(System.out::println);
+        Assertions.assertEquals(size, keys.size());
+
+        for (int i = 0; i < size; i++) {
+            RedisHelper.del(REDIS_KEY+i);
+        }
+    }
+
+    @Test
+    void scan() {
+        int size = 100;
+        for (int i = 0; i < size; i++) {
+            RedisHelper.set(REDIS_KEY+i, "value"+i);
+        }
+
+        RedisHelper.scan(REDIS_KEY+"*", System.out::println);
+
+        for (int i = 0; i < size; i++) {
+            RedisHelper.del(REDIS_KEY+i);
+        }
     }
 
     @AfterEach
