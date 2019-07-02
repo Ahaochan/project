@@ -1,0 +1,6 @@
+jwt:
+  signature-algorithm: hs512
+  sign-key: "signKey"
+  custom-header:
+    key1: "value1"
+    key2: "value2"
