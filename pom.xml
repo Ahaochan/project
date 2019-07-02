@@ -24,6 +24,7 @@
         <module>ahao-spring-boot-mail</module>
         <module>ahao-spring-boot-mybatis-plus</module>
         <module>ahao-spring-boot-redis</module>
+        <module>ahao-spring-boot-shiro</module>
         <module>ahao-spring-boot-swagger</module>
         <module>ahao-spring-boot-webservice</module>
         <module>ahao-spring-boot-websocket</module>
