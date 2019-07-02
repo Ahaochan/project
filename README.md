@@ -21,13 +21,6 @@
   - [ahao-spring-cloud-config-server](./ahao-spring-cloud-config-server)(`Config`统一配置中心客户端)
   - [ahao-spring-cloud-config-client](./ahao-spring-cloud-config-client)(`Config`统一配置中心)
   - [ahao-spring-cloud-eureka](./ahao-spring-cloud-eureka)(`Eureka`服务注册中心)
-    
-
-## Spring Cloud Eureka
-一个`Demo`, 提供了开箱即用的服务注册中心, 以及三种不同的客户端连接方式.
-- `@LoadBalanced`修饰`RestTemplate`, 源码地址: [`L23-L41`](https://github.com/Ahaochan/project/blob/master/ahao-spring-cloud-eureka/src/main/java/com/ahao/spring/cloud/eureka/Client.java#L23-L41)
-- 使用`LoadBalancerClient`获取**服务地址**, 再调用`RestTemplate`, 源码地址: [`L44-L60`](https://github.com/Ahaochan/project/blob/master/ahao-spring-cloud-eureka/src/main/java/com/ahao/spring/cloud/eureka/Client.java#L44-L60)
-- 使用`Feign`框架做`RPC`, 源码地址: [`LL62-L78`](https://github.com/Ahaochan/project/blob/master/ahao-spring-cloud-eureka/src/main/java/com/ahao/spring/cloud/eureka/Client.java#L62-L78)
 
 ## Spring 异步任务配置
 源码地址: [`com.ahao.spring.async`](https://github.com/Ahaochan/project/tree/master/ahao-web/src/main/java/com/ahao/spring/async)
