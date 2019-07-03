@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Ahaochan
  */
 @SpringBootApplication(scanBasePackages = "com.ahao")
-@MapperScan("com.ahao.spring.boot.mybatis.plus.module.mapper")
+@MapperScan("com.ahao.spring.boot.**.mapper")
 public class Starter {
 
     private final static Logger logger = LoggerFactory.getLogger(Starter.class);

@@ -8,7 +8,7 @@ spring:
     password: test
 
 mybatis-plus:
-  type-enums-package: com.ahao.spring.boot.mybatis.plus.*.enums
+  type-enums-package: com.ahao.spring.boot.**.enums
   global-config:
     db-config:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
