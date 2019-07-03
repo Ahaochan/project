@@ -2,7 +2,6 @@ package com.ahao.spring.boot.jwt;
 
 import com.ahao.spring.boot.Starter;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -35,7 +35,7 @@ class JwtTest {
         long now = System.currentTimeMillis();
 
         // 1. 生成 jwt
-        SecretKey key = MacProvider.generateKey();
+        String key = Base64.getEncoder().encodeToString("signKey".getBytes(StandardCharsets.UTF_8));
         JwtBuilder builder = Jwts.builder()
             .setId("id")                // JWT_ID
             .setAudience("audience")    // 接受者
