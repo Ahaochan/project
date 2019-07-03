@@ -1,4 +1,4 @@
-package com.ahao.spring.boot.mybatis.plus.module.config;
+package com.ahao.spring.boot.mybatis.plus.config;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
