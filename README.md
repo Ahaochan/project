@@ -1,37 +1,31 @@
 # 简介
-本项目是本人自用的一套 `Java` 代码库.
+本项目是本人自用的一套 `Java` 代码库. 每个项目有自带的`Readme`, 点击即可阅读.
 
-- ahao-all
+- 花点心思
   - [ahao-common-utils](https://github.com/Ahaochan/ahao-common-utils)(常用工具类模块)
   - [ahao-spring-boot-balance-datasources](./ahao-spring-boot-balance-datasources)(负载均衡的主从数据源)
-  - [ahao-spring-boot-file-download](./ahao-spring-boot-file-download)(常用的文件下载实例, `word`、`excel`、`pdf`)
   - [ahao-spring-boot-jwt](./ahao-spring-boot-jwt)(整合`JWT`实现权限拦截)
-  - [ahao-spring-boot-mail](./ahao-spring-boot-mail)(简单的邮件客户端)
-  - [ahao-spring-boot-mybatis-plus](./ahao-spring-boot-mybatis-plus)(简单集成`Mybatis Plus`)
   - [ahao-spring-boot-redis](./ahao-spring-boot-redis)(`Redis`方法级缓存和工具类)
-  - [ahao-spring-boot-swagger](./ahao-spring-boot-swagger)(`Swagger`配置及使用)
-  - [ahao-spring-boot-websocket](./ahao-spring-boot-websocket)(`Spring`提供的低层级`WebSocket`实现方式)
-  - [ahao-spring-boot-websocket-endpoint](./ahao-spring-boot-websocket-endpoint)(`Java`提供的`WebSocket`实现方式)
+  - [ahao-spring-boot-shiro](./ahao-spring-boot-shiro)(`Spring Boot`整合`Shiro`)
   - [ahao-spring-boot-wechat](./ahao-spring-boot-wechat)(基于[`WxJava`](https://github.com/Wechat-Group/WxJava)的微信开发`Demo`)
   - [ahao-web](./ahao-web) (常用业务代码)
   - ~~ahao-forum-guitar (论坛项目, 放弃维护)~~
   - ~~ahao-invoice (企业增值税数据分析系统, 放弃维护)~~
   
+- Demo 级别
+  - [ahao-spring-boot-async](./ahao-spring-boot-async)(`Spring`线程池异步任务)
+  - [ahao-spring-boot-file-download](./ahao-spring-boot-file-download)(常用的文件下载实例, `word`、`excel`、`pdf`)
+  - [ahao-spring-boot-mail](./ahao-spring-boot-mail)(简单的邮件客户端)
+  - [ahao-spring-boot-mybatis-plus](./ahao-spring-boot-mybatis-plus)(简单集成`Mybatis Plus`)
+  - [ahao-spring-boot-swagger](./ahao-spring-boot-swagger)(`Swagger`配置及使用)
+  - [ahao-spring-boot-webservice](./ahao-spring-boot-webservice)(`Web Service`使用)
+  - [ahao-spring-boot-websocket](./ahao-spring-boot-websocket)(`Spring`提供的低层级`WebSocket`实现方式)
+  - [ahao-spring-boot-websocket-endpoint](./ahao-spring-boot-websocket-endpoint)(`Java`提供的`WebSocket`实现方式)
+  
 - 开箱即用
   - [ahao-spring-cloud-config-server](./ahao-spring-cloud-config-server)(`Config`统一配置中心客户端)
   - [ahao-spring-cloud-config-client](./ahao-spring-cloud-config-client)(`Config`统一配置中心)
   - [ahao-spring-cloud-eureka](./ahao-spring-cloud-eureka)(`Eureka`服务注册中心)
-
-## Spring 异步任务配置
-源码地址: [`com.ahao.spring.async`](https://github.com/Ahaochan/project/tree/master/ahao-web/src/main/java/com/ahao/spring/async)
-
-先开启`@EnableAsync`注解.
-
-写一个类继承自`AsyncConfigurerSupport`, 然后注册线程池`Bean`, `Spring Boot`会自动注入异步框架.
-
-注册完成后, 就可以在方法上使用`@Async`注解, 标记为一个异步方法.
-
-异步方法只能返回`void`或者`Feture<T>`.
 
 ## Shiro 通用配置
 1. 基于`Redis`的重试次数限制, 源码地址: [`RetryLimitHashedCredentialsMatcher`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/rbac/shiro/credential/RetryLimitHashedCredentialsMatcher.java)

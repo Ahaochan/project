@@ -1,5 +1,6 @@
-package com.ahao.spring.async;
+package com.ahao.spring.boot.async.config;
 
+import com.ahao.spring.boot.async.exception.AsyncExceptionHandler;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
