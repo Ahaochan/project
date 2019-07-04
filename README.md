@@ -23,6 +23,8 @@
   - [ahao-spring-boot-websocket-endpoint](./ahao-spring-boot-websocket-endpoint)(`Java`提供的`WebSocket`实现方式)
   
 - 开箱即用
+  - [ahao-spring-boot-admin-client](./ahao-spring-boot-admin-client)(基于`actuator`的监控系统客户端)
+  - [ahao-spring-boot-admin-server](./ahao-spring-boot-admin-server)(基于`actuator`的监控系统服务端)
   - [ahao-spring-boot-actuator](./ahao-spring-boot-actuator)(对`Spring`应用的监控)
   - [ahao-spring-cloud-config-server](./ahao-spring-cloud-config-server)(`Config`统一配置中心客户端)
   - [ahao-spring-cloud-config-client](./ahao-spring-cloud-config-client)(`Config`统一配置中心)
