@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: ACTUATOR
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
