@@ -32,6 +32,7 @@
         <module>ahao-spring-boot-shiro</module>
         <module>ahao-spring-boot-swagger</module>
         <module>ahao-spring-boot-webservice</module>
+        <module>ahao-spring-boot-webservice-cxf</module>
         <module>ahao-spring-boot-websocket</module>
         <module>ahao-spring-boot-websocket-endpoint</module>
         <module>ahao-spring-boot-wechat</module>

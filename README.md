@@ -20,6 +20,7 @@
   - [ahao-spring-boot-rabbitmq](./ahao-spring-boot-rabbitmq)(简单的`RabbitMQ`使用)
   - [ahao-spring-boot-swagger](./ahao-spring-boot-swagger)(`Swagger`配置及使用)
   - [ahao-spring-boot-webservice](./ahao-spring-boot-webservice)(`Web Service`使用)
+  - [ahao-spring-boot-webservice-cxf](./ahao-spring-boot-webservice-cxf)(`Web Service`使用, 基于`Apache CXF`)
   - [ahao-spring-boot-websocket](./ahao-spring-boot-websocket)(`Spring`提供的低层级`WebSocket`实现方式)
   - [ahao-spring-boot-websocket-endpoint](./ahao-spring-boot-websocket-endpoint)(`Java`提供的`WebSocket`实现方式)
   
