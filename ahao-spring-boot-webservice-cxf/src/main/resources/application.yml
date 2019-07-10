@@ -1,0 +1,2 @@
+cxf:
+  path: /ahao-cxf  # 替换默认的/services路径
