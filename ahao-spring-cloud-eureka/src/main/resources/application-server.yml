@@ -3,7 +3,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka/ # 另一个服务中心的地址
-    register-with-eureka: false                  # 自己不注册自己
+    register-with-eureka: true                  # 自己不注册自己
   instance:
     hostname: 127.0.0.1
 spring:
