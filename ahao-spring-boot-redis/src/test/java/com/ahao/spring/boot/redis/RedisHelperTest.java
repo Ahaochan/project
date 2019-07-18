@@ -17,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -221,6 +222,19 @@ class RedisHelperTest {
         for (int i = 0; i < size; i++) {
             RedisHelper.del(REDIS_KEY+i);
         }
+    }
+
+    @Test
+    public void lock() throws Exception {
+        String unionId = UUID.randomUUID().toString();
+        boolean locked1 = RedisHelper.lock(REDIS_KEY, unionId);
+        Assertions.assertTrue(locked1);
+
+        boolean locked2 = RedisHelper.lock(REDIS_KEY, unionId);
+        Assertions.assertFalse(locked2);
+
+        boolean unLocked = RedisHelper.unlock(REDIS_KEY, unionId);
+        Assertions.assertTrue(unLocked);
     }
 
     @AfterEach
