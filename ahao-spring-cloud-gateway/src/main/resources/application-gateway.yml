@@ -1,0 +1,43 @@
+# 服务注册中心配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: 127.0.0.1
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # API网关开启服务注册发现
+      routes:
+        - id: "my-api"
+#          uri: http://127.0.0.1:8761
+          uri: lb://EUREKA-SERVER
+          predicates:
+            - Path=/api/** # 匹配/api开头的所有请求
+#            - Host=**.foo.org
+#            - Method=GET
+#            - Header=X-Request-Id, \d+
+#            - Query=foo, ba.
+#            - Query=baz
+#            - Cookie=chocolate, ch.p
+#            - After=2018-01-20T06:06:06+08:00[Asia/Shanghai]
+          filters:
+            - StripPrefix=1 # 跳过/api
+#            - AddRequestParameter=foo, bar # 追加参数 ?foo=bar
+#            - PrefixPath=/mypath           # uri 追加 mypath 前缀
+
+
+
+server:
+  port: 9090
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
+    com.ahao: debug
