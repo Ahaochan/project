@@ -1,0 +1,25 @@
+# 服务注册中心配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: 127.0.0.1
+spring:
+  application:
+    name: zuul-client
+
+zuul:
+  routes:
+    my-api:
+      path: "/api/**"
+      service-id: "EUREKA-SERVER"
+#      url: "http://127.0.0.1:8761"
+
+server:
+  port: 8080
+logging:
+  level:
+    com.ahao: debug
