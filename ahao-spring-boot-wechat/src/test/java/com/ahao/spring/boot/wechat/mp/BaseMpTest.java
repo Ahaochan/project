@@ -46,10 +46,11 @@ public class BaseMpTest {
 
     @BeforeEach
     public void init() throws WxErrorException {
+        Assumptions.assumeTrue(false, "微信公众号的单元测试依赖实际的公众号配置");
         Assumptions.assumeTrue(StringUtils.isNotBlank(wxMpService.getWxMpConfigStorage().getAppId()), "需配置实际的微信配置");
 
         Map<String, WxMpConfigStorage> configStorageMap = ReflectHelper.getValue(wxMpService, "configStorageMap");
-        configStorageMap.forEach((k,v) -> System.out.println("加载微信公众配置:"+v.toString()));
+        configStorageMap.forEach((k, v) -> System.out.println("加载微信公众配置:" + v.toString()));
         Assertions.assertEquals(1, configStorageMap.size(), "单元测试公众号测试只能配置一个公众号");
 
 
