@@ -27,6 +27,7 @@
         <module>ahao-spring-boot-jwt</module>
         <module>ahao-spring-boot-mail</module>
         <module>ahao-spring-boot-mybatis-plus</module>
+        <module>ahao-spring-boot-okhttp3</module>
         <module>ahao-spring-boot-rabbitmq</module>
         <module>ahao-spring-boot-redis</module>
         <module>ahao-spring-boot-shiro</module>
