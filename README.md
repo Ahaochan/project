@@ -14,6 +14,7 @@
   
 - Demo 级别
   - [ahao-spring-boot-async](./ahao-spring-boot-async)(`Spring`线程池异步任务)
+  - [ahao-spring-boot-cache](./ahao-spring-boot-cache)(注解缓存框架)
   - [ahao-spring-boot-file-download](./ahao-spring-boot-file-download)(常用的文件下载实例, `word`、`excel`、`pdf`)
   - [ahao-spring-boot-mail](./ahao-spring-boot-mail)(简单的邮件客户端)
   - [ahao-spring-boot-mybatis-plus](./ahao-spring-boot-mybatis-plus)(简单集成`Mybatis Plus`)
