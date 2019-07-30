@@ -23,6 +23,7 @@
         <module>ahao-spring-boot-admin-client</module>
         <module>ahao-spring-boot-async</module>
         <module>ahao-spring-boot-balance-datasources</module>
+        <module>ahao-spring-boot-cache</module>
         <module>ahao-spring-boot-file-download</module>
         <module>ahao-spring-boot-jwt</module>
         <module>ahao-spring-boot-mail</module>
