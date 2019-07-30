@@ -2,11 +2,13 @@ package moe.ahao.spring.boot.okhttp3.config;
 
 import moe.ahao.spring.boot.okhttp3.interceptor.LogInterceptor;
 import okhttp3.ConnectionPool;
+import okhttp3.ConnectionSpec;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +20,7 @@ public class OkHttp3Config {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder
 //            .sslSocketFactory(sslSocketFactory(), x509TrustManager())
+            .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
             .connectionPool(pool())
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
