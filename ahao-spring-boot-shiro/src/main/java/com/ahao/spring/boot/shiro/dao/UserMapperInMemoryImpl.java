@@ -46,7 +46,7 @@ public class UserMapperInMemoryImpl implements UserMapper {
 
             user.setExpireTime(null);
             user.setCreateTime(now);
-            user.setModifyTime(now);
+            user.setUpdateTime(now);
             datasource.add(user);
         }
     }
