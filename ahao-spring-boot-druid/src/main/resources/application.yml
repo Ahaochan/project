@@ -1,0 +1,44 @@
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration: # http://www.mybatis.org/mybatis-3/configuration.html#settings
+    cache-enabled: true
+    lazy-loading-enabled: false
+    multiple-result-sets-enabled: true
+    use-column-label: true
+    use-generated-keys: false
+    auto-mapping-unknown-column-behavior: none # 映射到未知列时的行为
+    default-executor-type: simple
+    default-statement-timeout: 60 # 秒
+    map-underscore-to-camel-case: true # 驼峰和下划线相互转换
+    local-cache-scope: session
+    jdbc-type-for-null: other
+    default-scripting-language: org.apache.ibatis.scripting.xmltags.XMLLanguageDriver
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+    call-setters-on-nulls: false
+    return-instance-for-empty-row: false
+    log-prefix: "mybatis-log"
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    use-actual-param-name: true
+spring:
+  datasource:
+    druid:
+      # 连接池配置
+      initial-size: 20 # 连接池初始化连接数量
+      min-idle: 5      # 连接池最小连接数量
+      max-active: 35   # 连接池最大连接数量
+      # 时间配置
+      max-wait: 60000  # 获取连接最大等待时长, 单位是毫秒
+      time-between-eviction-runs-millis: 60000 # 定时检测需要关闭的空闲连接, 单位是毫秒
+      min-evictable-idle-time-millis:  30000   # 配置一个连接在池中最小生存的时间, 单位是毫秒
+
+      pool-prepared-statements:  false # mysql 推荐不缓存 preparedStatement
+
+      # 配置监控统计拦截的 filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall,slf4j
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      # 合并多个DruidDataSource的监控数据
+      use-global-data-source-stat: true
+
+
+
