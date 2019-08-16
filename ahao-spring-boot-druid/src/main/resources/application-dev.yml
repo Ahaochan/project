@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://127.0.0.1:3306/my_db?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&nullNamePatternMatchesAll=true&allowMultiQueries=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+      # 连接测试, 会降低性能
+      validation-query: select 'x' # 判断连接是否成功的 sql 语句
+      validation-query-timeout: 5  # 检测连接是否有效的超时时间, 单位是毫秒
+      test-on-borrow: true         # 申请连接时执行 validationQuery 检测连接是否有效
+      test-on-return: false        # 归还连接时执行validationQuery检测连接是否有效
+      test-while-idle: true        # 申请连接时, 如果空闲时间大于 time-between-eviction-runs-millis, 则执行 validation-query 判断连接是否有效
