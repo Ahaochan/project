@@ -15,3 +15,5 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: non_null # 不允许输出 null 值
     time-zone: GMT+8
+  banner:
+    location: banner/banner-${spring.profiles.active}.txt
