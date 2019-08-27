@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="application-mysql.properties" />
+
+	<context id="mysql_generator" defaultModelType="flat" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin">
+            <property name="useEqualsHashCodeFromRoot" value="true"/>              <!-- 生成 hashCode() 和 equals() -->
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin">
+            <property name="useToStringFromRoot" value="true"/>                    <!-- 生成 toString() -->
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>          <!-- 添加 Serializable 接口  -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/> <!-- 解决 xml 不能 overwrite 的 bug  -->
+
+        <!-- 注释的配置 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>         <!-- 隐藏 日期 字段的注释 -->
+            <property name="suppressAllComments" value="true" /> <!-- 隐藏 所有 字段的注释 -->
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}" connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}" password="${spring.datasource.password}">
+            <property name="useUnicode" value="true"/>
+            <property name="characterEncoding" value="utf8"/>
+            <property name="useSSL" value="false"/>
+            <property name="nullNamePatternMatchesAll" value="true"/>
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+		<javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+			<property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
+
+		<!-- 设置生成entity到目标目录 -->
+		<javaModelGenerator targetPackage="moe.ahao.mybatis.generator.entity" targetProject="src/main/java">
+            <property name="constructorBased" value="false"/>  <!-- 生成构造方法 -->
+            <property name="enableSubPackages" value="false"/> <!-- 根据 schema 创建一个包 -->
+            <property name="immutable" value="false"/>         <!-- 不创建 final 类 -->
+            <property name="rootClass" value="com.ahao.domain.entity.BaseDO"/> <!-- 实体类继承自 BaseDO -->
+            <property name="trimStrings" value="false"/>                       <!-- String getter 是否调用 trim() -->
+        </javaModelGenerator>
+
+		<!-- 设置生成mapper.xml到目标目录 -->
+		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/> <!-- 根据 schema 创建一个包 -->
+        </sqlMapGenerator>
+
+		<!-- 设置生成的mapper到目标目录 -->
+		<javaClientGenerator targetPackage="moe.ahao.mybatis.generator.mapper" type="XMLMAPPER" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/> <!-- 根据 schema 创建一个包 -->
+            <property name="rootInterface" value=""/>          <!-- Mapper 类继承自 -->
+        </javaClientGenerator>
+
+        <!-- schema="db1" catalog="db1" 这两个参数在 mysql 下有bug -->
+        <table tableName="ahao_sys_user" domainObjectName="SysUser"
+               selectByExampleQueryId="false"
+               enableInsert="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
+            <property name="constructorBased" value="false"/>  <!-- 生成构造方法 -->
+            <property name="immutable" value="false"/>         <!-- 不创建 final 类 -->
+            <property name="rootClass" value="com.ahao.domain.entity.BaseDO"/> <!-- 实体类继承自 BaseDO -->
+            <property name="rootInterface" value=""/>             <!-- Mapper 类继承自 -->
+            <property name="useActualColumnNames" value="false"/> <!-- 使用驼峰命名法 -->
+
+            <!-- 忽略 BaseDO 中的字段 -->
+<!--            <ignoreColumn column="id" />-->
+<!--            <ignoreColumn column="create_time" />-->
+<!--            <ignoreColumn column="update_time" />-->
+        </table>
+    </context>
+</generatorConfiguration>
