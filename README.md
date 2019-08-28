@@ -20,7 +20,7 @@
   - [ahao-spring-boot-mail](./ahao-spring-boot-mail)(简单的邮件客户端)
   - [ahao-spring-boot-mybatis-plus](./ahao-spring-boot-mybatis-plus)(简单集成`Mybatis Plus`)
   - [ahao-spring-boot-okhttp3](./ahao-spring-boot-okhttp3)(简单集成`OkHttp3`)
-  - [ahao-spring-boot-rabbitmq](./ahao-spring-boot-rabbitmq)(简单的`RabbitMQ`使用)
+  - [ahao-spring-boot-rabbitmq](./ahao-spring-boot-rabbitmq)(简单的`RabbitMQ`使用, 集成`fastjson`消息转换器)
   - [ahao-spring-boot-swagger](./ahao-spring-boot-swagger)(`Swagger`配置及使用)
   - [ahao-spring-boot-webservice](./ahao-spring-boot-webservice)(`Web Service`使用)
   - [ahao-spring-boot-webservice-cxf](./ahao-spring-boot-webservice-cxf)(`Web Service`使用, 基于`Apache CXF`)
