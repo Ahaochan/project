@@ -104,7 +104,7 @@ class JwtTest {
             .andReturn()
             .getResponse().getContentAsString();
 
-        Assertions.assertEquals("{\"result\":0,\"msg\":\"获取 token 失败, 请重新获取 token\",\"obj\":null}", responseString);
+        Assertions.assertEquals("{\"result\":1,\"msg\":\"获取 token 失败, 请重新获取 token\",\"obj\":null}", responseString);
     }
 
     @Test
