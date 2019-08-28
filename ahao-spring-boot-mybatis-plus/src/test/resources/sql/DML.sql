@@ -1,7 +1,6 @@
 TRUNCATE TABLE user;
 
-
-INSERT INTO user (id, username, email, password, salt, sex, create_time, modify_time)
+INSERT INTO user (id, username, email, password, salt, sex, create_time, update_time)
 VALUES
 (1, 'user1', '1@qq.com', 'pw1', 'salt1', 1, now(), now()),
 (2, 'user2', '2@qq.com', 'pw2', 'salt2', 1, now(), now()),
