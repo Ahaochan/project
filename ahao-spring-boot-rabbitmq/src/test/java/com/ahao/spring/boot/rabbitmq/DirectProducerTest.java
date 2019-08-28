@@ -1,5 +1,7 @@
 package com.ahao.spring.boot.rabbitmq;
 
+import com.ahao.domain.entity.AjaxDTO;
+import com.ahao.domain.entity.BaseDO;
 import com.ahao.util.spring.SpringContextHolder;
 import com.ahao.util.spring.mq.RabbitMQHelper;
 import org.junit.jupiter.api.Assertions;
@@ -36,8 +38,8 @@ public class DirectProducerTest {
     }
 
     @Test
-    public void send() throws Exception {
-        String msg = "send()";
+    public void sendString() throws Exception {
+        String msg = "sendString()";
         String routingKey = DirectConsumer.QUEUE_NAME;
 
         RabbitMQHelper.send(routingKey, msg);
@@ -48,9 +50,57 @@ public class DirectProducerTest {
     }
 
     @Test
-    public void sendDelay() throws Exception {
+    public void sendInteger() throws Exception {
+        Integer msg = 123;
+        String routingKey = DirectConsumer.QUEUE_NAME;
+
+        RabbitMQHelper.send(routingKey, msg);
+
+        Assertions.assertNull(DirectConsumer.value);
+        Thread.sleep(2000);
+        Assertions.assertEquals(msg, DirectConsumer.value);
+    }
+
+    @Test
+    public void sendObject() throws Exception {
+        BaseDO msg = new BaseDO();
+        msg.setId(123L);
+        msg.setCreateTime(new Date());
+        msg.setUpdateTime(new Date());
+        String routingKey = DirectConsumer.QUEUE_NAME;
+
+        RabbitMQHelper.send(routingKey, msg);
+
+        Assertions.assertNull(DirectConsumer.value);
+        Thread.sleep(2000);
+        BaseDO actual = (BaseDO) DirectConsumer.value;
+        Assertions.assertNotNull(actual);
+        Assertions.assertEquals(msg.getId(), actual.getId());
+        Assertions.assertEquals(msg.getCreateTime(), actual.getCreateTime());
+        Assertions.assertEquals(msg.getUpdateTime(), actual.getUpdateTime());
+    }
+
+    @Test
+    public void sendGenericObject() throws Exception {
+        AjaxDTO msg = AjaxDTO.get(1, "测试", 123);
+        String routingKey = DirectConsumer.QUEUE_NAME;
+
+        RabbitMQHelper.send(routingKey, msg);
+
+        Assertions.assertNull(DirectConsumer.value);
+        Thread.sleep(2000);
+        AjaxDTO actual = (AjaxDTO) DirectConsumer.value;
+        Assertions.assertNotNull(actual);
+        Assertions.assertEquals(msg.getResult(), actual.getResult());
+        Assertions.assertEquals(msg.getMsg(), actual.getMsg());
+        Assertions.assertEquals(msg.getObj(), actual.getObj());
+    }
+
+    @Test
+    public void sendDelayString() throws Exception {
         String msg = "sendDelay()";
-        RabbitMQHelper.sendDelay(DirectConsumer.QUEUE_NAME, msg, 3000);
+        String routingKey = DirectConsumer.QUEUE_NAME;
+        RabbitMQHelper.sendDelay(routingKey, msg, 3000);
 
         Assertions.assertNull(DirectConsumer.value);
         Thread.sleep(2000);
@@ -60,10 +110,80 @@ public class DirectProducerTest {
     }
 
     @Test
+    public void sendDelayInteger() throws Exception {
+        Integer msg = 123;
+        String routingKey = DirectConsumer.QUEUE_NAME;
+
+        RabbitMQHelper.sendDelay(routingKey, msg, 3000);
+
+        Assertions.assertNull(DirectConsumer.value);
+        Thread.sleep(2000);
+        Assertions.assertNull(DirectConsumer.value);
+        Thread.sleep(10000);
+        Assertions.assertEquals(msg, DirectConsumer.value);
+    }
+
+    @Test
+    public void sendDelayObject() throws Exception {
+        BaseDO msg = new BaseDO();
+        msg.setId(123L);
+        msg.setCreateTime(new Date());
+        msg.setUpdateTime(new Date());
+        String routingKey = DirectConsumer.QUEUE_NAME;
+
+        RabbitMQHelper.sendDelay(routingKey, msg, 3000);
+
+        Assertions.assertNull(DirectConsumer.value);
+        Thread.sleep(2000);
+        Assertions.assertNull(DirectConsumer.value);
+        Thread.sleep(10000);
+        BaseDO actual = (BaseDO) DirectConsumer.value;
+        Assertions.assertEquals(msg.getId(), actual.getId());
+        Assertions.assertEquals(msg.getCreateTime(), actual.getCreateTime());
+        Assertions.assertEquals(msg.getUpdateTime(), actual.getUpdateTime());
+    }
+
+    @Test
+    public void sendDelayGenericObject() throws Exception {
+        AjaxDTO msg = AjaxDTO.get(1, "测试", 123);
+        String routingKey = DirectConsumer.QUEUE_NAME;
+
+        RabbitMQHelper.sendDelay(routingKey, msg, 3000);
+
+        Assertions.assertNull(DirectConsumer.value);
+        Thread.sleep(2000);
+        Assertions.assertNull(DirectConsumer.value);
+        Thread.sleep(10000);
+        AjaxDTO actual = (AjaxDTO) DirectConsumer.value;
+        Assertions.assertNotNull(actual);
+        Assertions.assertEquals(msg.getResult(), actual.getResult());
+        Assertions.assertEquals(msg.getMsg(), actual.getMsg());
+        Assertions.assertEquals(msg.getObj(), actual.getObj());
+    }
+
+    @Test
     public void sendDelayError() throws Exception {
         String msg = "sendDelayError()";
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             RabbitMQHelper.sendDelay(DirectConsumer.QUEUE_NAME, msg, 0xffffffffL + 1);
         });
+    }
+
+    @Test
+    public void sendGenericError() throws Exception {
+        AjaxDTO msg = AjaxDTO.get(1, "测试", 123L);
+        String routingKey = DirectConsumer.QUEUE_NAME;
+
+        RabbitMQHelper.send(routingKey, msg);
+
+        Assertions.assertNull(DirectConsumer.value);
+        Thread.sleep(2000);
+        AjaxDTO actual = (AjaxDTO) DirectConsumer.value;
+        Assertions.assertNotNull(actual);
+        Assertions.assertEquals(msg.getResult(), actual.getResult());
+        Assertions.assertEquals(msg.getMsg(), actual.getMsg());
+        // =========================== Long 转为了 Integer ==============================
+        Assertions.assertNotEquals(msg.getObj(), actual.getObj());
+        // =========================== Long 转为了 Integer ==============================
     }
 }
