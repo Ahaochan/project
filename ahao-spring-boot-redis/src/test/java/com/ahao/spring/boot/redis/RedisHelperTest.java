@@ -237,6 +237,26 @@ class RedisHelperTest {
         Assertions.assertTrue(unLocked);
     }
 
+    @Test
+    public void expire() throws Exception{
+        String value = "value";
+        RedisHelper.set(REDIS_KEY, value);
+        Thread.sleep(2000);
+        Assertions.assertEquals(value, RedisHelper.getString(REDIS_KEY));
+
+        RedisHelper.expire(REDIS_KEY, 1, TimeUnit.SECONDS);
+        Assertions.assertEquals(value, RedisHelper.getString(REDIS_KEY));
+        Thread.sleep(2000);
+        Assertions.assertNull(RedisHelper.getString(REDIS_KEY));
+
+        for (int i = 0; i < 100; i++) {
+            RedisHelper.incrEx(REDIS_KEY, 1, TimeUnit.SECONDS);
+        }
+        Assertions.assertEquals(100, RedisHelper.getInteger(REDIS_KEY).intValue());
+        Thread.sleep(2000);
+        Assertions.assertNull(RedisHelper.getInteger(REDIS_KEY));
+    }
+
     @AfterEach
     void after() {
         RedisHelper.del(REDIS_KEY);
