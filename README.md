@@ -27,6 +27,7 @@
   - [ahao-spring-boot-websocket](./ahao-spring-boot-websocket)(`Spring`提供的低层级`WebSocket`实现方式)
   - [ahao-spring-boot-websocket-endpoint](./ahao-spring-boot-websocket-endpoint)(`Java`提供的`WebSocket`实现方式)
   - [ahao-spring-cloud-hystrix](./ahao-spring-cloud-hystrix)(简单的`Hystrix`使用, 注意`Hystrix`已停更)
+  - [ahao-spring-cloud-zookeeper](./ahao-spring-cloud-zookeeper)(`Zookeeper`服务注册中心, 客户端的简单使用)
   
 - 开箱即用
   - [ahao-spring-boot-admin-client](./ahao-spring-boot-admin-client)(基于`actuator`的监控系统客户端)
