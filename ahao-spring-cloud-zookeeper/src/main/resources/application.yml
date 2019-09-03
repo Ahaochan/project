@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: "ZOOKEEPER-CLIENT"
+  cloud:
+    zookeeper:
+      connect-string: 192.168.75.150:2181 # Zookeeper 注册中心, 多个用逗号分隔
+      enabled: true
+      discovery:
+        enabled: true
+        register: true
+        instance-id: 1
+        root: /services
+    loadbalancer:
+      retry:
+        enabled: true
+server:
+  port: 8080
