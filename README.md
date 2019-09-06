@@ -22,6 +22,7 @@
   - [ahao-spring-boot-okhttp3](./ahao-spring-boot-okhttp3)(简单集成`OkHttp3`)
   - [ahao-spring-boot-rabbitmq](./ahao-spring-boot-rabbitmq)(简单的`RabbitMQ`使用, 集成`fastjson`消息转换器)
   - [ahao-spring-boot-swagger](./ahao-spring-boot-swagger)(`Swagger`配置及使用)
+  - [ahao-spring-boot-validator](./ahao-spring-boot-validator)(参数校验`JSR303/JSR-349`, 使用`AOP`统一处理校验错误)
   - [ahao-spring-boot-webservice](./ahao-spring-boot-webservice)(`Web Service`使用)
   - [ahao-spring-boot-webservice-cxf](./ahao-spring-boot-webservice-cxf)(`Web Service`使用, 基于`Apache CXF`)
   - [ahao-spring-boot-websocket](./ahao-spring-boot-websocket)(`Spring`提供的低层级`WebSocket`实现方式)
