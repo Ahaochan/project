@@ -34,6 +34,7 @@
         <module>ahao-spring-boot-redis</module>
         <module>ahao-spring-boot-shiro</module>
         <module>ahao-spring-boot-swagger</module>
+        <module>ahao-spring-boot-validator</module>
         <module>ahao-spring-boot-webservice</module>
         <module>ahao-spring-boot-webservice-cxf</module>
         <module>ahao-spring-boot-websocket</module>
