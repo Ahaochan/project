@@ -5,7 +5,7 @@ import com.ahao.spring.boot.Starter;
 import com.ahao.util.spring.SpringContextHolder;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Sha1Hash;
 import org.apache.shiro.crypto.hash.Sha512Hash;
@@ -73,7 +73,7 @@ public class PasswordRealmTest {
 
     @Test
     void errorPassword() throws Exception {
-        Assertions.assertThrows(IncorrectCredentialsException.class, () -> {
+        Assertions.assertThrows(AuthenticationException.class, () -> {
             UsernamePasswordToken passwordToken = new UsernamePasswordToken("admin1", "error", false);
             Subject subject = SecurityUtils.getSubject();
             try {
