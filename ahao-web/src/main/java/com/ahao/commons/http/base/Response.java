@@ -4,7 +4,7 @@ import com.ahao.commons.http.adapter.Adapter;
 import com.ahao.commons.http.convert.Convert;
 import com.ahao.commons.http.convert.UTF8Convert;
 import com.ahao.util.commons.CloneHelper;
-import com.ahao.util.commons.lang.ReflectHelper;
+import com.ahao.util.commons.lang.reflect.ReflectHelper;
 import com.ahao.util.commons.lang.time.DateHelper;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;

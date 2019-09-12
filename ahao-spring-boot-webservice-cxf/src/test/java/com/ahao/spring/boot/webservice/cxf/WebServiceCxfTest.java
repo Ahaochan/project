@@ -3,7 +3,7 @@ package com.ahao.spring.boot.webservice.cxf;
 import com.ahao.spring.boot.Starter;
 import com.ahao.spring.boot.webservice.cxf.controller.StudentService;
 import com.ahao.spring.boot.webservice.cxf.entity.Student;
-import com.ahao.util.commons.lang.ReflectHelper;
+import com.ahao.util.commons.lang.reflect.ReflectHelper;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;

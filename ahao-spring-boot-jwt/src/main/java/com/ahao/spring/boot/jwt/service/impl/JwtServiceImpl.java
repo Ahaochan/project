@@ -2,7 +2,7 @@ package com.ahao.spring.boot.jwt.service.impl;
 
 import com.ahao.spring.boot.jwt.config.JwtProperties;
 import com.ahao.spring.boot.jwt.service.JwtService;
-import com.ahao.util.commons.lang.ReflectHelper;
+import com.ahao.util.commons.lang.reflect.ReflectHelper;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
