@@ -1,7 +1,7 @@
 package com.ahao.spring.boot.wechat.mp;
 
 import com.ahao.spring.boot.Starter;
-import com.ahao.util.commons.lang.ReflectHelper;
+import com.ahao.util.commons.lang.reflect.ReflectHelper;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.*;
 import org.junit.jupiter.api.Assertions;
