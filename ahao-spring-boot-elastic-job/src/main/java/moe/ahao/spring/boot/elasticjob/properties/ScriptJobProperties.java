@@ -5,6 +5,9 @@ import com.dangdang.ddframe.job.config.JobTypeConfiguration;
 import com.dangdang.ddframe.job.config.script.ScriptJobConfiguration;
 import moe.ahao.spring.boot.elasticjob.properties.base.BaseJobProperties;
 import org.apache.http.annotation.Obsolete;
+import org.springframework.util.ResourceUtils;
+
+import java.io.FileNotFoundException;
 
 public class ScriptJobProperties extends BaseJobProperties {
     private String scriptCommandLine;
@@ -19,7 +22,7 @@ public class ScriptJobProperties extends BaseJobProperties {
         return scriptCommandLine;
     }
 
-    public void setScriptCommandLine(String scriptCommandLine) {
-        this.scriptCommandLine = scriptCommandLine;
+    public void setScriptCommandLine(String scriptCommandLine) throws FileNotFoundException {
+        this.scriptCommandLine = ResourceUtils.getFile(scriptCommandLine).getAbsolutePath();
     }
 }

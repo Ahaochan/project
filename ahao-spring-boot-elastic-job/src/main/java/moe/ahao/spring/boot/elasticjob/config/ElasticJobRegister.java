@@ -14,6 +14,7 @@ import moe.ahao.spring.boot.elasticjob.job.capable.ElasticJobListenerCapable;
 import moe.ahao.spring.boot.elasticjob.job.capable.JobEventTraceDataSourceCapable;
 import moe.ahao.spring.boot.elasticjob.properties.base.BaseJobProperties;
 import moe.ahao.spring.boot.elasticjob.properties.base.DefaultJobProperties;
+import moe.ahao.spring.boot.elasticjob.properties.base.ElasticAllJobProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +36,9 @@ public class ElasticJobRegister implements InitializingBean, ApplicationContextA
 
     private ZookeeperRegistryCenter zk;
     private ApplicationContext ctx;
-    private ElasticJobConfig.AllProperties jobConfig;
+    private ElasticAllJobProperties jobConfig;
 
-    public ElasticJobRegister(ZookeeperRegistryCenter zk, ElasticJobConfig.AllProperties jobConfig) {
+    public ElasticJobRegister(ZookeeperRegistryCenter zk, ElasticAllJobProperties jobConfig) {
         this.zk = zk;
         this.jobConfig = jobConfig;
     }
