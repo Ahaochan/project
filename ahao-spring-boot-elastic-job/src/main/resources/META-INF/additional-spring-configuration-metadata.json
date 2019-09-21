@@ -1,0 +1,85 @@
+{
+    "properties": [
+        {
+            "name": "elastic-job.enabled",
+            "type": "java.lang.Boolean",
+            "description": "111是否开启定时任务.",
+            "defaultValue": true,
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig"
+        },
+        {
+            "name": "elastic-job.zookeeper",
+            "type": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig"
+        },
+        {
+            "name": "elastic-job.base",
+            "type": "moe.ahao.spring.boot.elasticjob.properties.base.DefaultJobProperties",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig$AllProperties"
+        },
+        {
+            "name": "elastic-job.simple",
+            "type": "java.util.List<moe.ahao.spring.boot.elasticjob.properties.SimpleJobProperties>",
+            "description": "Log levels severity mapping. For instance, `logging.level.org.springframework=DEBUG`.",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig$AllProperties"
+        },
+        {
+            "name": "elastic-job.data-flow",
+            "type": "java.util.List<moe.ahao.spring.boot.elasticjob.properties.DataFlowJobProperties>",
+            "description": "Log levels severity mapping. For instance, `logging.level.org.springframework=DEBUG`.",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig$AllProperties"
+        },
+        {
+            "name": "elastic-job.script",
+            "type": "java.util.List<moe.ahao.spring.boot.elasticjob.properties.ScriptJobProperties>",
+            "description": "Log levels severity mapping. For instance, `logging.level.org.springframework=DEBUG`.",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig$AllProperties"
+        }
+    ],
+    "hints": [
+        {
+            "name": "elastic-job.base.job-exception-handler",
+            "providers": [
+                {
+                    "name": "class-reference",
+                    "parameters": {
+                        "target": "com.dangdang.ddframe.job.executor.handler.JobExceptionHandler"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "elastic-job.base.executor-service-handler",
+            "providers": [
+                {
+                    "name": "class-reference",
+                    "parameters": {
+                        "target": "com.dangdang.ddframe.job.executor.handler.ExecutorServiceHandler"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "elastic-job.base.job-sharding-strategy-class",
+            "providers": [
+                {
+                    "name": "class-reference",
+                    "parameters": {
+                        "target": "com.dangdang.ddframe.job.lite.api.strategy.JobShardingStrategy"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "elastic-job.simple.bean-name",
+            "providers": [
+                {
+                    "name": "spring-bean-reference",
+                    "parameters": {
+                        "target": "com.dangdang.ddframe.job.api.simple.SimpleJob"
+                    }
+                }
+            ]
+        }
+    ]
+}

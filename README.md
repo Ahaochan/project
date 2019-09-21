@@ -4,6 +4,7 @@
 - 花点心思
   - [ahao-common-utils](https://github.com/Ahaochan/ahao-common-utils)(常用工具类模块)
   - [ahao-spring-boot-balance-datasources](./ahao-spring-boot-balance-datasources)(负载均衡的主从数据源)
+  - [ahao-spring-boot-elastic-job](./ahao-spring-boot-elastic-job)(整合`Spring Boot`和`Elastic Job`分布式定时任务框架)
   - [ahao-spring-boot-jwt](./ahao-spring-boot-jwt)(整合`JWT`实现权限拦截)
   - [ahao-spring-boot-redis](./ahao-spring-boot-redis)(`Redis`方法级缓存和工具类)
   - [ahao-spring-boot-shiro](./ahao-spring-boot-shiro)(`Spring Boot`整合`Shiro`)
