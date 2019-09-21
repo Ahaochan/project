@@ -40,4 +40,4 @@ elastic-job:
     - job-name: scriptJobExample
       cron: 0/3 * * * * ?
       overwrite: true
-      script-command-line: ./ahao-spring-boot-elastic-job/src/main/resources/script/script.bat # 建议写绝对路径
+      script-command-line: classpath:script/script.bat
