@@ -1,0 +1,43 @@
+elastic-job:
+  enabled: true
+  zookeeper:
+    server-lists: 127.0.0.1:2181
+    namespace: ahao-elastic-job
+    base-sleep-time-milliseconds: 1000
+    max-sleep-time-milliseconds: 3000
+    max-retries: 3
+    session-timeout-milliseconds: 0
+    connection-timeout-milliseconds: 0
+    digest: ""
+  base:
+    sharding-total-count: 1
+    sharding-item-parameters: ""
+    job-parameter: ""
+    failover: false
+    misfire: true
+    description: ""
+    job-exception-handler: moe.ahao.spring.boot.elasticjob.handler.LogJobExceptionHandler
+    executor-service-handler: moe.ahao.spring.boot.elasticjob.handler.LogExecutorServiceHandler
+
+    monitor-execution: true
+    monitor-port: -1
+    max-time-diff-seconds: -1
+    job-sharding-strategy-class: com.dangdang.ddframe.job.lite.api.strategy.impl.AverageAllocationJobShardingStrategy
+    reconcile-interval-minutes: 10
+    disabled: false
+    overwrite: true
+  simple:
+    - bean-name: simpleJobExample
+      job-name: SimpleJobExample
+      cron: 0/3 * * * * ?
+      overwrite: true
+  data-flow:
+    - bean-name: dataFlowJobExample
+      job-name: DataFlowJobExample
+      cron: 0/3 * * * * ?
+      overwrite: true
+  script:
+    - job-name: scriptJobExample
+      cron: 0/3 * * * * ?
+      overwrite: true
+      script-command-line: ./ahao-spring-boot-elastic-job/src/main/resources/script/script.bat # 建议写绝对路径
