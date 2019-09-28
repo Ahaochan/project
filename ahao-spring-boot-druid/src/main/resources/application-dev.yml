@@ -12,3 +12,13 @@ spring:
       test-on-borrow: true         # 申请连接时执行 validationQuery 检测连接是否有效
       test-on-return: false        # 归还连接时执行validationQuery检测连接是否有效
       test-while-idle: true        # 申请连接时, 如果空闲时间大于 time-between-eviction-runs-millis, 则执行 validation-query 判断连接是否有效
+
+      stat-view-servlet:
+        enabled: true
+        allow: 127.0.0.1
+        deny: 192.168.1.100        # deny 优先于 allow
+        login-password: druid
+        login-username: 12345
+        reset-enable: false        # 是否能够重置数据
+
+
