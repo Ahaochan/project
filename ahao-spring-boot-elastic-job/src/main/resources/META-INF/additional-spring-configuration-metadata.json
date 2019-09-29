@@ -1,39 +1,93 @@
 {
+    "groups": [
+        {
+            "name": "elastic-job.zookeeper",
+            "type": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig",
+            "sourceMethod": "zookeeperConfiguration()"
+        }
+    ],
     "properties": [
         {
             "name": "elastic-job.enabled",
             "type": "java.lang.Boolean",
-            "description": "111是否开启定时任务.",
+            "description": "是否开启定时任务.",
             "defaultValue": true,
             "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig"
         },
         {
-            "name": "elastic-job.zookeeper",
-            "type": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean",
-            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig"
+            "name": "elastic-job.zookeeper.server-lists",
+            "type": "java.lang.String",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean"
         },
         {
-            "name": "elastic-job.base",
-            "type": "moe.ahao.spring.boot.elasticjob.properties.base.DefaultJobProperties",
-            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig$AllProperties"
+            "name": "elastic-job.zookeeper.namespace",
+            "type": "java.lang.String",
+            "description": "命名空间.",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean"
+        },
+        {
+            "name": "elastic-job.zookeeper.base-sleep-time-milliseconds",
+            "type": "java.lang.Integer",
+            "description": "等待重试的间隔时间的初始值.\n单位毫秒.",
+            "defaultValue": 1000,
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean"
+        },
+        {
+            "name": "elastic-job.zookeeper.max-sleep-time-milliseconds",
+            "type": "java.lang.Integer",
+            "description": "等待重试的间隔时间的最大值.\n单位毫秒.",
+            "defaultValue": 3000,
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean"
+        },
+        {
+            "name": "elastic-job.zookeeper.max-retries",
+            "type": "java.lang.Integer",
+            "description": "最大重试次数.",
+            "defaultValue": 3,
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean"
+        },
+        {
+            "name": "elastic-job.zookeeper.session-timeout-milliseconds",
+            "type": "java.lang.Integer",
+            "description": "会话超时时间.\n单位毫秒.",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean"
+        },
+        {
+            "name": "elastic-job.zookeeper.connection-timeout-milliseconds",
+            "type": "java.lang.Integer",
+            "description": "连接超时时间.\n单位毫秒.",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean"
+        },
+        {
+            "name": "elastic-job.zookeeper.digest",
+            "type": "java.lang.String",
+            "description": "连接Zookeeper的权限令牌.\n缺省为不需要权限验证.",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean"
+        },
+        {
+            "name": "elastic-job.zookeeper",
+            "type": "moe.ahao.spring.boot.elasticjob.config.ZookeeperConfigurationFactoryBean",
+            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig",
+            "sourceMethod": "zookeeperConfiguration()"
         },
         {
             "name": "elastic-job.simple",
             "type": "java.util.List<moe.ahao.spring.boot.elasticjob.properties.SimpleJobProperties>",
-            "description": "Log levels severity mapping. For instance, `logging.level.org.springframework=DEBUG`.",
-            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig$AllProperties"
+            "sourceType": "moe.ahao.spring.boot.elasticjob.properties.base.ElasticAllJobProperties",
+            "sourceMethod": "getSimple()"
         },
         {
             "name": "elastic-job.data-flow",
             "type": "java.util.List<moe.ahao.spring.boot.elasticjob.properties.DataFlowJobProperties>",
-            "description": "Log levels severity mapping. For instance, `logging.level.org.springframework=DEBUG`.",
-            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig$AllProperties"
+            "sourceType": "moe.ahao.spring.boot.elasticjob.properties.base.ElasticAllJobProperties",
+            "sourceMethod": "getDataFlow()"
         },
         {
             "name": "elastic-job.script",
             "type": "java.util.List<moe.ahao.spring.boot.elasticjob.properties.ScriptJobProperties>",
-            "description": "Log levels severity mapping. For instance, `logging.level.org.springframework=DEBUG`.",
-            "sourceType": "moe.ahao.spring.boot.elasticjob.config.ElasticJobConfig$AllProperties"
+            "sourceType": "moe.ahao.spring.boot.elasticjob.properties.base.ElasticAllJobProperties",
+            "sourceMethod": "getScript()"
         }
     ],
     "hints": [
@@ -70,13 +124,58 @@
                 }
             ]
         },
+
         {
-            "name": "elastic-job.simple.bean-name",
+            "name": "elastic-job.demo.bean-name",
             "providers": [
                 {
                     "name": "spring-bean-reference",
                     "parameters": {
-                        "target": "com.dangdang.ddframe.job.api.simple.SimpleJob"
+                        "target": "com.dangdang.ddframe.job.api.ElasticJob"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "elastic-job.demo.script-command-line",
+            "providers": [
+                {
+                    "name": "handle-as",
+                    "parameters": {
+                        "target": "org.springframework.core.io.Resource"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "elastic-job.demo.job-exception-handler",
+            "providers": [
+                {
+                    "name": "class-reference",
+                    "parameters": {
+                        "target": "com.dangdang.ddframe.job.executor.handler.JobExceptionHandler"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "elastic-job.demo.executor-service-handler",
+            "providers": [
+                {
+                    "name": "class-reference",
+                    "parameters": {
+                        "target": "com.dangdang.ddframe.job.executor.handler.ExecutorServiceHandler"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "elastic-job.demo.job-sharding-strategy-class",
+            "providers": [
+                {
+                    "name": "class-reference",
+                    "parameters": {
+                        "target": "com.dangdang.ddframe.job.lite.api.strategy.JobShardingStrategy"
                     }
                 }
             ]

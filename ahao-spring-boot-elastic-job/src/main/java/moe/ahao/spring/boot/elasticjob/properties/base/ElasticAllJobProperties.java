@@ -14,7 +14,9 @@ import java.util.List;
 @ConfigurationProperties("elastic-job")
 public class ElasticAllJobProperties {
     @NestedConfigurationProperty
-    private DefaultJobProperties base;
+    private DefaultJobProperties base = new DefaultJobProperties();
+    @NestedConfigurationProperty
+    private ScriptJobProperties demo = new ScriptJobProperties();
     @NestedConfigurationProperty
     private List<SimpleJobProperties> simple = new ArrayList<>();
     @NestedConfigurationProperty
@@ -28,6 +30,14 @@ public class ElasticAllJobProperties {
 
     public void setBase(DefaultJobProperties base) {
         this.base = base;
+    }
+
+    public ScriptJobProperties getDemo() {
+        return demo;
+    }
+
+    public void setDemo(ScriptJobProperties demo) {
+        this.demo = demo;
     }
 
     public List<SimpleJobProperties> getSimple() {
