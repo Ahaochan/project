@@ -26,6 +26,12 @@ elastic-job:
     reconcile-interval-minutes: 10
     disabled: false
     overwrite: true
+  demo:
+    bean-name: simpleJobExample
+    script-command-line: classpath:script/script.bat
+    job-exception-handler: moe.ahao.spring.boot.elasticjob.handler.LogJobExceptionHandler
+    executor-service-handler: moe.ahao.spring.boot.elasticjob.handler.LogExecutorServiceHandler
+    job-sharding-strategy-class: com.dangdang.ddframe.job.lite.api.strategy.impl.AverageAllocationJobShardingStrategy
   simple:
     - bean-name: simpleJobExample
       job-name: SimpleJobExample
