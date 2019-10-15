@@ -3,19 +3,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.ahao</groupId>
-        <artifactId>ahao-all</artifactId>
+        <artifactId>ahao-spring-cloud-eureka</artifactId>
         <relativePath>../pom.xml</relativePath>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0</version>
 
-    <artifactId>ahao-spring-cloud-eureka</artifactId>
-    <packaging>pom</packaging>
 
-    <modules>
-        <module>ahao-spring-cloud-eureka-server</module>
-        <module>ahao-spring-cloud-eureka-provider</module>
-        <module>ahao-spring-cloud-eureka-consumer</module>
-    </modules>
+    <artifactId>ahao-spring-cloud-eureka-server</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+    </dependencies>
 </project>
