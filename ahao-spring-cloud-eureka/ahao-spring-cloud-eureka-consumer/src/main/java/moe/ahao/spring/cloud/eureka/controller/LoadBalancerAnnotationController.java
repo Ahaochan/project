@@ -1,6 +1,6 @@
-package com.ahao.spring.cloud.eureka.controller;
+package moe.ahao.spring.cloud.eureka.controller;
 
-import com.ahao.spring.cloud.eureka.EurekaConsumerApplication;
+import moe.ahao.spring.cloud.eureka.EurekaConsumerApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
