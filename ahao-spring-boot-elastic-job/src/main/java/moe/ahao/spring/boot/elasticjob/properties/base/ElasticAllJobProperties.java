@@ -18,8 +18,6 @@ public class ElasticAllJobProperties {
     @NestedConfigurationProperty
     private ScriptJobProperties demo = new ScriptJobProperties();
     @NestedConfigurationProperty
-    private ScriptJobProperties demo;
-    @NestedConfigurationProperty
     private List<SimpleJobProperties> simple = new ArrayList<>();
     @NestedConfigurationProperty
     private List<DataFlowJobProperties> dataFlow = new ArrayList<>();
