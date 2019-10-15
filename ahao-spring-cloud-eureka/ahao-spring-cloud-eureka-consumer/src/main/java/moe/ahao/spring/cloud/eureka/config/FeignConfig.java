@@ -1,4 +1,4 @@
-package com.ahao.spring.cloud.eureka.config;
+package moe.ahao.spring.cloud.eureka.config;
 
 import feign.Logger;
 import feign.codec.Encoder;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableFeignClients
+@EnableFeignClients(basePackages = "moe.ahao")
 @ConditionalOnProperty(name = "eureka.client.enabled", havingValue = "true")
 public class FeignConfig {
     @Autowired
