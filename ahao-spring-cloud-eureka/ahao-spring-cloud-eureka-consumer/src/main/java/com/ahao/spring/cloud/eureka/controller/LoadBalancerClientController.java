@@ -17,7 +17,7 @@ public class LoadBalancerClientController {
     private LoadBalancerClient loadBalancerClient;
 
     @GetMapping("/no-args2")
-    public String test2() {
+    public String noArgs() {
         // 服务名   由客户端配置文件中的 spring.application.name 配置
         // 请求路径 由@RequestMapping配置
         // 跑这个 demo 需要在 application.yml 中把 eureka.client.register-with-eureka 暂时设置为true

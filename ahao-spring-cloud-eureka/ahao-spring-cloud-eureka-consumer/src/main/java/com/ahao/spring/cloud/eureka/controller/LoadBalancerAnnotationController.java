@@ -22,7 +22,7 @@ public class LoadBalancerAnnotationController {
     RestTemplate restTemplate;
 
     @GetMapping("/no-args1")
-    public String test1() {
+    public String noArgs() {
         // http://服务名/请求路径
         // 服务名   由客户端配置文件中的 spring.application.name 配置
         // 请求路径 由@RequestMapping配置
