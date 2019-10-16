@@ -1,5 +1,6 @@
 package moe.ahao.spring.cloud.eureka.controller;
 
+import com.ahao.domain.entity.AjaxDTO;
 import moe.ahao.spring.cloud.eureka.EurekaConsumerApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -10,30 +11,36 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class FeignController {
     private static final String serverName = EurekaConsumerApplication.serverName;
-    // ================================ 使用 Feign 做负载均衡  =================================================
+
     // 注意要打开启动类的 @EnableFeignClients 注解
     @FeignClient(value = serverName) // 由客户端配置文件中的 spring.application.name 配置
     public interface SimpleFeignClient {
         // 需要 spring-cloud-starter-feign 依赖
-        @GetMapping("/no-args") // 由@RequestMapping配置
-        String noArgs();
+        @GetMapping("/param")
+        String param(@RequestParam String msg);
 
-        @RequestMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-        String formData(@RequestParam String filename, @RequestPart("file") MultipartFile file);
+        @PostMapping("/body")
+        AjaxDTO body(@RequestBody AjaxDTO dto);
+
+        @PostMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+        AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart("file") MultipartFile file);
     }
+
     @Autowired
     private SimpleFeignClient feignClient;
 
-    @GetMapping("/no-args3")
-    public String noArgs() {
-        String response = feignClient.noArgs();
-        return "Feign请求了: "+response;
+    @GetMapping("/param3")
+    public String param(@RequestParam String msg) {
+        return feignClient.param(msg);
     }
 
-    @RequestMapping(value = "/form-data3", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String formData(@RequestParam String filename, @RequestPart("file") MultipartFile file) {
-        String response = feignClient.formData(filename, file);
-        return "Feign请求了: "+response;
+    @PostMapping("/body3")
+    public AjaxDTO body(@RequestBody AjaxDTO dto) {
+        return feignClient.body(dto);
     }
-    // ================================ 使用 Feign 做负载均衡  =================================================
+
+    @PostMapping(value = "/form-data3", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart("file") MultipartFile file) {
+        return feignClient.formData(param, json, file);
+    }
 }

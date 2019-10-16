@@ -1,5 +1,6 @@
 eureka:
   client:
+    enabled: true
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka/
     register-with-eureka: true
