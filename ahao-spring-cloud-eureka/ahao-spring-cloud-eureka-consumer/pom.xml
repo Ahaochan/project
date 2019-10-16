@@ -15,19 +15,30 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!--======================================================= 自定义模块 =======================================================-->
+        <dependency>
+            <groupId>com.ahao</groupId>
+            <artifactId>ahao-common-utils</artifactId>
+        </dependency>
+        <!--======================================================= 自定义模块 =======================================================-->
+
+        <!--======================================================= Spring Boot =======================================================-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+        <!--======================================================= Spring Boot =======================================================-->
 
+        <!--======================================================= Feign =======================================================-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <!--======================================================= Feign =======================================================-->
+
     </dependencies>
 </project>
