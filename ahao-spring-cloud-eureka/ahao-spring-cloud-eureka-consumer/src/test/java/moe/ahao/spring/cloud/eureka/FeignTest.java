@@ -1,9 +1,8 @@
-package com.ahao.spring.boot.eureka;
+package moe.ahao.spring.cloud.eureka;
 
 import com.ahao.domain.entity.AjaxDTO;
 import com.ahao.util.commons.lang.BeanHelper;
 import com.ahao.util.commons.lang.time.DateHelper;
-import moe.ahao.spring.cloud.eureka.EurekaConsumerApplication;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
