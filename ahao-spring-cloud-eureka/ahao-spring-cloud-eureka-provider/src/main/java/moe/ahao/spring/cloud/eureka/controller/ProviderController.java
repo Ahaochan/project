@@ -27,7 +27,7 @@ public class ProviderController {
     }
 
     @PostMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart("file") MultipartFile file) throws IOException {
+    public AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
         logger.error("文件名: " + file.getName());
         logger.error("原始文件名: " + file.getOriginalFilename());
         logger.error("文件大小: " + file.getSize());
