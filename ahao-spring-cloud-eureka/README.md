@@ -46,9 +46,20 @@ public class FeignController {
 }
 ```
 
-有两个注意点
+有几个注意点
 1. 使用`form data`不能`@RequestBody`和`@RequestPart`一起用, 如果要上传文件, 只能老老实实的把所有参数写在`Controller`上, 或者使用[本解决方案](https://stackoverflow.com/questions/21577782/).
 2. [`feign-form`](https://github.com/OpenFeign/feign-form)的版本号一定要选对, 具体参考[官方文档](https://github.com/OpenFeign/feign-form#requirements).
+3. `@RequestPart(value = "file", required = false)`不生效[`#126`](https://github.com/spring-cloud/spring-cloud-openfeign/issues/126), 如果想要实现可选的文件上传, 需要重载方法
+    ```java
+    @FeignClient(value = serverName)
+    public interface SimpleFeignClient {
+        @PostMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // 注意, 这里 body 的 required = false 并不生效
+        AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file);
+     
+        @PostMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+        AjaxDTO formData(@RequestParam String param, @RequestParam String json);
+    }
+    ```
 
 
 # 单元测试

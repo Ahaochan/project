@@ -22,8 +22,8 @@ public class FeignController {
         @PostMapping("/body")
         AjaxDTO body(@RequestBody AjaxDTO dto);
 
-        @PostMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-        AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart("file") MultipartFile file);
+        @PostMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // 注意, 这里 body 的 required = false 并不生效
+        AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file);
     }
 
     @Autowired
@@ -40,7 +40,7 @@ public class FeignController {
     }
 
     @PostMapping(value = "/form-data3", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart("file") MultipartFile file) {
+    public AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file) {
         return feignClient.formData(param, json, file);
     }
 }
