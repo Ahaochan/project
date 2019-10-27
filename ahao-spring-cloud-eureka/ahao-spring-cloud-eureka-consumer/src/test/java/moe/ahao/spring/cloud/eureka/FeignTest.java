@@ -1,7 +1,7 @@
 package moe.ahao.spring.cloud.eureka;
 
 import com.ahao.domain.entity.AjaxDTO;
-import com.ahao.util.commons.lang.BeanHelper;
+import com.ahao.util.commons.io.JSONHelper;
 import com.ahao.util.commons.lang.time.DateHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,12 +55,12 @@ public class FeignTest {
 
         String response = mockMvc.perform(post(url)
             .contentType(MediaType.APPLICATION_JSON)
-            .content(BeanHelper.obj2JsonString(param)))
+            .content(JSONHelper.toString(param)))
             .andExpect(status().isOk())
             .andDo(print())
             .andReturn()
             .getResponse().getContentAsString();
-        Assertions.assertEquals(param, BeanHelper.json2Obj(response, AjaxDTO.class));
+        Assertions.assertEquals(param, JSONHelper.parse(response, AjaxDTO.class));
     }
 
     @ParameterizedTest
@@ -74,19 +74,18 @@ public class FeignTest {
         String response = mockMvc.perform(multipart(url)
             .file(file)
             .param("param", msg)
-            .param("json", BeanHelper.obj2JsonString(param)))
+            .param("json", JSONHelper.toString(param)))
             .andExpect(status().isOk())
             .andDo(print())
             .andReturn()
             .getResponse().getContentAsString();
-        AjaxDTO result = BeanHelper.json2Obj(response, AjaxDTO.class);
+        AjaxDTO result = JSONHelper.parse(response, AjaxDTO.class);
         Assertions.assertEquals(AjaxDTO.SUCCESS, result.getResult());
 
         List<String> data = (List<String>) result.getObj();
         Assertions.assertEquals(3, data.size());
         Assertions.assertEquals(msg, data.get(0));
-        Assertions.assertEquals(param, BeanHelper.json2Obj(data.get(1), AjaxDTO.class));
+        Assertions.assertEquals(param, JSONHelper.parse(data.get(1), AjaxDTO.class));
         Assertions.assertEquals(msg, data.get(2));
-
     }
 }

@@ -1,5 +1,6 @@
 package com.ahao.spring.boot.rabbitmq;
 
+import com.ahao.util.commons.io.JSONHelper;
 import com.ahao.util.commons.lang.BeanHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +51,7 @@ public class FastJsonMessageConverter extends AbstractMessageConverter implement
             } else if (String.class.isAssignableFrom(clazz)) {
                 object = jsonString;
             } else {
-                object = BeanHelper.json2Obj(jsonString, clazz);
+                object = JSONHelper.parse(jsonString, clazz);
             }
             return object;
         } catch (Exception e) {
@@ -68,7 +69,7 @@ public class FastJsonMessageConverter extends AbstractMessageConverter implement
         } else if (object instanceof String || object instanceof Number) {
             bytes = String.valueOf(object).getBytes(StandardCharsets.UTF_8);
         } else {
-            bytes = BeanHelper.obj2JsonBytes(object);
+            bytes = JSONHelper.toBytes(object);
         }
 
         // 2. 初始化相关属性

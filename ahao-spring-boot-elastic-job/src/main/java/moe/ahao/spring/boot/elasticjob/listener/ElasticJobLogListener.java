@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.elasticjob.listener;
 
-import com.ahao.util.commons.lang.BeanHelper;
+import com.ahao.util.commons.io.JSONHelper;
 import com.dangdang.ddframe.job.executor.ShardingContexts;
 import com.dangdang.ddframe.job.lite.api.listener.ElasticJobListener;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ public class ElasticJobLogListener implements ElasticJobListener {
                 "作业事件采样统计数: {}, 当前作业事件采样统计数: {}, 是否允许可以发送作业事件: {}",
             Thread.currentThread().getId(),
             ctx.getJobName(), ctx.getTaskId(),
-            ctx.getShardingTotalCount(), ctx.getJobParameter(), BeanHelper.obj2JsonString(ctx.getShardingItemParameters()),
+            ctx.getShardingTotalCount(), ctx.getJobParameter(), JSONHelper.toString(ctx.getShardingItemParameters()),
             ctx.getJobEventSamplingCount(), ctx.getCurrentJobEventSamplingCount(), ctx.isAllowSendJobEvent());
     }
 

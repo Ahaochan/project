@@ -1,8 +1,7 @@
 package moe.ahao.spring.boot.validator;
 
 import com.ahao.domain.entity.AjaxDTO;
-import com.ahao.util.commons.lang.BeanHelper;
-import com.alibaba.fastjson.JSONObject;
+import com.ahao.util.commons.io.JSONHelper;
 import moe.ahao.spring.boot.Starter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -35,14 +36,16 @@ public class ValidatorTest {
             .andDo(print())
             .andReturn()
             .getResponse().getContentAsString();   //将相应的数据转换为字符串
-        AjaxDTO result = JSONObject.parseObject(responseString, AjaxDTO.class);
+        AjaxDTO result = JSONHelper.parse(responseString, AjaxDTO.class);
+        Assertions.assertNotNull(result);
         Assertions.assertEquals(AjaxDTO.FAILURE, result.getResult());
         Assertions.assertEquals("校验失败", result.getMsg());
 
         Object obj = result.getObj();
-        JSONObject error = JSONObject.parseObject(BeanHelper.obj2JsonString(obj));
+        Map error = JSONHelper.parse(JSONHelper.toString(obj), Map.class);
+        Assertions.assertNotNull(error);
         Assertions.assertEquals(2, error.size());
-        Assertions.assertEquals("手机号码不能为空", error.getString("phone"));
-        Assertions.assertEquals("名称不能为空", error.getString("name"));
+        Assertions.assertEquals("手机号码不能为空", error.get("phone"));
+        Assertions.assertEquals("名称不能为空", error.get("name"));
     }
 }
