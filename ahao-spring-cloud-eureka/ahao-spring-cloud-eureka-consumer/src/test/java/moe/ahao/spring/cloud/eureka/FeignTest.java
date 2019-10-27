@@ -4,6 +4,7 @@ import com.ahao.domain.entity.AjaxDTO;
 import com.ahao.util.commons.io.JSONHelper;
 import com.ahao.util.commons.lang.time.DateHelper;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -33,6 +34,7 @@ public class FeignTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"/param1", "/param2", "/param3"})
+    @Disabled("按照Readme.md文档进行测试")
     public void param(String url) throws Exception {
         String msg = DateHelper.getNow("yyyy-MM-dd HH:mm:ss");
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -48,6 +50,7 @@ public class FeignTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"/body1", "/body2", "/body3"})
+    @Disabled("按照Readme.md文档进行测试")
     public void body(String url) throws Exception {
         String msg = DateHelper.getNow("yyyy-MM-dd HH:mm:ss");
         AjaxDTO param = AjaxDTO.failure(msg, msg);
@@ -65,6 +68,7 @@ public class FeignTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"/form-data1", "/form-data2", "/form-data3"})
+    @Disabled("按照Readme.md文档进行测试")
     public void formData(String url) throws Exception {
         String msg = DateHelper.getNow("yyyy-MM-dd HH:mm:ss");
         AjaxDTO param = AjaxDTO.failure(msg, msg);
