@@ -11,6 +11,8 @@ is_locked   TINYINT UNSIGNED DEFAULT 0 COMMENT '账户是否被锁定',
 is_disabled TINYINT UNSIGNED DEFAULT 0 COMMENT '账户是否被禁用',
 is_deleted  TINYINT UNSIGNED DEFAULT 0 COMMENT '账户是否被删除',
 expire_time  DATETIME DEFAULT NULL COMMENT '账户过期时间',
+create_by   BIGINT(20) NOT NULL COMMENT '创建人',
+update_by   BIGINT(20) NOT NULL COMMENT '更新人',
 create_time  DATETIME COMMENT '创建时间',
 update_time  DATETIME COMMENT '更新时间',
 PRIMARY KEY (id)
