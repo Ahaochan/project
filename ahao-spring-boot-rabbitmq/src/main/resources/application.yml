@@ -1,7 +1,20 @@
 spring:
   rabbitmq:
-    host: "127.0.0.1"
+    host:
     port: 5672
     virtual-host: "/"
     username: "guest"
     password: "guest"
+    connection-timeout: 15000
+    # 生产端
+    publisher-confirms: true # confirm模式
+    publisher-returns: true  # return机制
+    template:
+      mandatory: true # 与 return 机制结合配置次属性
+    # 消费端
+    listener:
+      simple:
+        acknowledge-mode: manual # 手动ack
+        concurrency: 5      # 监听个数
+        max-concurrency: 10 # 最大监听个数
+
