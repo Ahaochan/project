@@ -1,9 +1,12 @@
 package moe.ahao.spring.cloud.zookeeper;
 
+import com.ahao.util.spring.SpringContextHolder;
 import moe.ahao.spring.cloud.Starter;
 import moe.ahao.spring.cloud.zookeeper.config.HelloApi;
 import moe.ahao.spring.cloud.zookeeper.config.TestConfig;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +23,19 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {Starter.class, TestConfig.class, HelloApi.class})
+@ContextConfiguration(classes = {SpringContextHolder.class, Starter.class, TestConfig.class, HelloApi.class})
 @ActiveProfiles("test")
 public class ZookeeperTest {
     public static final String applicationName = "ZOOKEEPER-CLIENT";
 
     @Autowired
     private DiscoveryClient discoveryClient;
+
+    @BeforeEach
+    public void init() {
+        boolean enabled = SpringContextHolder.getBoolean("spring.cloud.zookeeper.enabled");
+        Assumptions.assumeTrue(enabled);
+    }
 
     @Test
     public void serviceUrl() {
