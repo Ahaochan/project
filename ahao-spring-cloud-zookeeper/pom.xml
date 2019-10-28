@@ -16,6 +16,14 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!--======================================================= 自定义模块 =======================================================-->
+        <dependency>
+            <groupId>com.ahao</groupId>
+            <artifactId>ahao-common-utils</artifactId>
+        </dependency>
+        <!--======================================================= 自定义模块 =======================================================-->
+
+        <!--======================================================= Spring Boot =======================================================-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
@@ -30,5 +38,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--======================================================= Spring Boot =======================================================-->
     </dependencies>
 </project>

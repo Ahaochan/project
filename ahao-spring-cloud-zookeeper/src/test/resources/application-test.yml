@@ -4,7 +4,7 @@ spring:
   cloud:
     zookeeper:
       connect-string: 192.168.75.150:2181 # Zookeeper 注册中心, 多个用逗号分隔
-      enabled: true
+      enabled: false
       discovery:
         enabled: true
         register: true
