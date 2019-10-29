@@ -12,3 +12,9 @@ spring:
     name: eureka-provider
 server:
   port: 8081
+feign:
+  client:
+    config:
+      default:
+        read-timeout: 30000
+        connect-timeout: 30000

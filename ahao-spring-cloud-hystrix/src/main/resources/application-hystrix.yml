@@ -17,3 +17,8 @@ server:
 feign:
   hystrix:
     enabled: true
+  client:
+    config:
+      default:
+        read-timeout: 30000
+        connect-timeout: 30000
