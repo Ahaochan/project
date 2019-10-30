@@ -57,4 +57,17 @@ class SampleTest {
         womanList.forEach(u -> Assertions.assertEquals(Sex.woman, u.getSex()));
     }
 
+    @Test
+    void testInsert() {
+        User user1 = new User();
+        user1.setUsername("username");
+        user1.setPassword("password");
+        int count = userMapper.insert(user1);
+        Assertions.assertEquals(1, count);
+        Assertions.assertNotNull(user1.getId());
+
+        User user2 = userMapper.selectById(user1.getId());
+        Assertions.assertEquals(user1.getUsername(), user2.getUsername());
+        Assertions.assertEquals(user1.getPassword(), user2.getPassword());
+    }
 }
