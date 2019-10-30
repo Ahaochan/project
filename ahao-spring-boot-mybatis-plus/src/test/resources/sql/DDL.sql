@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS user;
 
 CREATE TABLE user (
-id          BIGINT(20) NOT NULL COMMENT '主键ID',
+id          BIGINT(20) AUTO_INCREMENT NOT NULL COMMENT '主键ID',
 username    VARCHAR(50) NOT NULL COMMENT '用户名',
 email       VARCHAR(50) COMMENT '邮箱',
 password    VARCHAR(50) NOT NULL COMMENT '密码',
