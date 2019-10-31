@@ -18,6 +18,7 @@
   - [ahao-spring-boot-cache](./ahao-spring-boot-cache)(注解缓存框架)
   - [ahao-spring-boot-druid](./ahao-spring-boot-druid)(阿里数据源`Druid`整合)
   - [ahao-spring-boot-file-download](./ahao-spring-boot-file-download)(常用的文件下载实例, `word`、`excel`、`pdf`)
+  - [ahao-spring-boot-jpa](./ahao-spring-boot-jpa)(简单的`Spring Boot JPA`整合)
   - [ahao-spring-boot-mail](./ahao-spring-boot-mail)(简单的邮件客户端)
   - [ahao-spring-boot-mybatis-plus](./ahao-spring-boot-mybatis-plus)(简单集成`Mybatis Plus`)
   - [ahao-spring-boot-okhttp3](./ahao-spring-boot-okhttp3)(简单集成`OkHttp3`)
