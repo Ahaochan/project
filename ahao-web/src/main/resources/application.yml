@@ -6,6 +6,8 @@ server:
 
 # =================================== Spring 通用配置 ==========================================
 spring:
+  application:
+    name: AhaoWeb
   profiles:
     active: dev
   http:
@@ -18,4 +20,6 @@ spring:
     serialization:
       indent_output: false
   banner:
-    location: banner/banner-${spring.profiles.active}.txt
+    location: classpath:banner/banner-${spring.profiles.active}.txt
+logging:
+  config: classpath:logback/logback-${spring.profiles.active}.xml
