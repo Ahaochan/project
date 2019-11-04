@@ -3,6 +3,10 @@ server:
   port: 8080
   servlet:
     context-path: /
+  tomcat:
+    max-threads: 200
+    max-connections: 10000
+    accept-count: 100
 
 # =================================== Spring 通用配置 ==========================================
 spring:
