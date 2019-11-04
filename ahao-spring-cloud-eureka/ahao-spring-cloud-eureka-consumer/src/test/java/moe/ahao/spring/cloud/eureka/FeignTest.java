@@ -92,4 +92,28 @@ public class FeignTest {
         Assertions.assertEquals(param, JSONHelper.parse(data.get(1), AjaxDTO.class));
         Assertions.assertEquals(msg, data.get(2));
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"/download1.txt", "/download2.txt", "/download3.txt"})
+    @Disabled("按照Readme.md文档进行测试")
+    public void download(String url) throws Exception {
+        String name = "hello";
+        String msg = DateHelper.getNow("yyyy-MM-dd HH:mm:ss");
+
+        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        String response = mockMvc.perform(get(url)
+            .param("name", name)
+            .param("data", msg))
+            .andExpect(status().isOk())
+            .andDo(print())
+            .andReturn()
+            .getResponse().getContentAsString();
+        AjaxDTO result = JSONHelper.parse(response, AjaxDTO.class);
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(AjaxDTO.SUCCESS, result.getResult());
+
+        String data = (String) result.getObj();
+        Assertions.assertEquals(name, result.getMsg());
+        Assertions.assertEquals(msg, data);
+    }
 }

@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 使用 LoadBalancerClient 做负载均衡
@@ -75,5 +73,21 @@ public class LoadBalancerClientController {
 
         FileUtils.deleteQuietly(file);
         return response.getBody();
+    }
+
+    @GetMapping(value = "/download2.txt")
+    public AjaxDTO download(@RequestParam String name, @RequestParam String data) throws IOException {
+        String serverName = EurekaConsumerApplication.serverName;
+        ServiceInstance server = loadBalancerClient.choose(serverName);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<byte[]> entity = restTemplate.exchange("http://" + server.getHost() + ":" + server.getPort() + "/download.txt?name=" + name + "&data=" + data, HttpMethod.GET,
+            new HttpEntity<>(new HttpHeaders()), byte[].class);
+        byte[] body = entity.getBody();
+        if (body == null) {
+            return AjaxDTO.failure("");
+        }
+        String msg = new String(body, StandardCharsets.UTF_8);
+        return AjaxDTO.success(name, msg);
     }
 }
