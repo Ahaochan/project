@@ -1,12 +1,17 @@
 package moe.ahao.spring.cloud.eureka.controller;
 
 import com.ahao.domain.entity.AjaxDTO;
+import com.ahao.util.commons.io.IOHelper;
 import moe.ahao.spring.cloud.eureka.EurekaConsumerApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 public class FeignController {
@@ -22,8 +27,12 @@ public class FeignController {
         @PostMapping("/body")
         AjaxDTO body(@RequestBody AjaxDTO dto);
 
-        @PostMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // 注意, 这里 body 的 required = false 并不生效
+        @PostMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+            // 注意, 这里 body 的 required = false 并不生效
         AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file);
+
+        @GetMapping("/download.txt")
+        ResponseEntity<Resource> download(@RequestParam String name, @RequestParam String data);
     }
 
     @Autowired
@@ -42,5 +51,17 @@ public class FeignController {
     @PostMapping(value = "/form-data3", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file) {
         return feignClient.formData(param, json, file);
+    }
+
+    @GetMapping(value = "/download3.txt")
+    public AjaxDTO download(@RequestParam String name, @RequestParam String data) throws IOException {
+        ResponseEntity<Resource> download = feignClient.download(name, data);
+        Resource body = download.getBody();
+        if (body == null) {
+            return AjaxDTO.failure("");
+        }
+        String filename = body.getFilename();
+        String response = IOHelper.toString(body.getInputStream());
+        return AjaxDTO.success(filename, response);
     }
 }
