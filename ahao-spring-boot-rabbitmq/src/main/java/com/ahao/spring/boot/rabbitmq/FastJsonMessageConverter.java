@@ -2,6 +2,7 @@ package com.ahao.spring.boot.rabbitmq;
 
 import com.ahao.util.commons.io.JSONHelper;
 import com.ahao.util.commons.lang.BeanHelper;
+import com.ahao.util.commons.lang.reflect.ClassHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
@@ -42,22 +43,20 @@ public class FastJsonMessageConverter extends AbstractMessageConverter implement
         Map<String, Object> header = messageProperties.getHeaders();
         Object javaType = header.get(HEADER_JAVA_TYPE);
         String javaTypeString = javaType == null ? null : String.valueOf(javaType);
-        try {
-            Class clazz = Class.forName(javaTypeString);
 
-            Object object = null;
-            if (Number.class.isAssignableFrom(clazz)) {
-                object = BeanHelper.cast(jsonString, clazz);
-            } else if (String.class.isAssignableFrom(clazz)) {
-                object = jsonString;
-            } else {
-                object = JSONHelper.parse(jsonString, clazz);
-            }
-            return object;
-        } catch (Exception e) {
-            logger.warn("转化为{}类型错误!", javaType, e);
+        Class<?> clazz = ClassHelper.forName(javaTypeString);
+        if(clazz == null) {
+            return jsonString;
         }
-        return jsonString;
+
+        if (Number.class.isAssignableFrom(clazz)) {
+            return BeanHelper.cast(jsonString, clazz);
+        }
+        if (String.class.isAssignableFrom(clazz)) {
+            return jsonString;
+        } else {
+            return JSONHelper.parse(jsonString, clazz);
+        }
     }
 
     @Override
