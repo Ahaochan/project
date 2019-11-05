@@ -4,7 +4,6 @@ import com.ahao.domain.entity.AjaxDTO;
 import com.ahao.domain.entity.BaseDO;
 import com.ahao.util.spring.SpringContextHolder;
 import com.ahao.util.spring.mq.RabbitMQHelper;
-import com.rabbitmq.client.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,11 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ExtendWith(SpringExtension.class)
@@ -110,7 +105,7 @@ public class DirectProducerTest {
     public void sendDelayString() throws Exception {
         String msg = "sendDelay()";
         String routingKey = DirectConsumer.QUEUE_NAME;
-        RabbitMQHelper.sendDelay(routingKey, msg, 3000);
+        RabbitMQHelper.sendDelay(routingKey, msg, 5000);
 
         Assertions.assertNull(DirectConsumer.value);
         Thread.sleep(2000);
@@ -124,7 +119,7 @@ public class DirectProducerTest {
         Integer msg = 123;
         String routingKey = DirectConsumer.QUEUE_NAME;
 
-        RabbitMQHelper.sendDelay(routingKey, msg, 3000);
+        RabbitMQHelper.sendDelay(routingKey, msg, 5000);
 
         Assertions.assertNull(DirectConsumer.value);
         Thread.sleep(2000);
@@ -141,7 +136,7 @@ public class DirectProducerTest {
         msg.setUpdateTime(new Date());
         String routingKey = DirectConsumer.QUEUE_NAME;
 
-        RabbitMQHelper.sendDelay(routingKey, msg, 3000);
+        RabbitMQHelper.sendDelay(routingKey, msg, 5000);
 
         Assertions.assertNull(DirectConsumer.value);
         Thread.sleep(2000);
@@ -158,7 +153,7 @@ public class DirectProducerTest {
         AjaxDTO msg = AjaxDTO.get(1, "测试", 123);
         String routingKey = DirectConsumer.QUEUE_NAME;
 
-        RabbitMQHelper.sendDelay(routingKey, msg, 3000);
+        RabbitMQHelper.sendDelay(routingKey, msg, 5000);
 
         Assertions.assertNull(DirectConsumer.value);
         Thread.sleep(2000);
