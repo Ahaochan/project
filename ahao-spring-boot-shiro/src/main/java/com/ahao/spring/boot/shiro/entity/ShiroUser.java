@@ -1,6 +1,6 @@
 package com.ahao.spring.boot.shiro.entity;
 
-import com.ahao.domain.entity.BaseDO;
+import com.ahao.domain.entity.MybatisPlusBaseDO;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.shiro.authc.DisabledAccountException;
@@ -11,7 +11,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ShiroUser extends BaseDO implements Serializable {
+public class ShiroUser extends MybatisPlusBaseDO implements Serializable {
     private String username;
     private String email;
     private String password;
