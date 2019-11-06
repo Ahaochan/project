@@ -1,7 +1,7 @@
 package com.ahao.spring.boot.rabbitmq;
 
 import com.ahao.domain.entity.AjaxDTO;
-import com.ahao.domain.entity.BaseDO;
+import com.ahao.domain.entity.MybatisPlusBaseDO;
 import com.ahao.util.spring.SpringContextHolder;
 import com.ahao.util.spring.mq.RabbitMQHelper;
 import org.junit.jupiter.api.Assertions;
@@ -68,7 +68,7 @@ public class DirectProducerTest {
 
     @Test
     public void sendObject() throws Exception {
-        BaseDO msg = new BaseDO();
+        MybatisPlusBaseDO msg = new MybatisPlusBaseDO();
         msg.setId(123L);
         msg.setCreateTime(new Date());
         msg.setUpdateTime(new Date());
@@ -78,7 +78,7 @@ public class DirectProducerTest {
 
         Assertions.assertNull(DirectConsumer.value);
         Thread.sleep(2000);
-        BaseDO actual = (BaseDO) DirectConsumer.value;
+        MybatisPlusBaseDO actual = (MybatisPlusBaseDO) DirectConsumer.value;
         Assertions.assertNotNull(actual);
         Assertions.assertEquals(msg.getId(), actual.getId());
         Assertions.assertEquals(msg.getCreateTime(), actual.getCreateTime());
@@ -130,7 +130,7 @@ public class DirectProducerTest {
 
     @Test
     public void sendDelayObject() throws Exception {
-        BaseDO msg = new BaseDO();
+        MybatisPlusBaseDO msg = new MybatisPlusBaseDO();
         msg.setId(123L);
         msg.setCreateTime(new Date());
         msg.setUpdateTime(new Date());
@@ -142,7 +142,7 @@ public class DirectProducerTest {
         Thread.sleep(2000);
         Assertions.assertNull(DirectConsumer.value);
         Thread.sleep(10000);
-        BaseDO actual = (BaseDO) DirectConsumer.value;
+        MybatisPlusBaseDO actual = (MybatisPlusBaseDO) DirectConsumer.value;
         Assertions.assertEquals(msg.getId(), actual.getId());
         Assertions.assertEquals(msg.getCreateTime(), actual.getCreateTime());
         Assertions.assertEquals(msg.getUpdateTime(), actual.getUpdateTime());

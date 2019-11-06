@@ -1,6 +1,6 @@
 package com.ahao.spring.boot.mybatis.plus.module.entity;
 
-import com.ahao.domain.entity.BaseDO;
+import com.ahao.domain.entity.MybatisPlusBaseDO;
 import com.ahao.spring.boot.mybatis.plus.module.enums.Sex;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @TableName("user")
-public class User extends BaseDO implements Serializable {
+public class User extends MybatisPlusBaseDO implements Serializable {
     private String username;
     private String email;
     private String password;

@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.jpa.module.entity;
 
-import com.ahao.domain.entity.BaseDO;
+import com.ahao.domain.entity.JPABaseDO;
 import moe.ahao.spring.boot.jpa.module.enums.Sex;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Entity(name = "user")
 @Table(name = "user")
-public class User extends BaseDO implements Serializable {
+public class User extends JPABaseDO implements Serializable {
     private String username;
     private String email;
     private String password;
