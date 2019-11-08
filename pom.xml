@@ -67,7 +67,7 @@
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <spring.swagger.version>2.9.2</spring.swagger.version>
 
-        <alibaba.druid.version>1.1.18</alibaba.druid.version>
+        <alibaba.druid.version>1.1.21</alibaba.druid.version>
         <alibaba.fastjson.version>1.2.56</alibaba.fastjson.version>
 
         <mybatis.version>3.5.2</mybatis.version>
