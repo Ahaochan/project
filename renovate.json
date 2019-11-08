@@ -1,5 +1,9 @@
 {
   "extends": [
     "config:base"
-  ]
+  ],
+    "ignorePaths": [
+        "ahao-forum-guitar/**",
+        "ahao-invoice/**"
+    ]
 }
