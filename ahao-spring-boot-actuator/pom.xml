@@ -32,11 +32,5 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <!--======================================================= Spring Boot =======================================================-->
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${alibaba.fastjson.version}</version>
-        </dependency>
     </dependencies>
 </project>
