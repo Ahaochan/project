@@ -1,8 +1,8 @@
 package com.ahao.web.module.upload.controller;
 
+import com.ahao.util.commons.io.JSONHelper;
 import com.ahao.web.module.upload.model.UploadDTO;
 import com.ahao.web.module.upload.service.UploadService;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +41,6 @@ public class UploadController {
      */
     @PostMapping(value = "/ie/file", produces = "text/json;charset=UTF-8")
     public String ieFile(@RequestParam("file") MultipartFile upload) {
-        return JSONObject.toJSONString(uploadService.file(upload));
+        return JSONHelper.toString(uploadService.file(upload));
     }
 }

@@ -1,7 +1,7 @@
 package com.ahao.spring.boot.actuator;
 
 import com.ahao.spring.boot.Starter;
-import com.alibaba.fastjson.JSONObject;
+import com.ahao.util.commons.io.JSONHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,8 +42,8 @@ class ActuatorTest {
             .getResponse().getContentAsString();
         System.out.println(responseString);
 
-        JSONObject json = JSONObject.parseObject(responseString);
-        Assertions.assertEquals("UP", json.getString("status"));
+        String status = JSONHelper.getString(responseString, "status");
+        Assertions.assertEquals("UP", status);
     }
 
     @Test
@@ -57,8 +57,8 @@ class ActuatorTest {
             .getResponse().getContentAsString();
         System.out.println(responseString);
 
-        JSONObject json = JSONObject.parseObject(responseString);
-        Assertions.assertEquals("Shutting down, bye...", json.getString("message"));
+        String message = JSONHelper.getString(responseString, "message");
+        Assertions.assertEquals("Shutting down, bye...", message);
     }
 
 }

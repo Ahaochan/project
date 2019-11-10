@@ -51,11 +51,6 @@
             <artifactId>druid</artifactId>
             <version>${alibaba.druid.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${alibaba.fastjson.version}</version>
-        </dependency>
         <!--======================================================= Alibaba =======================================================-->
 
         <!--======================================================= Spring Boot =======================================================-->

@@ -2,8 +2,8 @@ package com.ahao.spring.boot.shiro;
 
 import com.ahao.domain.entity.AjaxDTO;
 import com.ahao.spring.boot.Starter;
+import com.ahao.util.commons.io.JSONHelper;
 import com.ahao.util.spring.SpringContextHolder;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -66,8 +66,8 @@ public class PasswordRealmTest {
             .andDo(print())
             .andReturn()
             .getResponse().getContentAsString();   //将相应的数据转换为字符串
-        JSONObject json = JSONObject.parseObject(responseString);
-        Assertions.assertEquals(AjaxDTO.SUCCESS, json.getIntValue("result"));
+        int result = JSONHelper.getInt(responseString, "result");
+        Assertions.assertEquals(AjaxDTO.SUCCESS, result);
     }
 
 
