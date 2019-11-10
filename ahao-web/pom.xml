@@ -22,11 +22,6 @@
         <!--======================================================= 自定义模块 =======================================================-->
 
         <!--======================================================= Alibaba =======================================================-->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba</groupId>-->
-<!--            <artifactId>druid</artifactId>-->
-<!--            <version>${alibaba.druid.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

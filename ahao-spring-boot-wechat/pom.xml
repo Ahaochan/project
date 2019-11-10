@@ -44,11 +44,5 @@
             <version>${weixin.version}</version>
         </dependency>
         <!--======================================================= Wechat =======================================================-->
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${alibaba.fastjson.version}</version>
-        </dependency>
     </dependencies>
 </project>
