@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.okhttp3;
 
-import com.alibaba.fastjson.JSONObject;
+import com.ahao.util.commons.io.JSONHelper;
 import moe.ahao.spring.boot.Starter;
 import okhttp3.*;
 import org.junit.jupiter.api.Assertions;
@@ -34,9 +34,9 @@ class OkHttp3Test {
 
             Assertions.assertNotNull(body);
 
-            JSONObject json = JSONObject.parseObject(body.string());
+            String login = JSONHelper.getString(body.string(), "login");
 
-            Assertions.assertEquals("Ahaochan", json.getString("login"));
+            Assertions.assertEquals("Ahaochan", login);
         } catch (IOException e) {
             e.printStackTrace();
             Assertions.fail(e.getMessage());

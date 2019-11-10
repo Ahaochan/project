@@ -1,9 +1,9 @@
 package com.ahao.web.module.alipay.bank;
 
 import com.ahao.commons.http.HttpClientHelper;
-import com.ahao.commons.http.convert.JSONObjectConvert;
+import com.ahao.commons.http.convert.UTF8Convert;
 import com.ahao.commons.http.param.impl.UrlEncodedFormParam;
-import com.alibaba.fastjson.JSONObject;
+import com.ahao.util.commons.io.JSONHelper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -197,14 +197,14 @@ public enum Bank {
      */
     public static Bank parseCard(String card) {
         // 1. 发送请求
-        JSONObject json = HttpClientHelper.get("https://ccdcapi.alipay.com/validateAndCacheCardInfo.json")
+        String json = HttpClientHelper.get("https://ccdcapi.alipay.com/validateAndCacheCardInfo.json")
                 .paramType(UrlEncodedFormParam::new)
                 .addParam("_input_charset", "utf-8")
                 .addParam("cardNo", card)
                 .addParam("cardBinCheck", "true")
                 .execute(true)
-                .convert(JSONObjectConvert::new);
-        String bankCode = json.getString("bank");
+                .convert(UTF8Convert::new);
+        String bankCode = JSONHelper.getString(json, "bank");
 
         // 2. 获取 枚举
         List<Bank> filter = Arrays.stream(values())
@@ -212,8 +212,8 @@ public enum Bank {
                 .collect(Collectors.toList());
         int filterSize = CollectionUtils.size(filter);
         if (filterSize > 1) {
-            logger.error("匹配到的银行数目大于1! " + JSONObject.toJSONString(filter));
-            throw new IllegalStateException("匹配到的银行数目大于1!" + JSONObject.toJSONString(filter));
+            logger.error("匹配到的银行数目大于1! " + JSONHelper.toString(filter));
+            throw new IllegalStateException("匹配到的银行数目大于1!" + JSONHelper.toString(filter));
         }
         if (filterSize == 0) {
             logger.error("匹配到的银行数目为0!");

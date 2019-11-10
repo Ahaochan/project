@@ -1,7 +1,7 @@
 package com.ahao.commons.http.param.impl;
 
 import com.ahao.commons.http.param.ParamFormatter;
-import com.alibaba.fastjson.JSONObject;
+import com.ahao.util.commons.io.JSONHelper;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 
@@ -15,7 +15,7 @@ public class TextPlainParam implements ParamFormatter {
 
     @Override
     public HttpEntity format(Map<String, String> params) {
-        return new StringEntity(JSONObject.toJSONString(params), "UTF-8");
+        return new StringEntity(JSONHelper.toString(params), "UTF-8");
     }
 
     @Override

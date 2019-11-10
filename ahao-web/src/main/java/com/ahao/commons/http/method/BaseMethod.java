@@ -5,9 +5,9 @@ import com.ahao.commons.http.base.Response;
 import com.ahao.commons.http.param.ParamFormatter;
 import com.ahao.commons.http.param.impl.UrlEncodedFormParam;
 import com.ahao.util.commons.io.IOHelper;
+import com.ahao.util.commons.io.JSONHelper;
 import com.ahao.util.commons.lang.reflect.ReflectHelper;
 import com.ahao.util.commons.lang.time.DateHelper;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -134,7 +134,7 @@ public abstract class BaseMethod<M extends BaseMethod> {
         for (Map.Entry<String, String> entry : header.entrySet()) {
             http.addHeader(entry.getKey(), entry.getValue());
         }
-        logger.debug("["+url+"]: 初始化请求头:"+ JSONObject.toJSONString(header));
+        logger.debug("["+url+"]: 初始化请求头:"+ JSONHelper.toString(header));
 
         // 2. 配置http, 设置超时限制
         RequestConfig requestConfig = RequestConfig.custom()

@@ -1,7 +1,7 @@
 package com.ahao.spring.boot.wechat.mp.menu;
 
 import com.ahao.spring.boot.wechat.mp.BaseMpTest;
-import com.alibaba.fastjson.JSONObject;
+import com.ahao.util.commons.io.JSONHelper;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.bean.menu.WxMenu;
 import me.chanjar.weixin.common.bean.menu.WxMenuButton;
@@ -13,7 +13,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.platform.commons.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CreateMenuTest extends BaseMpTest {
 
@@ -42,15 +44,15 @@ public class CreateMenuTest extends BaseMpTest {
     @Test
     void createConditionalMenuByJson() {
         // 创建个性化菜单: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296
-        JSONObject json = new JSONObject();
+        Map<String, String> json = new HashMap<>();
         json.put("matchrule", "");
         try {
-            String responseJson = menuService.menuCreate(json.toJSONString());
+            String responseJson = menuService.menuCreate(JSONHelper.toString(json));
 
-            JSONObject response = JSONObject.parseObject(responseJson);
+            Map<String, String> response = JSONHelper.parseMap(responseJson, String.class, String.class);
             Assertions.assertAll("请求错误",
-                () -> Assertions.assertEquals(0, response.getIntValue("errcode")),
-                () -> Assertions.assertEquals("ok", response.getString("errmsg"))
+                () -> Assertions.assertEquals("0", response.get("errcode")),
+                () -> Assertions.assertEquals("ok", response.get("errmsg"))
             );
         } catch (WxErrorException e) {
             e.printStackTrace();
