@@ -18,7 +18,7 @@ public class RabbitMQConfig {
 
     @Bean
     public MessageConverter messageConverter() {
-        FastJsonMessageConverter converter = new FastJsonMessageConverter();
+        JsonMessageConverter converter = new JsonMessageConverter();
         converter.setCharset(StandardCharsets.UTF_8);
         converter.setUseRawJson(false);
         return converter;

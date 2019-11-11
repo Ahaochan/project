@@ -16,8 +16,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-public class FastJsonMessageConverter extends AbstractMessageConverter implements MessageConverter {
-    private static Logger logger = LoggerFactory.getLogger(FastJsonMessageConverter.class);
+public class JsonMessageConverter extends AbstractMessageConverter implements MessageConverter {
+    private static Logger logger = LoggerFactory.getLogger(JsonMessageConverter.class);
     public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     public static final String HEADER_JAVA_TYPE = "java-type";
 
