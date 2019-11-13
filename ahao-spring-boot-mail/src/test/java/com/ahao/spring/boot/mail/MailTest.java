@@ -8,13 +8,13 @@ import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamSource;
 import org.springframework.core.io.Resource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,27 +35,37 @@ class MailTest {
 
     @Test
     @DisplayName("发送纯文本邮件")
-    void sendSimpleMail() {
-        boolean success = MailHelper.sendText("844394093@qq.com", "主题: 简单邮件", "测试邮件内容");
-        Assertions.assertTrue(success);
+    void sendSimpleMail() throws Exception {
+        MailHelper.setSubject("主题: 简单邮件")
+            .setContent("测试邮件内容")
+            .addToEmails(Arrays.asList("844394093@qq.com"))
+            .addBccEmails(Arrays.asList("844394093@qq.com"))
+            .send();
     }
 
     @Test
     @DisplayName("发送有附件的邮件")
     void sendAttachmentsMail() throws Exception {
         Resource file = new ByteArrayResource("hello world".getBytes(StandardCharsets.UTF_8));
-        Map<String, InputStreamSource> files = new HashMap<>();
+        Map<String, Resource> files = new HashMap<>();
         files.put("附件-1.txt", file);
         files.put("附件-2.txt", file);
 
-        boolean success = MailHelper.sendTextWithFile("844394093@qq.com", "主题: 简单邮件", "测试邮件内容", files);
-        Assertions.assertTrue(success);
+        MailHelper.setSubject("主题: 简单邮件")
+            .setContent("测试邮件内容")
+            .addToEmails(Arrays.asList("844394093@qq.com"))
+            .addBccEmails(Arrays.asList("844394093@qq.com"))
+            .setExtendFile(files)
+            .send();
     }
 
     @Test
     @DisplayName("发送Html的邮件")
     void sendHtmlMail() throws Exception {
-        boolean success = MailHelper.sendHtml("844394093@qq.com", "主题: Html", "<html><body><h1>Hello world</h1></body></html>");
-        Assertions.assertTrue(success);
+        MailHelper.setSubject("主题: Html")
+            .setContent("<html><body><h1>Hello world</h1></body></html>", true)
+            .addToEmails(Arrays.asList("844394093@qq.com"))
+            .addBccEmails(Arrays.asList("844394093@qq.com"))
+            .send();
     }
 }
