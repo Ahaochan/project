@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-@Entity(name = "user")
+@Entity(name = "User")
 @Table(name = "user")
 public class User extends JPABaseDO implements Serializable {
     private String username;
@@ -30,6 +30,13 @@ public class User extends JPABaseDO implements Serializable {
 
     private Date expireTime;
 
+    public User() {
+    }
+
+    public User(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
 
     // ====================== Getter And Setter ======================
 
