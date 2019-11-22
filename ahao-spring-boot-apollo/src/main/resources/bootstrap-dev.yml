@@ -1,0 +1,11 @@
+app:
+  id: SampleApp
+# 这里填上用于本地，线上运维会覆盖
+apollo:
+  cache-dir: target/classes/config-cache # 配置的本地缓存目录，这行也可不配置，不配Apollo有默认值target/classes/config-cache
+  meta: http://192.168.42.129:8080
+  bootstrap:
+    enabled: true
+    namespaces: application
+
+
