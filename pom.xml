@@ -22,6 +22,7 @@
         <module>ahao-spring-boot-actuator</module>
         <module>ahao-spring-boot-admin-server</module>
         <module>ahao-spring-boot-admin-client</module>
+        <module>ahao-spring-boot-apollo</module>
         <module>ahao-spring-boot-async</module>
         <module>ahao-spring-boot-balance-datasources</module>
         <module>ahao-spring-boot-cache</module>
