@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 @ActiveProfiles("test")
 @EnableConfigurationProperties
 public class SpringIntegrationTest {
-    public static final String dbNs = "dbNs";
+    public static final String dbNs = "db";
 
     @RegisterExtension
     public static ApolloExtension apollo = new ApolloExtension();
@@ -62,22 +62,27 @@ public class SpringIntegrationTest {
         Assertions.assertEquals(PropertyChangeType.DELETED, delEvent.getChange(key).getChangeType());
     }
 
-    // @Test
-    // @DirtiesContext
-    // public void testConfigurationProperties() throws Exception {
-    //     Assertions.assertEquals("root", dbProperties.username);
-    //     Assertions.assertEquals("root", dbProperties.password);
-    //
-    //     String key = "spring.datasource.username";
-    //     String value = "ahao";
-    //     apollo.addOrModifyProperty(dbNs, key, value);
-    //     ConfigChangeEvent updateEvent = testBean.future.get(5000, TimeUnit.MILLISECONDS);
-    //     Assertions.assertEquals(dbNs, updateEvent.getNamespace());
-    //     Assertions.assertEquals(PropertyChangeType.MODIFIED, updateEvent.getChange("spring.datasource.username").getChangeType());
-    //     Assertions.assertEquals(value, updateEvent.getChange(key).getNewValue());
-    //
-    //     Assertions.assertEquals(value, dbProperties.username);
-    // }
+    @Test
+    @DirtiesContext
+    public void testConfigurationProperties() throws Exception {
+        Assertions.assertEquals("root", dbProperties.username);
+        Assertions.assertEquals("root", dbProperties.password);
+
+        String key = "spring.datasource.username";
+        String value = "ahao";
+        apollo.addOrModifyProperty(dbNs, key, value);
+        ConfigChangeEvent updateEvent1 = testBean.future.get(5000, TimeUnit.MILLISECONDS);
+        Assertions.assertEquals(dbNs, updateEvent1.getNamespace());
+        Assertions.assertEquals(PropertyChangeType.MODIFIED, updateEvent1.getChange("spring.datasource.username").getChangeType());
+        Assertions.assertEquals(value, updateEvent1.getChange(key).getNewValue());
+        // Assertions.assertEquals(value, dbProperties.username);
+
+        apollo.addOrModifyProperty(dbNs, key, "root");
+        ConfigChangeEvent updateEvent2 = testBean.future.get(5000, TimeUnit.MILLISECONDS);
+        Assertions.assertEquals(dbNs, updateEvent2.getNamespace());
+        Assertions.assertEquals(PropertyChangeType.MODIFIED, updateEvent2.getChange("spring.datasource.username").getChangeType());
+        Assertions.assertEquals("root", updateEvent2.getChange(key).getNewValue());
+    }
 
     @Autowired
     private TestBean testBean;
