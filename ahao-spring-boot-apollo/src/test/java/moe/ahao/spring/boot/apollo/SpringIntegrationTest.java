@@ -1,39 +1,48 @@
 package moe.ahao.spring.boot.apollo;
 
 import com.ctrip.framework.apollo.enums.PropertyChangeType;
-import com.ctrip.framework.apollo.mockserver.EmbeddedApollo;
 import com.ctrip.framework.apollo.model.ConfigChangeEvent;
 import com.ctrip.framework.apollo.spring.annotation.ApolloConfigChangeListener;
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
-import org.junit.ClassRule;
-import org.junit.Test;
+import moe.ahao.spring.boot.apollo.config.ApolloExtension;
 import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = SpringIntegrationTest.TestConfiguration.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@ContextConfiguration(classes = {ApolloConfig.class, SpringIntegrationTest.TestConfiguration.class})
+@ActiveProfiles("test")
+@EnableConfigurationProperties
 public class SpringIntegrationTest {
+    public static final String dbNs = "dbNs";
 
-    private static final String dbNs = "dbNs";
-
-    @ClassRule
-    public static EmbeddedApollo apollo = new EmbeddedApollo();
+    @RegisterExtension
+    public static ApolloExtension apollo = new ApolloExtension();
 
     @Test
     @DirtiesContext
     public void testInject() {
         Assertions.assertEquals("value1", testBean.key1);
         Assertions.assertEquals("value2", testBean.key2);
+
+        Assertions.assertEquals("root", dbProperties.username);
+        Assertions.assertEquals("root", dbProperties.password);
     }
 
     @Test
@@ -73,29 +82,76 @@ public class SpringIntegrationTest {
     @Autowired
     private TestBean testBean;
 
+    @Autowired
+    private DBProperties dbProperties;
+
     @EnableApolloConfig
     @Configuration
-    static class TestConfiguration {
+    public static class TestConfiguration {
 
         @Bean
         public TestBean testBean() {
             return new TestBean();
         }
+
+        @Bean
+        @ConfigurationProperties("spring.datasource")
+        public DBProperties dbProperties() {
+            return new DBProperties();
+        }
     }
 
-    private static class TestBean {
-
+    public static class TestBean {
         @Value("${key1:default}")
-        private String key1;
+        public String key1;
         @Value("${key2:default}")
-        private String key2;
+        public String key2;
 
-        private CompletableFuture<ConfigChangeEvent> future = new CompletableFuture<>();
+        public CompletableFuture<ConfigChangeEvent> future = new CompletableFuture<>();
 
-        @ApolloConfigChangeListener(dbNs)
+        @ApolloConfigChangeListener(SpringIntegrationTest.dbNs)
         private void onChange(ConfigChangeEvent changeEvent) {
             future.complete(changeEvent);
             future = new CompletableFuture<>();
+        }
+    }
+
+    public static class DBProperties {
+        public String url;
+        public String username;
+        public String password;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        @Override
+        public String toString() {
+            return "DBProperties{" +
+                "url='" + url + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
         }
     }
 }
