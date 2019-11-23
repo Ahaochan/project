@@ -1,15 +1,14 @@
 package moe.ahao.spring.boot.jpa.module.entity;
 
 import com.ahao.domain.entity.JPABaseDO;
-import moe.ahao.spring.boot.jpa.module.enums.Sex;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 
 @Entity(name = "User")
@@ -30,6 +29,9 @@ public class User extends JPABaseDO implements Serializable {
 
     private Date expireTime;
 
+    @Transient
+    private String transientValue;
+
     public User() {
     }
 
@@ -40,123 +42,108 @@ public class User extends JPABaseDO implements Serializable {
 
     // ====================== Getter And Setter ======================
 
+
     public String getUsername() {
         return username;
     }
 
-    public User setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
-        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public User setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public User setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
-        return this;
     }
 
     public String getSalt() {
         return salt;
     }
 
-    public User setSalt(String salt) {
+    public void setSalt(String salt) {
         this.salt = salt;
-        return this;
     }
 
-    public Sex getSex() {
-        return Sex.parse(sex);
+    public int getSex() {
+        return sex;
     }
 
-    public User setSex(Sex sex) {
-        this.sex = sex.getCode();
-        return this;
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 
     public Boolean getLocked() {
         return locked;
     }
 
-    public User setLocked(Boolean locked) {
+    public void setLocked(Boolean locked) {
         this.locked = locked;
-        return this;
     }
 
     public Boolean getDisabled() {
         return disabled;
     }
 
-    public User setDisabled(Boolean disabled) {
+    public void setDisabled(Boolean disabled) {
         this.disabled = disabled;
-        return this;
     }
 
     public Boolean getDeleted() {
         return deleted;
     }
 
-    public User setDeleted(Boolean deleted) {
+    public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
-        return this;
     }
 
     public Date getExpireTime() {
         return expireTime;
     }
 
-    public User setExpireTime(Date expireTime) {
+    public void setExpireTime(Date expireTime) {
         this.expireTime = expireTime;
-        return this;
+    }
+
+    public String getTransientValue() {
+        return transientValue;
+    }
+
+    public void setTransientValue(String transientValue) {
+        this.transientValue = transientValue;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-
         if (o == null || getClass() != o.getClass()) return false;
-
+        if (!super.equals(o)) return false;
         User user = (User) o;
-
-        return new EqualsBuilder()
-            .appendSuper(super.equals(o))
-            .append(username, user.username)
-            .append(email, user.email)
-            .append(password, user.password)
-            .append(salt, user.salt)
-            .append(sex, user.sex)
-            .append(locked, user.locked)
-            .append(disabled, user.disabled)
-            .append(deleted, user.deleted)
-            .append(expireTime, user.expireTime)
-            .isEquals();
+        return sex == user.sex &&
+            Objects.equals(username, user.username) &&
+            Objects.equals(email, user.email) &&
+            Objects.equals(password, user.password) &&
+            Objects.equals(salt, user.salt) &&
+            Objects.equals(locked, user.locked) &&
+            Objects.equals(disabled, user.disabled) &&
+            Objects.equals(deleted, user.deleted) &&
+            Objects.equals(expireTime, user.expireTime) &&
+            Objects.equals(transientValue, user.transientValue);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-            .appendSuper(super.hashCode())
-            .append(username)
-            .append(email)
-            .append(password)
-            .append(salt)
-            .append(sex)
-            .append(locked)
-            .append(disabled)
-            .append(deleted)
-            .append(expireTime)
-            .toHashCode();
+        return Objects.hash(super.hashCode(), username, email, password, salt, sex, locked, disabled, deleted, expireTime, transientValue);
     }
 
     @Override
@@ -171,6 +158,7 @@ public class User extends JPABaseDO implements Serializable {
             ", disabled=" + disabled +
             ", deleted=" + deleted +
             ", expireTime=" + expireTime +
-            '}';
+            ", transientValue='" + transientValue + '\'' +
+            "} " + super.toString();
     }
 }
