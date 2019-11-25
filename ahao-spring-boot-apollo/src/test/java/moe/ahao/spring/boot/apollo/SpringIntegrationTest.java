@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +29,9 @@ import java.util.concurrent.TimeUnit;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = {ApolloConfig.class, SpringIntegrationTest.TestConfiguration.class})
 @ActiveProfiles("test")
+
 @EnableConfigurationProperties
+@EnableAutoConfiguration
 public class SpringIntegrationTest {
     public static final String dbNs = "db";
 
@@ -75,7 +78,8 @@ public class SpringIntegrationTest {
         Assertions.assertEquals(dbNs, updateEvent1.getNamespace());
         Assertions.assertEquals(PropertyChangeType.MODIFIED, updateEvent1.getChange("spring.datasource.username").getChangeType());
         Assertions.assertEquals(value, updateEvent1.getChange(key).getNewValue());
-        Assertions.assertEquals(value, dbProperties.username); // TODO 单元测试失败
+        Thread.sleep(3000); // 等待事件异步消费
+        Assertions.assertEquals(value, dbProperties.username);
 
         apollo.addOrModifyProperty(dbNs, key, "root");
         ConfigChangeEvent updateEvent2 = testBean.future.get(5000, TimeUnit.MILLISECONDS);
