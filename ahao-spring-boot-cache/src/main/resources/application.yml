@@ -1,3 +1,13 @@
 spring:
   profiles:
     active: simple
+  cache:
+    redis:
+      use-key-prefix: false
+      cache-null-values: true
+      key-prefix: "spring.cache"
+      time-to-live: 3600s
+    caffeine:
+      # 全配置: com.github.benmanes.caffeine.cache.CaffeineSpec.configure
+      spec: initialCapacity=50,maximumSize=500,expireAfterWrite=10s,refreshAfterWrite=5s
+
