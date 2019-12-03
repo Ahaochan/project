@@ -226,15 +226,16 @@ class RedisHelperTest {
 
     @Test
     public void lock() throws Exception {
-        String unionId = UUID.randomUUID().toString();
-        boolean locked1 = RedisHelper.lock(REDIS_KEY, unionId);
-        Assertions.assertTrue(locked1);
+        String unionId1 = UUID.randomUUID().toString();
+        String unionId2 = UUID.randomUUID().toString();
 
-        boolean locked2 = RedisHelper.lock(REDIS_KEY, unionId);
-        Assertions.assertFalse(locked2);
+        Assertions.assertTrue(RedisHelper.lock(REDIS_KEY, unionId1));
+        Assertions.assertFalse(RedisHelper.lock(REDIS_KEY, unionId1));
+        Assertions.assertFalse(RedisHelper.lock(REDIS_KEY, unionId2));
 
-        boolean unLocked = RedisHelper.unlock(REDIS_KEY, unionId);
-        Assertions.assertTrue(unLocked);
+        Assertions.assertFalse(RedisHelper.unlock(REDIS_KEY, unionId2));
+        Assertions.assertTrue(RedisHelper.unlock(REDIS_KEY, unionId1));
+        Assertions.assertFalse(RedisHelper.unlock(REDIS_KEY, unionId1));
     }
 
     @Test
