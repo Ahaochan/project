@@ -27,13 +27,13 @@ public class MyBatisPlusConfig {
         return new MetaObjectHandler() {
             @Override
             public void insertFill(MetaObject metaObject) {
-                this.setFieldValByName("createTime", new Date(), metaObject);
-                this.setFieldValByName("updateTime", new Date(), metaObject);
+                this.setInsertFieldValByName("createTime", new Date(), metaObject);
+                this.setInsertFieldValByName("updateTime", new Date(), metaObject);
             }
 
             @Override
             public void updateFill(MetaObject metaObject) {
-                this.setFieldValByName("updateTime", new Date(), metaObject);
+                this.setUpdateFieldValByName("updateTime", new Date(), metaObject);
             }
         };
     }
