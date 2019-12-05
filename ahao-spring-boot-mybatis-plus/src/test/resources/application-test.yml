@@ -1,9 +1,9 @@
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     schema: classpath:sql/DDL.sql
     data: classpath:sql/DML.sql
-    url: jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MODE=MySQL;
+    url: jdbc:p6spy:h2:mem:db1;DB_CLOSE_DELAY=-1;MODE=MySQL;
     username: root
     password: test
 
