@@ -42,7 +42,7 @@ class SampleTest {
         List<User> rightLikeList = userMapper.selectList(new QueryWrapper<User>().likeRight("username", "user"));
         Assertions.assertEquals(5, rightLikeList.size());
 
-        List<User> likeList = userMapper.selectList(new QueryWrapper<User>().like("email", "%qq%"));
+        List<User> likeList = userMapper.selectList(new QueryWrapper<User>().like("email", "qq"));
         Assertions.assertEquals(5, likeList.size());
     }
 
