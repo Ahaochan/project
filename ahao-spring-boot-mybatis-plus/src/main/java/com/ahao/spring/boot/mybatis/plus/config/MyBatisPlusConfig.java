@@ -5,12 +5,10 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.apache.ibatis.reflection.MetaObject;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -57,15 +55,17 @@ public class MyBatisPlusConfig {
     }
 
     /**
-     * SQL执行效率插件
+     * SQL执行效率插件, 该插件 3.2.0 以上版本移除
      * @see <a href="https://mp.baomidou.com/guide/performance-analysis-plugin.html">攻击 SQL 阻断解析器</a>
+     * @deprecated <a href="https://mp.baomidou.com/guide/p6spy.html">执行 SQL 分析打印</>
      */
-    @Bean
-    @Profile({"dev", "test"})
-    public PerformanceInterceptor performanceInterceptor() {
-        PerformanceInterceptor interceptor = new PerformanceInterceptor();
-        interceptor.setMaxTime(100);
-        interceptor.setFormat(false);
-        return interceptor;
-    }
+    // @Bean
+    // @Profile({"dev", "test"})
+    // @Deprecated
+    // public PerformanceInterceptor performanceInterceptor() {
+    //     PerformanceInterceptor interceptor = new PerformanceInterceptor();
+    //     interceptor.setMaxTime(100);
+    //     interceptor.setFormat(false);
+    //     return interceptor;
+    // }
 }
