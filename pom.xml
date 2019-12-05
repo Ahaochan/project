@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.10.RELEASE</version>
+        <version>2.2.1.RELEASE</version>
     </parent>
 
     <modules>
@@ -64,8 +64,8 @@
 
         <ahao.version>1.0.0</ahao.version>
 
-        <spring-boot.version>2.1.10.RELEASE</spring-boot.version>
-        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+        <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
+        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
         <spring.swagger.version>2.9.2</spring.swagger.version>
 
         <alibaba.druid.version>1.1.21</alibaba.druid.version>

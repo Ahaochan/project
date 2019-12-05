@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,7 +32,7 @@ public class ValidatorTest {
     @Test
     public void test1() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        String responseString = mockMvc.perform(get("/hello"))
+        String responseString = mockMvc.perform(get("/hello").accept(MediaType.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk())
             .andDo(print())
             .andReturn()
