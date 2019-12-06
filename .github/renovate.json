@@ -1,9 +1,10 @@
 {
-  "extends": [
-    "config:base"
-  ],
+    "extends": [
+        "config:base"
+    ],
     "ignorePaths": [
         "ahao-forum-guitar/**",
         "ahao-invoice/**"
-    ]
+    ],
+    "rebaseStalePrs": true
 }
