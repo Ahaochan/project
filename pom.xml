@@ -17,6 +17,7 @@
     </parent>
 
     <modules>
+        <module>ahao-btrace</module>
         <module>ahao-common-utils</module>
         <module>ahao-mybatis-generator</module>
         <module>ahao-spring-boot-actuator</module>
@@ -92,11 +93,6 @@
         <repository>
             <id>center repository</id>
             <url>http://central.maven.org/maven2/</url>
-        </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
         </repository>
     </repositories>
 
