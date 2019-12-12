@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: lettuce
+  redis:
+    redisson:
+      config: classpath:redisson-single.yaml

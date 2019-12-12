@@ -23,6 +23,7 @@
   - [ahao-spring-boot-mybatis-plus](./ahao-spring-boot-mybatis-plus)(简单集成`Mybatis Plus`)
   - [ahao-spring-boot-okhttp3](./ahao-spring-boot-okhttp3)(简单集成`OkHttp3`)
   - [ahao-spring-boot-rabbitmq](./ahao-spring-boot-rabbitmq)(简单的`RabbitMQ`使用, 集成`fastjson`消息转换器)
+  - [ahao-spring-boot-redission](./ahao-spring-boot-redission)(简单的`Redisson`配置使用, 附带分布式锁单元测试)
   - [ahao-spring-boot-swagger](./ahao-spring-boot-swagger)(`Swagger`配置及使用)
   - [ahao-spring-boot-validator](./ahao-spring-boot-validator)(参数校验`JSR303/JSR-349`, 使用`AOP`统一处理校验错误)
   - [ahao-spring-boot-webservice](./ahao-spring-boot-webservice)(`Web Service`使用)
