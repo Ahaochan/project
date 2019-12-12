@@ -9,9 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.redisson.api.RBloomFilter;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
+import org.redisson.api.*;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -96,6 +94,22 @@ class RedisHelperTest {
         strings.forEach(bloomFilter::add);
         Assertions.assertEquals(count, bloomFilter.count());
         strings.forEach(s -> Assertions.assertTrue(bloomFilter.contains(s)));
+    }
+
+    @Test
+    public void rateLimiter() throws Exception {
+        RRateLimiter limiter = redissonClient.getRateLimiter(REDIS_KEY);
+        // 初始化 最大流速 = 每1秒钟产生2个令牌
+        limiter.trySetRate(RateType.OVERALL, 2, 1, RateIntervalUnit.SECONDS);
+
+        CountDownLatch latch = new CountDownLatch(2);
+        Assertions.assertTrue(limiter.tryAcquire(2,0, TimeUnit.SECONDS));
+        Assertions.assertFalse(limiter.tryAcquire(1,0, TimeUnit.SECONDS));
+
+        Thread.sleep(1000);
+        Assertions.assertTrue(limiter.tryAcquire(2,0, TimeUnit.SECONDS));
+        Assertions.assertFalse(limiter.tryAcquire(1,0, TimeUnit.SECONDS));
+
     }
 
     @BeforeEach
