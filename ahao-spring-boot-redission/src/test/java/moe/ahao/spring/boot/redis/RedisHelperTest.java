@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
@@ -18,8 +19,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @ExtendWith(RedisExtension.class)
@@ -33,7 +37,7 @@ class RedisHelperTest {
     private RedissonClient redissonClient;
 
     @Test
-    public void lock() throws Exception{
+    public void lock() throws Exception {
         RLock lock = redissonClient.getLock(REDIS_KEY);
 
         Assertions.assertTrue(lock.tryLock(60, TimeUnit.SECONDS));
@@ -44,7 +48,7 @@ class RedisHelperTest {
     }
 
     @Test
-    public void lockTwoThread() throws Exception{
+    public void lockTwoThread() throws Exception {
         int count = 2;
         CountDownLatch success = new CountDownLatch(count);
         CountDownLatch latch = new CountDownLatch(count);
@@ -79,6 +83,19 @@ class RedisHelperTest {
 
         latch.await();
         Assertions.assertEquals(latch.getCount(), success.getCount());
+    }
+
+    @Test
+    public void bloomFilter() {
+        RBloomFilter<String> bloomFilter = redissonClient.getBloomFilter(REDIS_KEY);
+        // 初始化布隆过滤器，预计统计元素数量为55000000，期望误差率为0.03
+        bloomFilter.tryInit(55000000L, 0.03);
+
+        int count = 10000;
+        Set<String> strings = Stream.iterate(1, i -> i + 1).map(i -> "String" + i).limit(count).collect(Collectors.toSet());
+        strings.forEach(bloomFilter::add);
+        Assertions.assertEquals(count, bloomFilter.count());
+        strings.forEach(s -> Assertions.assertTrue(bloomFilter.contains(s)));
     }
 
     @BeforeEach
