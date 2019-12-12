@@ -7,6 +7,7 @@ import com.ahao.util.spring.SpringContextHolder;
 import com.ahao.util.spring.redis.RedisHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -18,9 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 
 @ExtendWith(RedisExtension.class)
@@ -167,30 +166,41 @@ class RedisHelperTest {
 
     @Test
     void incr() throws Exception {
+        int count = 1000;
+        CountDownLatch latch = new CountDownLatch(count);
+
         // 1. 多线程并发执行
-        ExecutorService threadPool = Executors.newFixedThreadPool(1000);
-        for (int i = 0; i < 1000; i++) {
-            threadPool.execute(() -> RedisHelper.incr(REDIS_KEY));
+        int coreNum = Runtime.getRuntime().availableProcessors();
+        ExecutorService threadPool = Executors.newFixedThreadPool(coreNum);
+        for (int i = 0; i < count; i++) {
+            Future<?> value = threadPool.submit(() -> {
+                RedisHelper.incr(REDIS_KEY);
+                latch.countDown();
+            });
         }
+
         // 2. 等待线程执行完毕
-        threadPool.shutdown();
-        threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-        // 3. 取值 assert
-        Assertions.assertEquals(1000, RedisHelper.getInteger(REDIS_KEY).intValue());
+        latch.await();
+        Assertions.assertEquals(Integer.valueOf(count), RedisHelper.getInteger(REDIS_KEY));
     }
 
     @Test
     void hincrBy() throws Exception {
+        int count = 1000;
+        CountDownLatch latch = new CountDownLatch(count);
+
         // 1. 多线程并发执行
-        ExecutorService threadPool = Executors.newFixedThreadPool(1000);
-        for (int i = 0; i < 1000; i++) {
-            threadPool.execute(() -> RedisHelper.hincrBy(REDIS_KEY, REDIS_HASH_FIELD, 1));
+        int coreNum = Runtime.getRuntime().availableProcessors();
+        ExecutorService threadPool = Executors.newFixedThreadPool(coreNum);
+        for (int i = 0; i < count; i++) {
+            threadPool.execute(() -> {
+                RedisHelper.hincrBy(REDIS_KEY, REDIS_HASH_FIELD, 1);
+                latch.countDown();
+            });
         }
         // 2. 等待线程执行完毕
-        threadPool.shutdown();
-        threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-        // 3. 取值 assert
-        Assertions.assertEquals(1000, RedisHelper.hgetInteger(REDIS_KEY, REDIS_HASH_FIELD).intValue());
+        latch.await();
+        Assertions.assertEquals(Integer.valueOf(count), RedisHelper.hgetInteger(REDIS_KEY, REDIS_HASH_FIELD));
     }
 
     @Test
@@ -256,6 +266,12 @@ class RedisHelperTest {
         Assertions.assertEquals(100, RedisHelper.getInteger(REDIS_KEY).intValue());
         Thread.sleep(2000);
         Assertions.assertNull(RedisHelper.getInteger(REDIS_KEY));
+    }
+
+
+    @BeforeEach
+    void before() {
+        RedisHelper.del(REDIS_KEY);
     }
 
     @AfterEach
