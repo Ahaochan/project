@@ -33,6 +33,7 @@
   - [ahao-spring-cloud-zookeeper](./ahao-spring-cloud-zookeeper)(`Zookeeper`服务注册中心, 客户端的简单使用)
   
 - 开箱即用
+  - [ahao-btrace](./ahao-btrace)(`btrace`代码编写环境)
   - [ahao-mybatis-generator](./ahao-mybatis-generator)(`Mybatis`代码生成器)
   - [ahao-spring-boot-admin-client](./ahao-spring-boot-admin-client)(基于`actuator`的监控系统客户端)
   - [ahao-spring-boot-admin-server](./ahao-spring-boot-admin-server)(基于`actuator`的监控系统服务端)
