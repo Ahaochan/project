@@ -3,19 +3,19 @@
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd http://ch.qos.logback/xml/ns/logback "
                debug="false">
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
     <property resource="application.yml" />
-    <springProperty name="log.context.name" source="spring.application.name"/>
-    <springProperty name="log.profile" source="spring.profiles.active"/>
+    <springProperty name="log.context.name" source="spring.application.name" defaultValue="UnKnowContextName"/>
+    <springProperty name="log.profile" source="spring.profiles.active" defaultValue="dev"/>
 
     <property name="log.charset" value="UTF-8"/>
     <property name="log.history.max" value="30"/>
     <property name="log.path" value="LOG"/>
     <!-- Log4j: [S][%d{yyyyMMdd HH:mm:ss}][%-5p][%C:%L] - %m%n -->
     <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-    <property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"/>
-    <property name="log.pattern.short" value="%date{yyyyMMdd HH:mm:ss.SSS}-%msg%n"/>
+    <property name="log.pattern.console" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%contextName){blue} %clr(-%X{REQ:-}-){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="log.pattern.file" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName -%X{REQ:-}- ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
     <contextName>${log.context.name}</contextName>
     <jmxConfigurator/>
@@ -23,13 +23,7 @@
     <!-- 输出到控制台 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${log.pattern}</pattern>
-            <charset>${log.charset}</charset>
-        </encoder>
-    </appender>
-    <appender name="STDOUT_SHORT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>${log.pattern.short}</pattern>
+            <pattern>${log.pattern.file}</pattern>
             <charset>${log.charset}</charset>
         </encoder>
     </appender>
@@ -89,10 +83,11 @@
     <!-- 项目日志级别 -->
     <logger name="org.springframework.boot" level="INFO"/>
     <logger name="org.springframework.security" level="ERROR"/>
+    <logger name="moe.ahao" level="DEBUG"/>
     <logger name="com.ahao" level="DEBUG"/>
 
     <!-- root级别 INFO -->
-    <root level="DEBUG">
+    <root level="INFO">
         <!-- 控制台输出 -->
         <appender-ref ref="STDOUT"/>
         <!-- 文件输出 -->
