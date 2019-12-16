@@ -180,7 +180,7 @@ class RedisHelperTest {
         }
 
         // 2. 等待线程执行完毕
-        latch.await();
+        latch.await(10, TimeUnit.SECONDS);
         Assertions.assertEquals(Integer.valueOf(count), RedisHelper.getInteger(REDIS_KEY));
     }
 
@@ -199,7 +199,7 @@ class RedisHelperTest {
             });
         }
         // 2. 等待线程执行完毕
-        latch.await();
+        latch.await(10, TimeUnit.SECONDS);
         Assertions.assertEquals(Integer.valueOf(count), RedisHelper.hgetInteger(REDIS_KEY, REDIS_HASH_FIELD));
     }
 
