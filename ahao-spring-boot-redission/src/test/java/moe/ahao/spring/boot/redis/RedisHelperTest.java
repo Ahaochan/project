@@ -79,7 +79,8 @@ class RedisHelperTest {
             }
         }).start();
 
-        latch.await(10, TimeUnit.SECONDS);
+        boolean await = latch.await(10, TimeUnit.SECONDS);
+        Assertions.assertTrue(await);
         Assertions.assertEquals(latch.getCount(), success.getCount());
     }
 
