@@ -92,5 +92,6 @@ public class SampleTest {
 
         boolean await = latch.await(10, TimeUnit.SECONDS);
         Assertions.assertTrue(await);
+        Assertions.fail("没有打印REQ"); // TODO MDCTaskDecorator 可以满足目前需求, 暂不处理
     }
 }
