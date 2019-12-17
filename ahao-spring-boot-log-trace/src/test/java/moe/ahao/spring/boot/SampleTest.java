@@ -58,7 +58,7 @@ public class SampleTest {
 
     @Test
     public void async() throws Exception {
-        MDC.put(Constants.TRACE_ID, IDGenerator.generateID("Ahao"));
+        MDC.put(Constants.TRACE_ID, IDGenerator.generateID(Constants.TRACE_ID));
 
         int count = 10;
         CountDownLatch latch = new CountDownLatch(count);
@@ -69,12 +69,14 @@ public class SampleTest {
 
         boolean await = latch.await(10, TimeUnit.SECONDS);
         Assertions.assertTrue(await);
+
+        MDC.clear();
     }
 
     @Test
     public void threadPool() throws Exception {
         Logger logger = LoggerFactory.getLogger(SampleTest.class);
-        MDC.put(Constants.TRACE_ID, IDGenerator.generateID("Ahao"));
+        MDC.put(Constants.TRACE_ID, IDGenerator.generateID(Constants.TRACE_ID));
 
         int count = 10;
         CountDownLatch latch = new CountDownLatch(count);
@@ -93,5 +95,6 @@ public class SampleTest {
         boolean await = latch.await(10, TimeUnit.SECONDS);
         Assertions.assertTrue(await);
         Assertions.fail("没有打印REQ"); // TODO MDCTaskDecorator 可以满足目前需求, 暂不处理
+        MDC.clear();
     }
 }

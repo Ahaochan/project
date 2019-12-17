@@ -4,4 +4,5 @@ spring:
   profiles:
     active: dev
 logging:
-  config: classpath:logback/logback-${spring.profiles.active}.xml
+#  config: classpath:logback/logback-${spring.profiles.active}.xml
+  config: classpath:logback/logback-dev.xml

@@ -12,11 +12,12 @@ import java.util.Map;
 
 /**
  * AMQP 发送者的消息拦截器
- * 将 MDC 填充到消息头, 需要配合 {@link MDCReceivePostProcessor} 做解码
+ * 将 MDC 填充到消息头, 需要配合 {@link RabbitMDCReceivePostProcessor} 做解码
  * <p>
- * 使用方法 {@link org.springframework.amqp.rabbit.core.RabbitTemplate#addBeforePublishPostProcessors(MessagePostProcessor...)}
+ * 使用方法
+ * 1. {@link org.springframework.amqp.rabbit.core.RabbitTemplate#addBeforePublishPostProcessors(MessagePostProcessor...)}
  */
-public class MDCPublishPostProcessor implements MessagePostProcessor {
+public class RabbitMDCPublishPostProcessor implements MessagePostProcessor {
     @Override
     public Message postProcessMessage(Message message) throws AmqpException {
         // 1. 获取 MDC
