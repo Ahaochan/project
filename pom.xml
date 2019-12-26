@@ -30,6 +30,7 @@
         <module>ahao-spring-boot-druid</module>
         <module>ahao-spring-boot-elastic-job</module>
         <module>ahao-spring-boot-file-download</module>
+        <module>ahao-spring-boot-i18n</module>
         <module>ahao-spring-boot-jpa</module>
         <module>ahao-spring-boot-jwt</module>
         <module>ahao-spring-boot-log-trace</module>
