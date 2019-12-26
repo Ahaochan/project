@@ -1,0 +1,8 @@
+spring:
+  messages:
+    basename: i18n/messages1,i18n/messages2
+    cache-duration: 1m
+    encoding: UTF-8
+    always-use-message-format: false
+    fallback-to-system-locale: true
+    use-code-as-default-message: false
