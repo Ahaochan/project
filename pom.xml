@@ -28,6 +28,7 @@
         <module>ahao-spring-boot-balance-datasources</module>
         <module>ahao-spring-boot-cache</module>
         <module>ahao-spring-boot-druid</module>
+        <module>ahao-spring-boot-dubbo</module>
         <module>ahao-spring-boot-elastic-job</module>
         <module>ahao-spring-boot-file-download</module>
         <module>ahao-spring-boot-i18n</module>
