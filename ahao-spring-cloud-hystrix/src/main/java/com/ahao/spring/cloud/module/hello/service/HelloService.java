@@ -17,6 +17,26 @@ public class HelloService {
         return "hello";
     }
 
+    @HystrixCommand(fallbackMethod = "helloHystrix", commandProperties = {
+        @HystrixProperty(name = "execution.isolation.strategy", value = "THREAD")
+    },
+        threadPoolKey = "threadPoolKey",
+        threadPoolProperties = {
+            @HystrixProperty(name = "coreSize", value = "10"),
+            @HystrixProperty(name = "maxQueueSize", value = "2000"),
+            @HystrixProperty(name = "queueSizeRejectionThreshold", value = "30"),
+        })
+    public String thread() {
+        return "thread";
+    }
+
+    @HystrixCommand(fallbackMethod = "helloHystrix", commandProperties = {
+        @HystrixProperty(name = "execution.isolation.strategy", value = "SEMAPHORE"),
+        @HystrixProperty(name = "execution.isolation.semaphore.maxConcurrentRequests", value = "10")
+    })
+    public String semaphore() {
+        return "semaphore";
+    }
 
     public String helloHystrix() {
         return "helloHystrix";
