@@ -24,4 +24,14 @@ public class MethodBTrace {
         BTraceUtils.println("拦截重载方法: " + className + "#" + methodName);
         BTraceUtils.println("参数: " + arg1 + "," + arg2);
     }
+
+    @OnMethod(clazz = "moe.ahao.TestClass", method = "/.*/")
+    public static void allMethod(@ProbeClassName String className, @ProbeMethodName String methodName) {
+        BTraceUtils.println("拦截所有方法: " + className + "#" + methodName);
+    }
+
+    @OnMethod(clazz = "moe.ahao.TestClass", location = @Location(value = Kind.LINE, line = 22))
+    public static void line(@ProbeClassName String className, @ProbeMethodName String methodName, int line) {
+        BTraceUtils.println("拦截第" + line + "行: " + className + "#" + methodName);
+    }
 }
