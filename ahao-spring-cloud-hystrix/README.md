@@ -1,8 +1,8 @@
 # 简介
-一个`Hytrix`熔断降级的`Demo`. 注意, `Hytrix`已经停更.
+一个`Hytrix`熔断降级的`Demo`. 注意, `Hytrix`已经停止开发, 但还在维护中.
 
 # 使用步骤
-1. 启动[Eureka](../ahao-spring-cloud-eureka/src/main/java/com/ahao/spring/cloud/eureka/EurekaApplication.java)
+1. 启动[Eureka](../ahao-spring-cloud-eureka/ahao-spring-cloud-eureka-server/src/main/java/moe/ahao/spring/cloud/eureka/EurekaServerApplication.java)
 1. 启动[本项目](./src/main/java/com/ahao/spring/cloud/Starter.java)
 1. 访问[http://127.0.0.1:8080/hello](http://127.0.0.1:8080/hello), 正常输出
 1. 停止`Eureka`
@@ -47,6 +47,34 @@ public class HelloService {
 }
 ```
 很容易看出, `hello()`直接抛出异常后, 会调用`helloHystrix()`方法.
+
+# 线程和信号量限流
+`Hystrix`还提供了限流的功能, 设置`execution.isolation.strategy`限流策略就可以用了.
+```java
+@Service
+public class HelloService {
+    @HystrixCommand(fallbackMethod = "helloHystrix", commandProperties = {
+        @HystrixProperty(name = "execution.isolation.strategy", value = "THREAD")
+    },
+        threadPoolKey = "threadPoolKey",
+        threadPoolProperties = {
+            @HystrixProperty(name = "coreSize", value = "10"),
+            @HystrixProperty(name = "maxQueueSize", value = "2000"),
+            @HystrixProperty(name = "queueSizeRejectionThreshold", value = "30"),
+        })
+    public String thread() {
+        return "thread";
+    }
+    
+    @HystrixCommand(fallbackMethod = "helloHystrix", commandProperties = {
+        @HystrixProperty(name = "execution.isolation.strategy", value = "SEMAPHORE"),
+        @HystrixProperty(name = "execution.isolation.semaphore.maxConcurrentRequests", value = "10")
+    })
+    public String semaphore() {
+        return "semaphore";
+    }
+}
+```
 
 # 熔断降级的监控和集群监控
 本`Demo`不涉及
