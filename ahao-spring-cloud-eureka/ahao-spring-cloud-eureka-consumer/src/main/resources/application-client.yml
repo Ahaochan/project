@@ -18,3 +18,13 @@ feign:
       default:
         read-timeout: 30000
         connect-timeout: 30000
+
+# https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-ribbon.html#_customizing_the_ribbon_client_by_setting_properties
+eureka-provider:
+  ribbon:
+    NFLoadBalancerClassName: com.netflix.loadbalancer.ZoneAwareLoadBalancer
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.ZoneAvoidanceRule
+    NFLoadBalancerPingClassName: com.netflix.loadbalancer.DummyPing
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    NIWSServerListFilterClassName: org.springframework.cloud.netflix.ribbon.ZonePreferenceServerListFilter
+
