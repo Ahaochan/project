@@ -1,8 +1,6 @@
 package com.ahao.spring.boot.shiro.entity;
 
-import com.ahao.domain.entity.MybatisPlusBaseDO;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import com.ahao.domain.entity.BaseDO;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.ExpiredCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -10,8 +8,10 @@ import org.apache.shiro.authc.UnknownAccountException;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
-public class ShiroUser extends MybatisPlusBaseDO implements Serializable {
+public class ShiroUser extends BaseDO implements Serializable {
+    private Long id;
     private String username;
     private String email;
     private String password;
@@ -44,6 +44,15 @@ public class ShiroUser extends MybatisPlusBaseDO implements Serializable {
     }
 
     // ====================== Getter And Setter ======================
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -112,43 +121,30 @@ public class ShiroUser extends MybatisPlusBaseDO implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-
         if (o == null || getClass() != o.getClass()) return false;
-
+        if (!super.equals(o)) return false;
         ShiroUser shiroUser = (ShiroUser) o;
-
-        return new EqualsBuilder()
-            .appendSuper(super.equals(o))
-            .append(username, shiroUser.username)
-            .append(email, shiroUser.email)
-            .append(password, shiroUser.password)
-            .append(salt, shiroUser.salt)
-            .append(locked, shiroUser.locked)
-            .append(disabled, shiroUser.disabled)
-            .append(deleted, shiroUser.deleted)
-            .append(expireTime, shiroUser.expireTime)
-            .isEquals();
+        return Objects.equals(id, shiroUser.id) &&
+            Objects.equals(username, shiroUser.username) &&
+            Objects.equals(email, shiroUser.email) &&
+            Objects.equals(password, shiroUser.password) &&
+            Objects.equals(salt, shiroUser.salt) &&
+            Objects.equals(locked, shiroUser.locked) &&
+            Objects.equals(disabled, shiroUser.disabled) &&
+            Objects.equals(deleted, shiroUser.deleted) &&
+            Objects.equals(expireTime, shiroUser.expireTime);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-            .appendSuper(super.hashCode())
-            .append(username)
-            .append(email)
-            .append(password)
-            .append(salt)
-            .append(locked)
-            .append(disabled)
-            .append(deleted)
-            .append(expireTime)
-            .toHashCode();
+        return Objects.hash(super.hashCode(), id, username, email, password, salt, locked, disabled, deleted, expireTime);
     }
 
     @Override
     public String toString() {
         return "ShiroUser{" +
-            "username='" + username + '\'' +
+            "id=" + id +
+            ", username='" + username + '\'' +
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
             ", salt='" + salt + '\'' +

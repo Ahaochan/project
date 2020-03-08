@@ -1,19 +1,18 @@
 package moe.ahao.spring.boot.jpa.module.entity;
 
-import com.ahao.domain.entity.JPABaseDO;
+import com.ahao.domain.entity.BaseDO;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-
 @Entity(name = "User")
 @Table(name = "user")
-public class User extends JPABaseDO implements Serializable {
+public class User extends BaseDO implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String username;
     private String email;
     private String password;
@@ -41,7 +40,13 @@ public class User extends JPABaseDO implements Serializable {
     }
 
     // ====================== Getter And Setter ======================
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -130,6 +135,7 @@ public class User extends JPABaseDO implements Serializable {
         if (!super.equals(o)) return false;
         User user = (User) o;
         return sex == user.sex &&
+            Objects.equals(id, user.id) &&
             Objects.equals(username, user.username) &&
             Objects.equals(email, user.email) &&
             Objects.equals(password, user.password) &&
@@ -143,13 +149,14 @@ public class User extends JPABaseDO implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), username, email, password, salt, sex, locked, disabled, deleted, expireTime, transientValue);
+        return Objects.hash(super.hashCode(), id, username, email, password, salt, sex, locked, disabled, deleted, expireTime, transientValue);
     }
 
     @Override
     public String toString() {
         return "User{" +
-            "username='" + username + '\'' +
+            "id=" + id +
+            ", username='" + username + '\'' +
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
             ", salt='" + salt + '\'' +
@@ -159,6 +166,6 @@ public class User extends JPABaseDO implements Serializable {
             ", deleted=" + deleted +
             ", expireTime=" + expireTime +
             ", transientValue='" + transientValue + '\'' +
-            "} " + super.toString();
+            '}';
     }
 }

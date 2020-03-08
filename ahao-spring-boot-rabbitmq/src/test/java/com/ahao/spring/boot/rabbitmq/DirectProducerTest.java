@@ -1,9 +1,10 @@
 package com.ahao.spring.boot.rabbitmq;
 
 import com.ahao.domain.entity.AjaxDTO;
-import com.ahao.domain.entity.MybatisPlusBaseDO;
+import com.ahao.domain.entity.BaseDO;
 import com.ahao.util.spring.SpringContextHolder;
 import com.ahao.util.spring.mq.RabbitMQHelper;
+import com.rabbitmq.client.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +18,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ExtendWith(SpringExtension.class)
@@ -68,8 +73,7 @@ public class DirectProducerTest {
 
     @Test
     public void sendObject() throws Exception {
-        MybatisPlusBaseDO msg = new MybatisPlusBaseDO();
-        msg.setId(123L);
+        BaseDO msg = new BaseDO();
         msg.setCreateTime(new Date());
         msg.setUpdateTime(new Date());
         String routingKey = DirectConsumer.QUEUE_NAME;
@@ -78,9 +82,8 @@ public class DirectProducerTest {
 
         Assertions.assertNull(DirectConsumer.value);
         Thread.sleep(2000);
-        MybatisPlusBaseDO actual = (MybatisPlusBaseDO) DirectConsumer.value;
+        BaseDO actual = (BaseDO) DirectConsumer.value;
         Assertions.assertNotNull(actual);
-        Assertions.assertEquals(msg.getId(), actual.getId());
         Assertions.assertEquals(msg.getCreateTime(), actual.getCreateTime());
         Assertions.assertEquals(msg.getUpdateTime(), actual.getUpdateTime());
     }
@@ -130,8 +133,7 @@ public class DirectProducerTest {
 
     @Test
     public void sendDelayObject() throws Exception {
-        MybatisPlusBaseDO msg = new MybatisPlusBaseDO();
-        msg.setId(123L);
+        BaseDO msg = new BaseDO();
         msg.setCreateTime(new Date());
         msg.setUpdateTime(new Date());
         String routingKey = DirectConsumer.QUEUE_NAME;
@@ -142,8 +144,7 @@ public class DirectProducerTest {
         Thread.sleep(2000);
         Assertions.assertNull(DirectConsumer.value);
         Thread.sleep(10000);
-        MybatisPlusBaseDO actual = (MybatisPlusBaseDO) DirectConsumer.value;
-        Assertions.assertEquals(msg.getId(), actual.getId());
+        BaseDO actual = (BaseDO) DirectConsumer.value;
         Assertions.assertEquals(msg.getCreateTime(), actual.getCreateTime());
         Assertions.assertEquals(msg.getUpdateTime(), actual.getUpdateTime());
     }

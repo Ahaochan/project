@@ -1,7 +1,7 @@
 package com.ahao.spring.boot.rabbitmq;
 
 import com.ahao.domain.entity.AjaxDTO;
-import com.ahao.domain.entity.MybatisPlusBaseDO;
+import com.ahao.domain.entity.BaseDO;
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -73,7 +73,7 @@ public class DirectConsumer {
     }
 
     @RabbitHandler
-    public void directQueue(@Payload MybatisPlusBaseDO msg, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
+    public void directQueue(@Payload BaseDO msg, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             System.out.println("消息接收时间:" + sdf.format(new Date()));

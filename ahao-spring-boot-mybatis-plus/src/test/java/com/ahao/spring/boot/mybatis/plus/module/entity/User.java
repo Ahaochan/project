@@ -1,10 +1,8 @@
 package com.ahao.spring.boot.mybatis.plus.module.entity;
 
-import com.ahao.domain.entity.MybatisPlusBaseDO;
+import com.ahao.domain.entity.BaseDO;
 import com.ahao.spring.boot.mybatis.plus.module.enums.Sex;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -12,7 +10,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 @TableName("user")
-public class User extends MybatisPlusBaseDO implements Serializable {
+public class User extends BaseDO implements Serializable {
+    @TableId(type = IdType.AUTO)
+    private Long id;
     private String username;
     private String email;
     private String password;
@@ -29,9 +29,15 @@ public class User extends MybatisPlusBaseDO implements Serializable {
 
     private Date expireTime;
 
-
-
     // ====================== Getter And Setter ======================
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -155,7 +161,8 @@ public class User extends MybatisPlusBaseDO implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-            "username='" + username + '\'' +
+            "id=" + id +
+            ", username='" + username + '\'' +
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
             ", salt='" + salt + '\'' +
