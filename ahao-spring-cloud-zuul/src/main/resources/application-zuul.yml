@@ -15,7 +15,7 @@ zuul:
   routes:
     my-api:
       path: "/api/**"
-      service-id: "EUREKA-SERVER"
+      service-id: "EUREKA-PROVIDER"
 #      url: "http://127.0.0.1:8761"
   host:
     socket-timeout-millis: 30000
