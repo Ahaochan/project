@@ -54,9 +54,11 @@
         <module>ahao-spring-cloud-eureka</module>
         <module>ahao-spring-cloud-gateway</module>
         <module>ahao-spring-cloud-hystrix</module>
+        <module>ahao-spring-cloud-netflix-ribbon</module>
         <module>ahao-spring-cloud-zookeeper</module>
         <module>ahao-spring-cloud-zuul</module>
         <module>ahao-web</module>
+
 
         <!--<module>ahao-forum-guitar</module>-->
         <!--<module>ahao-invoice</module>-->

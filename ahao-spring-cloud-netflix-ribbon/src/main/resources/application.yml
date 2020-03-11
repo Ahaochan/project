@@ -1,0 +1,19 @@
+# 可配置属性: com.netflix.client.config.CommonClientConfigKey
+
+# 针对 service1 服务的配置
+service1:
+  ribbon:
+    listOfServers: www.baidu.com:80, www.bing.com:80
+    NFLoadBalancerClassName: com.netflix.loadbalancer.ZoneAwareLoadBalancer
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+    NFLoadBalancerPingClassName: com.netflix.loadbalancer.DummyPing
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    NIWSServerListFilterClassName: org.springframework.cloud.netflix.ribbon.ZonePreferenceServerListFilter
+
+# 全局配置
+ribbon:
+  eager-load:
+    enabled: true
+  ReadTimeout: 1000
+  ConnectTimeout: 1000
+  GZipPayload: true

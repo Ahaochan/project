@@ -48,6 +48,9 @@
   - [ahao-spring-cloud-eureka](./ahao-spring-cloud-eureka)(`Eureka`服务注册中心)
   - [ahao-spring-cloud-gateway](./ahao-spring-cloud-gateway)(`Gateway`网关)
   - [ahao-spring-cloud-zuul](./ahao-spring-cloud-zuul)(`Zuul`网关)
+  
+## Spring Cloud Netflix
+- [ahao-spring-cloud-netflix-ribbon](./ahao-spring-cloud-netflix-ribbon)(客户端实现的负载均衡路由算法)
 
 ## Shiro 通用配置
 1. 基于`Redis`的重试次数限制, 源码地址: [`RetryLimitHashedCredentialsMatcher`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/rbac/shiro/credential/RetryLimitHashedCredentialsMatcher.java)
