@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ContextConfiguration(classes = Starter.class)
 public class LocalhostFeignApiTest {
     @Autowired
@@ -50,7 +50,7 @@ public class LocalhostFeignApiTest {
 
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 2; i <= 3; i++) {
             String responseString = mockMvc.perform(get("/get" + i)
                 .param("result", String.valueOf(result))
                 .param("msg", msg))
@@ -66,13 +66,13 @@ public class LocalhostFeignApiTest {
     }
 
     @Test
-    public void testPost123() throws Exception {
+    public void testPost23() throws Exception {
         int result = RandomHelper.getInt(100);
         String msg = "Hello world";
 
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 2; i <= 3; i++) {
             String responseString = mockMvc.perform(post("/post" + i)
                 .param("result", String.valueOf(result))
                 .param("msg", msg))

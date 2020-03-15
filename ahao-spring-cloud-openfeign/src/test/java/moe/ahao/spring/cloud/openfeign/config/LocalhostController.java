@@ -2,6 +2,7 @@ package moe.ahao.spring.cloud.openfeign.config;
 
 import com.ahao.domain.entity.AjaxDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,24 +20,14 @@ public class LocalhostController {
         return api.path(id);
     }
 
-    @GetMapping("/get1")
-    public AjaxDTO get1(Integer result, String msg) {
-        return api.get1(result, msg);
-    }
-
     @GetMapping("/get2")
     public AjaxDTO get2(@RequestParam Integer result, @RequestParam String msg) {
         return api.get2(result, msg);
     }
 
     @GetMapping("/get3")
-    public AjaxDTO get3(AjaxDTO req) {
+    public AjaxDTO get3(@SpringQueryMap AjaxDTO req) {
         return api.get3(req);
-    }
-
-    @PostMapping("/post1")
-    public AjaxDTO post1(Integer result, String msg) {
-        return api.post1(result, msg);
     }
 
     @PostMapping("/post2")
@@ -45,12 +36,12 @@ public class LocalhostController {
     }
 
     @PostMapping("/post3")
-    public AjaxDTO post3(AjaxDTO req) {
+    public AjaxDTO post3(@SpringQueryMap AjaxDTO req) {
         return api.post3(req);
     }
 
     @PostMapping("/post4")
-    public AjaxDTO post4(String msg, @RequestBody AjaxDTO req) {
+    public AjaxDTO post4(@RequestParam String msg, @RequestBody AjaxDTO req) {
         return api.post4(msg, req);
     }
 
@@ -77,10 +68,10 @@ public class LocalhostController {
     public AjaxDTO multipart5(@RequestPart AjaxDTO req, @RequestParam MultipartFile file) {
         return api.multipart5(req, file);
     }
-    @PostMapping("/multipart6")
-    public AjaxDTO multipart6(@RequestPart AjaxDTO req, @RequestPart MultipartFile file) {
-        return api.multipart6(req, file);
-    }
+//    @PostMapping("/multipart6")
+//    public AjaxDTO multipart6(@RequestPart AjaxDTO req, @RequestPart MultipartFile file) {
+//        return api.multipart6(req, file);
+//    }
 
     @GetMapping("/fallback")
     public AjaxDTO fallback() {

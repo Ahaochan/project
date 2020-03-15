@@ -1,6 +1,7 @@
 package moe.ahao.spring.cloud.openfeign.config;
 
 import com.ahao.domain.entity.AjaxDTO;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +28,7 @@ public class SimpleController {
     }
 
     @GetMapping("/get3")
-    public AjaxDTO get3(AjaxDTO req) {
+    public AjaxDTO get3(@SpringQueryMap AjaxDTO req) {
         return req;
     }
 
@@ -42,12 +43,12 @@ public class SimpleController {
     }
 
     @PostMapping("/post3")
-    public AjaxDTO post3(AjaxDTO req) {
+    public AjaxDTO post3(@SpringQueryMap AjaxDTO req) {
         return req;
     }
 
     @PostMapping("/post4")
-    public AjaxDTO post4(String msg, @RequestBody AjaxDTO req) {
+    public AjaxDTO post4(@RequestParam String msg, @RequestBody AjaxDTO req) {
         return AjaxDTO.get(req.getResult(), req.getMsg() + msg, req.getObj());
     }
 
@@ -74,8 +75,8 @@ public class SimpleController {
     public AjaxDTO multipart5(@RequestPart AjaxDTO req, @RequestParam MultipartFile file) throws IOException {
         return AjaxDTO.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
     }
-    @PostMapping("multipart6")
-    public AjaxDTO multipart6(@RequestPart AjaxDTO req, @RequestPart MultipartFile file) throws IOException {
-        return AjaxDTO.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
-    }
+//    @PostMapping("multipart6")
+//    public AjaxDTO multipart6(@RequestPart AjaxDTO req, @RequestPart MultipartFile file) throws IOException {
+//        return AjaxDTO.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
+//    }
 }

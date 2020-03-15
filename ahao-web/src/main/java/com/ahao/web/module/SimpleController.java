@@ -47,7 +47,7 @@ public class SimpleController {
     }
 
     @PostMapping("/post4")
-    public AjaxDTO post4(String msg, @RequestBody AjaxDTO req) {
+    public AjaxDTO post4(@RequestParam String msg, @RequestBody AjaxDTO req) {
         return AjaxDTO.get(req.getResult(), req.getMsg() + msg, req.getObj());
     }
 
