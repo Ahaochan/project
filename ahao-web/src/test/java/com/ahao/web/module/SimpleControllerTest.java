@@ -36,8 +36,8 @@ public class SimpleControllerTest {
 
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
         String responseString = mockMvc.perform(get("/simple/path-" + value))
-                            .andExpect(status().isOk())
-
+            .andDo(print())
+            .andExpect(status().isOk())
             .andReturn()
             .getResponse().getContentAsString();   //将相应的数据转换为字符串
         Assertions.assertEquals(value, Integer.valueOf(responseString));
