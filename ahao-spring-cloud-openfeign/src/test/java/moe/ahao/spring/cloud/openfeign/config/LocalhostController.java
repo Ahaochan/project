@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
  * 从 ahao-web 复制的 SimpleController
  */
 @RestController
-public class LocalhostController implements LocalhostFeignApi {
+public class LocalhostController {
     @Autowired
     private LocalhostFeignApi api;
 
@@ -54,31 +54,36 @@ public class LocalhostController implements LocalhostFeignApi {
         return api.post4(msg, req);
     }
 
-    @PostMapping("multipart1")
+    @PostMapping("/multipart1")
     public AjaxDTO multipart1(MultipartFile file) {
         return api.multipart1(file);
     }
 
-    @PostMapping("multipart2")
+    @PostMapping("/multipart2")
     public AjaxDTO multipart2(@RequestParam MultipartFile file) {
         return api.multipart2(file);
     }
 
-    @PostMapping("multipart3")
+    @PostMapping("/multipart3")
     public AjaxDTO multipart3(@RequestPart MultipartFile file) {
         return api.multipart3(file);
     }
 
-    @PostMapping("multipart4")
+    @PostMapping("/multipart4")
     public AjaxDTO multipart4(AjaxDTO req, @RequestParam MultipartFile file) {
         return api.multipart4(req, file);
     }
-    @PostMapping("multipart5")
+    @PostMapping("/multipart5")
     public AjaxDTO multipart5(@RequestPart AjaxDTO req, @RequestParam MultipartFile file) {
         return api.multipart5(req, file);
     }
-    @PostMapping("multipart6")
+    @PostMapping("/multipart6")
     public AjaxDTO multipart6(@RequestPart AjaxDTO req, @RequestPart MultipartFile file) {
         return api.multipart6(req, file);
+    }
+
+    @GetMapping("/fallback")
+    public AjaxDTO fallback() {
+        return api.fallback();
     }
 }

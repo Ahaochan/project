@@ -7,8 +7,8 @@ feign:
         errorDecoder:        # 错误解码器
         retryer:             # 重试策略
         requestInterceptors: # 拦截器
-          - org.springframework.cloud.openfeign.encoding.FeignAcceptGzipEncodingInterceptor
-          - org.springframework.cloud.openfeign.encoding.FeignContentGzipEncodingInterceptor
+        #  - org.springframework.cloud.openfeign.encoding.FeignAcceptGzipEncodingInterceptor
+        #  - org.springframework.cloud.openfeign.encoding.FeignContentGzipEncodingInterceptor
         decode404: false # 是否对404错误码解码, feign.SynchronousMethodHandler#executeAndDecode(RequestTemplate, Request.Options)
         encoder: # 编码器
         decoder: # 解码器

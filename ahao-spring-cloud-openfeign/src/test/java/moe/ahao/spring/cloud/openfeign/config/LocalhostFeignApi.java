@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(name = "localhost", url = "https://127.0.0.1")
+@FeignClient(name = "localhost", url = "https://127.0.0.1", path = "/simple", fallback = LocalhostFeignFallback.class)
 public interface LocalhostFeignApi {
     @GetMapping("/path-{id}")
     Integer path(@PathVariable Integer id);
@@ -31,21 +31,24 @@ public interface LocalhostFeignApi {
     @PostMapping("/post4")
     AjaxDTO post4(String msg, @RequestBody AjaxDTO req);
 
-    @PostMapping("multipart1")
+    @PostMapping("/multipart1")
     AjaxDTO multipart1(MultipartFile file);
 
-    @PostMapping("multipart2")
+    @PostMapping("/multipart2")
     AjaxDTO multipart2(@RequestParam MultipartFile file);
 
-    @PostMapping("multipart3")
+    @PostMapping("/multipart3")
     AjaxDTO multipart3(@RequestPart MultipartFile file);
 
-    @PostMapping("multipart4")
+    @PostMapping("/multipart4")
     AjaxDTO multipart4(AjaxDTO req, @RequestParam MultipartFile file);
 
-    @PostMapping("multipart5")
+    @PostMapping("/multipart5")
     AjaxDTO multipart5(@RequestPart AjaxDTO req, @RequestParam MultipartFile file);
 
-    @PostMapping("multipart6")
+    @PostMapping("/multipart6")
     AjaxDTO multipart6(@RequestPart AjaxDTO req, @RequestPart MultipartFile file);
+
+    @PostMapping("/fallback")
+    AjaxDTO fallback();
 }

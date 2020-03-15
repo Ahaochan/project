@@ -35,7 +35,7 @@ public class LocalhostFeignApiTest {
         Integer value = RandomHelper.getInt(100);
 
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        String responseString = mockMvc.perform(get("/simple/path-" + value))
+        String responseString = mockMvc.perform(get("/path-" + value))
                             .andExpect(status().isOk())
 
             .andReturn()
@@ -51,7 +51,7 @@ public class LocalhostFeignApiTest {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
         for (int i = 1; i <= 3; i++) {
-            String responseString = mockMvc.perform(get("/simple/get" + i)
+            String responseString = mockMvc.perform(get("/get" + i)
                 .param("result", String.valueOf(result))
                 .param("msg", msg))
                 .andDo(print())
@@ -73,7 +73,7 @@ public class LocalhostFeignApiTest {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
         for (int i = 1; i <= 3; i++) {
-            String responseString = mockMvc.perform(post("/simple/post" + i)
+            String responseString = mockMvc.perform(post("/post" + i)
                 .param("result", String.valueOf(result))
                 .param("msg", msg))
                 .andDo(print())
@@ -94,7 +94,7 @@ public class LocalhostFeignApiTest {
         String msg = "Hello world";
 
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        String responseString = mockMvc.perform(post("/simple/post" + 4)
+        String responseString = mockMvc.perform(post("/post" + 4)
             .param("msg", msg)
             .contentType(MediaType.APPLICATION_JSON)
             .content(JSONHelper.toString(AjaxDTO.get(result, msg, null))))
@@ -118,7 +118,7 @@ public class LocalhostFeignApiTest {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
         for (int i = 1; i <= 3; i++) {
-            String responseString = mockMvc.perform(multipart("/simple/multipart" + i)
+            String responseString = mockMvc.perform(multipart("/multipart" + i)
                 .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -141,7 +141,7 @@ public class LocalhostFeignApiTest {
 
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
-        String responseString = mockMvc.perform(multipart("/simple/multipart" + 4 + param)
+        String responseString = mockMvc.perform(multipart("/multipart" + 4 + param)
             .file(file))
             .andDo(print())
             .andExpect(status().isOk())
@@ -163,7 +163,7 @@ public class LocalhostFeignApiTest {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
         for (int i = 5; i <= 6; i++) {
-            String responseString = mockMvc.perform(multipart("/simple/multipart" + i)
+            String responseString = mockMvc.perform(multipart("/multipart" + i)
                 .file(req)
                 .file(file))
                 .andDo(print())
@@ -175,5 +175,20 @@ public class LocalhostFeignApiTest {
             AjaxDTO actual = JSONHelper.parse(responseString, AjaxDTO.class);
             Assertions.assertEquals(expect, actual);
         }
+    }
+
+    @Test
+    public void fallback() throws Exception{
+        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+
+        String responseString = mockMvc.perform(get("/fallback"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andReturn()
+            .getResponse().getContentAsString();   //将相应的数据转换为字符串
+
+        AjaxDTO expect = AjaxDTO.failure();
+        AjaxDTO actual = JSONHelper.parse(responseString, AjaxDTO.class);
+        Assertions.assertEquals(expect, actual);
     }
 }
