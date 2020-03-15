@@ -27,7 +27,7 @@ public class SimpleController {
     }
 
     @GetMapping("/get3")
-    public AjaxDTO get2(AjaxDTO req) {
+    public AjaxDTO get3(AjaxDTO req) {
         return req;
     }
 
