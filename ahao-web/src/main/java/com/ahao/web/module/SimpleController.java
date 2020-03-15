@@ -2,6 +2,10 @@ package com.ahao.web.module;
 
 import com.ahao.domain.entity.AjaxDTO;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/simple")
@@ -45,5 +49,33 @@ public class SimpleController {
     @PostMapping("/post4")
     public AjaxDTO post4(String msg, @RequestBody AjaxDTO req) {
         return AjaxDTO.get(req.getResult(), req.getMsg() + msg, req.getObj());
+    }
+
+    @PostMapping("multipart1")
+    public AjaxDTO multipart1(MultipartFile file) throws IOException {
+        return AjaxDTO.success(new String(file.getBytes(), StandardCharsets.UTF_8));
+    }
+
+    @PostMapping("multipart2")
+    public AjaxDTO multipart2(@RequestParam MultipartFile file) throws IOException {
+        return AjaxDTO.success(new String(file.getBytes(), StandardCharsets.UTF_8));
+    }
+
+    @PostMapping("multipart3")
+    public AjaxDTO multipart3(@RequestPart MultipartFile file) throws IOException {
+        return AjaxDTO.success(new String(file.getBytes(), StandardCharsets.UTF_8));
+    }
+
+    @PostMapping("multipart4")
+    public AjaxDTO multipart4(AjaxDTO req, @RequestParam MultipartFile file) throws IOException {
+        return AjaxDTO.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
+    }
+    @PostMapping("multipart5")
+    public AjaxDTO multipart5(@RequestPart AjaxDTO req, @RequestParam MultipartFile file) throws IOException {
+        return AjaxDTO.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
+    }
+    @PostMapping("multipart6")
+    public AjaxDTO multipart6(@RequestPart AjaxDTO req, @RequestPart MultipartFile file) throws IOException {
+        return AjaxDTO.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
     }
 }

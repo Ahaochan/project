@@ -23,6 +23,12 @@ spring:
     time-zone: GMT+8
     serialization:
       indent_output: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1MB
+      max-request-size: 10MB
+      location: ${java.io.tmpdir}
   banner:
     location: classpath:banner/banner-${spring.profiles.active}.txt
 logging:
