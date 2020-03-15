@@ -3,6 +3,7 @@ package moe.ahao.spring.cloud.openfeign.config;
 import com.ahao.domain.entity.AjaxDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +27,7 @@ public interface LocalhostFeignApi {
     @PostMapping("/post4")
     AjaxDTO post4(@RequestParam String msg, @RequestBody AjaxDTO req);
 
-    @PostMapping("/multipart1")
+    @PostMapping(value = "/multipart1", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     AjaxDTO multipart1(MultipartFile file);
 
     @PostMapping("/multipart2")
