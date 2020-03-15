@@ -1,0 +1,19 @@
+feign:
+  client:
+    config:
+      default: # 全局配置
+        connectTimeout: 5000 # 连接超时时间
+        readTimeout: 5000    # 读取超时时间
+        errorDecoder:        # 错误解码器
+        retryer:             # 重试策略
+        requestInterceptors: # 拦截器
+          - org.springframework.cloud.openfeign.encoding.FeignAcceptGzipEncodingInterceptor
+          - org.springframework.cloud.openfeign.encoding.FeignContentGzipEncodingInterceptor
+        decode404: false # 是否对404错误码解码, feign.SynchronousMethodHandler#executeAndDecode(RequestTemplate, Request.Options)
+        encoder: # 编码器
+        decoder: # 解码器
+        contract:
+  httpclient:
+    enabled: true
+    max-connections: 200          # Feign的最大连接数
+    max-connections-per-route: 50 # Feign的单个url最大连接数

@@ -51,6 +51,7 @@
   
 ## Spring Cloud Netflix
 - [ahao-spring-cloud-netflix-ribbon](./ahao-spring-cloud-netflix-ribbon)(客户端实现的负载均衡路由算法)
+- [ahao-spring-cloud-openfeign](./ahao-spring-cloud-openfeign)(`Http`请求客户端)
 
 ## Shiro 通用配置
 1. 基于`Redis`的重试次数限制, 源码地址: [`RetryLimitHashedCredentialsMatcher`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/rbac/shiro/credential/RetryLimitHashedCredentialsMatcher.java)

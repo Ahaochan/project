@@ -1,0 +1,6 @@
+feign.client:
+  config:
+    default: # 全局配置
+      loggerLevel: full # 日志级别: feign.Logger.Level.FULL
+    service1: # 定制化
+      loggerLevel: full # 日志级别: feign.Logger.Level.FULL
