@@ -2,6 +2,7 @@ package com.ahao.spring.boot.wechat.mp.menu;
 
 import com.ahao.spring.boot.wechat.mp.BaseMpTest;
 import com.ahao.util.commons.io.JSONHelper;
+import com.fasterxml.jackson.core.type.TypeReference;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.bean.menu.WxMenu;
 import me.chanjar.weixin.common.bean.menu.WxMenuButton;
@@ -49,7 +50,7 @@ public class CreateMenuTest extends BaseMpTest {
         try {
             String responseJson = menuService.menuCreate(JSONHelper.toString(json));
 
-            Map<String, String> response = JSONHelper.parseMap(responseJson, String.class, String.class);
+            Map<String, String> response = JSONHelper.parse(responseJson, new TypeReference<Map<String, String>>() {});
             Assertions.assertAll("请求错误",
                 () -> Assertions.assertEquals("0", response.get("errcode")),
                 () -> Assertions.assertEquals("ok", response.get("errmsg"))
