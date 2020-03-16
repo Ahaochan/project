@@ -53,6 +53,9 @@
 - [ahao-spring-cloud-netflix-ribbon](./ahao-spring-cloud-netflix-ribbon)(客户端实现的负载均衡路由算法)
 - [ahao-spring-cloud-openfeign](./ahao-spring-cloud-openfeign)(`Http`请求客户端)
 
+## Spring Cloud Alibaba
+- [ahao-spring-cloud-alibaba-oss](./ahao-spring-cloud-alibaba-oss)(阿里云对象存储)
+
 ## Shiro 通用配置
 1. 基于`Redis`的重试次数限制, 源码地址: [`RetryLimitHashedCredentialsMatcher`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/rbac/shiro/credential/RetryLimitHashedCredentialsMatcher.java)
 2. `Shiro`用户登陆后会话标识未更新漏洞, 源码地址: [`LoginController`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/rbac/shiro/LoginController.java#L86-L114)

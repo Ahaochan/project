@@ -49,6 +49,7 @@
         <module>ahao-spring-boot-websocket</module>
         <module>ahao-spring-boot-websocket-endpoint</module>
         <module>ahao-spring-boot-wechat</module>
+        <module>ahao-spring-cloud-alibaba-oss</module>
         <module>ahao-spring-cloud-config-client</module>
         <module>ahao-spring-cloud-config-server</module>
         <module>ahao-spring-cloud-eureka</module>

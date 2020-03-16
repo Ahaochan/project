@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    alicloud:
+      access-key:
+      secret-key:
+      oss:
+        endpoint: "oss-cn-hangzhou.aliyuncs.com"
