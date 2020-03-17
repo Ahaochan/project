@@ -32,9 +32,11 @@ public class ValidatorTest {
     @Test
     public void test1() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        String responseString = mockMvc.perform(get("/hello").accept(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk())
+        String responseString = mockMvc.perform(get("/hello").accept(MediaType.APPLICATION_JSON_UTF8)
+            .param("age", "10000")
+            .param("email", "12345"))
             .andDo(print())
+            .andExpect(status().isOk())
             .andReturn()
             .getResponse().getContentAsString();   //将相应的数据转换为字符串
         AjaxDTO result = JSONHelper.parse(responseString, AjaxDTO.class);
@@ -45,8 +47,10 @@ public class ValidatorTest {
         Object obj = result.getObj();
         Map error = JSONHelper.parse(JSONHelper.toString(obj), Map.class);
         Assertions.assertNotNull(error);
-        Assertions.assertEquals(2, error.size());
+        Assertions.assertEquals(4, error.size());
         Assertions.assertEquals("手机号码不能为空", error.get("phone"));
         Assertions.assertEquals("名称不能为空", error.get("name"));
+        Assertions.assertEquals("年龄不大于100", error.get("age"));
+        Assertions.assertEquals("邮箱格式错误", error.get("email"));
     }
 }
