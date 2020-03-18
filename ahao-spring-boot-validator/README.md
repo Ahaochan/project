@@ -30,7 +30,7 @@ public class ValidatorAOP {
         Map<String, String> fieldErrors = errors.stream()
             .filter(e -> e instanceof FieldError)
             .map(e -> (FieldError) e)
-            .collect(Collectors.toMap(FieldError::getField, DefaultMessageSourceResolvable::getDefaultMessage));
+            .collect(Collectors.toMap(FieldError::getField, fieldError -> StringUtils.defaultString(fieldError.getDefaultMessage(), "")));
 
 //        Map<String, String> objectErrors = errors.stream()
 //            .filter(e -> !(e instanceof FieldError))
