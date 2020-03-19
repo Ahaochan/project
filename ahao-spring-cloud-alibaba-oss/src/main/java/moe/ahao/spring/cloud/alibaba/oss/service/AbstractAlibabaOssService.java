@@ -1,7 +1,10 @@
 package moe.ahao.spring.cloud.alibaba.oss.service;
 
+import com.alibaba.alicloud.context.oss.OssProperties;
+import com.aliyun.oss.ClientBuilderConfiguration;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.model.PutObjectResult;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -11,7 +14,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 抽象 Oss 服务, 不同 Bucket 继承本类, 并实现 abstract 方法即可.
@@ -21,6 +23,7 @@ public abstract class AbstractAlibabaOssService implements InitializingBean, Ali
     public static final int PERM_DAYS = 365 * 10; // 永久链接为 10 年
 
     private OSS ossClient;
+    private OssProperties properties;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -37,16 +40,14 @@ public abstract class AbstractAlibabaOssService implements InitializingBean, Ali
     @Override
     public String putObject(String key, File value) {
         PutObjectResult result = ossClient.putObject(bucketName(), key, value);
-        logger.debug("OSS上传key:{} 成功", key);
-        String url = this.getUrl(key, PERM_DAYS, TimeUnit.DAYS);
+        String url = getHost() + "/" + key;
         logger.debug("OSS上传key:{} 成功, 获取链接:{}", key, url);
         return url;
     }
 
     public String putObject(String key, InputStream value) {
         PutObjectResult result = ossClient.putObject(bucketName(), key, value);
-        logger.debug("OSS上传key:{} 成功", key);
-        String url = this.getUrl(key, PERM_DAYS, TimeUnit.DAYS);
+        String url = getHost() + "/" + key;
         logger.debug("OSS上传key:{} 成功, 获取链接:{}", key, url);
         return url;
     }
@@ -62,5 +63,17 @@ public abstract class AbstractAlibabaOssService implements InitializingBean, Ali
         this.ossClient = ossClient;
     }
 
-    public abstract String bucketName();
+    @Autowired
+    public void setProperties(OssProperties properties) {
+        this.properties = properties;
+    }
+
+    protected String getHost() {
+        ClientBuilderConfiguration config = ObjectUtils.defaultIfNull(properties.getConfig(), new ClientBuilderConfiguration());
+        String protocol = config.getProtocol().toString();
+        String endpoint = properties.getEndpoint();
+        return protocol + "://" + bucketName() + "." + endpoint;
+    }
+
+    protected abstract String bucketName();
 }

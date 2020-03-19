@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeUnit;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -21,8 +22,14 @@ public class OssTest {
 
     @Test
     public void test() {
-        String url = alibabaOssService.putObject("hello", "world".getBytes(StandardCharsets.UTF_8));
-        System.out.println(url);
-        Assertions.assertNotNull(url);
+        String key = "hello";
+
+        String url1 = alibabaOssService.putObject(key, "world".getBytes(StandardCharsets.UTF_8));
+        System.out.println(url1);
+        Assertions.assertNotNull(url1);
+
+        String url2 = alibabaOssService.getUrl(key, 10, TimeUnit.MINUTES);
+        System.out.println(url2);
+        Assertions.assertNotNull(url2);
     }
 }
