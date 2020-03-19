@@ -1,9 +1,9 @@
 package com.ahao.spring.boot.datasources.datasource;
 
 import com.ahao.spring.boot.datasources.DataSourceContextHolder;
-import com.ahao.spring.boot.datasources.config.DataSourceConfiguration;
+import com.ahao.spring.boot.datasources.config.BalanceDataSourceProperties;
+import com.ahao.spring.boot.datasources.repository.DataSourcePropertiesRepository;
 import com.ahao.spring.boot.datasources.strategy.LoadBalanceStrategy;
-import com.ahao.util.spring.SpringContextHolder;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.lang3.StringUtils;
@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import javax.sql.DataSource;
@@ -25,16 +22,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
-@AutoConfigureAfter(value = DataSourceConfiguration.class)
-@DependsOn(SpringContextHolder.BEAN_NAME)
 public class DynamicDataSource extends AbstractRoutingDataSource implements InitializingBean, DisposableBean {
     private static final Logger logger = LoggerFactory.getLogger(DynamicDataSource.class);
 
-    private DataSourceConfiguration configuration;
+    private BalanceDataSourceProperties configuration;
+    private DataSourcePropertiesRepository repository;
 
-    public DynamicDataSource(DataSourceConfiguration dataSourceConfiguration) {
+    public DynamicDataSource(BalanceDataSourceProperties dataSourceConfiguration, DataSourcePropertiesRepository repository) {
         this.configuration = dataSourceConfiguration;
+        this.repository = repository;
     }
 
     private Map<String, DataSource> dataSources;
@@ -44,7 +40,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
     @Override
     public void afterPropertiesSet() {
         // 1. 保证数据源属性不为空
-        Map<String, DataSourceProperties> propertiesMap = configuration.getDatasource();
+        Map<String, DataSourceProperties> propertiesMap = repository.getDataSourceProperties();
         if (propertiesMap.size() <= 0) {
             throw new IllegalArgumentException("请确保至少有一个数据源");
         }

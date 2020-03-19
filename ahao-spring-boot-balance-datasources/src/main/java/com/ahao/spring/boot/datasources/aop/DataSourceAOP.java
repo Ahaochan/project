@@ -1,5 +1,6 @@
-package com.ahao.spring.boot.datasources;
+package com.ahao.spring.boot.datasources.aop;
 
+import com.ahao.spring.boot.datasources.DataSourceContextHolder;
 import com.ahao.spring.boot.datasources.annotation.DataSource;
 import com.ahao.spring.boot.datasources.annotation.MasterDataSource;
 import com.ahao.spring.boot.datasources.annotation.SlaveDataSource;
@@ -11,11 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.PriorityOrdered;
-import org.springframework.stereotype.Component;
 
 @Aspect
 @EnableAspectJAutoProxy(exposeProxy = true, proxyTargetClass = true)
-@Component
 public class DataSourceAOP implements PriorityOrdered {
     private static Logger logger = LoggerFactory.getLogger(DataSourceAOP.class);
 
