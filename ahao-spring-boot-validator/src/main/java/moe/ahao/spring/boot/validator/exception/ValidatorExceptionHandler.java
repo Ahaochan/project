@@ -1,8 +1,25 @@
-# 简介
-使用`ControllerAdvice`拦截请求方法, 统一处理校验异常.
-执行单元测试即可.
+package moe.ahao.spring.boot.validator.exception;
 
-```java
+import com.ahao.domain.entity.AjaxDTO;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @ControllerAdvice("moe.ahao")
 public class ValidatorExceptionHandler {
 
@@ -53,11 +70,4 @@ public class ValidatorExceptionHandler {
         AjaxDTO response = AjaxDTO.failure("校验失败", fieldErrors);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> ex(Exception ex) {
-        ex.printStackTrace();
-        return ResponseEntity.status(HttpStatus.OK).body(null);
-    }
 }
-```
