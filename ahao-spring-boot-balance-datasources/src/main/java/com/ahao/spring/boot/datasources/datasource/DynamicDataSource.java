@@ -118,6 +118,29 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
         dataSourceGroup.put(groupName, groupMap);
     }
 
+    public DataSource removeDataSource(String key){
+        // 1. 参数校验
+        if (StringUtils.isBlank(key)) {
+            String message = "数据源 key:" + key + " 删除失败, 请 debug 调试!";
+            logger.warn(message);
+            throw new IllegalArgumentException(message);
+        }
+
+        // 4. 数据源加入
+        DataSource dataSource = dataSources.remove(key);
+
+        // 5. 数据源分组
+        String split = configuration.getGroupBy();
+        String groupName = StringUtils.contains(key, split) ? StringUtils.substringBefore(key, split) : key;
+        Map<String, DataSource> groupMap = dataSourceGroup.get(groupName);
+        if(groupMap == null) {
+            groupMap = new ConcurrentHashMap<>();
+        }
+        groupMap.remove(key, dataSource);
+        dataSourceGroup.put(groupName, groupMap);
+
+        return dataSource;
+    }
 
     private DataSource findGroupOrOne(String key) {
         // 1. 查询某个组内的数据源, 负载均衡
