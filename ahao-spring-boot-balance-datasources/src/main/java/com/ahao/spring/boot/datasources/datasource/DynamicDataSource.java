@@ -2,8 +2,10 @@ package com.ahao.spring.boot.datasources.datasource;
 
 import com.ahao.spring.boot.datasources.DataSourceContextHolder;
 import com.ahao.spring.boot.datasources.config.BalanceDataSourceProperties;
+import com.ahao.spring.boot.datasources.config.DataSourceProperties;
 import com.ahao.spring.boot.datasources.repository.DataSourcePropertiesRepository;
 import com.ahao.spring.boot.datasources.strategy.LoadBalanceStrategy;
+import com.ahao.util.commons.lang.reflect.ReflectHelper;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.util.Assert;
 
 import javax.sql.DataSource;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DynamicDataSource extends AbstractRoutingDataSource implements InitializingBean, DisposableBean {
     private static final Logger logger = LoggerFactory.getLogger(DynamicDataSource.class);
@@ -33,8 +35,8 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
         this.repository = repository;
     }
 
-    private Map<String, DataSource> dataSources;
-    private Map<String, Map<String, DataSource>> dataSourceGroup;
+    private Map<String, DataSource> dataSources = new ConcurrentHashMap<>();
+    private Map<String, Map<String, DataSource>> dataSourceGroup = new ConcurrentHashMap<>();
     private LoadBalanceStrategy loadBalanceStrategy;
 
     @Override
@@ -45,17 +47,8 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
             throw new IllegalArgumentException("请确保至少有一个数据源");
         }
 
-        // 2. 将所有数据源属性转为数据源
-        dataSources = propertiesMap.entrySet().stream()
-            .peek(e -> logger.info("初始化 {} 数据源", e.getKey()))
-            .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().initializeDataSourceBuilder().build()));
-
-        // 3. 数据源分组
-        String split = configuration.getGroupBy();
-        dataSourceGroup = dataSources.entrySet().stream()
-            .collect(Collectors
-                .groupingBy(e -> StringUtils.contains(e.getKey(), split) ? StringUtils.substringBefore(e.getKey(), split) : e.getKey(),
-                    Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+        // 2. 初始化数据源
+        propertiesMap.forEach(this::setDataSource);
 
         // 3. 初始化负载均衡策略
         logger.info("加载负载均衡策略{}", configuration.getLoadBalanceStrategy().getSimpleName());
@@ -90,6 +83,42 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
         throw new IllegalArgumentException("找不到" + key + "数据源");
     }
 
+    public void setDataSource(String key, DataSourceProperties properties) {
+        // 1. 参数校验
+        if (StringUtils.isBlank(key) || properties == null) {
+            String message = "数据源 key:" + key + " 配置错误, 请 debug 调试!";
+            logger.warn(message);
+            throw new IllegalArgumentException(message);
+        }
+
+        // 2. 初始化基本信息
+        DataSource dataSource = DataSourceBuilder.create()
+            .type(properties.getType())
+            .url(properties.getUrl())
+            .username(properties.getUsername())
+            .password(properties.getPassword())
+            .driverClassName(properties.getDriverClassName())
+            .build();
+
+        // 3. 初始化定制信息
+        Map<String, Object> externalProperties = properties.getExternalProperties();
+        externalProperties.forEach((k, v) -> ReflectHelper.setValue(dataSource, k, v));
+
+        // 4. 数据源加入
+        dataSources.put(key, dataSource);
+
+        // 5. 数据源分组
+        String split = configuration.getGroupBy();
+        String groupName = StringUtils.contains(key, split) ? StringUtils.substringBefore(key, split) : key;
+        Map<String, DataSource> groupMap = dataSourceGroup.get(groupName);
+        if(groupMap == null) {
+            groupMap = new ConcurrentHashMap<>();
+        }
+        groupMap.put(key, dataSource);
+        dataSourceGroup.put(groupName, groupMap);
+    }
+
+
     private DataSource findGroupOrOne(String key) {
         // 1. 查询某个组内的数据源, 负载均衡
         Map<String, DataSource> group = dataSourceGroup.get(key);
@@ -107,7 +136,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
         }
         return null;
     }
-
 
     @Override
     public void destroy() throws Exception {

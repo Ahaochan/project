@@ -1,6 +1,7 @@
 package com.ahao.spring.boot.datasources.repository;
 
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+
+import com.ahao.spring.boot.datasources.config.DataSourceProperties;
 
 import java.util.HashMap;
 import java.util.Map;
