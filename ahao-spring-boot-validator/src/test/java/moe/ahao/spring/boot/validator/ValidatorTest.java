@@ -4,7 +4,6 @@ import com.ahao.util.commons.io.JSONHelper;
 import moe.ahao.spring.boot.Starter;
 import moe.ahao.spring.boot.validator.dependency.NestedObj;
 import moe.ahao.spring.boot.validator.dependency.User;
-import moe.ahao.spring.boot.validator.exception.ValidatorExceptionHandler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@ContextConfiguration(classes = {Starter.class, ValidatorExceptionHandler.class})
+@ContextConfiguration(classes = Starter.class)
 public class ValidatorTest {
 
     @Autowired

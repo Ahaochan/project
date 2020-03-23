@@ -9,8 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@ControllerAdvice("moe.ahao")
+@RestControllerAdvice("moe.ahao")
 public class ValidatorExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -56,7 +56,7 @@ public class ValidatorExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<AjaxDTO> bindException(ConstraintViolationException ex) {
+    public ResponseEntity<AjaxDTO> constraintViolationException(ConstraintViolationException ex) {
         // 1. 生成错误信息
         Map<String, String> fieldErrors = new HashMap<>();
         Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
