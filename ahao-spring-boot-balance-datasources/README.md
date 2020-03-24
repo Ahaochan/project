@@ -1,25 +1,23 @@
 # 特性
 1. 支持多数据源、读写分离、分组数据源
-1. 通过 `yml` 配置, 即可自动添加数据源
+1. 通过 `DataSourcePropertiesRepository` 配置, 从不同渠道加载数据源
 1. 提供轮询、随机两种负载均衡算法
-1. 支持注解形式的切换数据源方式
+1. 支持注解、`Filter`形式的切换数据源方式
 
 # 使用
-在`yml`配置文件`spring.datasource.dynamic`添加`datasource`属性, 配置数据源即可.
+第一步: 在`yml`配置文件`spring.datasource.balance`配置相关参数.
 ```yaml
 spring:
   datasource:
-    dynamic:
+    balance:
       primary: master
-      datasource:
-        master_1:
-          url: jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MODE=MySQL;INIT=runscript from 'classpath:init-db1.sql';
-        slave_1:
-          url: jdbc:h2:mem:db2;DB_CLOSE_DELAY=-1;MODE=MySQL;INIT=runscript from 'classpath:init-db2.sql';
-        slave_2:
-          url: jdbc:h2:mem:db3;DB_CLOSE_DELAY=-1;MODE=MySQL;INIT=runscript from 'classpath:init-db3.sql';
+      load-balance-strategy: com.ahao.spring.boot.datasources.strategy.PollingStrategy
+      group-by: "_"
 ```
-如果是分组数据源, 只要用`_`分割组名即可, 比如`slave`.
+第二步: 实现[`DataSourcePropertiesRepository`]接口并注册为`Bean`, 提供数据源参数. 具体可以参考[`DataSourcePropertiesMemoryImpl`].
+第三步: 选择[`DataSourceAOP`]或[`DataSourceFilter`]注册为`Bean`, 也可以两个都用.
+
+如果是分组数据源, 只要用`_`分割组名即可, 比如`slave_1`.
 
 然后在方法上面加上注解即可.
 主数据源: `@MasterDataSource`

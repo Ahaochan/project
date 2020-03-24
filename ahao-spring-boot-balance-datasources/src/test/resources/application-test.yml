@@ -4,10 +4,3 @@ spring:
       primary: master
       load-balance-strategy: com.ahao.spring.boot.datasources.strategy.PollingStrategy
       group-by: "_"
-      datasource:
-        master_1:
-          url: jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MODE=MySQL;INIT=runscript from 'classpath:init-db1.sql';
-        slave_1:
-          url: jdbc:h2:mem:db2;DB_CLOSE_DELAY=-1;MODE=MySQL;INIT=runscript from 'classpath:init-db2.sql';
-        slave_2:
-          url: jdbc:h2:mem:db3;DB_CLOSE_DELAY=-1;MODE=MySQL;INIT=runscript from 'classpath:init-db3.sql';
