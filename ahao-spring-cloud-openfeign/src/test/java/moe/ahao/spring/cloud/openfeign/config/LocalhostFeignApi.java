@@ -30,10 +30,10 @@ public interface LocalhostFeignApi {
     @PostMapping(value = "/multipart1", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     AjaxDTO multipart1(MultipartFile file);
 
-    @PostMapping("/multipart2")
+    @PostMapping(value = "/multipart2", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     AjaxDTO multipart2(@RequestParam MultipartFile file);
 
-    @PostMapping("/multipart3")
+    @PostMapping(value = "/multipart3", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     AjaxDTO multipart3(@RequestPart MultipartFile file);
 
     @PostMapping("/multipart4")
