@@ -54,6 +54,7 @@
 - [ahao-spring-cloud-openfeign](./ahao-spring-cloud-openfeign)(`Http`请求客户端)
 
 ## Spring Cloud Alibaba
+- [ahao-spring-cloud-alibaba-nacos-config](./ahao-spring-cloud-alibaba-nacos-config)(`Nacos`配置中心配置)
 - [ahao-spring-cloud-alibaba-oss](./ahao-spring-cloud-alibaba-oss)(阿里云对象存储)
 
 ## Shiro 通用配置
