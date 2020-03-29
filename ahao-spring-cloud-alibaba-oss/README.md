@@ -4,7 +4,7 @@
 
 # 使用
 1. 在`application.yml`中填写阿里云配置.
-2. 编写类, 继承自[`AbstractAlibabaOssService`](), 重写`bucketName`.
+2. 编写类, 继承自[`AbstractAlibabaOssService`](./src/main/java/moe/ahao/spring/cloud/alibaba/oss/service/AbstractAlibabaOssService.java), 重写`bucketName`.
 ```java
 @Service
 public class TestService extends AbstractAlibabaOssService {
