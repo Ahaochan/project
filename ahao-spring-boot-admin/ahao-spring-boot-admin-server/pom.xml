@@ -3,30 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ahao-all</artifactId>
         <groupId>com.ahao</groupId>
+        <artifactId>ahao-spring-boot-admin</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0</version>
 
-    <artifactId>ahao-spring-boot-admin-client</artifactId>
+    <artifactId>ahao-spring-boot-admin-server</artifactId>
     <packaging>jar</packaging>
-
-    <properties>
-        <spring-boot.admin.version>2.2.0</spring-boot.admin.version>
-    </properties>
 
     <dependencies>
         <!--======================================================= Spring Boot =======================================================-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
             <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
             <version>${spring-boot.admin.version}</version>
         </dependency>
         <!--======================================================= Spring Boot =======================================================-->

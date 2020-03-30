@@ -1,4 +1,4 @@
-package com.ahao.spring.boot;
+package moe.ahao.spring.boot;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * SpringBoot方式启动类
  * @author Ahaochan
  */
-@SpringBootApplication(scanBasePackages = "com.ahao")
+@SpringBootApplication(scanBasePackages = "moe.ahao")
 public class Starter {
 
     private final static Logger logger = LoggerFactory.getLogger(Starter.class);

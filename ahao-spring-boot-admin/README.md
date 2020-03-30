@@ -4,8 +4,8 @@
 
 生产环境下, 需要做权限
 
-- [ahao-spring-boot-admin-client](../ahao-spring-boot-admin-client)(基于`actuator`的监控系统客户端)
-- [ahao-spring-boot-admin-server](../ahao-spring-boot-admin-server)(基于`actuator`的监控系统服务端)
+- [ahao-spring-boot-admin-client](./ahao-spring-boot-admin-client)(基于`actuator`的监控系统客户端)
+- [ahao-spring-boot-admin-server](./ahao-spring-boot-admin-server)(基于`actuator`的监控系统服务端)
   
 客户端需要在`application.yml`配置相关参数.
 服务端直接启动即可.
