@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ahao-sidecar
+  cloud:
+    nacos:
+      server-addr: console.nacos.io:80
+sidecar:
+  ip: 192.168.1.100
+  port: 80
+  health-check-url: http://192.168.1.100:80/basic/status
+  health-check-interval: 30000

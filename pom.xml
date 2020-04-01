@@ -50,6 +50,7 @@
         <module>ahao-spring-boot-wechat</module>
         <module>ahao-spring-cloud-alibaba-nacos-config</module>
         <module>ahao-spring-cloud-alibaba-oss</module>
+        <module>ahao-spring-cloud-alibaba-sidecar</module>
         <module>ahao-spring-cloud-config-client</module>
         <module>ahao-spring-cloud-config-server</module>
         <module>ahao-spring-cloud-eureka</module>
@@ -60,7 +61,6 @@
         <module>ahao-spring-cloud-zookeeper</module>
         <module>ahao-spring-cloud-zuul</module>
         <module>ahao-web</module>
-
 
         <!--<module>ahao-forum-guitar</module>-->
         <!--<module>ahao-invoice</module>-->

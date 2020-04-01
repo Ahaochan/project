@@ -56,6 +56,7 @@
 ## Spring Cloud Alibaba
 - [ahao-spring-cloud-alibaba-nacos-config](./ahao-spring-cloud-alibaba-nacos-config)(`Nacos`配置中心配置)
 - [ahao-spring-cloud-alibaba-oss](./ahao-spring-cloud-alibaba-oss)(阿里云对象存储)
+- [ahao-spring-cloud-alibaba-sidecar](./ahao-spring-cloud-alibaba-sidecar)(异构语言`sidecar`转发器)
 
 ## Shiro 通用配置
 1. 基于`Redis`的重试次数限制, 源码地址: [`RetryLimitHashedCredentialsMatcher`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/rbac/shiro/credential/RetryLimitHashedCredentialsMatcher.java)
