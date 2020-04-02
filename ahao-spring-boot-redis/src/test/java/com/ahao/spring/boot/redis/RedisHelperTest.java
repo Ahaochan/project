@@ -5,12 +5,14 @@ import com.ahao.spring.boot.redis.config.RedisExtension;
 import com.ahao.spring.boot.redis.entity.User;
 import com.ahao.util.spring.SpringContextHolder;
 import com.ahao.util.spring.redis.RedisHelper;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,7 +26,7 @@ import java.util.concurrent.*;
 
 @ExtendWith(RedisExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, SpringContextHolder.class})
+@ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, JacksonAutoConfiguration.class, SpringContextHolder.class})
 @ActiveProfiles("test-redis")
 class RedisHelperTest {
     private static final String REDIS_KEY = "key";
@@ -32,11 +34,11 @@ class RedisHelperTest {
 
     @Test
     void setVoid() {
-        Assertions.assertNull(RedisHelper.getObject(REDIS_KEY, void.class));
-        Assertions.assertNull(RedisHelper.getObject(REDIS_KEY, Void.class));
+        Assertions.assertNull(RedisHelper.getObject(REDIS_KEY, new TypeReference<Void>() {}));
+        Assertions.assertNull(RedisHelper.getObject(REDIS_KEY, new TypeReference<Void>() {}));
 
         RedisHelper.set(REDIS_KEY, (Object) null);
-        Assertions.assertNull(RedisHelper.getObject(REDIS_KEY, Object.class));
+        Assertions.assertNull(RedisHelper.getObject(REDIS_KEY, new TypeReference<Object>() {}));
         RedisHelper.set(REDIS_KEY, "null");
         Assertions.assertEquals("null", RedisHelper.getString(REDIS_KEY));
     }
@@ -51,7 +53,7 @@ class RedisHelperTest {
         Boolean data2 = false;
         RedisHelper.set(REDIS_KEY, data2);
         Assertions.assertEquals(data2, RedisHelper.getBoolean(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, Boolean.class));
+        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Boolean>() {}));
         Assertions.assertEquals(Boolean.toString(data2), RedisHelper.getString(REDIS_KEY));
     }
 
@@ -65,7 +67,7 @@ class RedisHelperTest {
         Byte data2 = Byte.MAX_VALUE;
         RedisHelper.set(REDIS_KEY, data2);
         Assertions.assertEquals(data2, RedisHelper.getByte(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY,  Byte.class));
+        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Byte>() {}));
         Assertions.assertEquals(Byte.toString(data2), RedisHelper.getString(REDIS_KEY));
     }
 
@@ -79,7 +81,7 @@ class RedisHelperTest {
         Short data2 = Short.MAX_VALUE;
         RedisHelper.set(REDIS_KEY, data2);
         Assertions.assertEquals(data2, RedisHelper.getShort(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, Short.class));
+        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Short>() {}));
         Assertions.assertEquals(Short.toString(data2), RedisHelper.getString(REDIS_KEY));
     }
 
@@ -93,7 +95,7 @@ class RedisHelperTest {
         Integer data2 = Integer.MAX_VALUE;
         RedisHelper.set(REDIS_KEY, data2);
         Assertions.assertEquals(data2, RedisHelper.getInteger(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, Integer.class));
+        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Integer>() {}));
         Assertions.assertEquals(Integer.toString(data2), RedisHelper.getString(REDIS_KEY));
     }
 
@@ -107,7 +109,7 @@ class RedisHelperTest {
         Long data2 = Long.MAX_VALUE;
         RedisHelper.set(REDIS_KEY, data2);
         Assertions.assertEquals(data2, RedisHelper.getLong(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, Long.class));
+        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Long>() {}));
         Assertions.assertEquals(Long.toString(data2), RedisHelper.getString(REDIS_KEY));
     }
 
@@ -121,7 +123,7 @@ class RedisHelperTest {
         Float data2 = Float.MAX_VALUE;
         RedisHelper.set(REDIS_KEY, data2);
         Assertions.assertEquals(data2, RedisHelper.getFloat(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, Float.class));
+        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Float>() {}));
         Assertions.assertEquals(Float.toString(data2), RedisHelper.getString(REDIS_KEY));
     }
 
@@ -135,7 +137,7 @@ class RedisHelperTest {
         Double data2 = Double.MAX_VALUE;
         RedisHelper.set(REDIS_KEY, data2);
         Assertions.assertEquals(data2, RedisHelper.getDouble(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, Double.class));
+        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Double>() {}));
         Assertions.assertEquals(Double.toString(data2), RedisHelper.getString(REDIS_KEY));
     }
 
@@ -144,15 +146,14 @@ class RedisHelperTest {
         String msg = "hello_world";
         RedisHelper.set(REDIS_KEY, msg);
         Assertions.assertEquals(msg, RedisHelper.getString(REDIS_KEY));
-        Assertions.assertEquals(msg, RedisHelper.getObject(REDIS_KEY, String.class));
 
         List<Long> longList = Arrays.asList(1L, 2L, 3L, 4L);
         RedisHelper.set(REDIS_KEY, longList);
-        Assertions.assertEquals(longList, RedisHelper.getObject(REDIS_KEY, List.class));
+        Assertions.assertEquals(longList, RedisHelper.getObject(REDIS_KEY, new TypeReference<List<Long>>() {}));
 
         User user = new User(1, "张三");
         RedisHelper.set(REDIS_KEY, user);
-        Assertions.assertEquals(user, RedisHelper.getObject(REDIS_KEY, User.class));
+        Assertions.assertEquals(user, RedisHelper.getObject(REDIS_KEY, new TypeReference<User>() {}));
     }
 
     @Test

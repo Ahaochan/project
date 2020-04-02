@@ -4,6 +4,7 @@ import com.ahao.spring.boot.redis.annotation.Redis;
 import com.ahao.spring.boot.redis.config.RedisKeys;
 import com.ahao.util.spring.SpelHelper;
 import com.ahao.util.spring.redis.RedisHelper;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -16,6 +17,7 @@ import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +45,12 @@ public class RedisCacheAOP {
         }
 
         // 3. 如果不穿透，从redis中获取数据
-        Object resultFromRedis = RedisHelper.getObject(redisKey, returnType);
+        Object resultFromRedis = RedisHelper.getObject(redisKey, new TypeReference<Object>() {
+            @Override
+            public Type getType() {
+                return returnType;
+            }
+        });
         if(resultFromRedis != null) {
             return resultFromRedis;
         }
