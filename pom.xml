@@ -40,6 +40,7 @@
         <module>ahao-spring-boot-rabbitmq</module>
         <module>ahao-spring-boot-redis</module>
         <module>ahao-spring-boot-redission</module>
+        <module>ahao-spring-boot-rocketmq</module>
         <module>ahao-spring-boot-shiro</module>
         <module>ahao-spring-boot-swagger</module>
         <module>ahao-spring-boot-validator</module>
