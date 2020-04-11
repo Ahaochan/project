@@ -27,7 +27,7 @@ nohup sh bin/mqnamesrv -n ${NAMESRV_ADDR} > logs/namesrv.log 2>&1 &
 tail -fn 300 logs/namesrv.log
 
 # 5. 启动 broker
-if [ `cat conf/broker.conf | grep -cE "^brokerIP1"` -le 0 ]; then
+if [[ `cat conf/broker.conf | grep -cE "^brokerIP1"` -le 0 ]]; then
     echo "brokerIP1 = $IP" >> conf/broker.conf
 fi
 nohup sh bin/mqbroker -n ${NAMESRV_ADDR} -c conf/broker.conf > logs/mqbroker.log 2>&1 &
