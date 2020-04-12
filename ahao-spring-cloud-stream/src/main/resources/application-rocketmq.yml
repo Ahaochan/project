@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    stream:
+      default-binder: rocketmq
+      rocketmq:
+        binder:
+          name-server: 192.168.154.128:9876
+      bindings:
+        output:
+          destination: ahao-rocketmq-topic
+          group: ahao-output-group
+        input:
+          destination: ahao-rocketmq-topic
+          group: ahao-input-group
+          consumer:
+            max-attempts: 3
+
