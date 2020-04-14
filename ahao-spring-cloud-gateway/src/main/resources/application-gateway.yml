@@ -12,6 +12,10 @@ spring:
     name: gateway
   cloud:
     gateway:
+      httpserver:
+        wiretap: true # 日志分析
+      httpclient:
+        wiretap: true # 日志分析
       discovery:
         locator:
           enabled: true # API网关开启服务注册发现
