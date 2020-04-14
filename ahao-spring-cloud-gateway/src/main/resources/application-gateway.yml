@@ -41,3 +41,8 @@ logging:
   level:
     org.springframework.cloud.gateway: debug
     com.ahao: debug
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway
