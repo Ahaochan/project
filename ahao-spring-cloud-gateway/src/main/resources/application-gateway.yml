@@ -19,6 +19,11 @@ spring:
       discovery:
         locator:
           enabled: true # API网关开启服务注册发现
+      default-filters:
+        - name: Retry # org.springframework.cloud.gateway.filter.factory.RetryGatewayFilterFactory
+          args:
+            retries: 3
+            statuses: BAD_GATEWAY
       routes:
         - id: "my-api"
 #          uri: http://127.0.0.1:8761
@@ -38,7 +43,8 @@ spring:
 #            - PrefixPath=/mypath           # uri 追加 mypath 前缀
 
 
-
+  SecureHeaders GatewayFilter Factory
+  Retry GatewayFilter Factory
 server:
   port: 9090
 logging:
