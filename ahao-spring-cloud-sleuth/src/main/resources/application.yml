@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: ahao-sleuth
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1.0 # 抽样率 100%, 生产改为0.1
+  zipkin:
+    base-url: http://192.168.154.128:9411
+    discovery-client-enabled: false
+
+logging:
+  level:
+    org.springframework.cloud.sleuth: debug

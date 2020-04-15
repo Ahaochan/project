@@ -59,10 +59,12 @@
         <module>ahao-spring-cloud-hystrix</module>
         <module>ahao-spring-cloud-netflix-ribbon</module>
         <module>ahao-spring-cloud-openfeign</module>
+        <module>ahao-spring-cloud-sleuth</module>
         <module>ahao-spring-cloud-stream</module>
         <module>ahao-spring-cloud-zookeeper</module>
         <module>ahao-spring-cloud-zuul</module>
         <module>ahao-web</module>
+
 
         <!--<module>ahao-forum-guitar</module>-->
         <!--<module>ahao-invoice</module>-->
