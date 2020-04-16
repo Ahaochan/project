@@ -13,5 +13,18 @@ spring:
           destination: ahao-rocketmq-topic
           group: ahao-input-group
           consumer:
-            max-attempts: 3
+            # 最多尝试处理几次, 默认3
+            maxAttempts: 3
+            # 重试时初始避退间隔, 单位毫秒, 默认1000
+            backOffInitialInterval: 1000
+            # 重试时最大避退间隔, 单位毫秒, 默认10000
+            backOffMaxInterval: 10000
+            # 避退乘数, 默认2.0
+            backOffMultiplier: 2.0
+            # 当listen抛出retryableExceptions未列出的异常时, 是否要重试
+            defaultRetryable: true
+            # 异常是否允许重试的map映射
+            retryableExceptions:
+              java.lang.RuntimeException: true
+              java.lang.IllegalStateException: false
 
