@@ -41,8 +41,8 @@
 - 开箱即用
   - [ahao-btrace](./ahao-btrace)(`Btrace`代码编写环境)
   - [ahao-mybatis-generator](./ahao-mybatis-generator)(`Mybatis`代码生成器)
-  - [ahao-spring-boot-admin-client](./ahao-spring-boot-admin-client)(基于`actuator`的监控系统客户端)
-  - [ahao-spring-boot-admin-server](./ahao-spring-boot-admin-server)(基于`actuator`的监控系统服务端)
+  - [ahao-spring-boot-admin-client](./ahao-spring-boot-admin/ahao-spring-boot-admin-client)(基于`actuator`的监控系统客户端)
+  - [ahao-spring-boot-admin-server](./ahao-spring-boot-admin/ahao-spring-boot-admin-server)(基于`actuator`的监控系统服务端)
   - [ahao-spring-boot-apollo](./ahao-spring-boot-apollo)(基于[`Apollo`](https://github.com/ctripcorp/apollo)配置中心的客户端)
   - [ahao-spring-boot-actuator](./ahao-spring-boot-actuator)(对`Spring`应用的监控)
   - [ahao-spring-boot-log-trace](./ahao-spring-boot-log-trace)(分布式日志打印实现)
