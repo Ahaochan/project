@@ -11,6 +11,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.messaging.Message;
+import org.springframework.messaging.support.ErrorMessage;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,14 +33,15 @@ public class StreamRocketMQTest {
 
     @Test
     public void test1() throws Exception {
-        for (int i = 0; i < 10; i++) {
+        int size = 10;
+        for (int i = 0; i < size; i++) {
             Message<String> message = MessageBuilder.withPayload("payload-" + i).build();
             processor.output().send(message);
         }
         Thread.sleep(5000);
 
         AhaoStreamListener.result.sort(Comparator.comparing(String::toString));
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < size; i++) {
             Assertions.assertEquals("payload-"+i, AhaoStreamListener.result.get(i));
         }
 
@@ -57,6 +59,12 @@ public class StreamRocketMQTest {
         public void receive(String message) {
             System.out.println("接收到:" + message);
             result.add(message);
+//            throw new IllegalArgumentException("异常测试");
+        }
+
+        @StreamListener("errorChannel")
+        public void error(ErrorMessage message) {
+            System.out.println("错误:"+message);
         }
     }
 }
