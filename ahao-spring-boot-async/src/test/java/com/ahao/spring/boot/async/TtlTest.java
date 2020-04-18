@@ -29,11 +29,14 @@ public class TtlTest {
         System.out.println("[parent thread] set " + context.get());
         Assertions.assertEquals(expect, context.get());
 
-        new Thread(() -> {
+        Thread childThread = new Thread(() -> {
             String value = context.get();
             System.out.println("[child thread] get " + value);
             Assertions.assertEquals(expect, value);
-        }).join();
+        });
+        childThread.start();
+        childThread.join();
+
         System.out.println("[parent thread] get " + context.get());
         Assertions.assertEquals(expect, context.get());
     }
