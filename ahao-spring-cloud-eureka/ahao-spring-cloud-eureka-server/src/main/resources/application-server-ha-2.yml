@@ -3,12 +3,5 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka/ # 另一个服务中心的地址
-    register-with-eureka: true                   # 服务中心向另外一个服务注册中心注册, 没有另外的服务注册中心则为false
-    fetch-registry: true
-  instance:
-    hostname: 127.0.0.1
-spring:
-  application:
-    name: eureka-server
 server:
   port: 8762

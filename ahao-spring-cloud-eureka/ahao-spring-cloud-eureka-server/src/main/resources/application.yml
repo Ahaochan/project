@@ -1,3 +1,19 @@
 spring:
   profiles:
     active: server
+  application:
+    name: eureka-server
+
+eureka:
+  server:
+    enable-self-preservation: false         # 自我保护, 生产改为true
+    response-cache-update-interval-ms: 3000 # 从 ReadWrite缓存 写入 ReadOnly缓存 间隔默认为 30s
+    eviction-interval-timer-in-ms: 6000     # 清理无效节点的时间间隔, 默认60s
+  client:
+    register-with-eureka: true # 注册到eureka
+    fetch-registry: true
+    registry-fetch-interval-seconds: 3 # 服务发现 拉取 ReadOnly缓存 间隔默认为 30s
+  instance:
+    hostname: 127.0.0.1
+    lease-renewal-interval-in-seconds: 3 # 心跳间隔, 告诉服务端自己还存活, 默认30s
+    lease-expiration-duration-in-seconds: 9 # 告诉服务端时间内没有收到心跳就证明服务挂掉, 默认90s
