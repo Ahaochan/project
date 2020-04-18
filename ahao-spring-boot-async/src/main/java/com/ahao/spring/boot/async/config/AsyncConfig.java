@@ -1,6 +1,7 @@
 package com.ahao.spring.boot.async.config;
 
 import com.ahao.spring.boot.async.exception.AsyncExceptionHandler;
+import com.alibaba.ttl.threadpool.TtlExecutors;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,14 +54,15 @@ public class AsyncConfig extends AsyncConfigurerSupport {
         executor.setThreadNamePrefix("springboot-executor-");
         // 设置拒绝策略
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-        return executor;
+        executor.initialize();
+        return TtlExecutors.getTtlExecutor(executor);
     }
 
     @Bean("scheduleExecutor")
     public ScheduledExecutorService scheduleExecutor() {
         int core = Runtime.getRuntime().availableProcessors();
         ScheduledExecutorService threadPool = Executors.newScheduledThreadPool(core);
-        return threadPool;
+        return TtlExecutors.getTtlScheduledExecutorService(threadPool);
     }
 
 }

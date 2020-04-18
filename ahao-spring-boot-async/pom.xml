@@ -28,5 +28,11 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <!--======================================================= Spring Boot =======================================================-->
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
+            <version>${alibaba.transmittable-thread-local.version}</version>
+        </dependency>
     </dependencies>
 </project>
