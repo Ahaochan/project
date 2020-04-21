@@ -17,12 +17,12 @@ import java.util.concurrent.Future;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = Starter.class)
-class AsyncTest {
+public class AsyncTest {
     @Autowired
     private TestService testService;
 
     @Test
-    void testVoid() throws Exception {
+    public void testVoid() throws Exception {
         String msg = "hello World";
         testService.executeVoid(msg);
         Assertions.assertNull(TestService.value);
@@ -32,14 +32,14 @@ class AsyncTest {
     }
 
     @Test
-    void testFuture() throws Exception {
+    public void testFuture() throws Exception {
         int i = 1;
         Future<Integer> future = testService.executeFuture(i);
         Assertions.assertEquals(Integer.valueOf(i + 100), future.get());
     }
 
     @Test
-    void testException() throws Exception {
+    public void testException() throws Exception {
         // 1. 重定向输出
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream sout = System.out;

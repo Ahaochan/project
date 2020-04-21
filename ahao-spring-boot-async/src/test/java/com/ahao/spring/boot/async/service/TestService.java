@@ -1,10 +1,9 @@
 package com.ahao.spring.boot.async.service;
 
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 @Service
@@ -25,9 +24,7 @@ public class TestService {
     @Async
     public Future<Integer> executeFuture(Integer value) {
         TestService.value = value;
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Integer> result = executor.submit(() -> value + 100);
-        return result;
+        return new AsyncResult<>(value + 100);
     }
 
     @Async
