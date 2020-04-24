@@ -39,14 +39,14 @@ public abstract class AbstractAlibabaOssService implements InitializingBean, Ali
 
     @Override
     public String putObject(String key, File value) {
-        PutObjectResult result = ossClient.putObject(bucketName(), key, value);
+        PutObjectResult result = ossClient.putObject(bucketName(), keyPrefix() + key, value);
         String url = getHost() + "/" + key;
         logger.debug("OSS上传key:{} 成功, 获取链接:{}", key, url);
         return url;
     }
 
     public String putObject(String key, InputStream value) {
-        PutObjectResult result = ossClient.putObject(bucketName(), key, value);
+        PutObjectResult result = ossClient.putObject(bucketName(), keyPrefix() + key, value);
         String url = getHost() + "/" + key;
         logger.debug("OSS上传key:{} 成功, 获取链接:{}", key, url);
         return url;
@@ -54,7 +54,7 @@ public abstract class AbstractAlibabaOssService implements InitializingBean, Ali
 
     @Override
     public String getUrl(String key, Date expireTime) {
-        URL url = ossClient.generatePresignedUrl(bucketName(), key, expireTime);
+        URL url = ossClient.generatePresignedUrl(bucketName(), keyPrefix() + key, expireTime);
         return url.toString();
     }
 
@@ -76,4 +76,7 @@ public abstract class AbstractAlibabaOssService implements InitializingBean, Ali
     }
 
     protected abstract String bucketName();
+    protected String keyPrefix() {
+        return "";
+    }
 }
