@@ -1,10 +1,13 @@
 package moe.ahao.spring.cloud.alibaba.oss.service;
 
+import com.alibaba.alicloud.context.AliCloudProperties;
 import com.alibaba.alicloud.context.oss.OssProperties;
 import com.aliyun.oss.ClientBuilderConfiguration;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.model.PutObjectResult;
+import org.apache.commons.collections4.map.LRUMap;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -20,42 +23,69 @@ import java.util.Date;
  */
 public abstract class AbstractAlibabaOssService implements InitializingBean, AlibabaOssService {
     private final static Logger logger = LoggerFactory.getLogger(AbstractAlibabaOssService.class);
-    public static final int PERM_DAYS = 365 * 10; // 永久链接为 10 年
 
     private OSS ossClient;
-    private OssProperties properties;
+    private OssProperties ossProperties;
+    private AliCloudProperties aliCloudProperties;
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        try {
-            if (!ossClient.doesBucketExist(bucketName())) {
-                ossClient.createBucket(bucketName());
-            }
-        } catch (Exception e) {
-            logger.error("Bucket:" + bucketName() + "初始化失败", e);
-            System.exit(-1);
-        }
-    }
+    private LRUMap<String, String> bucketHostMap = new LRUMap<>();
 
     @Override
     public String putObject(String key, File value) {
-        PutObjectResult result = ossClient.putObject(bucketName(), keyPrefix() + key, value);
-        String url = getHost() + "/" + key;
+        String bucketName = this.bucketName();
+        String bucketHost = this.getBucketHost(bucketName);
+        String keyPrefix = this.keyPrefix();
+
+        PutObjectResult result = ossClient.putObject(bucketName, keyPrefix + key, value);
+        String url = bucketHost + "/" + key;
         logger.debug("OSS上传key:{} 成功, 获取链接:{}", key, url);
         return url;
     }
 
+    @Override
     public String putObject(String key, InputStream value) {
-        PutObjectResult result = ossClient.putObject(bucketName(), keyPrefix() + key, value);
-        String url = getHost() + "/" + key;
+        String bucketName = this.bucketName();
+        String bucketHost = this.getBucketHost(bucketName);
+        String keyPrefix = this.keyPrefix();
+
+        PutObjectResult result = ossClient.putObject(bucketName, keyPrefix + key, value);
+        String url = bucketHost + "/" + key;
         logger.debug("OSS上传key:{} 成功, 获取链接:{}", key, url);
         return url;
     }
 
     @Override
     public String getUrl(String key, Date expireTime) {
-        URL url = ossClient.generatePresignedUrl(bucketName(), keyPrefix() + key, expireTime);
+        String bucketName = this.bucketName();
+        String bucketHost = this.getBucketHost(bucketName);
+        String keyPrefix = this.keyPrefix();
+
+        URL url = ossClient.generatePresignedUrl(bucketName, keyPrefix + key, expireTime);
         return url.toString();
+    }
+
+    protected String getBucketHost(String bucketName) {
+        String host = bucketHostMap.get(bucketName);
+        if(StringUtils.isBlank(host)) {
+            if (!ossClient.doesBucketExist(bucketName)) {
+                ossClient.createBucket(bucketName);
+            }
+            ClientBuilderConfiguration config = ObjectUtils.defaultIfNull(ossProperties.getConfig(), new ClientBuilderConfiguration());
+            String protocol = config.getProtocol().toString();
+            String endpoint = ossProperties.getEndpoint();
+            String newHost  = protocol + "://" + bucketName + "." + endpoint;
+            bucketHostMap.put(bucketName, newHost);
+        }
+        return host;
+    }
+
+    protected abstract String bucketName();
+    protected String keyPrefix() {
+        return "";
+    }
+
+    public OSS getOssClient() {
+        return ossClient;
     }
 
     @Autowired
@@ -63,20 +93,21 @@ public abstract class AbstractAlibabaOssService implements InitializingBean, Ali
         this.ossClient = ossClient;
     }
 
+    public OssProperties getOssProperties() {
+        return ossProperties;
+    }
+
     @Autowired
-    public void setProperties(OssProperties properties) {
-        this.properties = properties;
+    public void setOssProperties(OssProperties ossProperties) {
+        this.ossProperties = ossProperties;
     }
 
-    protected String getHost() {
-        ClientBuilderConfiguration config = ObjectUtils.defaultIfNull(properties.getConfig(), new ClientBuilderConfiguration());
-        String protocol = config.getProtocol().toString();
-        String endpoint = properties.getEndpoint();
-        return protocol + "://" + bucketName() + "." + endpoint;
+    public AliCloudProperties getAliCloudProperties() {
+        return aliCloudProperties;
     }
 
-    protected abstract String bucketName();
-    protected String keyPrefix() {
-        return "";
+    @Autowired
+    public void setAliCloudProperties(AliCloudProperties aliCloudProperties) {
+        this.aliCloudProperties = aliCloudProperties;
     }
 }
