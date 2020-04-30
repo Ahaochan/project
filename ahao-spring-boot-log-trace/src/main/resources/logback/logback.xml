@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- ============================================= 属性 配置 ============================================= -->
+    <!-- 只能读取 Properties, 参考 README.md -->
+    <!-- <property resource="application.yml" /> -->
+
+    <springProperty name="log.context.name" source="spring.application.name" defaultValue="UnKnowContextName"/>
+    <springProperty name="log.profile" source="spring.profiles.active" defaultValue="dev"/>
+
+    <property name="log.charset" value="UTF-8"/>
+    <property name="log.history.max" value="30"/>
+    <property name="log.path" value="LOG"/>
+    <!-- Log4j: [S][%d{yyyyMMdd HH:mm:ss}][%-5p][%C:%L] - %m%n -->
+    <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+    <property name="log.pattern.console" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%contextName){blue} %clr(-%X{REQ:-}-){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="log.pattern.file" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName -%X{REQ:-}- ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+    <contextName>${log.context.name}</contextName>
+    <jmxConfigurator/>
+    <!-- ============================================= 属性 配置 ============================================= -->
+
+    <!-- ============================================= Appender 配置 ============================================= -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${log.pattern.file}</pattern>
+            <charset>${log.charset}</charset>
+        </encoder>
+    </appender>
+    <!-- ============================================= Appender 配置 ============================================= -->
+
+    <!-- ============================================= 日志级别 配置 ============================================= -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+    <!-- ============================================= 日志级别 配置 ============================================= -->
+</included>
