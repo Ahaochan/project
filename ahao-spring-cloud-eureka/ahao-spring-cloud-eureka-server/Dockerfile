@@ -11,7 +11,7 @@ RUN mvn verify clean --fail-never \
     && mvn clean package -pl ahao-spring-cloud-eureka -am \
     && mv ahao-spring-cloud-eureka/target/ahao-spring-cloud-eureka-1.0.0.jar /eureka.jar
 
-FROM openjdk:8u181-jre-alpine3.8 as environment
+FROM openjdk:8-jre-alpine3.8 as environment
 ENV PROFILE server
 WORKDIR /
 COPY --from=builder /eureka.jar .
