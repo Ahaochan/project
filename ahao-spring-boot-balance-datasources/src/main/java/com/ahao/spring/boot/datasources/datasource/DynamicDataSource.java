@@ -1,8 +1,8 @@
 package com.ahao.spring.boot.datasources.datasource;
 
 import com.ahao.spring.boot.datasources.DataSourceContextHolder;
-import com.ahao.spring.boot.datasources.config.BalanceDataSourceProperties;
-import com.ahao.spring.boot.datasources.config.DataSourceProperties;
+import com.ahao.spring.boot.datasources.properties.BalanceDataSourceProperties;
+import com.ahao.spring.boot.datasources.properties.DataSourceProperties;
 import com.ahao.spring.boot.datasources.repository.DataSourcePropertiesRepository;
 import com.ahao.spring.boot.datasources.strategy.LoadBalanceStrategy;
 import com.ahao.util.commons.lang.reflect.ReflectHelper;
@@ -44,6 +44,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
         // 1. 保证数据源属性不为空
         Map<String, DataSourceProperties> propertiesMap = repository.getDataSourceProperties();
         if (propertiesMap.size() <= 0) {
+            logger.error("请确保至少有一个数据源");
             throw new IllegalArgumentException("请确保至少有一个数据源");
         }
 
@@ -80,7 +81,9 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
             return primary;
         }
 
-        throw new IllegalArgumentException("找不到" + key + "数据源");
+        String errorMsg = "找不到" + key + "数据源";
+        logger.error(errorMsg);
+        throw new IllegalArgumentException(errorMsg);
     }
 
     public void setDataSource(String key, DataSourceProperties properties) {
@@ -116,6 +119,8 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
         }
         groupMap.put(key, dataSource);
         dataSourceGroup.put(groupName, groupMap);
+
+        logger.debug("数据源 key:{} 添加成功", key);
     }
 
     public DataSource removeDataSource(String key){
@@ -139,10 +144,15 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
         groupMap.remove(key, dataSource);
         dataSourceGroup.put(groupName, groupMap);
 
+        logger.debug("数据源 key:{} 删除成功", key);
         return dataSource;
     }
 
     private DataSource findGroupOrOne(String key) {
+        if(StringUtils.isBlank(key)) {
+            return null; // fix NPE
+        }
+
         // 1. 查询某个组内的数据源, 负载均衡
         Map<String, DataSource> group = dataSourceGroup.get(key);
         if (group != null) {

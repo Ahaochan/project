@@ -1,6 +1,7 @@
 package com.ahao.spring.boot.datasources.aop;
 
 import com.ahao.spring.boot.datasources.DataSourceContextHolder;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -20,6 +21,13 @@ public class DataSourceFilter extends OncePerRequestFilter {
     private final Logger logger = LoggerFactory.getLogger(DataSourceFilter.class);
     public static final String HEADER_DB = "X-db";
 
+    public static FilterRegistrationBean<DataSourceFilter> buildFilterBean(String... urlPatterns) {
+        FilterRegistrationBean<DataSourceFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new DataSourceFilter());
+        registrationBean.addUrlPatterns(urlPatterns);
+        return registrationBean;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String oldContext = DataSourceContextHolder.get();
@@ -33,10 +41,23 @@ public class DataSourceFilter extends OncePerRequestFilter {
         }
     }
 
-    public static FilterRegistrationBean<DataSourceFilter> buildFilterBean(String... urlPatterns) {
-        FilterRegistrationBean<DataSourceFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new DataSourceFilter());
-        registrationBean.addUrlPatterns(urlPatterns);
-        return registrationBean;
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        String[] suffixWhitelist = {".css", ".js", ".png", ".jpg", ".woff2", ".map", ".ico", ".html"};
+        for (String suffix : suffixWhitelist) {
+            if (StringUtils.endsWithIgnoreCase(path, suffix)) {
+                return true;
+            }
+        }
+
+        String[] prefixWhitelist = {"/null/swagger-resources", "/swagger", "/v2/api-docs", "/webjars"};
+        for (String prefix : prefixWhitelist) {
+            if (StringUtils.startsWithIgnoreCase(path, prefix)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

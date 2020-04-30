@@ -1,13 +1,11 @@
-package com.ahao.spring.boot.datasources.config;
+package com.ahao.spring.boot.datasources.properties;
 
 import com.ahao.spring.boot.datasources.strategy.LoadBalanceStrategy;
 import com.ahao.spring.boot.datasources.strategy.PollingStrategy;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * 注意要开启 @EnableAutoConfiguration 注解
  */
-@ConfigurationProperties("spring.datasource.balance")
 public class BalanceDataSourceProperties {
     /**
      * 主库名称
