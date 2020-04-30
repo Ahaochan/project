@@ -20,6 +20,9 @@ zuul:
   host:
     socket-timeout-millis: 30000
     connect-timeout-millis: 30000
+  ribbon:
+    eager-load:
+      enabled: true
 
 server:
   port: 8080
