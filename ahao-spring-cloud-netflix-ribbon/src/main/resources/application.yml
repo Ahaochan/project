@@ -17,3 +17,6 @@ ribbon:
   ReadTimeout: 1000
   ConnectTimeout: 1000
   GZipPayload: true
+  OkToRetryOnAllOperations: true
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 1
