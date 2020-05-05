@@ -3,6 +3,9 @@ spring:
     name: "Ahao-App"
   profiles:
     active: dev
+  output:
+    ansi:
+      enabled: always
 logging:
 #  config: classpath:logback/logback-${spring.profiles.active}.xml
   config: classpath:logback/logback-dev.xml
