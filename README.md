@@ -21,6 +21,7 @@
   - [ahao-spring-boot-file-download](./ahao-spring-boot-file-download)(常用的文件下载实例, `word`、`excel`、`pdf`)
   - [ahao-spring-boot-i18n](./ahao-spring-boot-i18n)(简单的国际化实现)
   - [ahao-spring-boot-jpa](./ahao-spring-boot-jpa)(简单的`Spring Boot JPA`整合)
+  - [ahao-spring-boot-log4j2](./ahao-spring-boot-log4j2)(`log4j2`配置)
   - [ahao-spring-boot-mail](./ahao-spring-boot-mail)(简单的邮件客户端)
   - [ahao-spring-boot-mybatis-plus](./ahao-spring-boot-mybatis-plus)(简单集成`Mybatis Plus`)
   - [ahao-spring-boot-okhttp3](./ahao-spring-boot-okhttp3)(简单集成`OkHttp3`)

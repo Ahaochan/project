@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appenders>
+    <Console name="CONSOLE" target="SYSTEM_OUT" follow="true">
+        <PatternLayout pattern="${log.pattern.console}" />
+    </Console>
+    <RollingRandomAccessFile name="FILE_ERROR" fileName="${log.file.error}" filePattern="${log.file.error}-%3i.log.gz">
+        <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+        <PatternLayout>
+            <Pattern>${log.pattern.file}</Pattern>
+        </PatternLayout>
+        <Policies>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            <SizeBasedTriggeringPolicy size="250 MB"/>
+        </Policies>
+        <DefaultRolloverStrategy max="20"/>
+    </RollingRandomAccessFile>
+</appenders>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<loggers>
+    <logger name="org.apache.catalina.startup.DigesterFactory" level="error"/>
+    <logger name="org.apache.catalina.util.LifecycleBase" level="error" />
+    <logger name="org.apache.coyote.http11.Http11NioProtocol" level="warn" />
+    <logger name="org.apache.sshd.common.util.SecurityUtils" level="warn"/>
+    <logger name="org.apache.tomcat.util.net.NioSelectorPool" level="warn" />
+    <logger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="error" />
+    <logger name="org.hibernate.validator.internal.util.Version" level="warn" />
+    <logger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>
+    <root level="info">
+        <appenderRef ref="CONSOLE" />
+        <appenderRef ref="FILE_ERROR" />
+    </root>
+</loggers>

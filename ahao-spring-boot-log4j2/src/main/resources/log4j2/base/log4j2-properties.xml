@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+    <property name="app.name">ahao-spring-boot-log4j2</property>
+    <property name="app.profile">dev</property>
+
+    <property name="log.charset" value="UTF-8"/>
+    <property name="log.history.max" value="30"/>
+    <property name="log.path" value="LOG"/>
+    <property name="log.file.error" value="${log.path}/${app.name}_${app.profile}_$${date:yyyy-MM-dd}_error.log"/>
+
+    <property name="log.date" value="%d{yyyy-MM-dd HH:mm:ss.SSS}"/>
+    <property name="log.level" value="${LOG_LEVEL_PATTERN:-%5p}"/>
+    <property name="log.pid" value="${PID:-%pid}"/>
+    <property name="log.thread" value="[%15.15t]"/>
+    <property name="log.logger" value="%-40.40c{1.}"/>
+    <property name="log.message" value="%m"/>
+    <property name="log.exception" value="%n${LOG_EXCEPTION_CONVERSION_WORD:-%xwEx}"/> <!-- https://github.com/spring-projects/spring-boot/issues/15887#issuecomment-462130815 -->
+    <property name="mdc.req" value="%X{REQ:-}"/>
+
+    <property name="log.pattern.console">%clr{${log.date}}{faint} %clr{${log.level}} %clr{${log.pid}}{magenta} %clr{---}{faint} %clr{${log.thread}}{faint} %clr{${log.logger}}{cyan} %clr{:}{faint} ${log.message}${log.exception}</property>
+    <property name="log.pattern.file">${log.date} ${log.level} ${log.pid} --- ${log.thread} ${log.logger} : ${log.message}${log.exception}</property>
+</properties>

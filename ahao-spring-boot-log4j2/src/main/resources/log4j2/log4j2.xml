@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xi="http://www.w3.org/2001/XInclude"
+               strict="true" status="WARN" monitorInterval="30">
+    <xi:include href="base/log4j2-properties.xml" />
+    <xi:include href="base/log4j2-appender.xml" />
+    <xi:include href="base/log4j2-loggers.xml" />
+
+    <loggers>
+        <root level="debug">
+            <appenderRef ref="CONSOLE" />
+			<appenderRef ref="FILE_ERROR" />
+        </root>
+    </loggers>
+</configuration>
