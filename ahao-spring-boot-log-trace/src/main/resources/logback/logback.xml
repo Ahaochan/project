@@ -24,9 +24,24 @@
     <!-- ============================================= Appender 配置 ============================================= -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
+            <pattern>${log.pattern.console}</pattern>
+            <charset>${log.charset}</charset>
+        </encoder>
+    </appender>
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
             <pattern>${log.pattern.file}</pattern>
             <charset>${log.charset}</charset>
         </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/${log.context.name}_${log.profile}_%d{yyyy-MM-dd}_error.log</fileNamePattern>
+            <maxHistory>${log.history.max}</maxHistory>
+        </rollingPolicy>
     </appender>
     <!-- ============================================= Appender 配置 ============================================= -->
 
