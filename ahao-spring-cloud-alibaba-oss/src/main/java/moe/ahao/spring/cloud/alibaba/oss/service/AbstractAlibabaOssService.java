@@ -75,6 +75,7 @@ public abstract class AbstractAlibabaOssService implements InitializingBean, Ali
             String endpoint = ossProperties.getEndpoint();
             String newHost  = protocol + "://" + bucketName + "." + endpoint;
             bucketHostMap.put(bucketName, newHost);
+            host = newHost;
         }
         return host;
     }
