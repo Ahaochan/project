@@ -42,6 +42,7 @@
         <module>ahao-spring-boot-redis</module>
         <module>ahao-spring-boot-redission</module>
         <module>ahao-spring-boot-rocketmq</module>
+        <module>ahao-spring-boot-security</module>
         <module>ahao-spring-boot-shiro</module>
         <module>ahao-spring-boot-swagger</module>
         <module>ahao-spring-boot-validator</module>
@@ -66,6 +67,7 @@
         <module>ahao-spring-cloud-zookeeper</module>
         <module>ahao-spring-cloud-zuul</module>
         <module>ahao-web</module>
+
 
 
         <!--<module>ahao-forum-guitar</module>-->
