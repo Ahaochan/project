@@ -21,7 +21,7 @@ public class RabbitBeanPostProcessor implements BeanPostProcessor {
     }
 
     private void warpContainerFactory(AbstractRabbitListenerContainerFactory bean, String beanName) {
-        // bean.setAfterReceivePostProcessors();
+        // bean.setAfterReceivePostProcessors(); // 处理 @RabbitListener
     }
 
     private void warpRabbitTemplate(RabbitTemplate bean, String beanName) {
