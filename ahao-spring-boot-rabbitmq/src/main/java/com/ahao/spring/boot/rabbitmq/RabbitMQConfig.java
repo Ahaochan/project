@@ -1,8 +1,8 @@
 package com.ahao.spring.boot.rabbitmq;
 
-import com.ahao.spring.boot.rabbitmq.convert.JsonMessageConverter;
-import com.ahao.spring.boot.rabbitmq.processor.MessageProcessorCollector;
-import com.ahao.spring.boot.rabbitmq.processor.RabbitBeanPostProcessor;
+import com.ahao.mq.rabbit.convert.JsonMessageConverter;
+import com.ahao.mq.rabbit.processor.MessageProcessorCollector;
+import com.ahao.mq.rabbit.processor.RabbitBeanPostProcessor;
 import com.ahao.util.spring.mq.RabbitMQHelper;
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.CustomExchange;
