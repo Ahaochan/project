@@ -1,6 +1,6 @@
 package com.ahao.spring.cloud.hystrix.config;
 
-import com.ahao.spring.cloud.hystrix.concurrency.TransmitHystrixConcurrencyStrategy;
+import com.ahao.hystrix.TransmitHystrixConcurrencyStrategy;
 import com.netflix.hystrix.strategy.concurrency.HystrixConcurrencyStrategy;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
