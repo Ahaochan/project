@@ -1,4 +1,4 @@
-package com.ahao.spring.boot.rabbitmq;
+package com.ahao.spring.boot.rabbitmq.convert;
 
 import com.ahao.util.commons.io.JSONHelper;
 import com.ahao.util.commons.lang.BeanHelper;
