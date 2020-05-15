@@ -27,7 +27,7 @@ import java.util.Map;
 @EnableConfigurationProperties(RabbitProperties.class)
 
 @EnableRabbit
-public class RabbitMQConfig {
+public class RabbitConfig {
 
     @Bean
     public MessageConverter messageConverter() {

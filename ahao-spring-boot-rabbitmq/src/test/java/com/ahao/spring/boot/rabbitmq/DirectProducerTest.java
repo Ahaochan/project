@@ -4,7 +4,6 @@ import com.ahao.domain.entity.AjaxDTO;
 import com.ahao.domain.entity.BaseDO;
 import com.ahao.util.spring.SpringContextHolder;
 import com.ahao.util.spring.mq.RabbitMQHelper;
-import com.rabbitmq.client.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,16 +17,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {RabbitMQConfig.class, RabbitAutoConfiguration.class, SpringContextHolder.class, DirectConsumer.class})
+@ContextConfiguration(classes = {RabbitConfig.class, RabbitAutoConfiguration.class, SpringContextHolder.class, DirectConsumer.class})
 public class DirectProducerTest {
     @Autowired
     private RabbitTemplate rabbitTemplate;

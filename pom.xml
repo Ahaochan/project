@@ -65,6 +65,7 @@
         <module>ahao-spring-cloud-zookeeper</module>
         <module>ahao-spring-cloud-zuul</module>
         <module>ahao-web</module>
+        <module>ahao-spring-boot-xxljob</module>
 
 
         <!--<module>ahao-forum-guitar</module>-->
