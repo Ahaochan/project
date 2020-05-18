@@ -1,8 +1,8 @@
 package com.ahao.spring.boot.rabbitmq;
 
 import com.ahao.mq.rabbit.convert.JsonMessageConverter;
-import com.ahao.mq.rabbit.processor.MessageProcessorCollector;
 import com.ahao.mq.rabbit.processor.RabbitBeanPostProcessor;
+import com.ahao.mq.rabbit.processor.RabbitCollector;
 import com.ahao.util.spring.mq.RabbitMQHelper;
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.CustomExchange;
@@ -45,13 +45,13 @@ public class RabbitConfig {
     }
 
     @Bean
-    public MessageProcessorCollector messageProcessorCollector() {
-        MessageProcessorCollector messageProcessorCollector = new MessageProcessorCollector();
+    public RabbitCollector messageProcessorCollector() {
+        RabbitCollector messageProcessorCollector = new RabbitCollector();
         return messageProcessorCollector;
     }
 
     @Bean
-    public RabbitBeanPostProcessor rabbitBeanPostProcessor(MessageProcessorCollector collector) {
+    public RabbitBeanPostProcessor rabbitBeanPostProcessor(RabbitCollector collector) {
         RabbitBeanPostProcessor rabbitBeanPostProcessor = new RabbitBeanPostProcessor(collector);
         return rabbitBeanPostProcessor;
     }
