@@ -1,14 +1,17 @@
 package com.ahao.spring.boot.mybatis.plus;
 
-import com.ahao.spring.boot.Starter;
+import com.ahao.spring.boot.mybatis.plus.config.MyBatisPlusConfig;
 import com.ahao.spring.boot.mybatis.plus.module.entity.User;
 import com.ahao.spring.boot.mybatis.plus.module.enums.Sex;
 import com.ahao.spring.boot.mybatis.plus.module.mapper.UserMapper;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusLanguageDriverAutoConfiguration;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,7 +21,9 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = Starter.class)
+@ContextConfiguration(classes = {MyBatisPlusConfig.class,
+    DataSourceAutoConfiguration.class,
+    MybatisPlusAutoConfiguration.class, MybatisPlusLanguageDriverAutoConfiguration.class})
 @ActiveProfiles("test")
 class SampleTest {
 
