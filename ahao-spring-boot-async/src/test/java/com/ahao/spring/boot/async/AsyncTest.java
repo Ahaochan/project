@@ -1,6 +1,6 @@
 package com.ahao.spring.boot.async;
 
-import com.ahao.spring.boot.Starter;
+import com.ahao.spring.boot.async.config.AsyncConfig;
 import com.ahao.spring.boot.async.service.TestService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = Starter.class)
+@ContextConfiguration(classes = {AsyncConfig.class, TestService.class})
 public class AsyncTest {
     @Autowired
     private TestService testService;
