@@ -1,7 +1,7 @@
 package moe.ahao.spring.boot.okhttp3;
 
 import com.ahao.util.commons.io.JSONHelper;
-import moe.ahao.spring.boot.Starter;
+import moe.ahao.spring.boot.okhttp3.config.OkHttp3Config;
 import okhttp3.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = Starter.class)
+@ContextConfiguration(classes = {OkHttp3Config.class})
 class OkHttp3Test {
 
     @Autowired
