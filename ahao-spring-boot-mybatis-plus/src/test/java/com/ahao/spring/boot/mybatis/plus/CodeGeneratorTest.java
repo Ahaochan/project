@@ -1,7 +1,6 @@
 package com.ahao.spring.boot.mybatis.plus;
 
 import com.ahao.domain.entity.BaseDO;
-import com.ahao.spring.boot.Starter;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -13,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -25,8 +25,8 @@ import java.util.HashMap;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = Starter.class)
-@ActiveProfiles("mysql")
+@ContextConfiguration(classes = {DataSourceAutoConfiguration.class})
+@ActiveProfiles("test")
 public class CodeGeneratorTest {
 
     @Autowired
@@ -36,7 +36,7 @@ public class CodeGeneratorTest {
     public void generator() {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
-        String[] tableName = {"cl_after_sale_info"};
+        String[] tableName = {"user"};
 
         // 1. 数据源配置 https://mp.baomidou.com/config/generator-config.html#%E6%95%B0%E6%8D%AE%E6%BA%90-datasourceconfig-%E9%85%8D%E7%BD%AE
         DataSourceConfig dataSourceConfig = initDataSourceConfig(properties);
