@@ -47,6 +47,7 @@
   - [ahao-spring-boot-apollo](./ahao-spring-boot-apollo)(基于[`Apollo`](https://github.com/ctripcorp/apollo)配置中心的客户端)
   - [ahao-spring-boot-actuator](./ahao-spring-boot-actuator)(对`Spring`应用的监控)
   - [ahao-spring-boot-log-trace](./ahao-spring-boot-log-trace)(分布式日志打印实现)
+  - [ahao-spring-boot-xxljob](./ahao-spring-boot-xxljob)(分布式定时任务框架)
   - [ahao-spring-cloud-config-server](./ahao-spring-cloud-config-server)(`Config`统一配置中心客户端)
   - [ahao-spring-cloud-config-client](./ahao-spring-cloud-config-client)(`Config`统一配置中心)
   - [ahao-spring-cloud-eureka](./ahao-spring-cloud-eureka)(`Eureka`服务注册中心)
