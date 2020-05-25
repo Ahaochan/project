@@ -1,7 +1,15 @@
 spring:
   cloud:
     alicloud:
-      access-key:
-      secret-key:
+      access-key: 
+      secret-key: 
       oss:
-        endpoint: "oss-cn-hangzhou.aliyuncs.com"
+        authorization-mode: AK_SK
+        endpoint: "oss-cn-shenzhen.aliyuncs.com"
+        # https://help.aliyun.com/document_detail/32010.html
+        config:
+          max-connections: 1024
+          socket-timeout: 50000
+          connection-timeout: 50000
+          connection-request-timeout: -1
+          idle-connection-time: 60000
