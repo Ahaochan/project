@@ -1,6 +1,7 @@
 package com.ahao.spring.boot.rabbitmq;
 
 import com.rabbitmq.client.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.TreeSet;
 import java.util.concurrent.CountDownLatch;
 
 public class NativeTest {
@@ -38,7 +40,7 @@ public class NativeTest {
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel();) {
             // 3. 发送消息
-            String msg = "现在时间"+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+            String msg = "现在时间" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
             channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
         }
     }
@@ -77,27 +79,58 @@ public class NativeTest {
              Channel channel = connection.createChannel();) {
 
             // 3. 开启确认模式
-            CountDownLatch latch = new CountDownLatch(1);
+            int size = 10;
+            CountDownLatch latch = new CountDownLatch(size);
+            TreeSet<Long> confirmSet = new TreeSet<>(); // 记录未确认的 deliveryTag
+
             channel.confirmSelect();
             channel.addConfirmListener(new ConfirmListener() {
                 @Override
                 public void handleAck(long deliveryTag, boolean multiple) throws IOException {
-                    System.out.println("ACK, 消息唯一标识:"+deliveryTag+", multiple:"+multiple);
-                    latch.countDown();
+                    try {
+                        if(multiple) {
+                            System.out.println("消息唯一标识:" + deliveryTag + " 之前的消息都 ACK");
+                            confirmSet.headSet(deliveryTag-1).clear();
+                        } else {
+                            System.out.println("消息唯一标识:" + deliveryTag + " 消息 ACK");
+                            confirmSet.remove(deliveryTag);
+                        }
+                    } finally {
+                        latch.countDown();
+                    }
                 }
 
                 @Override
                 public void handleNack(long deliveryTag, boolean multiple) throws IOException {
-                    System.out.println("NACK, 消息唯一标识:"+deliveryTag+", multiple:"+multiple);
-                    latch.countDown();
+                    try {
+                        if(multiple) {
+                            System.out.println("消息唯一标识:" + deliveryTag + " 之前的消息都 NACK");
+                            confirmSet.headSet(deliveryTag-1).clear();
+                        } else {
+                            System.out.println("消息唯一标识:" + deliveryTag + " 消息 NACK");
+                            confirmSet.remove(deliveryTag);
+                        }
+
+                        if(confirmSet.contains(deliveryTag)) {
+                            // 从数据库捞记录重发消息
+                        }
+                    } finally {
+                        latch.countDown();
+                    }
                 }
             });
 
             // 4. 发送消息
-            String msg = "现在时间"+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
-            channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
+            for (int i = 0; i < size; i++) {
+                long deliveryTag = channel.getNextPublishSeqNo();
+                String msg = "deliveryTag: "+deliveryTag+", 现在时间" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+                channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
+                confirmSet.add(deliveryTag);
+                Thread.sleep(1000); // 延迟, 保证 multiple 为 false
+            }
 
             latch.await();
+            Assertions.assertTrue(confirmSet.isEmpty());
         }
     }
 
