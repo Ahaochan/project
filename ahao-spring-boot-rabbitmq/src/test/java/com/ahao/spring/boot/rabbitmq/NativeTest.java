@@ -22,6 +22,7 @@ public class NativeTest {
     private ConnectionFactory connectionFactory;
     private Connection connection;
     private Channel channel;
+
     @BeforeEach
     public void beforeEach() throws Exception {
         // 1. 建立连接工厂
@@ -162,6 +163,27 @@ public class NativeTest {
 
         boolean success = latch.await(10, TimeUnit.SECONDS);
         Assertions.assertTrue(confirmSet.isEmpty());
+        Assertions.assertTrue(success);
+    }
+
+    @Test
+    public void _return() throws Exception {
+        // 1. 开启 return
+        CountDownLatch latch = new CountDownLatch(1);
+        boolean mandatory = true; // true监听不可达消息, false则自动删除消息
+
+        channel.addReturnListener((replyCode, replyText, exchange, routingKey, properties, body) -> {
+            System.out.println("replyCode:[" + replyCode + "], replyText:[" + replyText + "], exchange:[" + exchange + "], routingKey:[" + routingKey + "], BasicProperties:[" + properties + "], body:[" + new String(body, StandardCharsets.UTF_8) + "]");
+            latch.countDown();
+        });
+
+        // 2. 发送消息
+        long deliveryTag = channel.getNextPublishSeqNo();
+        String msg = "deliveryTag: " + deliveryTag + ", 现在时间" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+        channel.basicPublish(EXCHANGE_NAME, "NULL_KEY", mandatory, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
+        // channel.basicPublish("NULL_EXCHANGE", ROUTING_KEY, mandatory, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
+
+        boolean success = latch.await(10, TimeUnit.SECONDS);
         Assertions.assertTrue(success);
     }
 }
