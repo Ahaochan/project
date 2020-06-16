@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * 直接消费队列的消费者
@@ -22,6 +23,7 @@ import java.util.Date;
 public class DirectConsumer {
     public static final String QUEUE_NAME = "ahao_test";
 
+    public static CountDownLatch latch;
     public static Object value;
 
     @RabbitHandler
@@ -37,6 +39,8 @@ public class DirectConsumer {
         } catch (Exception e) {
             e.printStackTrace();
             channel.basicNack(tag, false, false);
+        } finally {
+            latch.countDown();
         }
     }
 
@@ -53,6 +57,8 @@ public class DirectConsumer {
         } catch (Exception e) {
             e.printStackTrace();
             channel.basicNack(tag, false, false);
+        } finally {
+            latch.countDown();
         }
     }
 
@@ -69,6 +75,8 @@ public class DirectConsumer {
         } catch (Exception e) {
             e.printStackTrace();
             channel.basicNack(tag, false, false);
+        } finally {
+            latch.countDown();
         }
     }
 
@@ -85,6 +93,8 @@ public class DirectConsumer {
         } catch (Exception e) {
             e.printStackTrace();
             channel.basicNack(tag, false, false);
+        } finally {
+            latch.countDown();
         }
     }
 }
