@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.TreeSet;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public class NativeTest {
     public static final String EXCHANGE_NAME = "ahao-exchange";
@@ -68,7 +69,8 @@ public class NativeTest {
         });
 
         // 2. 等待消息消费后, 再关闭资源
-        latch.await();
+        boolean success = latch.await(10, TimeUnit.SECONDS);
+        Assertions.assertTrue(success);
     }
 
     @Test
@@ -158,7 +160,8 @@ public class NativeTest {
             Thread.sleep(1000); // 延迟, 保证 multiple 为 false
         }
 
-        latch.await();
+        boolean success = latch.await(10, TimeUnit.SECONDS);
         Assertions.assertTrue(confirmSet.isEmpty());
+        Assertions.assertTrue(success);
     }
 }

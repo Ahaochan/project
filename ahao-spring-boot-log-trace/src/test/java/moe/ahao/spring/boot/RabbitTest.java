@@ -64,7 +64,8 @@ public class RabbitTest {
         logger.debug("发送消息{}到{}", value, TestRabbitConsumer.QUEUE_NAME);
         RabbitMQHelper.send(TestRabbitConsumer.QUEUE_NAME, value);
 
-        TestRabbitConsumer.latch.await(10, TimeUnit.SECONDS);
+        boolean success = TestRabbitConsumer.latch.await(10, TimeUnit.SECONDS);
         Assertions.assertEquals(value, TestRabbitConsumer.value);
+        Assertions.assertTrue(success);
     }
 }
