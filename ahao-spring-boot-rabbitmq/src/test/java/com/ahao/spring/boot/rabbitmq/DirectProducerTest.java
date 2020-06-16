@@ -50,9 +50,10 @@ public class DirectProducerTest {
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.send(DirectConsumer.QUEUE_NAME, msg);
-        DirectConsumer.latch.await(10, TimeUnit.SECONDS);
+        boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
         Assertions.assertEquals(msg, DirectConsumer.value);
+        Assertions.assertTrue(success);
     }
 
     @Test
@@ -61,9 +62,10 @@ public class DirectProducerTest {
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.send(DirectConsumer.QUEUE_NAME, msg);
-        DirectConsumer.latch.await(10, TimeUnit.SECONDS);
+        boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
         Assertions.assertEquals(msg, DirectConsumer.value);
+        Assertions.assertTrue(success);
     }
 
     @Test
@@ -74,10 +76,11 @@ public class DirectProducerTest {
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.send(DirectConsumer.QUEUE_NAME, msg);
-        DirectConsumer.latch.await(10, TimeUnit.SECONDS);
+        boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
         BaseDO actual = (BaseDO) DirectConsumer.value;
         Assertions.assertNotNull(actual);
+        Assertions.assertTrue(success);
     }
 
     @Test
@@ -86,13 +89,14 @@ public class DirectProducerTest {
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.send(DirectConsumer.QUEUE_NAME, msg);
-        DirectConsumer.latch.await(10, TimeUnit.SECONDS);
+        boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
         AjaxDTO actual = (AjaxDTO) DirectConsumer.value;
         Assertions.assertNotNull(actual);
         Assertions.assertEquals(msg.getResult(), actual.getResult());
         Assertions.assertEquals(msg.getMsg(), actual.getMsg());
         Assertions.assertEquals(msg.getObj(), actual.getObj());
+        Assertions.assertTrue(success);
     }
 
     @Test
@@ -101,9 +105,10 @@ public class DirectProducerTest {
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.sendDelay(DirectConsumer.QUEUE_NAME, msg, 5000);
-        DirectConsumer.latch.await(10, TimeUnit.SECONDS);
+        boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
         Assertions.assertEquals(msg, DirectConsumer.value);
+        Assertions.assertTrue(success);
     }
 
     @Test
@@ -112,9 +117,10 @@ public class DirectProducerTest {
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.sendDelay(DirectConsumer.QUEUE_NAME, msg, 5000);
-        DirectConsumer.latch.await(10, TimeUnit.SECONDS);
+        boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
         Assertions.assertEquals(msg, DirectConsumer.value);
+        Assertions.assertTrue(success);
     }
 
     @Test
@@ -125,9 +131,10 @@ public class DirectProducerTest {
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.sendDelay(DirectConsumer.QUEUE_NAME, msg, 5000);
-        DirectConsumer.latch.await(10, TimeUnit.SECONDS);
+        boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
         BaseDO actual = (BaseDO) DirectConsumer.value;
+        Assertions.assertTrue(success);
     }
 
     @Test
@@ -136,13 +143,14 @@ public class DirectProducerTest {
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.sendDelay(DirectConsumer.QUEUE_NAME, msg, 5000);
-        DirectConsumer.latch.await(10, TimeUnit.SECONDS);
+        boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
         AjaxDTO actual = (AjaxDTO) DirectConsumer.value;
         Assertions.assertNotNull(actual);
         Assertions.assertEquals(msg.getResult(), actual.getResult());
         Assertions.assertEquals(msg.getMsg(), actual.getMsg());
         Assertions.assertEquals(msg.getObj(), actual.getObj());
+        Assertions.assertTrue(success);
     }
 
     @Test
@@ -159,12 +167,13 @@ public class DirectProducerTest {
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.send(DirectConsumer.QUEUE_NAME, msg);
-        DirectConsumer.latch.await(10, TimeUnit.SECONDS);
+        boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
         AjaxDTO actual = (AjaxDTO) DirectConsumer.value;
         Assertions.assertNotNull(actual);
         Assertions.assertEquals(msg.getResult(), actual.getResult());
         Assertions.assertEquals(msg.getMsg(), actual.getMsg());
+        Assertions.assertTrue(success);
         // =========================== Long 转为了 Integer ==============================
         Assertions.assertNotEquals(msg.getObj(), actual.getObj());
         // =========================== Long 转为了 Integer ==============================
