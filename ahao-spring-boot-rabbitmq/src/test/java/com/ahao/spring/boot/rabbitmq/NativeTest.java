@@ -70,7 +70,57 @@ public class NativeTest {
     }
 
     @Test
-    public void confirm() throws Exception {
+    public void simpleConfirm() throws Exception {
+        // 1. 建立连接工厂
+        ConnectionFactory factory = this.initFactory();
+
+        // 2. 获取连接, 获取 Channel
+        try (Connection connection = factory.newConnection();
+             Channel channel = connection.createChannel();) {
+
+            // 3. 开启确认模式
+            int size = 10;
+            channel.confirmSelect();
+
+            // 4. 发送消息
+            for (int i = 0; i < size; i++) {
+                long deliveryTag = channel.getNextPublishSeqNo();
+                String msg = "deliveryTag: " + deliveryTag + ", 现在时间" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+                channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
+                if (!channel.waitForConfirms()) {
+                    System.out.println("消息[" + msg + "]发送失败");
+                }
+            }
+        }
+    }
+
+    @Test
+    public void batchConfirm() throws Exception {
+        // 1. 建立连接工厂
+        ConnectionFactory factory = this.initFactory();
+
+        // 2. 获取连接, 获取 Channel
+        try (Connection connection = factory.newConnection();
+             Channel channel = connection.createChannel();) {
+
+            // 3. 开启确认模式
+            int size = 10;
+            channel.confirmSelect();
+
+            // 4. 发送消息
+            for (int i = 0; i < size; i++) {
+                long deliveryTag = channel.getNextPublishSeqNo();
+                String msg = "deliveryTag: " + deliveryTag + ", 现在时间" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+                channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
+            }
+            if (!channel.waitForConfirms()) {
+                System.out.println("消息发送失败");
+            }
+        }
+    }
+
+    @Test
+    public void asyncConfirm() throws Exception {
         // 1. 建立连接工厂
         ConnectionFactory factory = this.initFactory();
 
@@ -88,9 +138,9 @@ public class NativeTest {
                 @Override
                 public void handleAck(long deliveryTag, boolean multiple) throws IOException {
                     try {
-                        if(multiple) {
+                        if (multiple) {
                             System.out.println("消息唯一标识:" + deliveryTag + " 之前的消息都 ACK");
-                            confirmSet.headSet(deliveryTag-1).clear();
+                            confirmSet.headSet(deliveryTag - 1).clear();
                         } else {
                             System.out.println("消息唯一标识:" + deliveryTag + " 消息 ACK");
                             confirmSet.remove(deliveryTag);
@@ -103,15 +153,15 @@ public class NativeTest {
                 @Override
                 public void handleNack(long deliveryTag, boolean multiple) throws IOException {
                     try {
-                        if(multiple) {
+                        if (multiple) {
                             System.out.println("消息唯一标识:" + deliveryTag + " 之前的消息都 NACK");
-                            confirmSet.headSet(deliveryTag-1).clear();
+                            confirmSet.headSet(deliveryTag - 1).clear();
                         } else {
                             System.out.println("消息唯一标识:" + deliveryTag + " 消息 NACK");
                             confirmSet.remove(deliveryTag);
                         }
 
-                        if(confirmSet.contains(deliveryTag)) {
+                        if (confirmSet.contains(deliveryTag)) {
                             // 从数据库捞记录重发消息
                         }
                     } finally {
@@ -123,7 +173,7 @@ public class NativeTest {
             // 4. 发送消息
             for (int i = 0; i < size; i++) {
                 long deliveryTag = channel.getNextPublishSeqNo();
-                String msg = "deliveryTag: "+deliveryTag+", 现在时间" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+                String msg = "deliveryTag: " + deliveryTag + ", 现在时间" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
                 channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
                 confirmSet.add(deliveryTag);
                 Thread.sleep(1000); // 延迟, 保证 multiple 为 false
