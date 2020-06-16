@@ -60,12 +60,19 @@ public class NativeTest {
     public void consumer() throws Exception {
         // 1. 消费消息
         CountDownLatch latch = new CountDownLatch(1);
-        channel.basicQos(64);
-        channel.basicConsume(QUEUE_NAME, true, new DefaultConsumer(channel) {
+        channel.basicQos(0, 64, true); // prefetchSize, global 没有实现
+        channel.basicConsume(QUEUE_NAME, false, new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                System.out.println("接受到:" + new String(body));
-                latch.countDown();
+                try {
+                    System.out.println("接受到:" + new String(body));
+                    channel.basicAck(envelope.getDeliveryTag(), false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    channel.basicNack(envelope.getDeliveryTag(), false, false);
+                } finally {
+                    latch.countDown();
+                }
             }
         });
 
