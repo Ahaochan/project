@@ -1,8 +1,9 @@
 package moe.ahao.spring.cloud.stream.rocketmq;
 
-import moe.ahao.spring.cloud.Starter;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
+import com.alibaba.cloud.stream.binder.rocketmq.config.RocketMQBinderAutoConfiguration;
+import moe.ahao.spring.cloud.stream.rocketmq.base.BaseTest;
+import moe.ahao.spring.cloud.stream.rocketmq.base.TestConfig;
+import org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+@ContextConfiguration(classes = {TestConfig.class,
+    RocketMQAutoConfiguration.class, RocketMQBinderAutoConfiguration.class,})
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
