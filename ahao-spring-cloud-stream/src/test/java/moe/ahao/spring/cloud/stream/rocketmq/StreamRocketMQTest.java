@@ -5,66 +5,16 @@ import moe.ahao.spring.cloud.stream.rocketmq.base.BaseTest;
 import moe.ahao.spring.cloud.stream.rocketmq.base.TestConfig;
 import org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.cloud.stream.messaging.Processor;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.ErrorMessage;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {TestConfig.class,
     RocketMQAutoConfiguration.class, RocketMQBinderAutoConfiguration.class,})
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {Starter.class, StreamRocketMQTest.AhaoStreamListener.class})
 @ActiveProfiles("rocketmq")
-
-@EnableBinding({Processor.class})
-public class StreamRocketMQTest {
-    @Autowired
-    private Processor processor;
-
+public class StreamRocketMQTest extends BaseTest {
     @Test
-    public void test1() throws Exception {
-        int size = 10;
-        for (int i = 0; i < size; i++) {
-            Message<String> message = MessageBuilder.withPayload("payload-" + i).build();
-            processor.output().send(message);
-        }
-        Thread.sleep(5000);
-
-        AhaoStreamListener.result.sort(Comparator.comparing(String::toString));
-        for (int i = 0; i < size; i++) {
-            Assertions.assertEquals("payload-"+i, AhaoStreamListener.result.get(i));
-        }
-
-    }
-
-    @AfterEach
-    public void afterEach() {
-        AhaoStreamListener.result.clear();
-    }
-
-    public static class AhaoStreamListener {
-        public static final List<String> result = new ArrayList<>();
-
-        @StreamListener(Processor.INPUT)
-        public void receive(String message) {
-            System.out.println("接收到:" + message);
-            result.add(message);
-//            throw new IllegalArgumentException("异常测试");
-        }
-
-        @StreamListener("errorChannel")
-        public void error(ErrorMessage message) {
-            System.out.println("错误:"+message);
-        }
+    public void test() throws Exception {
+        super.test(10);
     }
 }
