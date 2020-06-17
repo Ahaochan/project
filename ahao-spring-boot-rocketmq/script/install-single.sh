@@ -10,16 +10,16 @@ export NAMESRV_ADDR=${IP}:9876
 cd /opt
 wget https://archive.apache.org/dist/rocketmq/4.6.0/rocketmq-all-4.6.0-bin-release.zip
 unzip rocketmq-all-4.6.0-bin-release.zip
-cd rocketmq-all-4.6.0-bin-release/
+cd /opt/rocketmq-all-4.6.0-bin-release/
 
 # 3. JVM 参数调整
-sed -i "s/Xms[[:digit:]]*g/Xms1g/g" bin/runserver.sh
-sed -i "s/Xmx[[:digit:]]*g/Xmx1g/g" bin/runserver.sh
-sed -i "s/Xmn[[:digit:]]*g/Xmn1g/g" bin/runserver.sh
+sed -i "s/Xms[[:digit:]]*g/Xms256m/g" bin/runserver.sh
+sed -i "s/Xmx[[:digit:]]*g/Xmx256m/g" bin/runserver.sh
+sed -i "s/Xmn[[:digit:]]*g/Xmn128m/g" bin/runserver.sh
 
-sed -i "s/Xms[[:digit:]]*g/Xms1g/g" bin/runbroker.sh
-sed -i "s/Xmx[[:digit:]]*g/Xmx1g/g" bin/runbroker.sh
-sed -i "s/Xmn[[:digit:]]*g/Xmn1g/g" bin/runbroker.sh
+sed -i "s/Xms[[:digit:]]*g/Xms128m/g" bin/runbroker.sh
+sed -i "s/Xmx[[:digit:]]*g/Xmx256m/g" bin/runbroker.sh
+sed -i "s/Xmn[[:digit:]]*g/Xmn256m/g" bin/runbroker.sh
 
 # 4. 启动 name server
 mkdir logs
