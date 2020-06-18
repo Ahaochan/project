@@ -38,7 +38,7 @@ public class NativeTest {
         channel = connection.createChannel();
 
         // 3. 创建 Exchange 和 Queue 并绑定
-        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT, true, false, false, null);
         channel.queueDeclare(QUEUE_NAME, true, false, false, null);
         channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY, null);
     }
