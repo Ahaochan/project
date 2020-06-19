@@ -51,13 +51,13 @@ public class NativeTest {
 
     @Test
     public void producer() throws Exception {
-        // 3. 发送消息
+        // 1. 发送消息
         String msg = "现在时间" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
         channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
     }
 
     @Test
-    public void consumer() throws Exception {
+    public void consumerPush() throws Exception {
         // 1. 消费消息
         CountDownLatch latch = new CountDownLatch(1);
         channel.basicQos(0, 64, true); // prefetchSize, global 没有实现
@@ -75,6 +75,30 @@ public class NativeTest {
                 }
             }
         });
+
+        // 2. 等待消息消费后, 再关闭资源
+        boolean success = latch.await(10, TimeUnit.SECONDS);
+        Assertions.assertTrue(success);
+    }
+
+    @Test
+    public void consumerPull() throws Exception {
+        // 1. 消费消息
+        CountDownLatch latch = new CountDownLatch(1);
+        channel.basicQos(0, 64, true); // prefetchSize, global 没有实现
+        GetResponse response = channel.basicGet(QUEUE_NAME, false);
+
+        Envelope envelope = response.getEnvelope();
+        byte[] body = response.getBody();
+        try {
+            System.out.println("接受到:" + new String(body));
+            channel.basicAck(envelope.getDeliveryTag(), false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            channel.basicNack(envelope.getDeliveryTag(), false, false);
+        } finally {
+            latch.countDown();
+        }
 
         // 2. 等待消息消费后, 再关闭资源
         boolean success = latch.await(10, TimeUnit.SECONDS);
