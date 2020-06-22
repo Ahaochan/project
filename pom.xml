@@ -19,6 +19,7 @@
     <modules>
         <module>ahao-btrace</module>
         <module>ahao-common-utils</module>
+        <module>ahao-docker</module>
         <module>ahao-mybatis-generator</module>
         <module>ahao-spring-boot-actuator</module>
         <module>ahao-spring-boot-admin</module>
@@ -67,7 +68,6 @@
         <module>ahao-spring-cloud-zookeeper</module>
         <module>ahao-spring-cloud-zuul</module>
         <module>ahao-web</module>
-
 
 
         <!--<module>ahao-forum-guitar</module>-->
