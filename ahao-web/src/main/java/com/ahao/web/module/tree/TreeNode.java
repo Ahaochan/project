@@ -6,9 +6,9 @@ public class TreeNode<I, C extends TreeNode<I, C>> {
     private I id;
     private I rootId;
     private I parentId;
+    private String idPath;
     private Boolean isLeaf;
     private Integer level;
-    private String relationLink;
 
     private List<C> childNodeList;
 
@@ -36,6 +36,14 @@ public class TreeNode<I, C extends TreeNode<I, C>> {
         this.parentId = parentId;
     }
 
+    public String getIdPath() {
+        return idPath;
+    }
+
+    public void setIdPath(String idPath) {
+        this.idPath = idPath;
+    }
+
     public Boolean getLeaf() {
         return isLeaf;
     }
@@ -50,14 +58,6 @@ public class TreeNode<I, C extends TreeNode<I, C>> {
 
     public void setLevel(Integer level) {
         this.level = level;
-    }
-
-    public String getRelationLink() {
-        return relationLink;
-    }
-
-    public void setRelationLink(String relationLink) {
-        this.relationLink = relationLink;
     }
 
     public List<C> getChildNodeList() {
