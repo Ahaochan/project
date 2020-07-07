@@ -1,12 +1,16 @@
 package com.ahao.spring.boot.rabbitmq;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,6 +29,11 @@ public class SpringTest {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @BeforeEach
+    public void beforeEach(@Value("${spring.rabbitmq.host}") String host) {
+        Assumptions.assumeTrue(StringUtils.isNotBlank(host));
+    }
 
     @Test
     public void confirm() throws Exception {

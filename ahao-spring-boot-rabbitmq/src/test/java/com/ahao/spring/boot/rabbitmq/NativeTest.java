@@ -1,10 +1,8 @@
 package com.ahao.spring.boot.rabbitmq;
 
 import com.rabbitmq.client.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -15,6 +13,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class NativeTest {
+    public static final String HOST = "";
     public static final String EXCHANGE_NAME = "ahao-exchange";
     public static final String ROUTING_KEY = "ahao-routing-key";
     public static final String QUEUE_NAME = "ahao-queue";
@@ -25,9 +24,11 @@ public class NativeTest {
 
     @BeforeEach
     public void beforeEach() throws Exception {
+        Assumptions.assumeTrue(StringUtils.isNotBlank(HOST));
+
         // 1. 建立连接工厂
         connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost("10.8.60.56");
+        connectionFactory.setHost(HOST);
         connectionFactory.setPort(5672);
         connectionFactory.setVirtualHost("/");
         connectionFactory.setUsername("guest");
@@ -45,8 +46,8 @@ public class NativeTest {
 
     @AfterEach
     public void afterEach() throws Exception {
-        channel.close();
-        connection.close();
+        if(channel != null) channel.close();
+        if(connection != null) connection.close();
     }
 
     @Test
