@@ -15,7 +15,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <p6spy.version>3.8.6</p6spy.version>
+        <p6spy.version>3.9.0</p6spy.version>
     </properties>
 
     <dependencies>
