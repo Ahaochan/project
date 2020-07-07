@@ -15,7 +15,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <apollo.version>1.5.1</apollo.version>
+        <apollo.version>1.6.0</apollo.version>
     </properties>
 
     <dependencies>
