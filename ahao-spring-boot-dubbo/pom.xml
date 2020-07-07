@@ -20,7 +20,7 @@
     </modules>
 
     <properties>
-        <dubbo.spring.version>2.7.4.1</dubbo.spring.version>
+        <dubbo.spring.version>2.7.7</dubbo.spring.version>
     </properties>
 
     <dependencyManagement>
