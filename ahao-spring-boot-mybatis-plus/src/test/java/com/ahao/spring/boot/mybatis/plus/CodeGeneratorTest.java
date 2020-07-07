@@ -26,7 +26,7 @@ import java.util.HashMap;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = {DataSourceAutoConfiguration.class})
-@ActiveProfiles("test")
+@ActiveProfiles("mysql")
 public class CodeGeneratorTest {
 
     @Autowired
@@ -36,7 +36,7 @@ public class CodeGeneratorTest {
     public void generator() {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
-        String[] tableName = {"user"};
+        String[] tableName = {"user"}; // show table status WHERE 1=1 AND NAME IN ('cl_transfer_queue_fail')
 
         // 1. 数据源配置 https://mp.baomidou.com/config/generator-config.html#%E6%95%B0%E6%8D%AE%E6%BA%90-datasourceconfig-%E9%85%8D%E7%BD%AE
         DataSourceConfig dataSourceConfig = initDataSourceConfig(properties);
