@@ -1,6 +1,5 @@
 package moe.ahao.spring.boot.okhttp3;
 
-import com.ahao.util.commons.io.JSONHelper;
 import moe.ahao.spring.boot.okhttp3.config.OkHttp3Config;
 import okhttp3.*;
 import org.junit.jupiter.api.Assertions;
@@ -16,14 +15,14 @@ import java.io.IOException;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = {OkHttp3Config.class})
-class OkHttp3Test {
+public class OkHttp3Test {
 
     @Autowired
     private OkHttpClient client;
 
     @Test
-    void get() {
-        String url = "https://api.github.com/users/Ahaochan";
+    public void get() {
+        String url = "https://bing.com";
         Request request = new Request.Builder()
             .url(url)
             .build();
@@ -33,10 +32,7 @@ class OkHttp3Test {
              ResponseBody body = response.body()) {
 
             Assertions.assertNotNull(body);
-
-            String login = JSONHelper.getString(body.string(), "login");
-
-            Assertions.assertEquals("Ahaochan", login);
+            System.out.println(body.string());
         } catch (IOException e) {
             e.printStackTrace();
             Assertions.fail(e.getMessage());
