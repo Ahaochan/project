@@ -84,7 +84,7 @@
 
         <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
         <spring-boot.admin.version>2.2.1</spring-boot.admin.version>
-        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <spring-cloud.alibaba.version>2.2.0.RELEASE</spring-cloud.alibaba.version>
         <spring.swagger.version>2.9.2</spring.swagger.version>
 
