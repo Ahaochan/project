@@ -4,14 +4,15 @@ import com.ahao.domain.entity.AjaxDTO;
 import com.ahao.domain.entity.BaseDO;
 import com.ahao.util.spring.SpringContextHolder;
 import com.ahao.util.spring.mq.RabbitMQHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.commons.util.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,7 +33,8 @@ public class DirectProducerTest {
     private DirectConsumer consumer;
 
     @BeforeEach
-    public void beforeEach() {
+    public void beforeEach(@Value("${spring.rabbitmq.host}") String host) {
+        Assumptions.assumeTrue(StringUtils.isNotBlank(host));
         Assertions.assertNotNull(rabbitTemplate);
         Assertions.assertNotNull(consumer);
 
