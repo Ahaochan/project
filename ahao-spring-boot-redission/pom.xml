@@ -14,7 +14,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <redisson.version>3.11.6</redisson.version>
+        <redisson.version>3.13.2</redisson.version>
         <embedded.redis.version>0.6</embedded.redis.version>
     </properties>
 
