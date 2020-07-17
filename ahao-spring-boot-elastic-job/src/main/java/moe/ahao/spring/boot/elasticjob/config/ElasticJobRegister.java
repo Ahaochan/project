@@ -21,8 +21,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -60,7 +62,7 @@ public class ElasticJobRegister implements InitializingBean, ApplicationContextA
     private void init(DefaultJobProperties defaultProperties, BaseJobProperties jobProperties) {
         String beanName = jobProperties.getBeanName();
         ElasticJob elasticJob = StringUtils.isEmpty(beanName) ? null : SpringContextHolder.getBean(jobProperties.getBeanName());
-        Class clazz = elasticJob == null ? null : elasticJob.getClass();
+        Class<?> clazz = elasticJob == null ? null : elasticJob.getClass();
 
         JobCoreConfiguration coreConfig = jobProperties.generateJobCoreConfig(defaultProperties);
         JobTypeConfiguration typeConfig = jobProperties.generateJobTypeConfig(coreConfig, clazz);
@@ -101,11 +103,22 @@ public class ElasticJobRegister implements InitializingBean, ApplicationContextA
         }
 
         // 3. 注册到 Spring Application Context
-        DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) ctx.getAutowireCapableBeanFactory();
-        defaultListableBeanFactory.registerBeanDefinition(jobProperties.getJobName() + "SpringJobScheduler", factory.getBeanDefinition());
+        String jobName = jobProperties.getJobName();
+        String beanName = jobName + "SpringJobScheduler";
+        this.registerBean(beanName, factory.getBeanDefinition());
 
         // 4. 启动定时任务
-        SpringJobScheduler springJobScheduler = SpringContextHolder.getBean(jobProperties.getJobName() + "SpringJobScheduler");
+        SpringJobScheduler springJobScheduler = SpringContextHolder.getBean(beanName);
         springJobScheduler.init();
+    }
+
+    private void registerBean(String beanName, AbstractBeanDefinition beanDefinition) {
+        BeanDefinitionRegistry registry = (BeanDefinitionRegistry) ctx.getAutowireCapableBeanFactory();
+
+        if(StringUtils.isBlank(beanName)) {
+            BeanDefinitionReaderUtils.registerWithGeneratedName(beanDefinition, registry);
+        } else {
+            registry.registerBeanDefinition(beanName, beanDefinition);
+        }
     }
 }
