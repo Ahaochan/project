@@ -112,7 +112,7 @@ public class ElasticJobRegister implements InitializingBean, ApplicationContextA
         }
 
         // 4. 启动定时任务
-        SpringJobScheduler springJobScheduler = SpringContextHolder.getBean(beanName);
+        SpringJobScheduler springJobScheduler = ctx.getBean(beanName, SpringJobScheduler.class);
         springJobScheduler.init();
     }
 
