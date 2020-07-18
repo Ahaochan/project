@@ -2,7 +2,7 @@ elastic-job:
   enabled: true
   zookeeper:
     server-lists: 106.52.162.150:2181,106.52.162.150:2182,106.52.162.150:2183
-    namespace: kms-backend-job-dev
+    namespace: my-dev
     base-sleep-time-milliseconds: 1000
     max-sleep-time-milliseconds: 3000
     max-retries: 3
