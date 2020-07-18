@@ -1,7 +1,6 @@
 package moe.ahao.spring.boot.elasticjob.config;
 
 import com.ahao.util.commons.lang.reflect.ClassHelper;
-import com.ahao.util.spring.SpringContextHolder;
 import com.dangdang.ddframe.job.api.ElasticJob;
 import com.dangdang.ddframe.job.config.JobCoreConfiguration;
 import com.dangdang.ddframe.job.config.JobTypeConfiguration;
@@ -60,7 +59,7 @@ public class ElasticJobRegister implements InitializingBean, ApplicationContextA
 
     private void init(DefaultJobProperties defaultProperties, BaseJobProperties jobProperties) {
         String beanName = jobProperties.getBeanName();
-        ElasticJob elasticJob = StringUtils.isEmpty(beanName) ? null : SpringContextHolder.getBean(jobProperties.getBeanName());
+        ElasticJob elasticJob = StringUtils.isEmpty(beanName) ? null : ctx.getBean(jobProperties.getBeanName(), ElasticJob.class);
         Class<?> clazz = elasticJob == null ? null : elasticJob.getClass();
 
         JobCoreConfiguration coreConfig = jobProperties.generateJobCoreConfig(defaultProperties);
