@@ -11,7 +11,11 @@
     <version>1.0.0</version>
 
     <artifactId>ahao-web</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
+
+    <properties>
+        <start-class>com.ahao.web.AhaoApplication</start-class>
+    </properties>
 
     <dependencies>
         <!--======================================================= 自定义模块 =======================================================-->
@@ -49,4 +53,13 @@
         </dependency>
         <!--======================================================= JSP相关 =======================================================-->
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
