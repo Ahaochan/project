@@ -18,7 +18,7 @@ spring:
     encoding:
       charset: UTF-8
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: com.ahao.util.commons.lang.time.MultiDateFormat
     default-property-inclusion: non_null # 不允许输出 null 值
     time-zone: GMT+8
     serialization:

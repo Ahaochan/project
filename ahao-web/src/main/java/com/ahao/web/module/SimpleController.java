@@ -6,10 +6,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/simple")
 public class SimpleController {
+
+    @PostMapping("/date")
+    public Date date(@RequestBody Date date) {
+        return date;
+    }
 
     @GetMapping("/path-{id}")
     public Integer path(@PathVariable Integer id) {
