@@ -57,6 +57,12 @@ public class SimpleController {
         return AjaxDTO.get(req.getResult(), req.getMsg() + msg, req.getObj());
     }
 
+    @PostMapping("/post5")
+    public AjaxDTO post5(@RequestBody AjaxDTO req) {
+        return req;
+    }
+
+
     @PostMapping("multipart1")
     public AjaxDTO multipart1(MultipartFile file) throws IOException {
         return AjaxDTO.success(new String(file.getBytes(), StandardCharsets.UTF_8));
