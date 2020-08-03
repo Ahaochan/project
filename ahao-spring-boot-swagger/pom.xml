@@ -41,5 +41,12 @@
             <version>${spring.swagger.version}</version>
         </dependency>
         <!--======================================================= Swagger =======================================================-->
+
+        <dependency>
+            <groupId>io.github.swagger2markup</groupId>
+            <artifactId>swagger2markup</artifactId>
+            <version>1.3.3</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

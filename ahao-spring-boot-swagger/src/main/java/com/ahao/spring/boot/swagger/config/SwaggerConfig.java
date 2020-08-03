@@ -49,7 +49,7 @@ public class SwaggerConfig {
                 .build();
 
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("全局文档")
+                // .groupName("全局文档")
                 .apiInfo(apiInfo)
                 .pathMapping("/api")   // Api链接前缀
                 .produces(defaultContentType) // 响应体(Response content type)
