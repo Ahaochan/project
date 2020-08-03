@@ -32,6 +32,7 @@
         <module>ahao-spring-boot-elastic-job</module>
         <module>ahao-spring-boot-file-download</module>
         <module>ahao-spring-boot-i18n</module>
+        <module>ahao-spring-boot-integration</module>
         <module>ahao-spring-boot-jpa</module>
         <module>ahao-spring-boot-jwt</module>
         <module>ahao-spring-boot-log4j2</module>
@@ -105,6 +106,8 @@
         <mybatis.generator.version>1.4.0</mybatis.generator.version>
         <mybatis.spring.boot.version>2.1.1</mybatis.spring.boot.version>
         <mybatis.plus.version>3.3.0</mybatis.plus.version>
+
+        <embedded.redis.version>0.6</embedded.redis.version>
     </properties>
 
     <repositories>
