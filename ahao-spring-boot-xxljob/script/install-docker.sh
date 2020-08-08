@@ -3,11 +3,11 @@
 db_ip="127.0.0.1"
 db_port="3306"
 
-db_url="jdbc:mysql://${db_ip}:${db_port}/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai"
+dn_container="mysql"
 db_username="root"
 db_password="root"
 
-docker run --name mysql -d -p ${db_port}:3306 \
+docker run --name ${dn_container} -d -p ${db_port}:3306 \
   --restart always \
   --privileged=true \
   -e MYSQL_ROOT_PASSWORD=root \
@@ -21,6 +21,7 @@ mysql -h ${db_ip} -P ${db_port} -u ${db_username} -p${db_password} < /tmp/xxl-jo
 
 # 3. 部署 xxl-job
 # https://hub.docker.com/r/xuxueli/xxl-job-admin/
-docker run -p 8080:8080 --name xxl-job-admin -d \
+db_url="jdbc:mysql://${dn_container}:${db_port}/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai"
+docker run --link mysql -p 8080:8080 --name xxl-job-admin -d \
     -e PARAMS="--spring.datasource.url=${db_url}  --spring.datasource.username=${db_username}  --spring.datasource.password=${db_password}" \
     xuxueli/xxl-job-admin:${version}
