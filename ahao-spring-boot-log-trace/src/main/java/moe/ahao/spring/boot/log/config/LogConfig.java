@@ -25,7 +25,7 @@ public class LogConfig {
     @Bean
     @ConditionalOnClass(Feign.class)
     @ConditionalOnBean(Client.class)
-    public TraceLogFeignInterceptor TraceLogFeignInterceptor() {
+    public TraceLogFeignInterceptor traceLogFeignInterceptor() {
         return new TraceLogFeignInterceptor();
     }
 
