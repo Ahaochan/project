@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 @Component
 public class DataFlowJobExample implements DataflowJob<Integer>, ElasticJobListenerCapable {
@@ -29,7 +28,7 @@ public class DataFlowJobExample implements DataflowJob<Integer>, ElasticJobListe
         List<Integer> data = new ArrayList<>();
         int len = RandomHelper.getInt(10000);
         for (int i = 0; i < len; i++) {
-            int number = new Random().nextInt() / 10000;
+            int number = RandomHelper.getInt(10000);
             data.add(number);
         }
 		return data;
