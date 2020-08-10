@@ -71,7 +71,7 @@ public class RedisTemplateManager implements IRedisManager, InitializingBean {
     @Override
     public Long dbSize(byte[] pattern) {
         Long dbSize = redisTemplate.execute(RedisServerCommands::dbSize);
-        return dbSize == null ? 0 : dbSize;
+        return dbSize == null ? Long.valueOf(0) : dbSize;
     }
 
     @Override
