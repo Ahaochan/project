@@ -48,7 +48,8 @@ public class AsyncTest {
 
         testService.executeException();
         Thread.sleep(3000);
-        String msg = baos.toString();
+
+        String msg = baos.toString(StandardCharsets.UTF_8.name());
         System.setOut(sout);
 
         Assertions.assertEquals("com.ahao.spring.boot.async.service.TestService#executeException(), 错误信息: 错误\r\n", msg);
