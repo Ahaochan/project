@@ -1,6 +1,7 @@
 package com.ahao.web.module;
 
 import com.ahao.spring.web.converter.MappingJackson2HttpMessageConverterRegister;
+import com.ahao.util.commons.lang.reflect.ReflectHelper;
 import com.ahao.web.AhaoApplication;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -36,7 +37,9 @@ public class PropertyNamingStrategyControllerTest {
     public void test() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
-        for (Map.Entry<PropertyNamingStrategy, MediaType> entry : MappingJackson2HttpMessageConverterRegister.strategyMediaTypeMap.entrySet()) {
+        Map<PropertyNamingStrategy, MediaType> map = ReflectHelper.getValue(MappingJackson2HttpMessageConverterRegister.class, "strategyMediaTypeMap");
+
+        for (Map.Entry<PropertyNamingStrategy, MediaType> entry : map.entrySet()) {
             PropertyNamingStrategy strategy = entry.getKey();
             MediaType mediaType = entry.getValue();
 
