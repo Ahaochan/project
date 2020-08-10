@@ -1,5 +1,6 @@
 package moe.ahao.spring.boot.elasticjob.job;
 
+import com.ahao.util.commons.lang.RandomHelper;
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.dataflow.DataflowJob;
 import com.dangdang.ddframe.job.lite.api.listener.ElasticJobListener;
@@ -26,7 +27,7 @@ public class DataFlowJobExample implements DataflowJob<Integer>, ElasticJobListe
     @Override
 	public List<Integer> fetchData(ShardingContext context) {
         List<Integer> data = new ArrayList<>();
-        int len = new Random().nextInt() / 10000;
+        int len = RandomHelper.getInt(10000);
         for (int i = 0; i < len; i++) {
             int number = new Random().nextInt() / 10000;
             data.add(number);

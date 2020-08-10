@@ -1,5 +1,6 @@
 package moe.ahao.spring.boot.elasticjob.job;
 
+import com.ahao.util.commons.lang.RandomHelper;
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;
 import com.dangdang.ddframe.job.lite.api.listener.ElasticJobListener;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 @Component
 public class SimpleJobExample implements SimpleJob, ElasticJobListenerCapable {
@@ -25,7 +25,7 @@ public class SimpleJobExample implements SimpleJob, ElasticJobListenerCapable {
 
     @Override
     public void execute(ShardingContext shardingContext) {
-        int number = new Random().nextInt() / 10000;
+        int number = RandomHelper.getInt(10000);
         List<Integer> primeFactors = resolvePrime(number);
         logger.info(number + " = " + StringUtils.join(primeFactors, "*"));
     }
