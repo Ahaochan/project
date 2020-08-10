@@ -27,6 +27,7 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -79,7 +80,7 @@ class WebServiceTest {
     private <T> T soap2Obj(String xml, Class clazz) {
         try {
             SOAPMessage message = MessageFactory.newInstance()
-                    .createMessage(null, new ByteArrayInputStream(xml.getBytes()));
+                    .createMessage(null, new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
             Unmarshaller um = JAXBContext.newInstance(clazz)
                     .createUnmarshaller();
             T entity = (T) um.unmarshal(message.getSOAPBody().extractContentAsDocument());

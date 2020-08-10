@@ -66,7 +66,7 @@ public class NativeTest {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 try {
-                    System.out.println("接受到:" + new String(body));
+                    System.out.println("接受到:" + new String(body, StandardCharsets.UTF_8));
                     channel.basicAck(envelope.getDeliveryTag(), false);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -92,7 +92,7 @@ public class NativeTest {
         Envelope envelope = response.getEnvelope();
         byte[] body = response.getBody();
         try {
-            System.out.println("接受到:" + new String(body));
+            System.out.println("接受到:" + new String(body, StandardCharsets.UTF_8));
             channel.basicAck(envelope.getDeliveryTag(), false);
         } catch (Exception e) {
             e.printStackTrace();

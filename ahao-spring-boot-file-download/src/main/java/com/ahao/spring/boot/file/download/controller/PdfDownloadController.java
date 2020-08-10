@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class PdfDownloadController {
             protected void prepareWriter(Map<String, Object> model, PdfWriter writer, HttpServletRequest request) throws DocumentException {
                 super.prepareWriter(model, writer, request);
                 writer.setPdfVersion(PdfWriter.VERSION_1_4); // 设置 PDF 版本
-                writer.setEncryption("userPassword".getBytes(), "ownerPassword".getBytes(), PdfWriter.ALLOW_SCREENREADERS, PdfWriter.STANDARD_ENCRYPTION_128); // 设置密码
+                writer.setEncryption("userPassword".getBytes(StandardCharsets.UTF_8), "ownerPassword".getBytes(StandardCharsets.UTF_8), PdfWriter.ALLOW_SCREENREADERS, PdfWriter.STANDARD_ENCRYPTION_128); // 设置密码
             }
 
             @Override

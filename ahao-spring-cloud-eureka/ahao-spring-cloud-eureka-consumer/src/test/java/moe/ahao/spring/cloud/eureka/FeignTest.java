@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -72,7 +73,7 @@ public class FeignTest {
     public void formData(String url) throws Exception {
         String msg = DateHelper.getNow("yyyy-MM-dd HH:mm:ss");
         AjaxDTO param = AjaxDTO.failure(msg, msg);
-        MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", msg.getBytes());
+        MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", msg.getBytes(StandardCharsets.UTF_8));
 
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
         String response = mockMvc.perform(multipart(url)
