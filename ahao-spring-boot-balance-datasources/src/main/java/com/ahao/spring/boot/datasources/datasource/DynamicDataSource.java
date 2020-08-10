@@ -2,7 +2,7 @@ package com.ahao.spring.boot.datasources.datasource;
 
 import com.ahao.spring.boot.datasources.DataSourceContextHolder;
 import com.ahao.spring.boot.datasources.properties.BalanceDataSourceProperties;
-import com.ahao.spring.boot.datasources.properties.DataSourceProperties;
+import com.ahao.spring.boot.datasources.properties.ExDataSourceProperties;
 import com.ahao.spring.boot.datasources.repository.DataSourcePropertiesRepository;
 import com.ahao.spring.boot.datasources.strategy.LoadBalanceStrategy;
 import com.ahao.util.commons.lang.reflect.ReflectHelper;
@@ -42,7 +42,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
     @Override
     public void afterPropertiesSet() {
         // 1. 保证数据源属性不为空
-        Map<String, DataSourceProperties> propertiesMap = repository.getDataSourceProperties();
+        Map<String, ExDataSourceProperties> propertiesMap = repository.getDataSourceProperties();
         if (propertiesMap.size() <= 0) {
             logger.error("请确保至少有一个数据源");
             throw new IllegalArgumentException("请确保至少有一个数据源");
@@ -86,7 +86,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource implements Init
         throw new IllegalArgumentException(errorMsg);
     }
 
-    public void setDataSource(String key, DataSourceProperties properties) {
+    public void setDataSource(String key, ExDataSourceProperties properties) {
         // 1. 参数校验
         if (StringUtils.isBlank(key) || properties == null) {
             String message = "数据源 key:" + key + " 配置错误, 请 debug 调试!";

@@ -1,7 +1,7 @@
 package com.ahao.spring.boot.datasources.repository;
 
 import com.ahao.spring.boot.datasources.properties.BalanceDataSourceProperties;
-import com.ahao.spring.boot.datasources.properties.DataSourceProperties;
+import com.ahao.spring.boot.datasources.properties.ExDataSourceProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -18,15 +18,15 @@ public abstract class DataSourcePropertiesDBImpl implements DataSourceProperties
 
     private String applicationName = "";
     private BalanceDataSourceProperties tenantDataSourceProperties;
-    private DataSourceProperties configDataSourceProperties;
+    private ExDataSourceProperties configDataSourceProperties;
 
-    public DataSourcePropertiesDBImpl(BalanceDataSourceProperties balanceDataSourceProperties, DataSourceProperties configDataSourceProperties) {
+    public DataSourcePropertiesDBImpl(BalanceDataSourceProperties balanceDataSourceProperties, ExDataSourceProperties configDataSourceProperties) {
         this.tenantDataSourceProperties = balanceDataSourceProperties;
         this.configDataSourceProperties = configDataSourceProperties;
     }
 
     @Override
-    public Map<String, DataSourceProperties> getDataSourceProperties() {
+    public Map<String, ExDataSourceProperties> getDataSourceProperties() {
         // 1. 从配置文件初始化配置数据库的数据源
         String url = configDataSourceProperties.getUrl();
         String username = configDataSourceProperties.getUsername();
@@ -34,14 +34,14 @@ public abstract class DataSourcePropertiesDBImpl implements DataSourceProperties
         String sql = this.querySQL();
 
         // 2. 使用原生JDBC连接, 解析数据
-        Map<String, DataSourceProperties> map = new HashMap<>();
+        Map<String, ExDataSourceProperties> map = new HashMap<>();
         try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement(sql);) {
             try (ResultSet rs = statement.executeQuery();) {
                 int i = 0;
                 while (rs.next()) {
                     String key = this.initKey(rs, i);
-                    DataSourceProperties properties = this.initProperties(rs, i);
+                    ExDataSourceProperties properties = this.initProperties(rs, i);
                     map.put(key, properties);
                     i++;
                 }
@@ -58,7 +58,7 @@ public abstract class DataSourcePropertiesDBImpl implements DataSourceProperties
     }
 
     protected abstract String initKey(ResultSet rs, int index) throws SQLException;
-    protected abstract DataSourceProperties initProperties(ResultSet rs, int index) throws SQLException;
+    protected abstract ExDataSourceProperties initProperties(ResultSet rs, int index) throws SQLException;
     protected abstract String querySQL();
 
     @Override

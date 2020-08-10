@@ -1,10 +1,10 @@
 package com.ahao.spring.boot.datasources.repository;
 
 
-import com.ahao.spring.boot.datasources.properties.DataSourceProperties;
+import com.ahao.spring.boot.datasources.properties.ExDataSourceProperties;
 
 import java.util.Map;
 
 public interface DataSourcePropertiesRepository {
-    Map<String, DataSourceProperties> getDataSourceProperties();
+    Map<String, ExDataSourceProperties> getDataSourceProperties();
 }
