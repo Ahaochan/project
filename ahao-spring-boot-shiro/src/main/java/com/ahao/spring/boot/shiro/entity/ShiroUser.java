@@ -1,6 +1,7 @@
 package com.ahao.spring.boot.shiro.entity;
 
 import com.ahao.domain.entity.BaseDO;
+import com.ahao.util.commons.CloneHelper;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.ExpiredCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -111,11 +112,11 @@ public class ShiroUser extends BaseDO implements Serializable {
     }
 
     public Date getExpireTime() {
-        return expireTime;
+        return CloneHelper.clone(expireTime);
     }
 
     public void setExpireTime(Date expireTime) {
-        this.expireTime = expireTime;
+        this.expireTime = CloneHelper.clone(expireTime);
     }
 
     @Override
