@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Future;
 
 @ExtendWith(SpringExtension.class)
@@ -43,7 +44,7 @@ public class AsyncTest {
         // 1. 重定向输出
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream sout = System.out;
-        System.setOut(new PrintStream(baos));
+        System.setOut(new PrintStream(baos, true, StandardCharsets.UTF_8.name()));
 
         testService.executeException();
         Thread.sleep(3000);
