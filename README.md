@@ -14,6 +14,7 @@
   - ~~ahao-invoice (企业增值税数据分析系统, 放弃维护)~~
   
 - Demo 级别
+  - [ahao-sonar](./ahao-sonar)(`sonar`例子)
   - [ahao-spring-boot-async](./ahao-spring-boot-async)(`Spring`线程池异步任务)
   - [ahao-spring-boot-cache](./ahao-spring-boot-cache)(注解缓存框架)
   - [ahao-spring-boot-druid](./ahao-spring-boot-druid)(阿里数据源`Druid`整合)

@@ -21,6 +21,7 @@
         <module>ahao-common-utils</module>
         <module>ahao-docker</module>
         <module>ahao-mybatis-generator</module>
+        <module>ahao-sonar</module>
         <module>ahao-spring-boot-actuator</module>
         <module>ahao-spring-boot-admin</module>
         <module>ahao-spring-boot-apollo</module>
