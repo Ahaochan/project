@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: ahao-xxl-job
+
+xxl:
+  job:
+    # 配置 https://www.xuxueli.com/xxl-job/#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9A%E6%89%A7%E8%A1%8C%E5%99%A8%E9%85%8D%E7%BD%AE
+    admin-addresses: http://192.168.1.2:8080/xxl-job-admin
+    # access-token:
+    app-name: ${spring.application.name}
+    # address:
+    # ip:
+    # port:
+    log-path: data/applogs/xxl-job/jobhandler
+    log-retention-days: -1 # 执行器日志文件保存天数
+
