@@ -47,13 +47,13 @@ public class ${table.controllerName} {
     }
 
     @PostMapping("/list")
-    @ApiOperation("查询售后单列表")
+    @ApiOperation("查询列表")
     public Object list(@Valid @RequestBody Object req) {
         return null;
     }
 
     @PostMapping("/save")
-    @ApiOperation("保存售后单")
+    @ApiOperation("保存")
     public Integer save(@Valid @RequestBody Object req) {
         Integer id = null;
         return id;
