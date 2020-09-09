@@ -98,7 +98,7 @@
 
         <alibaba.druid.version>1.1.21</alibaba.druid.version>
         <alibaba.easyexcel.version>2.1.6</alibaba.easyexcel.version><!-- TODO easyexcel 依赖 poi 3.17-->
-        <alibaba.fastjson.version>1.2.62</alibaba.fastjson.version> <!-- TODO fastjson 太多 bug 了 -->
+        <alibaba.fastjson.version>1.2.69</alibaba.fastjson.version> <!-- TODO fastjson 太多 bug 了 -->
         <alibaba.transmittable-thread-local.version>2.11.4</alibaba.transmittable-thread-local.version>
         <google.guava.versioahn>21.0</google.guava.versioahn>
         <google.protobuf.version>2.5.0</google.protobuf.version>
