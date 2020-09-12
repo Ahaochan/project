@@ -159,7 +159,7 @@ class RedisHelperTest {
     @Test
     void setEx() throws Exception {
         String msg = "hello_world";
-        RedisHelper.setEx(REDIS_KEY, msg, 2);
+        RedisHelper.setEx(REDIS_KEY, msg, 2, TimeUnit.SECONDS);
         Assertions.assertEquals(msg, RedisHelper.getString(REDIS_KEY));
         Thread.sleep(5000);
         Assertions.assertNull(RedisHelper.getString(REDIS_KEY));
