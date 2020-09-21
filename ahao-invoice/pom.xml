@@ -14,7 +14,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-security.version>4.2.3.RELEASE</spring-security.version>
+        <spring-security.version>4.2.16.RELEASE</spring-security.version>
         <thymeleaf.version>3.0.6.RELEASE</thymeleaf.version>
         <thymeleaf.security.version>3.0.2.RELEASE</thymeleaf.security.version>
     </properties>
@@ -71,7 +71,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.4.1.Final</version>
+            <version>6.0.19.Final</version>
         </dependency>
 
         <!-- jsoup -->
