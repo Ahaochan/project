@@ -15,23 +15,25 @@ public class TestCacheService {
      */
     @Cacheable(cacheNames = CACHE_KEY)
     public String execute(String id) {
+        System.out.println("读取数据"+id);
         return doExecute(id);
     }
 
     /**
      * 更新缓存
      */
-    @CachePut(cacheNames = CACHE_KEY)
+    @CachePut(cacheNames = CACHE_KEY, key = "#id")
     public String updateCache(String id) {
+        System.out.println("更新缓存"+id);
         return doExecute(id);
     }
 
     /**
      * 清除缓存
      */
-    @CacheEvict(cacheNames = CACHE_KEY)
+    @CacheEvict(cacheNames = CACHE_KEY, key = "#id")
     public void removeCache(String id) {
-        System.out.println("删除缓存 ");
+        System.out.println("删除缓存"+id);
     }
 
 

@@ -52,7 +52,6 @@ class CacheTest {
         Assertions.assertEquals(realData5, cacheData6);
 
         service.removeCache(id);
-        System.out.println("删除缓存: " + id);
     }
 
 }
