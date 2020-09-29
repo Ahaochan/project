@@ -1,5 +1,6 @@
 package moe.ahao.spring.cloud.openfeign.config;
 
+import feign.Retryer;
 import feign.codec.Decoder;
 import feign.optionals.OptionalDecoder;
 import org.springframework.beans.factory.ObjectFactory;
@@ -19,5 +20,10 @@ public class OpenFeignConfig {
     @ConditionalOnMissingBean
     public Decoder feignDecoder(ObjectFactory<HttpMessageConverters> messageConverters) {
         return new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(messageConverters)));
+    }
+
+    @Bean
+    public Retryer feignRetryer() {
+        return new Retryer.Default();
     }
 }
