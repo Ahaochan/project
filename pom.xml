@@ -47,6 +47,7 @@
         <module>ahao-spring-boot-redission</module>
         <module>ahao-spring-boot-rocketmq</module>
         <module>ahao-spring-boot-security</module>
+        <module>ahao-spring-boot-session</module>
         <module>ahao-spring-boot-shiro</module>
         <module>ahao-spring-boot-swagger</module>
         <module>ahao-spring-boot-validator</module>
@@ -114,14 +115,14 @@
 
     <repositories>
         <repository>
-            <id>center-repo</id>
-            <name>中央 Maven</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
-        </repository>
-        <repository>
             <id>aliyun-repo</id>
             <name>阿里云 Maven</name>
             <url>http://maven.aliyun.com/nexus/content/repositories/public/</url>
+        </repository>
+        <repository>
+            <id>center-repo</id>
+            <name>中央 Maven</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
     </repositories>
 
