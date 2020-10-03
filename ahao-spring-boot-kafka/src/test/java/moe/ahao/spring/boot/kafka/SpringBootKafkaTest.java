@@ -2,6 +2,7 @@ package moe.ahao.spring.boot.kafka;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.admin.*;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,9 @@ public class SpringBootKafkaTest {
         private static Object value;
 
         @KafkaListener(topics = KafkaConfig.TOPIC_NAME, id = KafkaConfig.GROUP_NAME)
-        public void consumer(String msg) throws Exception {
+        public void consumer(ConsumerRecord<String, String> record) throws Exception {
             try {
+                String msg = record.value();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 System.out.println("消息接收时间:" + sdf.format(new Date()));
                 System.out.println("接收到的消息:" + msg);
