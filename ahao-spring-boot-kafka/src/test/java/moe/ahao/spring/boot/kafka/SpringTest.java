@@ -49,6 +49,7 @@ public class SpringTest {
         Map<String, Object> producerProperties = new HashMap<>();
         producerProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, HOST);
         producerProperties.put(ProducerConfig.RETRIES_CONFIG, 0);
+        producerProperties.put(ProducerConfig.ACKS_CONFIG, 1);
         producerProperties.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
         producerProperties.put(ProducerConfig.LINGER_MS_CONFIG, 1);
         producerProperties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
