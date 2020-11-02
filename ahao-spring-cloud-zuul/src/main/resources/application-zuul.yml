@@ -20,6 +20,8 @@ zuul:
   host:
     socket-timeout-millis: 30000
     connect-timeout-millis: 30000
+    max-per-route-connections: 20
+    max-total-connections: 200
   ribbon:
     eager-load:
       enabled: true
