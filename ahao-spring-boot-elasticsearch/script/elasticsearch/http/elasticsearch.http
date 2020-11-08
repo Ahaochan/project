@@ -1,0 +1,40 @@
+### 在accounts这个index下创建type为person, id为1的记录
+POST http://192.168.153.131:19200/accounts/person/1
+Content-Type: application/json
+
+{
+    "name": "John",
+    "lastname": "Doe",
+    "job_description": "System Admin"
+}
+
+### 在accounts这个index下创建type为person, id为1的记录
+POST http://192.168.153.131:19200/accounts/person/1/_update
+Content-Type: application/json
+
+{
+    "doc": {
+        "job_description": "new System Admin"
+    }
+}
+
+### 查询accounts这个index下, type为person, id为1的记录
+GET http://192.168.153.131:19200/accounts/person/1
+### 查询accounts这个index下, type为person, 根据关键字搜索
+GET http://192.168.153.131:19200/accounts/person/_search?q=john
+### 查询accounts这个index下, type为person, 根据关键字搜索
+GET http://192.168.153.131:19200/accounts/person/_search
+Content-Type: application/json
+
+{
+    "query": {
+        "match": {
+            "name": "john"
+        }
+    }
+}
+
+### 在accounts这个index下删除type为person, id为1的记录
+DELETE http://192.168.153.131:19200/accounts/person/1
+### 删除accounts这个index
+DELETE http://192.168.153.131:19200/accounts
