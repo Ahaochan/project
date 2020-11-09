@@ -57,7 +57,7 @@ public class KafkaStreamTest {
     }
 
     @Test
-    public void stream() {
+    public void stream() throws Exception {
         // 1. 部署 steam 节点
         Properties streamProperties = initStreamProperties();
         StreamsBuilder builder = new StreamsBuilder();
@@ -66,6 +66,7 @@ public class KafkaStreamTest {
             .mapValues(v -> v.toLowerCase())
             .mapValues(v -> StringUtils.split(v, ' '))
             .flatMapValues(v -> Arrays.asList(v))
+            .peek((k, v) -> System.out.printf("peek: %s:%s%n", k, v))
             .groupBy((k, v) -> v)
             .count();
         count.toStream().to(TOPIC_OUT, Produced.with(Serdes.String(), Serdes.Long()));
