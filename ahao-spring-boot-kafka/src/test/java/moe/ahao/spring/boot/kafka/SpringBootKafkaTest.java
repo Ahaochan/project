@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -35,7 +36,7 @@ public class SpringBootKafkaTest {
         private static Object value;
 
         @KafkaListener(topics = KafkaConfig.TOPIC_NAME, id = KafkaConfig.GROUP_NAME)
-        public void consumer(ConsumerRecord<String, String> record) throws Exception {
+        public void consumer(ConsumerRecord<String, String> record, Acknowledgment ack) throws Exception {
             try {
                 String msg = record.value();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -44,10 +45,11 @@ public class SpringBootKafkaTest {
                 Thread.sleep(1000);
                 value = msg;
 
-                // channel.basicAck(tag, false);
+
+                ack.acknowledge();
             } catch (Exception e) {
                 e.printStackTrace();
-                // channel.basicNack(tag, false, false);
+                ack.nack(1000);
             } finally {
                 latch.countDown();
             }
