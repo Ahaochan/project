@@ -22,6 +22,6 @@ mysql -h ${db_ip} -P ${db_port} -u ${db_username} -p${db_password} < /tmp/xxl-jo
 # 3. 部署 xxl-job
 # https://hub.docker.com/r/xuxueli/xxl-job-admin/
 db_url="jdbc:mysql://${dn_container}:${db_port}/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai"
-docker run --link mysql -p 8080:8080 --name xxl-job-admin -d \
+docker run --link ${dn_container} -p 8080:8080 --name xxl-job-admin -d \
     -e PARAMS="--spring.datasource.url=${db_url}  --spring.datasource.username=${db_username}  --spring.datasource.password=${db_password}" \
     xuxueli/xxl-job-admin:${version}
