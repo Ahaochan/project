@@ -31,5 +31,17 @@ spring:
       location: ${java.io.tmpdir}
   banner:
     location: classpath:banner/banner-${spring.profiles.active}.txt
+  task:
+    execution:
+      pool:
+        allow-core-thread-timeout: true
+        core-size: 8
+        max-size: 128
+        keep-alive: 60s
+      thread-name-prefix: task-
+    scheduling:
+      pool:
+        size: 8
+      thread-name-prefix: scheduling-
 logging:
   config: classpath:logback/logback-${spring.profiles.active}.xml
