@@ -1,7 +1,7 @@
 package com.ahao.web.module.upload.service.impl;
 
 
-import com.ahao.web.exception.AhaoException;
+import com.ahao.exception.BizException;
 import com.ahao.web.module.upload.config.properties.UploadProperties;
 import com.ahao.web.module.upload.model.UploadDTO;
 import com.ahao.web.module.upload.service.UploadService;
@@ -32,11 +32,11 @@ public class UploadServiceLocalImpl implements UploadService {
     public UploadDTO base64img(String picture) {
         // 1. 判断 base 64 是否合法
         if(StringUtils.isEmpty(picture)){
-            throw AhaoException.create(HttpStatus.BAD_REQUEST, "非法的base64参数");
+            throw BizException.create(HttpStatus.BAD_REQUEST, "非法的base64参数");
         }
         String[] metaData = StringUtils.splitByWholeSeparator(picture, "base64,");
         if(metaData == null || metaData.length != 2) {
-            throw AhaoException.create(HttpStatus.BAD_REQUEST, "非法的base64参数");
+            throw BizException.create(HttpStatus.BAD_REQUEST, "非法的base64参数");
         }
 
         // 2. 获取文件格式
@@ -48,7 +48,7 @@ public class UploadServiceLocalImpl implements UploadService {
             case "data:image/x-icon;": suffix = ".ico"; break;
             case "data:image/gif;":    suffix = ".gif"; break;
             case "data:image/png;":    suffix = ".png"; break;
-            default:  throw AhaoException.create(HttpStatus.BAD_REQUEST, "上传格式错误!");
+            default:  throw BizException.create(HttpStatus.BAD_REQUEST, "上传格式错误!");
         }
 
         // 3. 生成文件名, 并写入数据
@@ -66,7 +66,7 @@ public class UploadServiceLocalImpl implements UploadService {
             IOUtils.write(bytes, os);
         } catch (IOException e) {
             logger.error("上传Base64图片错误!", e);
-            throw AhaoException.create(HttpStatus.INTERNAL_SERVER_ERROR, "上传base64图片错误!");
+            throw BizException.create(HttpStatus.INTERNAL_SERVER_ERROR, "上传base64图片错误!");
         }
         return result;
     }
@@ -84,7 +84,7 @@ public class UploadServiceLocalImpl implements UploadService {
             return UploadDTO.create(filePrefixPath + filename, originalFilename);
         } catch (IOException e) {
             logger.error("上传文件失败:", e);
-            throw AhaoException.create(HttpStatus.INTERNAL_SERVER_ERROR, "上传文件失败!");
+            throw BizException.create(HttpStatus.INTERNAL_SERVER_ERROR, "上传文件失败!");
         }
     }
 }
