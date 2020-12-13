@@ -43,13 +43,14 @@ public class SpringTest {
     public void beforeEach() throws Exception {
         Map<String, Object> producerProperties = new HashMap<>();
         producerProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, HOST);
-        producerProperties.put(ProducerConfig.RETRIES_CONFIG, 0);
-        producerProperties.put(ProducerConfig.ACKS_CONFIG, "1");
+        producerProperties.put(ProducerConfig.RETRIES_CONFIG, 3);
+        producerProperties.put(ProducerConfig.ACKS_CONFIG, "all");
         producerProperties.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
         producerProperties.put(ProducerConfig.LINGER_MS_CONFIG, 1);
         producerProperties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
         producerProperties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         producerProperties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
         producerFactory = new DefaultKafkaProducerFactory<>(producerProperties);
         template = new KafkaTemplate<>(producerFactory);
     }
@@ -132,5 +133,20 @@ public class SpringTest {
             latch.countDown();
         }
         Assertions.assertTrue(latch.await(10, TimeUnit.SECONDS));
+    }
+
+    @Test
+    public void transactional() {
+        String topic = KafkaConfig.TOPIC_NAME;
+        // 事务消息必须设置 ProducerConfig.RETRIES_CONFIG 和 ProducerConfig.ACKS_CONFIG
+        producerFactory.setTransactionIdPrefix("kafka_tx.");
+        KafkaTemplate<String, String> transactionalTemplate = new KafkaTemplate<>(producerFactory);
+        boolean success = transactionalTemplate.executeInTransaction(t -> {
+            t.send(topic, "msg1");
+            // int a = 1/0;
+            t.send(topic, "msg2");
+            return true;
+        });
+        Assertions.assertTrue(success);
     }
 }
