@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@EmbeddedKafka(ports = 9092)
+@EmbeddedKafka(count = 4, ports = {9092, 9093, 9094, 9095})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = {KafkaConfig.class, KafkaAutoConfiguration.class, SpringBootKafkaTest.TestConfig.class})
 

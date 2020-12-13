@@ -28,7 +28,7 @@ import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-@EmbeddedKafka(ports = 9092)
+@EmbeddedKafka(count = 4, ports = {9092, 9093, 9094, 9095})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @SpringBootConfiguration
 public class SpringTest {
