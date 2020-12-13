@@ -13,8 +13,10 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.Acknowledgment;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -89,7 +91,18 @@ public class SpringBootKafkaTest {
 
         TestConfig.latch = new CountDownLatch(1);
         // kafkaTemplate.send(KafkaConfig.TOPIC_NAME, KafkaConfig.GROUP_NAME, msg);
-        kafkaTemplate.send(KafkaConfig.TOPIC_NAME, msg);
+        kafkaTemplate.send(KafkaConfig.TOPIC_NAME, msg).addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+            @Override
+            public void onFailure(Throwable e) {
+                System.out.println("发送失败");
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onSuccess(SendResult<String, String> result) {
+                System.out.println("发送成功:" + result.toString());
+            }
+        });
         boolean success = TestConfig.latch.await(10, TimeUnit.SECONDS);
 
 
