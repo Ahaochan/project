@@ -1,0 +1,22 @@
+### GET 请求
+GET {{host}}/users/{{username}}
+Accept: application/vnd.github.v3+json
+
+> {%
+ client.test("请求成功", function () {
+    client.assert(response.status === 200, "响应码为:" + response.status);
+    client.assert(response.body.login === 'Ahaochan', "用户名为:" + response.body.login);
+    client.global.set("OAUTH-TOKEN", "获取的token可以在后面使用");
+ });
+ %}
+
+### POST 请求 JSON
+POST {{host}}/repos/{{username}}/{{repo}}/issues
+Accept: application/vnd.github.v3+json
+Content-Type: application/json
+Authorization: token {{OAUTH-TOKEN}}
+
+{
+    "title": "标题",
+    "body": "内容"
+}
