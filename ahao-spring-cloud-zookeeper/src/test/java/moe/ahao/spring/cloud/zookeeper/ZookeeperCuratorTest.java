@@ -8,6 +8,7 @@ import org.apache.curator.framework.api.CuratorWatcher;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.curator.framework.recipes.cache.NodeCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.retry.*;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
@@ -24,6 +25,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public class ZookeeperCuratorTest {
     public static final String connectString = "192.168.75.134:2181";
@@ -197,11 +200,10 @@ public class ZookeeperCuratorTest {
             pathChildrenCache.getListenable().addListener((client, event) -> {
                 switch (event.getType()) {
                     case INITIALIZED: System.out.println("子节点初始化完毕"); break;
-                    case CHILD_ADDED: System.out.println("添加子节点:"+ event.getData().getPath() +", 数据:" +new String(event.getData().getData(), StandardCharsets.UTF_8));
+                    case CHILD_ADDED: System.out.println("添加子节点:" + event.getData().getPath() + ", 数据:" + new String(event.getData().getData(), StandardCharsets.UTF_8)); break;
+                    case CHILD_REMOVED: System.out.println("删除子节点:" + event.getData().getPath());
                         break;
-                    case CHILD_REMOVED: System.out.println("删除子节点:"+ event.getData().getPath());
-                        break;
-                    case CHILD_UPDATED: System.out.println("修改子节点:"+ event.getData().getPath() +", 数据:" +new String(event.getData().getData(), StandardCharsets.UTF_8));
+                    case CHILD_UPDATED: System.out.println("修改子节点:" + event.getData().getPath() + ", 数据:" + new String(event.getData().getData(), StandardCharsets.UTF_8));
                         break;
                 }
             });
@@ -214,5 +216,44 @@ public class ZookeeperCuratorTest {
             zk.setData().forPath(path + "/child1", "new-data1".getBytes(StandardCharsets.UTF_8));
             zk.setData().forPath(path + "/child2", "new-data2".getBytes(StandardCharsets.UTF_8));
         }
+    }
+
+
+    private StringBuilder sb;
+    @Test
+    public void lock() throws Exception {
+        InterProcessMutex lock = new InterProcessMutex(zk, "/ahao-lock");
+
+        int n = 10;
+        sb = new StringBuilder();
+        CountDownLatch latch = new CountDownLatch(n);
+        Runnable runnable = () -> {
+            try {
+                lock.acquire();
+
+                StringBuilder copy = new StringBuilder(sb.toString());
+                copy.append("1");
+                sb = copy;
+
+                System.out.println("线程执行:" + Thread.currentThread().getName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    lock.release();
+                    latch.countDown();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        for (int i = 0; i < n; i++) {
+            new Thread(runnable).start();
+        }
+
+        boolean await = latch.await(10, TimeUnit.SECONDS);
+        Assertions.assertTrue(await);
+        Assertions.assertEquals(10, sb.length());
     }
 }

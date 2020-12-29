@@ -4,6 +4,7 @@ import com.ahao.util.spring.SpringContextHolder;
 import moe.ahao.spring.cloud.Starter;
 import moe.ahao.spring.cloud.zookeeper.config.HelloApi;
 import moe.ahao.spring.cloud.zookeeper.config.TestConfig;
+import org.apache.curator.framework.CuratorFramework;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,6 +28,9 @@ import java.util.List;
 @ActiveProfiles("test")
 public class ZookeeperTest {
     public static final String applicationName = "ZOOKEEPER-CLIENT";
+
+    @Autowired
+    private CuratorFramework curatorFramework;
 
     @Autowired
     private DiscoveryClient discoveryClient;
