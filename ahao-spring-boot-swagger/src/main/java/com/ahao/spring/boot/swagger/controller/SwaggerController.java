@@ -15,4 +15,9 @@ public class SwaggerController {
     public String swagger() {
         return "redirect:/swagger-ui.html";
     }
+
+    @GetMapping("/doc")
+    public String doc() {
+        return "redirect:/doc.html";
+    }
 }

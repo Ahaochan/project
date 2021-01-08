@@ -92,6 +92,7 @@
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
         <spring-cloud.alibaba.version>2.2.0.RELEASE</spring-cloud.alibaba.version>
         <spring.swagger.version>2.9.2</spring.swagger.version>
+        <spring.swagger.bootstrap.version>1.9.6</spring.swagger.bootstrap.version>
 
         <apache.commons.beanutils.version>1.9.4</apache.commons.beanutils.version>
         <apache.commons.collections4.version>4.4</apache.commons.collections4.version>

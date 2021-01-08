@@ -40,6 +40,11 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${spring.swagger.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>${spring.swagger.bootstrap.version}</version>
+        </dependency>
         <!--======================================================= Swagger =======================================================-->
 
         <dependency>
