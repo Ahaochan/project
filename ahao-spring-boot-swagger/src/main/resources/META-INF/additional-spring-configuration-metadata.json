@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "swagger.open",
+      "type": "java.lang.Boolean",
+      "description": "是否开启swagger."
+  }
+] }
