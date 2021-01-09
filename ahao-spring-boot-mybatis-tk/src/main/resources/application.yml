@@ -1,0 +1,8 @@
+mapper:
+  safe-delete: true
+  safe-update: true
+  mappers:
+    - moe.ahao.spring.boot.mybatis.tk.CommonMapper
+logging:
+  level:
+    root: debug
