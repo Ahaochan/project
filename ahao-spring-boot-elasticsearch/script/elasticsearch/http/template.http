@@ -1,0 +1,20 @@
+### 索引模版
+PUT {{host}}/_template/my_template
+Content-Type: application/json
+
+{
+  "index_patterns": ["te*", "bar*"],
+  "order": 0,
+  "settings": {
+    "number_of_shards": 1
+  },
+  "mappings": {
+  }
+}
+
+### 查看所有索引模版
+GET {{host}}/_template
+### 查看 my_template 索引模版
+GET {{host}}/_template/my_template
+### 删除 my_template 索引模版
+DELETE {{host}}/_template/my_template

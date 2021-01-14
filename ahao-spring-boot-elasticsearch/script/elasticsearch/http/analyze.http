@@ -1,0 +1,108 @@
+### 使用 standard 分词器分析指定文本
+POST {{host}}/_analyze
+Content-Type: application/json
+
+{
+    "analyzer": "standard",
+    "text": "hello world!"
+}
+
+### 使用自定义分词器分析指定文本
+POST {{host}}/_analyze
+Content-Type: application/json
+
+{
+    "char_filter": ["html_strip"],
+    "tokenizer": "standard",
+    "filter": ["lowercase"],
+    "text": "<a disabled>hello world!</a>"
+}
+
+### 使用分词器分析 accounts 索引下的 name 字段
+POST {{host}}/accounts/_analyze
+Content-Type: application/json
+
+{
+    "field": "name",
+    "text": "hello world!"
+}
+
+### 在 accounts 索引下自定义名为 custom_analyzer 的分词器
+PUT {{host}}/accounts
+Content-Type: application/json
+
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "custom_analyzer": {
+          "type": "custom",
+          "char_filter": ["html_strip"],
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    }
+  }
+}
+
+### 在 accounts 索引下自定义名为 custom_analyzer 的分词器
+# { "analyzer": "custom_analyzer", "text": "<a>hello world!</a>" }
+PUT {{host}}/accounts
+Content-Type: application/json
+
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "custom_analyzer": {
+          "type": "custom",
+          "char_filter": ["html_strip"],
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    }
+  }
+}
+
+### 在 accounts 索引下自定义名为 custom_analyzer 的分词器
+# { "analyzer": "custom_analyzer", "text": "I'm a :) person, and you?" }
+PUT {{host}}/accounts
+Content-Type: application/json
+
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "custom_analyzer": {
+          "type": "custom",
+          "char_filter": ["custom_char_filter"],
+          "tokenizer": "custom_tokenizer",
+          "filter": ["lowercase", "custom_filter"]
+        }
+      },
+      "tokenizer": {
+        "custom_tokenizer": {
+          "type": "pattern",
+          "pattern": "[ .,!?]"
+        }
+      },
+      "char_filter": {
+        "custom_char_filter": {
+          "type": "mapping",
+          "mappings": [
+            ":) => _happy_",
+            ":( => _sad_"
+          ]
+        }
+      },
+      "filter": {
+        "custom_filter": {
+          "type": "stop",
+          "stopwords": "_english_"
+        }
+      }
+    }
+  }
+}

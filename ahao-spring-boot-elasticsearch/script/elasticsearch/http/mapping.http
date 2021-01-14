@@ -1,0 +1,58 @@
+### 查看 accounts 索引的 mapping
+GET {{host}}/accounts/_mapping
+
+### 设置 accounts 索引的 mapping
+PUT {{host}}/accounts
+Content-Type: application/json
+
+{
+  "mappings": {
+    "dynamic": false,
+    "properties": {
+      "name": {
+        "type": "keyword",
+        "copy_to": "full_name",
+        "index": false
+      },
+      "lastname": {
+        "type": "keyword",
+        "copy_to": "full_name",
+        "index": false
+      },
+      "job_description": {
+        "type": "text"
+      },
+      "full_name": {
+        "type": "text"
+      }
+    }
+  }
+}
+
+### 设置 accounts 索引的 dynamic tempaltes
+PUT {{host}}/accounts
+Content-Type: application/json
+
+{
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "prefix_as_text": {
+          "match_mapping_type": "string",
+          "match": "text_*",
+          "mapping": {
+            "type": "text"
+          }
+        }
+      },
+      {
+        "all_as_keyword": {
+          "match_mapping_type": "string",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      }
+    ]
+  }
+}

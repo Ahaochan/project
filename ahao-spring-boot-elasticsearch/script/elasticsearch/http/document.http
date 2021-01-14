@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {"name": "John", "lastname": "Doe", "job_description": "System Admin"}
 
-### 在accounts这个index下创建type为person, id为1的记录
+### 在accounts这个index下更新type为person, id为1的记录
 POST {{host}}/accounts/person/1/_update
 Content-Type: application/json
 
@@ -22,8 +22,6 @@ Content-Type: application/json
 
 ### 在accounts这个index下删除type为person, id为1的记录
 DELETE {{host}}/accounts/person/1
-### 删除accounts这个index
-DELETE {{host}}/accounts
 
 ### 批量发送请求_bulk
 POST {{host}}/_bulk
@@ -33,9 +31,3 @@ GET {{host}}/_mget
 Content-Type: application/json
 
 {"docs": [{"_index": "accounts", "_type": "person", "_id": "1"}, {"_index": "accounts", "_type": "person", "_id": "2"}]}
-
-### 分词API
-POST {{host}}/_analyze
-Content-Type: application/json
-
-{"analyzer": "standard", "text": "hello world!"}

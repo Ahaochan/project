@@ -1,0 +1,20 @@
+### 查询所有索引
+GET {{host}}/_search
+### 查询index1索引
+GET {{host}}/index1/_search
+### 查询index1和index2索引
+GET {{host}}/index1,index2/_search
+### 使用通配符查询索引
+GET {{host}}/index*/_search
+
+### 使用 uri 的形式查询, 查询 index1 索引下 name 字段包含 hello 的所有 document
+GET {{host}}/index1/_search?q=name:hello
+### 使用 DSL 的形式查询, 查询 index1 索引下 name 字段包含 hello 的所有 document
+GET {{host}}/index1/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "term": {"name": "hello"}
+  }
+}
