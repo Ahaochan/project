@@ -1,6 +1,5 @@
 package com.ahao.web;
 
-import com.ahao.spring.bean.PackageBeanNameGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -16,9 +15,12 @@ public class AhaoApplication {
     private final static Logger logger = LoggerFactory.getLogger(AhaoApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(AhaoApplication.class);
-        app.setBeanNameGenerator(new PackageBeanNameGenerator());
-        app.run(args);
-        logger.info(AhaoApplication.class.getSimpleName() + " is success!");
+        try {
+            SpringApplication app = new SpringApplication(AhaoApplication.class);
+            app.run(args);
+            logger.info("{}启动成功!", AhaoApplication.class.getSimpleName());
+        } catch (Exception e) {
+            logger.error("{}启动失败!", AhaoApplication.class.getSimpleName(), e);
+        }
     }
 }

@@ -15,8 +15,12 @@ public class Starter {
 	private final static Logger logger = LoggerFactory.getLogger(Starter.class);
 
 	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(Starter.class);
-		app.run(args);
-		logger.info(Starter.class.getSimpleName() + " is success!");
+        try {
+            SpringApplication app = new SpringApplication(Starter.class);
+            app.run(args);
+            logger.info("{}启动成功!", Starter.class.getSimpleName());
+        } catch (Exception e) {
+            logger.error("{}启动失败!", Starter.class.getSimpleName(), e);
+        }
 	}
 }
