@@ -44,6 +44,7 @@
         <module>ahao-spring-boot-mybatis-plus</module>
         <module>ahao-spring-boot-mybatis-tk</module>
         <module>ahao-spring-boot-okhttp3</module>
+        <module>ahao-spring-boot-orika</module>
         <module>ahao-spring-boot-rabbitmq</module>
         <module>ahao-spring-boot-redis</module>
         <module>ahao-spring-boot-redission</module>
