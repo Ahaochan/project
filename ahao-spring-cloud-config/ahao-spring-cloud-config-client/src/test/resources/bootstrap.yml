@@ -1,8 +1,13 @@
 spring:
   application:
     name: CONFIG-CLIENT
+  profiles:
+    active: client
   cloud:
     config:
       uri: http://127.0.0.1:8887
+      # discovery:
+      #   enabled: true
+      #   service-id: CONFIG-SERVER
       profile: dev
       label: master

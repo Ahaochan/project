@@ -1,4 +1,4 @@
-package com.ahao.spring.cloud;
+package moe.ahao.spring.cloud;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

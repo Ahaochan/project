@@ -1,3 +1,13 @@
 spring:
-  profiles:
-    active: server
+  application:
+    name: CONFIG-SERVER
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/spring-cloud-samples/config-repo
+          username:
+          password:
+          basedir: @project.artifactId@/target/config
+server:
+  port: 8887

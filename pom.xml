@@ -63,8 +63,7 @@
         <module>ahao-spring-cloud-alibaba-nacos-config</module>
         <module>ahao-spring-cloud-alibaba-oss</module>
         <module>ahao-spring-cloud-alibaba-sidecar</module>
-        <module>ahao-spring-cloud-config-client</module>
-        <module>ahao-spring-cloud-config-server</module>
+        <module>ahao-spring-cloud-config</module>
         <module>ahao-spring-cloud-eureka</module>
         <module>ahao-spring-cloud-gateway</module>
         <module>ahao-spring-cloud-hystrix</module>
