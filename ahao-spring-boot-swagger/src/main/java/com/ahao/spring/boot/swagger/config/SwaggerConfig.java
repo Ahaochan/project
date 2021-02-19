@@ -1,39 +1,32 @@
 package com.ahao.spring.boot.swagger.config;
 
 import com.ahao.util.commons.lang.CollectionHelper;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.*;
-import springfox.documentation.schema.ModelRef;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.Parameter;
-import springfox.documentation.service.ResponseMessage;
+import springfox.documentation.schema.ScalarType;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-@Configuration
-@EnableSwagger2
-@ConditionalOnProperty(name = "swagger.open", havingValue = "true")
+@Configuration(proxyBeanMethods = false)
 public class SwaggerConfig {
 
-    private List<ResponseMessage> defaultGlobalResponseMessage = Arrays.asList(
-            new ResponseMessageBuilder().code(200).message("请求成功").responseModel(new ModelRef("String")).build(),
-            new ResponseMessageBuilder().code(404).message("链接不存在").responseModel(new ModelRef("String")).build()
+    private final List<Response> defaultGlobalResponseMessage = Arrays.asList(
+            new ResponseBuilder().code("200").description("请求成功").build(),
+            new ResponseBuilder().code("404").description("链接不存在").build()
     );
-    private Set<String> defaultContentType = CollectionHelper.toSet(MediaType.APPLICATION_JSON.getType());
+    private final Set<String> defaultContentType = CollectionHelper.toSet(MediaType.APPLICATION_JSON.getType());
 
-    private Parameter tokenParam = new ParameterBuilder().name("token").description("验证token")
-            .parameterType("header").required(false).modelRef(new ModelRef("String")).build();
+    private final RequestParameter tokenParam = new RequestParameterBuilder().name("token").description("验证token")
+            .in(ParameterType.HEADER).required(false).query(q -> q.model(m -> m.scalarModel(ScalarType.STRING))).build();
 
     @Bean
     public Docket globalDocket() {
@@ -54,12 +47,12 @@ public class SwaggerConfig {
                 .pathMapping("/api")   // Api链接前缀
                 .produces(defaultContentType) // 响应体(Response content type)
                 .consumes(defaultContentType) // 请求体(Parameter content type)
-                .globalOperationParameters(Collections.singletonList(tokenParam)) // 全局参数, token
-                .globalResponseMessage(RequestMethod.GET,   defaultGlobalResponseMessage)
-                .globalResponseMessage(RequestMethod.HEAD,  defaultGlobalResponseMessage)
-                .globalResponseMessage(RequestMethod.POST,  defaultGlobalResponseMessage)
-                .globalResponseMessage(RequestMethod.PUT,   defaultGlobalResponseMessage)
-                .globalResponseMessage(RequestMethod.PATCH, defaultGlobalResponseMessage)
+                .globalRequestParameters(Collections.singletonList(tokenParam)) // 全局参数, token
+                .globalResponses(HttpMethod.GET,   defaultGlobalResponseMessage)
+                .globalResponses(HttpMethod.HEAD,  defaultGlobalResponseMessage)
+                .globalResponses(HttpMethod.POST,  defaultGlobalResponseMessage)
+                .globalResponses(HttpMethod.PUT,   defaultGlobalResponseMessage)
+                .globalResponses(HttpMethod.PATCH, defaultGlobalResponseMessage)
 
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.ahao"))
@@ -87,12 +80,12 @@ public class SwaggerConfig {
                 .pathMapping("/api")   // Api链接前缀
                 .produces(defaultContentType) // 响应体(Response content type)
                 .consumes(defaultContentType) // 请求体(Parameter content type)
-                .globalOperationParameters(Collections.singletonList(tokenParam)) // 全局参数, token
-                .globalResponseMessage(RequestMethod.GET,   defaultGlobalResponseMessage)
-                .globalResponseMessage(RequestMethod.HEAD,  defaultGlobalResponseMessage)
-                .globalResponseMessage(RequestMethod.POST,  defaultGlobalResponseMessage)
-                .globalResponseMessage(RequestMethod.PUT,   defaultGlobalResponseMessage)
-                .globalResponseMessage(RequestMethod.PATCH, defaultGlobalResponseMessage)
+                .globalRequestParameters(Collections.singletonList(tokenParam)) // 全局参数, token
+                .globalResponses(HttpMethod.GET,   defaultGlobalResponseMessage)
+                .globalResponses(HttpMethod.HEAD,  defaultGlobalResponseMessage)
+                .globalResponses(HttpMethod.POST,  defaultGlobalResponseMessage)
+                .globalResponses(HttpMethod.PUT,   defaultGlobalResponseMessage)
+                .globalResponses(HttpMethod.PATCH, defaultGlobalResponseMessage)
 
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.ahao.spring.boot.swagger.controller"))
@@ -100,6 +93,4 @@ public class SwaggerConfig {
 
                 .build();
     }
-
-
 }

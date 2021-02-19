@@ -1,22 +1,18 @@
 package com.ahao.spring.cloud.zuul.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Primary
 @Configuration(proxyBeanMethods = false)
-@EnableSwagger2
-@ConditionalOnProperty(name = "swagger.open", havingValue = "true")
 public class SwaggerConfig implements SwaggerResourcesProvider {
     @Autowired
     private RouteLocator routeLocator;

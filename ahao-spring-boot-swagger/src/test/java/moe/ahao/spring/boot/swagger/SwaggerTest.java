@@ -20,20 +20,20 @@ import java.nio.file.Paths;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = Starter.class)
-public class SwaggerTest {
+class SwaggerTest {
     @LocalServerPort
     private int port;
 
     private String groupName = "default";
 
     @Test
-    public void asciiDoc() throws Exception {
+    void asciiDoc() throws Exception {
         MarkupLanguage language = MarkupLanguage.ASCIIDOC;
         this.generator(language);
     }
 
     @Test
-    public void markdown() throws Exception {
+    void markdown() throws Exception {
         MarkupLanguage language = MarkupLanguage.MARKDOWN;
         this.generator(language);
     }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
-@Api(value = "没用的属性", tags = {"功能分组1", "功能分组2"}, description = "分组Api描述")
+@Api(value = "没用的属性", tags = {"功能分组1", "功能分组2"})
 public class UserController {
 
     @ApiOperation(value = "@ApiOperation的简单使用", notes = "Api详细说明", hidden = false,

@@ -1,2 +1,3 @@
-swagger:
-  open: true
+springfox:
+  documentation:
+    enabled: true

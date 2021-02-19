@@ -26,6 +26,10 @@ zuul:
     eager-load:
       enabled: true
 
+springfox:
+  documentation:
+    enabled: true
+
 server:
   port: 8080
 logging:
