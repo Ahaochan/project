@@ -17,9 +17,13 @@
 
     <dependencies>
         <!--======================================================= 自定义模块 =======================================================-->
+<!--        <dependency>-->
+<!--            <groupId>com.ahao</groupId>-->
+<!--            <artifactId>ahao-common-utils</artifactId>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>com.ahao</groupId>
-            <artifactId>ahao-common-utils</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
         <!--======================================================= 自定义模块 =======================================================-->
 
@@ -37,5 +41,13 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
         <!--======================================================= Spring Cloud =======================================================-->
+
+        <!--======================================================= Swagger =======================================================-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${spring.swagger.version}</version>
+        </dependency>
+        <!--======================================================= Swagger =======================================================-->
     </dependencies>
 </project>

@@ -19,6 +19,7 @@ spring:
       discovery:
         locator:
           enabled: true # API网关开启服务注册发现
+          route-id-prefix: "_" # org.springframework.cloud.gateway.discovery.DiscoveryClientRouteDefinitionLocator#getRouteDefinitions
       default-filters:
         - name: Retry # org.springframework.cloud.gateway.filter.factory.RetryGatewayFilterFactory
           args:
@@ -27,7 +28,7 @@ spring:
       routes:
         - id: "my-api"
 #          uri: http://127.0.0.1:8761
-          uri: lb://EUREKA-SERVER
+          uri: lb://EUREKA-PROVIDER
           predicates:
             - Path=/api/** # 匹配/api开头的所有请求
 #            - Host=**.foo.org
@@ -41,10 +42,6 @@ spring:
             - StripPrefix=1 # 跳过/api
 #            - AddRequestParameter=foo, bar # 追加参数 ?foo=bar
 #            - PrefixPath=/mypath           # uri 追加 mypath 前缀
-
-
-  SecureHeaders GatewayFilter Factory
-  Retry GatewayFilter Factory
 server:
   port: 9090
 logging:
