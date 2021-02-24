@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-dependencies-zookeeper</artifactId>
+            <artifactId>dubbo-registry-zookeeper</artifactId>
         </dependency>
         <!--======================================================= Dubbo =======================================================-->
     </dependencies>

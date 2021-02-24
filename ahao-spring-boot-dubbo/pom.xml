@@ -28,12 +28,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-spring-boot-actuator</artifactId>
-                <version>${spring.dubbo.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-dependencies-zookeeper</artifactId>
+                <artifactId>dubbo-registry-zookeeper</artifactId>
                 <version>${spring.dubbo.version}</version>
             </dependency>
 
