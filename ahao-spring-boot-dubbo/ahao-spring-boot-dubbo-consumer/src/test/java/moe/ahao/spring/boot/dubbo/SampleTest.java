@@ -1,10 +1,8 @@
 package moe.ahao.spring.boot.dubbo;
 
 import moe.ahao.spring.boot.DubboConsumerApplication;
-import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = DubboConsumerApplication.class)
 public class SampleTest {
 
-    @Reference(version = ProviderService.LAST_VERSION, timeout = 3000, retries = 0)
+    @DubboReference(version = ProviderService.LAST_VERSION, timeout = 3000, retries = 0)
     private ProviderService providerService;
 
     @BeforeAll

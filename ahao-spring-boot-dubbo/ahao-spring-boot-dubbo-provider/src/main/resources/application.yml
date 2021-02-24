@@ -5,16 +5,14 @@ server:
   port: 8082
 dubbo:
   application:
-    id: ${spring.application.name}
-    name: ${dubbo.application.id}
+    name: ${spring.application.name}
     qos-enable: true
     qos-port: 20001
   scan:
     base-packages: moe.ahao.spring.boot.*
   protocol:
-    id: dubbo
-    name: ${dubbo.protocol.id}
+    name: dubbo
     port: 12345
   registry:
-    id: ${dubbo.application.id}-registry
-    address: zookeeper://192.168.42.129:2181
+    timeout: 10000
+    address: zookeeper://192.168.19.128:2181

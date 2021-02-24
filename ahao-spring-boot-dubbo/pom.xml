@@ -19,26 +19,22 @@
         <module>ahao-spring-boot-dubbo-consumer</module>
     </modules>
 
-    <properties>
-        <dubbo.spring.version>2.7.4.1</dubbo.spring.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-spring-boot-starter</artifactId>
-                <version>${dubbo.spring.version}</version>
+                <version>${spring.dubbo.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-spring-boot-actuator</artifactId>
-                <version>${dubbo.spring.version}</version>
+                <version>${spring.dubbo.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-dependencies-zookeeper</artifactId>
-                <version>${dubbo.spring.version}</version>
+                <version>${spring.dubbo.version}</version>
             </dependency>
 
             <dependency>

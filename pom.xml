@@ -96,6 +96,7 @@
         <spring-cloud.alibaba.version>2.2.0.RELEASE</spring-cloud.alibaba.version>
         <spring.swagger.version>3.0.0</spring.swagger.version>
         <spring.swagger.bootstrap.version>1.9.6</spring.swagger.bootstrap.version>
+        <spring.dubbo.version>2.7.8</spring.dubbo.version>
 
         <apache.commons.beanutils.version>1.9.4</apache.commons.beanutils.version>
         <apache.commons.collections4.version>4.4</apache.commons.collections4.version>
@@ -165,6 +166,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-dependencies-bom</artifactId>
+                <version>${spring.dubbo.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
