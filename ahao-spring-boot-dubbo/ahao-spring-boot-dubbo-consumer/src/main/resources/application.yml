@@ -15,4 +15,5 @@ dubbo:
     port: 12345
   registry:
     timeout: 10000
-    address: zookeeper://192.168.19.128:2181
+    # address: zookeeper://192.168.19.128:2181
+    address: nacos://192.168.19.128:8848
