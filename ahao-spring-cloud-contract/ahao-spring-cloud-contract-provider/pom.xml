@@ -45,6 +45,7 @@
                 <configuration>
                     <!-- MvcMockTest为生成本地测试案例的基类 -->
                     <baseClassForTests>moe.ahao.spring.cloud.contract.ContractTest</baseClassForTests>
+                    <testFramework>JUNIT5</testFramework>
                 </configuration>
             </plugin>
         </plugins>

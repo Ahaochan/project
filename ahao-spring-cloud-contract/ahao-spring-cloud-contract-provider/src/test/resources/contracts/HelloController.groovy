@@ -8,15 +8,15 @@ Contract.make {
         method GET()
         url('/hello') {
             queryParameters {
-                parameter("name", "ahao")
+                parameter("name", value(consumer(regex('.*'))))
             }
         }
     }
     response {
         status OK()
         headers {
-            contentType applicationJsonUtf8()
+            contentType textPlain()
         }
-        body("helloahao")
+        body("hello${fromRequest().query('name')}")
     }
 }
