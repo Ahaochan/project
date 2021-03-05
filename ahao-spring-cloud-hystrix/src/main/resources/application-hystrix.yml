@@ -22,3 +22,7 @@ feign:
       default:
         read-timeout: 30000
         connect-timeout: 30000
+
+# com.netflix.hystrix.HystrixCommandProperties
+# 隔离线程超时时间，默认1s
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 1234
