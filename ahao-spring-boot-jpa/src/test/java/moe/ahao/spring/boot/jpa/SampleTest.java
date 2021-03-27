@@ -3,6 +3,7 @@ package moe.ahao.spring.boot.jpa;
 import com.ahao.util.commons.io.JSONHelper;
 import moe.ahao.spring.boot.Starter;
 import moe.ahao.spring.boot.jpa.module.entity.User;
+import moe.ahao.spring.boot.jpa.module.entity.UserSpecifications;
 import moe.ahao.spring.boot.jpa.module.mapper.UserMapper;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.Assertions;
@@ -10,11 +11,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +38,9 @@ class SampleTest {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private EntityManager em;
 
     @Test
     void testNativeSql() throws Exception {
@@ -68,5 +83,46 @@ class SampleTest {
         User user3 = userMapper.getOne(user2.getId());
         Assertions.assertEquals(user1.getUsername(), user3.getUsername());
         Assertions.assertEquals(user1.getPassword(), user3.getPassword());
+    }
+
+    @Test
+    void testCriteria() {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+
+        Predicate username = builder.like(root.get("username"), "%user%");
+        query.where(username);
+        List<User> resultList = em.createQuery(query.select(root)).getResultList();
+        Assertions.assertEquals(5, resultList.size());
+    }
+
+    @Test
+    void testSpecification() {
+        Specification<User> specification = (Specification<User>) (root, criteriaQuery, criteriaBuilder) -> {
+            Predicate username = criteriaBuilder.like(root.get("username"), "%user%");
+            return username;
+        };
+        List<User> resultList = userMapper.findAll(specification);
+        Assertions.assertEquals(5, resultList.size());
+    }
+
+    @Test
+    void testSpecifications() {
+        Specification<User> specification = UserSpecifications.sexIn(1, 2)
+            .and(UserSpecifications.usernameAllLike("user"));
+        List<User> resultList = userMapper.findAll(specification);
+        Assertions.assertEquals(5, resultList.size());
+    }
+
+    @Test
+    void testPageAndSort() {
+        Pageable pageable = PageRequest.of(0, 2, Sort.by(Arrays.asList(
+            new Sort.Order(Sort.Direction.ASC, "id"),
+            new Sort.Order(Sort.Direction.DESC, "username"))));
+
+        Page<User> page = userMapper.findAll((root, criteriaQuery, criteriaBuilder) -> null, pageable);
+        Assertions.assertEquals(5, page.getTotalElements());
+        Assertions.assertEquals(2, page.getContent().size());
     }
 }

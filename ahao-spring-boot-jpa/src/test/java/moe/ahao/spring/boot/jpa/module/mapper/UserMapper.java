@@ -3,13 +3,14 @@ package moe.ahao.spring.boot.jpa.module.mapper;
 
 import moe.ahao.spring.boot.jpa.module.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
 
-public interface UserMapper extends JpaRepository<User, Long> {
+public interface UserMapper extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
     List<User> getUsersByUsernameLike(String like);
 
     @Query(value = "select ifnull(count(*), 0) from `user`", nativeQuery = true)
