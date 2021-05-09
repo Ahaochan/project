@@ -43,4 +43,6 @@ fi;
 redis-cli -h 127.0.0.1 -p ${PORT} -a ${PW}
 
 # 7. 删除产生的文件
+#redis-cli -h 127.0.0.1 -p ${PORT} -a ${PW} SHUTDOWN
+redis-cli -h 127.0.0.1 -p ${PORT} SHUTDOWN
 rm -rf /etc/init.d/redis_${PORT} /etc/redis/${PORT}.conf /var/redis/${PORT} /var/run/redis_${PORT}.pid
