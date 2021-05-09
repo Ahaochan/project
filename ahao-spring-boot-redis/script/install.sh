@@ -7,10 +7,9 @@ VERSION=6.2.2
 wget https://download.redis.io/releases/redis-${VERSION}.tar.gz
 tar xzf redis-${VERSION}.tar.gz
 cd redis-${VERSION}
-make
+make && make test && make install
 
 # 3. 开机时启动
-IP=$(hostname -i)
 PORT=6379
 cp utils/redis_init_script /etc/init.d/redis_${PORT}
 sed -i "s#REDISPORT=[[:digit:]]*#REDISPORT=${PORT}#g" /etc/init.d/redis_${PORT}
@@ -22,7 +21,7 @@ sed -i "s#^daemonize no#daemonize yes#g" /etc/redis/${PORT}.conf
 sed -i "s#^pidfile /var/run/redis_[[:digit:]]*.pid#pidfile /var/run/redis_${PORT}.pid#g" /etc/redis/${PORT}.conf
 sed -i "s#^port [[:digit:]]*#port ${PORT}#g" /etc/redis/${PORT}.conf
 sed -i "s#^dir .*#dir /var/redis/${PORT}#g" /etc/redis/${PORT}.conf
-sed -i "s#^bind .*#bind ${IP}#g" /etc/redis/${PORT}.conf
+sed -i "s#^bind .*#bind 127.0.0.1#g" /etc/redis/${PORT}.conf
 
 # 5. 主从配置
 PW="password"
