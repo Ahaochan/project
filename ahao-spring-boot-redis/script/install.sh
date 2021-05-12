@@ -1,13 +1,13 @@
 #!/bin/bash
 # 1. 安裝依赖
-apt-get install tcl
+apt-get install tcl make gcc -y
 
 # 2. 安装 Redis
 VERSION=6.2.2
 wget https://download.redis.io/releases/redis-${VERSION}.tar.gz
 tar xzf redis-${VERSION}.tar.gz
 cd redis-${VERSION}
-make && make test && make install
+make distclean && make && make test && make install
 
 # 3. 开机时启动
 PORT=6379
