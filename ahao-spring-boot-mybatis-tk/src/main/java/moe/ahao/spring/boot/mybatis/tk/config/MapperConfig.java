@@ -5,5 +5,5 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @Configuration(proxyBeanMethods = false)
 @MapperScan("moe.ahao.spring.boot.**.mapper")
-public class MapperConig {
+public class MapperConfig {
 }
