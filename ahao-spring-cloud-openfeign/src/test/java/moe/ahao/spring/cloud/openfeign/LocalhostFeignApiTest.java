@@ -1,9 +1,9 @@
 package moe.ahao.spring.cloud.openfeign;
 
-import com.ahao.domain.entity.AjaxDTO;
-import com.ahao.util.commons.io.JSONHelper;
-import com.ahao.util.commons.lang.RandomHelper;
+import moe.ahao.domain.entity.AjaxDTO;
 import moe.ahao.spring.cloud.Starter;
+import moe.ahao.util.commons.io.JSONHelper;
+import moe.ahao.util.commons.lang.RandomHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

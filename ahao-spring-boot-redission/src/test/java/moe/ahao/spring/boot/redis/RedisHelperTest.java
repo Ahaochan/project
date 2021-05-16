@@ -1,9 +1,9 @@
 package moe.ahao.spring.boot.redis;
 
-import com.ahao.util.spring.SpringContextHolder;
-import com.ahao.util.spring.redis.RedisHelper;
 import moe.ahao.spring.boot.redis.config.RedisConfig;
 import moe.ahao.spring.boot.redis.config.RedisExtension;
+import moe.ahao.util.spring.SpringContextHolder;
+import moe.ahao.util.spring.redis.RedisHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

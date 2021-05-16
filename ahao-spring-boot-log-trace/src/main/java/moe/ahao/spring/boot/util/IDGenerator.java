@@ -1,7 +1,7 @@
 package moe.ahao.spring.boot.util;
 
-import com.ahao.util.commons.lang.RandomHelper;
-import com.ahao.util.commons.lang.time.DateHelper;
+import moe.ahao.util.commons.lang.RandomHelper;
+import moe.ahao.util.commons.lang.time.DateHelper;
 
 public class IDGenerator {
     public static String generateID(String prefix) {

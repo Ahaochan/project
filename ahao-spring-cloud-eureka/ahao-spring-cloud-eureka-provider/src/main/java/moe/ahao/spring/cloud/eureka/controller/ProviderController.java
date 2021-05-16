@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.eureka.controller;
 
-import com.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.AjaxDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;

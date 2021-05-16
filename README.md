@@ -71,7 +71,7 @@
 2. `Shiro`用户登陆后会话标识未更新漏洞, 源码地址: [`LoginController`](https://github.com/Ahaochan/project/blob/master/ahao-web/src/main/java/com/ahao/rbac/shiro/LoginController.java#L86-L114)
 
 ## 文件上传
-`com.ahao.web.module.upload`
+`moe.ahao.web.module.upload`
 
 ## 阿里银行数据接口
-`com.ahao.web.module.alipay.bank`
+`moe.ahao.web.module.alipay.bank`

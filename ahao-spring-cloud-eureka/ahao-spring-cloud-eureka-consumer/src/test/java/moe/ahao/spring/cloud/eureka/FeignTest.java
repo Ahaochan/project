@@ -1,8 +1,8 @@
 package moe.ahao.spring.cloud.eureka;
 
-import com.ahao.domain.entity.AjaxDTO;
-import com.ahao.util.commons.io.JSONHelper;
-import com.ahao.util.commons.lang.time.DateHelper;
+import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.util.commons.io.JSONHelper;
+import moe.ahao.util.commons.lang.time.DateHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;

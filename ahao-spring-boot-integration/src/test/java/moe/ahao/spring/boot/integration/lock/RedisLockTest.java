@@ -1,9 +1,9 @@
 package moe.ahao.spring.boot.integration.lock;
 
 
-import com.ahao.util.spring.SpringContextHolder;
 import moe.ahao.spring.boot.Starter;
 import moe.ahao.spring.boot.config.RedisExtension;
+import moe.ahao.util.spring.SpringContextHolder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

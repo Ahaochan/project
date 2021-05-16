@@ -52,7 +52,7 @@ logging:
     org.springframework.boot.autoconfigure.web: debug
     reactor.netty: debug
     redisratelimiter: debug
-    com.ahao: debug
+    moe.ahao: debug
 management:
   endpoints:
     web:

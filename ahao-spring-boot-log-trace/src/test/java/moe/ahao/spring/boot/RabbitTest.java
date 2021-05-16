@@ -1,11 +1,11 @@
 package moe.ahao.spring.boot;
 
-import com.ahao.util.spring.SpringContextHolder;
-import com.ahao.util.spring.mq.RabbitMQHelper;
 import moe.ahao.spring.boot.dependency.TestConfig;
 import moe.ahao.spring.boot.dependency.TestRabbitConsumer;
 import moe.ahao.spring.boot.log.Constants;
 import moe.ahao.spring.boot.util.IDGenerator;
+import moe.ahao.util.spring.SpringContextHolder;
+import moe.ahao.util.spring.mq.RabbitMQHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;

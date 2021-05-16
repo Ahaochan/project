@@ -1,6 +1,5 @@
 package moe.ahao.spring.boot.elasticjob.config;
 
-import com.ahao.util.commons.lang.reflect.ClassHelper;
 import com.dangdang.ddframe.job.api.ElasticJob;
 import com.dangdang.ddframe.job.config.JobCoreConfiguration;
 import com.dangdang.ddframe.job.config.JobTypeConfiguration;
@@ -14,6 +13,7 @@ import moe.ahao.spring.boot.elasticjob.job.capable.JobEventTraceDataSourceCapabl
 import moe.ahao.spring.boot.elasticjob.properties.base.BaseJobProperties;
 import moe.ahao.spring.boot.elasticjob.properties.base.DefaultJobProperties;
 import moe.ahao.spring.boot.elasticjob.properties.base.ElasticAllJobProperties;
+import moe.ahao.util.commons.lang.reflect.ClassHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package moe.ahao.spring.boot.security.handler.logout;
 
-import com.ahao.domain.entity.AjaxDTO;
-import com.ahao.util.commons.io.JSONHelper;
+import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.util.commons.io.JSONHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * SpringBoot方式启动类
  * @author Ahaochan
  */
-@SpringBootApplication(scanBasePackages = {"moe.ahao", "com.ahao"})
+@SpringBootApplication(scanBasePackages = "moe.ahao")
 @EnableConfigurationProperties
 public class Starter {
     private final static Logger logger = LoggerFactory.getLogger(Starter.class);

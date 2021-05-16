@@ -1,11 +1,11 @@
 package moe.ahao.spring.boot.elasticjob.job;
 
-import com.ahao.util.commons.lang.RandomHelper;
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;
 import com.dangdang.ddframe.job.lite.api.listener.ElasticJobListener;
 import moe.ahao.spring.boot.elasticjob.job.capable.ElasticJobListenerCapable;
 import moe.ahao.spring.boot.elasticjob.listener.ElasticJobLogListener;
+import moe.ahao.util.commons.lang.RandomHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,8 @@
 package moe.ahao.spring.cloud.eureka.controller;
 
-import com.ahao.domain.entity.AjaxDTO;
-import com.ahao.util.commons.io.IOHelper;
+import moe.ahao.domain.entity.AjaxDTO;
 import moe.ahao.spring.cloud.eureka.EurekaConsumerApplication;
+import moe.ahao.util.commons.io.IOHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.core.io.Resource;

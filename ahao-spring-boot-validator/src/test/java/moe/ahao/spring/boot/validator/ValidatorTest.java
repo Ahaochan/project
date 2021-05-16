@@ -1,9 +1,9 @@
 package moe.ahao.spring.boot.validator;
 
-import com.ahao.util.commons.io.JSONHelper;
 import moe.ahao.spring.boot.Starter;
 import moe.ahao.spring.boot.validator.dependency.NestedObj;
 import moe.ahao.spring.boot.validator.dependency.User;
+import moe.ahao.util.commons.io.JSONHelper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

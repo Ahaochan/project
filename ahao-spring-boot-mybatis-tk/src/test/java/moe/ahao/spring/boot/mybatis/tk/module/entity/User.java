@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.mybatis.tk.module.entity;
 
-import com.ahao.domain.entity.BaseDO;
+import moe.ahao.domain.entity.BaseDO;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import tk.mybatis.mapper.annotation.KeySql;

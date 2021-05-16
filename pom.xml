@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.ahao</groupId>
+    <groupId>moe.ahao</groupId>
     <artifactId>ahao-all</artifactId>
     <version>1.0.0</version>
 
@@ -71,7 +71,7 @@
         <module>ahao-spring-cloud-hystrix</module>
         <module>ahao-spring-cloud-netflix-ribbon</module>
         <module>ahao-spring-cloud-openfeign</module>
-        <module>ahao-spring-cloud-security-oauth2</module>
+        <!-- <module>ahao-spring-cloud-security-oauth2</module> -->
         <module>ahao-spring-cloud-sleuth</module>
         <module>ahao-spring-cloud-stream</module>
         <module>ahao-spring-cloud-zookeeper</module>
@@ -138,7 +138,7 @@
         <dependencies>
             <!--======================================================= 自定义模块 =======================================================-->
             <dependency>
-                <groupId>com.ahao</groupId>
+                <groupId>moe.ahao</groupId>
                 <artifactId>ahao-common-utils</artifactId>
                 <version>1.0.0</version>
             </dependency>

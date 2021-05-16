@@ -18,7 +18,7 @@ spring:
 
 mybatis:
   mapperLocations: classpath*:mapper/**/*.xml
-  type-handlers-package: com.ahao.mybatis.handler
+  type-handlers-package: moe.ahao.mybatis.handler
   configuration:
     #mybatis开启驼峰自动转换
     map-underscore-to-camel-case: true

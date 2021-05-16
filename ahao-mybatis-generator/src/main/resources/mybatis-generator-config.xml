@@ -38,7 +38,7 @@
             <property name="constructorBased" value="false"/>  <!-- 生成构造方法 -->
             <property name="enableSubPackages" value="false"/> <!-- 根据 schema 创建一个包 -->
             <property name="immutable" value="false"/>         <!-- 不创建 final 类 -->
-            <property name="rootClass" value="com.ahao.domain.entity.BaseDO"/> <!-- 实体类继承自 BaseDO -->
+            <property name="rootClass" value="moe.ahao.domain.entity.BaseDO"/> <!-- 实体类继承自 BaseDO -->
             <property name="trimStrings" value="false"/>                       <!-- String getter 是否调用 trim() -->
         </javaModelGenerator>
 
@@ -60,7 +60,7 @@
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
             <property name="constructorBased" value="false"/>  <!-- 生成构造方法 -->
             <property name="immutable" value="false"/>         <!-- 不创建 final 类 -->
-            <property name="rootClass" value="com.ahao.domain.entity.BaseDO"/> <!-- 实体类继承自 BaseDO -->
+            <property name="rootClass" value="moe.ahao.domain.entity.BaseDO"/> <!-- 实体类继承自 BaseDO -->
             <property name="rootInterface" value=""/>             <!-- Mapper 类继承自 -->
             <property name="useActualColumnNames" value="false"/> <!-- 使用驼峰命名法 -->
 

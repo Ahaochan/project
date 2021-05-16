@@ -1,9 +1,9 @@
 package moe.ahao.spring.cloud.zookeeper;
 
-import com.ahao.util.spring.SpringContextHolder;
 import moe.ahao.spring.cloud.Starter;
 import moe.ahao.spring.cloud.zookeeper.config.HelloApi;
 import moe.ahao.spring.cloud.zookeeper.config.TestConfig;
+import moe.ahao.util.spring.SpringContextHolder;
 import org.apache.curator.framework.CuratorFramework;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;

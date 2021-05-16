@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>ahao-all</artifactId>
-        <groupId>com.ahao</groupId>
+        <groupId>moe.ahao</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,13 +14,13 @@
     <packaging>jar</packaging>
 
     <properties>
-        <start-class>com.ahao.web.AhaoApplication</start-class>
+        <start-class>moe.ahao.web.AhaoApplication</start-class>
     </properties>
 
     <dependencies>
         <!--======================================================= 自定义模块 =======================================================-->
         <dependency>
-            <groupId>com.ahao</groupId>
+            <groupId>moe.ahao</groupId>
             <artifactId>ahao-common-utils</artifactId>
         </dependency>
         <!--======================================================= 自定义模块 =======================================================-->

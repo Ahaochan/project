@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud;
 
-import com.ahao.util.commons.lang.time.DateHelper;
+import moe.ahao.util.commons.lang.time.DateHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;

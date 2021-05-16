@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.eureka.controller;
 
-import com.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.AjaxDTO;
 import moe.ahao.spring.cloud.eureka.EurekaConsumerApplication;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;

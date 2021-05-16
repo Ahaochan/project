@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.jpa.module.entity;
 
-import com.ahao.domain.entity.BaseDO;
+import moe.ahao.domain.entity.BaseDO;
 
 import javax.persistence.*;
 import java.io.Serializable;

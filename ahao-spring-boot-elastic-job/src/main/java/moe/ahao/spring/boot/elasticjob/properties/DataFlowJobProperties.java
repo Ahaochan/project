@@ -1,10 +1,10 @@
 package moe.ahao.spring.boot.elasticjob.properties;
 
-import com.ahao.util.commons.lang.reflect.ClassHelper;
 import com.dangdang.ddframe.job.config.JobCoreConfiguration;
 import com.dangdang.ddframe.job.config.JobTypeConfiguration;
 import com.dangdang.ddframe.job.config.dataflow.DataflowJobConfiguration;
 import moe.ahao.spring.boot.elasticjob.properties.base.BaseJobProperties;
+import moe.ahao.util.commons.lang.reflect.ClassHelper;
 
 public class DataFlowJobProperties extends BaseJobProperties {
     private boolean streamingProcess = false;

@@ -2,5 +2,5 @@ spring:
   datasource:
     balance:
       primary: master
-      load-balance-strategy: com.ahao.spring.boot.datasources.strategy.PollingStrategy
+      load-balance-strategy: moe.ahao.spring.boot.datasources.strategy.PollingStrategy
       group-by: "_"

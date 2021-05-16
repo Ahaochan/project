@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.openfeign.config;
 
-import com.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.AjaxDTO;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

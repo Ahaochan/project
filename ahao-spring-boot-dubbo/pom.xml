@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.ahao</groupId>
+        <groupId>moe.ahao</groupId>
         <artifactId>ahao-all</artifactId>
         <relativePath>../pom.xml</relativePath>
         <version>1.0.0</version>
@@ -38,7 +38,7 @@
             </dependency>
 
             <dependency>
-                <groupId>com.ahao</groupId>
+                <groupId>moe.ahao</groupId>
                 <artifactId>ahao-spring-boot-dubbo-api</artifactId>
                 <version>1.0.0</version>
             </dependency>

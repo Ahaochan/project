@@ -1,5 +1,5 @@
 mybatis-plus:
-  type-enums-package: com.ahao.spring.boot.**.enums
+  type-enums-package: moe.ahao.spring.boot.**.enums
   global-config:
     db-config:
       id-type: auto

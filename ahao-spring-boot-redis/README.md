@@ -5,13 +5,13 @@
 
 # 配置
 核心的配置都由`spring-data-redis`提供了, 这里没做什么配置.
-通过[`AOP`](./src/main/java/com/ahao/spring/boot/redis/aop/RedisCacheAOP.java)拦截
+通过[`AOP`](src/main/java/moe/ahao/spring/boot/redis/aop/RedisCacheAOP.java)拦截
 
 1. 如果缓存命中, 则直接返回缓存
 1. 如果缓存未命中, 则查询`DB`后, 存入缓存, 再返回结果
 
 # 使用
-只要配置好`Redis`地址, 然后使用[`@Redis`](./src/main/java/com/ahao/spring/boot/redis/annotation/Redis.java)注解修饰要做缓存的方法即可.
+只要配置好`Redis`地址, 然后使用[`@Redis`](src/main/java/moe/ahao/spring/boot/redis/annotation/Redis.java)注解修饰要做缓存的方法即可.
 
 ```java
 // https://github.com/Ahaochan/project/blob/master/ahao-spring-boot-redis/src/main/java/com/ahao/spring/boot/redis/annotation/Redis.java#L8-L15

@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.validator.exception;
 
-import com.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.AjaxDTO;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

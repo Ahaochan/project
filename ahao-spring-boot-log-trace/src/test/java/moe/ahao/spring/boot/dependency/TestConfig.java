@@ -1,9 +1,9 @@
 package moe.ahao.spring.boot.dependency;
 
-import com.ahao.util.spring.mq.RabbitMQHelper;
 import moe.ahao.spring.boot.log.mq.RabbitMDCPublishPostProcessor;
 import moe.ahao.spring.boot.log.mq.RabbitMDCReceivePostProcessor;
 import moe.ahao.spring.boot.log.thread.MDCTaskDecorator;
+import moe.ahao.util.spring.mq.RabbitMQHelper;
 import org.springframework.amqp.core.CustomExchange;
 import org.springframework.amqp.core.Exchange;
 import org.springframework.amqp.rabbit.config.AbstractRabbitListenerContainerFactory;
