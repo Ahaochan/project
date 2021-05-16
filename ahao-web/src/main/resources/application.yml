@@ -7,6 +7,7 @@ server:
     max-threads: 200
     max-connections: 10000
     accept-count: 100
+  max-http-header-size: 8KB # 每个请求都会创建一个8KB大小的byte[], org.apache.coyote.http11.Http11InputBuffer.java:698
 
 # =================================== Spring 通用配置 ==========================================
 spring:

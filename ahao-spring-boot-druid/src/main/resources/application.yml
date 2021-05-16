@@ -25,9 +25,9 @@ spring:
       # 连接池配置
       initial-size: 20 # 连接池初始化连接数量
       min-idle: 5      # 连接池最小连接数量
-      max-active: 35   # 连接池最大连接数量
+      max-active: 20   # 连接池最大连接数量
       # 时间配置
-      max-wait: 60000  # 获取连接最大等待时长, 单位是毫秒
+      max-wait: 1200  # 获取连接最大等待时长, 单位是毫秒
       time-between-eviction-runs-millis: 60000 # 定时检测需要关闭的空闲连接, 单位是毫秒
       min-evictable-idle-time-millis:  30000   # 配置一个连接在池中最小生存的时间, 单位是毫秒
 
