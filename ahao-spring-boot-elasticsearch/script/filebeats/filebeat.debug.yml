@@ -1,0 +1,8 @@
+filebeat:
+  inputs: # 6.3之后, filebeat.prospectors修改为filebeat.inputs
+    - input_type: stdin
+output:
+  console:
+    pretty: true
+
+# echo 123 | ./filebeat -e -c filebeat.debug.yml

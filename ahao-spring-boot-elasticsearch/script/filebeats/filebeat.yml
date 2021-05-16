@@ -1,17 +1,22 @@
-filebeat.inputs:
-  - type: log
+filebeat:
+  inputs:
+    - input_type: log
+      paths:
+        - /var/log/apache/httpd-*.log
+    - input_type: log
+      paths:
+        - /var/log/messages
+        - /var/log/*.log
+output:
+  console:
+    enabled: false
+    pretty: true
+  elasticsearch:
+    enabled: false
+    hosts: ["http://127.0.0.1:9200"]
+    username: "admin"
+    password: "admin"
+  kafka:
     enabled: true
-    paths:
-      - /var/log/hadoop-hdfs/lihm.log
-    multiline:
-      pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}'
-      negate: true
-      match: after
-
-output.kafka:
-  enabled: true
-  hosts: ["127.0.0.1:9092"]
-  topic: test
-
-logging.level: error
-name: 100.73.12.124
+    hosts: ["127.0.0.1:9092"]
+    topic: test
