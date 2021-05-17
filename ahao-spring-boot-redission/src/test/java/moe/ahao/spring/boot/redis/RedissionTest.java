@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, RedissonAutoConfiguration.class, SpringContextHolder.class})
 @ActiveProfiles("test-redis")
-class RedisHelperTest {
+class RedissionTest {
     private static final String REDIS_KEY = "key";
 
     @Autowired
