@@ -2,9 +2,11 @@ package moe.ahao.spring.boot.mybatis.plus.config;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.baomidou.mybatisplus.core.parser.ISqlParser;
-import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.apache.ibatis.reflection.MetaObject;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -27,31 +29,36 @@ public class MyBatisPlusConfig {
         return new MetaObjectHandler() {
             @Override
             public void insertFill(MetaObject metaObject) {
-                this.setInsertFieldValByName("createTime", new Date(), metaObject);
-                this.setInsertFieldValByName("updateTime", new Date(), metaObject);
+                this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
+                // this.strictUpdateFill(metaObject, "createTime", Date::new, Date.class);
+                // this.fillStrategy(metaObject, "createTime", new Date());
             }
 
             @Override
             public void updateFill(MetaObject metaObject) {
-                this.setUpdateFieldValByName("updateTime", new Date(), metaObject);
+                // this.strictInsertFill(metaObject, "updateTime", Date.class, new Date());
+                this.strictUpdateFill(metaObject, "updateTime", Date::new, Date.class);
+                // this.fillStrategy(metaObject, "updateTime", new Date());
             }
         };
     }
 
     /**
-     * 阻止恶意的 SQL 语句执行
-     * @see <a href="https://mp.baomidou.com/guide/block-attack-sql-parser.html">攻击 SQL 阻断解析器</a>
+     * @see <a href="https://mp.baomidou.com/guide/interceptor.html">插件主体(必看!)(since 3.4.0)</a>
      */
     @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
 
-        List<ISqlParser> sqlParserList = Arrays.asList(
-            new BlockAttackSqlParser() // update 和 delete 必须要有 where
+        List<InnerInterceptor> innerInterceptors = Arrays.asList(
+            // new TenantLineInnerInterceptor(), new DynamicTableNameInnerInterceptor(),
+            new PaginationInnerInterceptor(), new OptimisticLockerInnerInterceptor(),
+            // new IllegalSQLInnerInterceptor(),
+            new BlockAttackInnerInterceptor() // update 和 delete 必须要有 where
         );
 
-        paginationInterceptor.setSqlParserList(sqlParserList);
-        return paginationInterceptor;
+        mybatisPlusInterceptor.setInterceptors(innerInterceptors);
+        return mybatisPlusInterceptor;
     }
 
     /**
