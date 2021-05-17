@@ -13,11 +13,6 @@
     <artifactId>ahao-spring-boot-redission</artifactId>
     <packaging>jar</packaging>
 
-    <properties>
-        <redisson.version>3.11.6</redisson.version>
-        <embedded.redis.version>0.6</embedded.redis.version>
-    </properties>
-
     <dependencies>
         <!--======================================================= 自定义模块 =======================================================-->
         <dependency>
@@ -48,7 +43,7 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>${redisson.version}</version>
+            <version>${redission.version}</version>
         </dependency>
         <!--======================================================= Spring Boot =======================================================-->
 
