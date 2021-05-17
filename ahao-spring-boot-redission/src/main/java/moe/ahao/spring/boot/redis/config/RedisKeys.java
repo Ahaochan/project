@@ -1,7 +1,6 @@
 package moe.ahao.spring.boot.redis.config;
 
 import moe.ahao.spring.boot.redis.aop.RedisCacheAOP;
-
 /**
  * Redis Key 存储, 避免 Key 覆盖
  *
