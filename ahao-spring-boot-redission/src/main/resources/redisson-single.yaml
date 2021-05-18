@@ -16,15 +16,10 @@ singleServerConfig:
     connectionPoolSize: 64                   # 连接池大小
     idleConnectionTimeout: 10000             # 连接空闲超时，单位：毫秒
     connectTimeout: 10000                    # 连接超时，单位：毫秒
-    reconnectionTimeout: 3000                # 重新连接时间间隔，单位：毫秒
-
-    pingTimeout: 1000
 
     timeout: 3000                            # 命令等待超时，单位：毫秒
     retryAttempts: 3                         # 命令失败重试次数
     retryInterval: 1500                      # 命令重试发送时间间隔，单位：毫秒
-
-    failedAttempts: 3                        # 执行失败最大次数
     # ================================ 连接 配置 ==============================================
 
     # ============================== 发布订阅 配置 ============================================

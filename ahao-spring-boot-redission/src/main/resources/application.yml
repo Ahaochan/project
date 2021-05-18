@@ -3,4 +3,4 @@ spring:
     active: lettuce
   redis:
     redisson:
-      config: classpath:redisson-single.yaml
+      file: classpath:redisson-single.yaml
