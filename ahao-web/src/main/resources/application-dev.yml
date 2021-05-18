@@ -12,10 +12,12 @@ spring:
       suffix: .jsp
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.19.128:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&tinyInt1isBit=false
+    url: jdbc:mysql://192.168.153.137:3306/db?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&tinyInt1isBit=false
     username: root
     password: root
   redis:
-    host: 192.168.19.128
+    host: 192.168.153.137
     port: 6379
-    password:
+#    password:
+    redisson:
+      file: classpath:redisson-single.yaml

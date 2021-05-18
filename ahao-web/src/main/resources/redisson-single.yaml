@@ -1,0 +1,43 @@
+# 通用配置
+threads: 2      #      线程池数量 = 当前处理核数量 * 2
+nettyThreads: 2 # Netty线程池数量 = 当前处理核数量 * 2
+codec: !<org.redisson.codec.JsonJacksonCodec> {}
+transportMode: NIO # 传输模式
+
+# 单节点配置
+singleServerConfig:
+    address: "redis://192.168.153.137:6379"
+    database: 0
+    password: null
+    clientName: null                         # 在Redis节点里显示的客户端名称
+
+    # ================================ 连接 配置 ==============================================
+    connectionMinimumIdleSize: 32            # 最小空闲连接数
+    connectionPoolSize: 64                   # 连接池大小
+    idleConnectionTimeout: 10000             # 连接空闲超时，单位：毫秒
+    connectTimeout: 10000                    # 连接超时，单位：毫秒
+
+    timeout: 3000                            # 命令等待超时，单位：毫秒
+    retryAttempts: 3                         # 命令失败重试次数
+    retryInterval: 1500                      # 命令重试发送时间间隔，单位：毫秒
+    # ================================ 连接 配置 ==============================================
+
+    # ============================== 发布订阅 配置 ============================================
+    subscriptionConnectionMinimumIdleSize: 1 # 发布和订阅连接的最小空闲连接数
+    subscriptionConnectionPoolSize: 50       # 发布和订阅连接池大小
+    subscriptionsPerConnection: 5            # 单个连接最大订阅数量
+    # ============================== 发布订阅 配置 ============================================
+
+    # ================================ DNS 配置 ==============================================
+#    dnsMonitoring: false        # 是否启用DNS监测
+#    dnsMonitoringInterval: 5000 # DNS监测时间间隔, 单位: 毫秒
+    # ================================ DNS 配置 ==============================================
+
+    # ================================ SSL 配置 ==============================================
+    sslEnableEndpointIdentification: true   # 开启 SSL 终端识别能力
+    sslProvider: JDK                        # SSL 实现方式, JDK 或 OPENSSL
+    sslTruststore: null                     # SSL信任证书库路径
+    sslTruststorePassword: null             # SSL信任证书库密码
+    sslKeystore: null                       # SSL钥匙库路径
+    sslKeystorePassword: null               # SSL钥匙库密码
+    # ================================ SSL 配置 ==============================================
