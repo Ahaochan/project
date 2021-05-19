@@ -1,32 +1,47 @@
 #!/bin.bash
-cd /opt
-wget https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.5.5/apache-zookeeper-3.5.5-bin.tar.gz
+# 1. 安装 Zookeeper
+cd /opt || return 1
+wget https://archive.apache.org/dist/zookeeper/zookeeper-3.5.5/apache-zookeeper-3.5.5-bin.tar.gz
 tar zxvf apache-zookeeper-3.5.5-bin.tar.gz
 mv apache-zookeeper-3.5.5-bin zookeeper
-cd zookeeper
+cd zookeeper || return 1
 
-function prepare() {
-    num=$1;
-    if [ ! -d data/zk"${num}" ]; then
-      mkdir -p data/zk"${num}"
-      echo "${num}" > data/zk"${num}"/myid
-    fi
-    if [ ! -f conf/zoo"${num}".cfg ]; then
-        cp conf/zoo_sample.cfg conf/zoo"${num}".cfg
-        sed -i "s/clientPort=2181/clientPort=${num}2181/g" conf/zoo"${num}".cfg
-        sed -i "s/dataDir=\/tmp\/zookeeper/\dataDir=\/opt\/zookeeper\/data\/zk${num}/g" conf/zoo"${num}".cfg
-        {
-            echo "server.1=127.0.0.1:12888:13888"
-            echo "server.2=127.0.0.1:22888:23888"
-            echo "server.3=127.0.0.1:32888:33888"
-        } >> conf/zoo"${num}".cfg
-    fi
-    echo "prepare ${num} success!";
-}
+# 2. 确保在 Zookeeper 目录下
+if [ ! -f "conf/zoo_sample.cfg" ]; then
+    echo '请进入zookeeper目录下'
+    return 1
+fi
 
-prepare 1
-prepare 2
-prepare 3
-bin/zkServer.sh start conf/zoo1.cfg
-bin/zkServer.sh start conf/zoo2.cfg
-bin/zkServer.sh start conf/zoo3.cfg
+# 3. 启动 Zookeeper 集群
+COUNT=3;
+for ((i=1;i<=COUNT;i++))
+do
+    # 3.1. 初始化 myid 文件
+    if [ ! -d data/zk"${i}" ]; then
+        mkdir -p data/zk"${i}"
+    fi
+    echo "${i}" > data/zk"${i}"/myid
+    # 3.2. 初始化 cfg 配置文件
+    if [ ! -f conf/zoo"${i}".cfg ]; then
+        cp conf/zoo_sample.cfg conf/zoo"${i}".cfg
+    fi
+    sed -i "s@^clientPort=[[:digit:]]*@clientPort=${i}2181@g" conf/zoo"${i}".cfg
+    sed -i "s@^dataDir=.*@dataDir=$(pwd)/data/zk${i}@g" conf/zoo"${i}".cfg
+    sed -i "/^server.[[:digit:]]*=.*/d" conf/zoo"${i}".cfg
+    # 3.3. 添加节点信息
+    for ((j=1;j<=COUNT;j++))
+    do
+        echo "server.${j}=127.0.0.1:${j}2888:${j}3888" >> conf/zoo"${i}".cfg
+    done
+done
+for ((i=1;i<=COUNT;i++))
+do
+    bin/zkServer.sh start conf/zoo${i}.cfg
+done
+
+# 4. 删除产生的文件
+for ((i=1;i<=COUNT;i++))
+do
+    bin/zkServer.sh stop conf/zoo${i}.cfg
+    rm -rf data/zk"${i}" conf/zoo"${i}".cfg
+done
