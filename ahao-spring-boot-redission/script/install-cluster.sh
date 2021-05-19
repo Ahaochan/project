@@ -42,16 +42,17 @@ do
 done
 
 # 4. 启动集群
+NODE=${PORTS[0]}
 redis-cli --cluster create --cluster-replicas 1 \
     127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
 
 # 6. 检查、连接
-redis-cli --cluster check 127.0.0.1:7000
-redis-cli -h 127.0.0.1 -p 7000 -c
+redis-cli --cluster check 127.0.0.1:"${NODE}"
+redis-cli -h 127.0.0.1 -p "${NODE}" -c
 
 # 7. 添加主节点
-redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000
-redis-cli --cluster reshard 127.0.0.1:7000
+redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:"${NODE}"
+redis-cli --cluster reshard 127.0.0.1:"${NODE}"
 # 4096 # 16384/4=4096
 # 1f2ae2b0bb104f679ce7cb0c475e75943a84a122 # 新加的节点的id
 # all # 从所有主节点迁移hash slot到新节点
@@ -59,17 +60,17 @@ redis-cli --cluster reshard 127.0.0.1:7000
 
 # 8. 添加从节点
 redis-cli --cluster add-node --cluster-slave --cluster-master-id 1f2ae2b0bb104f679ce7cb0c475e75943a84a122 \
-    127.0.0.1:7007 127.0.0.1:7000
+    127.0.0.1:7007 127.0.0.1:"${NODE}"
 
 # 8. 迁移 hash slot 后删除节点
-redis-cli --cluster reshard 127.0.0.1:7000 --cluster-from 1f2ae2b0bb104f679ce7cb0c475e75943a84a122 \
+redis-cli --cluster reshard 127.0.0.1:"${NODE}" --cluster-from 1f2ae2b0bb104f679ce7cb0c475e75943a84a122 \
     --cluster-to cea8c3b57d21649ad4452a9262f686f0a1111f99 --cluster-slots 1365 --cluster-yes
-redis-cli --cluster reshard 127.0.0.1:7000 --cluster-from 1f2ae2b0bb104f679ce7cb0c475e75943a84a122 \
+redis-cli --cluster reshard 127.0.0.1:"${NODE}" --cluster-from 1f2ae2b0bb104f679ce7cb0c475e75943a84a122 \
     --cluster-to 8bfcd3f29cf7f2a09bda57e4a98c636c42bcf755 --cluster-slots 1365 --cluster-yes
-redis-cli --cluster reshard 127.0.0.1:7000 --cluster-from 1f2ae2b0bb104f679ce7cb0c475e75943a84a122 \
+redis-cli --cluster reshard 127.0.0.1:"${NODE}" --cluster-from 1f2ae2b0bb104f679ce7cb0c475e75943a84a122 \
     --cluster-to 4c3c71ebdc3b3514347680c177229ebe17295b63 --cluster-slots 1366 --cluster-yes
-redis-cli --cluster del-node 127.0.0.1:7000 1f2ae2b0bb104f679ce7cb0c475e75943a84a122
-redis-cli --cluster del-node 127.0.0.1:7000 e1bd8eaf0c6dc8a5132687daa19d1787623b8deb
+redis-cli --cluster del-node 127.0.0.1:"${NODE}" 1f2ae2b0bb104f679ce7cb0c475e75943a84a122
+redis-cli --cluster del-node 127.0.0.1:"${NODE}" e1bd8eaf0c6dc8a5132687daa19d1787623b8deb
 
 # 7. 删除产生的文件
 for ((i=0;i<${#PORTS[@]};i++))
