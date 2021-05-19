@@ -9,11 +9,13 @@ tar xzf redis-${VERSION}.tar.gz
 cd redis-${VERSION} || return 1
 make distclean && make && make test && make install
 
-# 3. 启动Redis
+# 3. 确保在 Redis 目录下
 if [ ! -f "redis.conf" ]; then
     echo '请进入redis目录下'
     return 1
 fi
+
+# 4. 启动 Redis 集群
 PORTS=(7000 7001 7002 7003 7004 7005 7006 7007)
 for ((i=0;i<${#PORTS[@]};i++))
 do
