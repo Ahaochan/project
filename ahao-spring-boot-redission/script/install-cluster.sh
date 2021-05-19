@@ -18,26 +18,26 @@ PORTS=(7000 7001 7002 7003 7004 7005 7006 7007)
 for PORT in "${PORTS[@]}"
 do
     # 3.1. 配置文件
-    cp utils/redis_init_script /etc/init.d/redis_${PORT}
-    sed -i "s#REDISPORT=[[:digit:]]*#REDISPORT=${PORT}#g" /etc/init.d/redis_${PORT}
+    cp utils/redis_init_script /etc/init.d/redis_"${PORT}"
+    sed -i "s#REDISPORT=[[:digit:]]*#REDISPORT=${PORT}#g" /etc/init.d/redis_"${PORT}"
 
-    mkdir -p /etc/redis /var/redis/${PORT}
-    cp redis.conf /etc/redis/${PORT}.conf
-    sed -i "s#^daemonize no#daemonize yes#g" /etc/redis/${PORT}.conf
-    sed -i "s#^pidfile /var/run/redis_[[:digit:]]*.pid#pidfile /var/run/redis_${PORT}.pid#g" /etc/redis/${PORT}.conf
-    sed -i "s#^port [[:digit:]]*#port ${PORT}#g" /etc/redis/${PORT}.conf
-    sed -i "s#^dir .*#dir /var/redis/${PORT}#g" /etc/redis/${PORT}.conf
-    sed -i "s#^bind .*#bind 127.0.0.1#g" /etc/redis/${PORT}.conf
+    mkdir -p /etc/redis /var/redis/"${PORT}"
+    cp redis.conf /etc/redis/"${PORT}".conf
+    sed -i "s#^daemonize no#daemonize yes#g" /etc/redis/"${PORT}".conf
+    sed -i "s#^pidfile /var/run/redis_[[:digit:]]*.pid#pidfile /var/run/redis_${PORT}.pid#g" /etc/redis/"${PORT}".conf
+    sed -i "s#^port [[:digit:]]*#port ${PORT}#g" /etc/redis/"${PORT}".conf
+    sed -i "s#^dir .*#dir /var/redis/${PORT}#g" /etc/redis/"${PORT}".conf
+    sed -i "s#^bind .*#bind 127.0.0.1#g" /etc/redis/"${PORT}".conf
 
     # 3.2. cluster配置
     PW="password"
-    #sed -i "s@^[# ]*requirepass .*@requirepass ${PW}/g" /etc/redis/${PORT}.conf
-    sed -i "s@^[# ]*cluster-enabled .*@cluster-enabled yes@g" /etc/redis/${PORT}.conf
-    sed -i "s@^[# ]*cluster-config-file .*@cluster-config-file /etc/redis/cluster-nodes-${PORT}.conf@g" /etc/redis/${PORT}.conf
-    sed -i "s@^[# ]*cluster-node-timeout .*@cluster-node-timeout 5000@g" /etc/redis/${PORT}.conf
+    #sed -i "s@^[# ]*requirepass .*@requirepass ${PW}/g" /etc/redis/"${PORT}".conf
+    sed -i "s@^[# ]*cluster-enabled .*@cluster-enabled yes@g" /etc/redis/"${PORT}".conf
+    sed -i "s@^[# ]*cluster-config-file .*@cluster-config-file /etc/redis/cluster-nodes-${PORT}.conf@g" /etc/redis/"${PORT}".conf
+    sed -i "s@^[# ]*cluster-node-timeout .*@cluster-node-timeout 5000@g" /etc/redis/"${PORT}".conf
 
     # 3.3. 启动脚本
-    /etc/init.d/redis_${PORT} start
+    /etc/init.d/redis_"${PORT}" start
 done
 
 # 4. 启动集群
@@ -73,7 +73,7 @@ redis-cli --cluster del-node 127.0.0.1:7000 e1bd8eaf0c6dc8a5132687daa19d1787623b
 # 7. 删除产生的文件
 for PORT in "${PORTS[@]}"
 do
-    # redis-cli -h 127.0.0.1 -p ${PORT} -a ${PW} SHUTDOWN
-    redis-cli -h 127.0.0.1 -p ${PORT} SHUTDOWN
-    rm -rf /etc/init.d/redis_${PORT} /etc/redis/${PORT}.conf /var/redis/${PORT} /var/run/redis_${PORT}.pid /etc/redis/cluster-nodes-${PORT}.conf
+    # redis-cli -h 127.0.0.1 -p "${PORT}" -a ${PW} SHUTDOWN
+    redis-cli -h 127.0.0.1 -p "${PORT}" SHUTDOWN
+    rm -rf /etc/init.d/redis_"${PORT}" /etc/redis/"${PORT}".conf /var/redis/"${PORT}" /var/run/redis_"${PORT}".pid /etc/redis/cluster-nodes-"${PORT}".conf
 done
