@@ -15,8 +15,9 @@ if [ ! -f "redis.conf" ]; then
     return 1
 fi
 PORTS=(7000 7001 7002 7003 7004 7005 7006 7007)
-for PORT in "${PORTS[@]}"
+for ((i=0;i<${#PORTS[@]};i++))
 do
+    PORT=${PORTS[i]}
     # 3.1. 配置文件
     cp utils/redis_init_script /etc/init.d/redis_"${PORT}"
     sed -i "s#REDISPORT=[[:digit:]]*#REDISPORT=${PORT}#g" /etc/init.d/redis_"${PORT}"
@@ -71,8 +72,9 @@ redis-cli --cluster del-node 127.0.0.1:7000 1f2ae2b0bb104f679ce7cb0c475e75943a84
 redis-cli --cluster del-node 127.0.0.1:7000 e1bd8eaf0c6dc8a5132687daa19d1787623b8deb
 
 # 7. 删除产生的文件
-for PORT in "${PORTS[@]}"
+for ((i=0;i<${#PORTS[@]};i++))
 do
+    PORT=${PORTS[i]}
     # redis-cli -h 127.0.0.1 -p "${PORT}" -a ${PW} SHUTDOWN
     redis-cli -h 127.0.0.1 -p "${PORT}" SHUTDOWN
     rm -rf /etc/init.d/redis_"${PORT}" /etc/redis/"${PORT}".conf /var/redis/"${PORT}" /var/run/redis_"${PORT}".pid /etc/redis/cluster-nodes-"${PORT}".conf
