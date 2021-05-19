@@ -6,7 +6,7 @@ apt-get install tcl make gcc -y
 VERSION=6.2.2
 wget https://download.redis.io/releases/redis-${VERSION}.tar.gz
 tar xzf redis-${VERSION}.tar.gz
-cd redis-${VERSION}
+cd redis-${VERSION} || return 1
 make distclean && make && make test && make install
 
 # 3. 启动Redis
