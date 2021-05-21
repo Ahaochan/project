@@ -36,12 +36,12 @@ do
 done
 for ((i=1;i<=COUNT;i++))
 do
-    bin/zkServer.sh start conf/zoo${i}.cfg
+    bin/zkServer.sh start conf/zoo"${i}".cfg
 done
 
 # 4. 删除产生的文件
 for ((i=1;i<=COUNT;i++))
 do
-    bin/zkServer.sh stop conf/zoo${i}.cfg
+    bin/zkServer.sh stop conf/zoo"${i}".cfg
     rm -rf data/zk"${i}" conf/zoo"${i}".cfg
 done
