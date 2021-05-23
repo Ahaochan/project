@@ -33,3 +33,10 @@ make && make install
 /opt/openresty/nginx/sbin/nginx
 /opt/openresty/nginx/sbin/nginx -s reload
 curl 127.0.0.1/hello
+
+# 4. 下载lualib
+cd lualib/resty || return 1
+wget https://raw.githubusercontent.com/ledgetech/lua-resty-http/master/lib/resty/http.lua
+wget https://raw.githubusercontent.com/ledgetech/lua-resty-http/master/lib/resty/http_headers.lua
+cd - || return 1
+/opt/openresty/nginx/sbin/nginx -s reload
