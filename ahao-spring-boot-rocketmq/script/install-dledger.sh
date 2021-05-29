@@ -61,3 +61,11 @@ sh bin/mqadmin clusterList -n 127.0.0.1:19876
 # 7. 打完关机
 sh bin/mqshutdown broker
 sh bin/mqshutdown namesrv
+for ((i=1;i<=COUNT_NS;i++))
+do
+    rm -rf conf/namesrv${i}.properties
+done
+for ((i=1;i<=COUNT_BROKER;i++))
+do
+    rm -rf data/broker${i}
+done
