@@ -114,7 +114,7 @@
 
         <mybatis.version>3.5.2</mybatis.version>
         <mybatis.generator.version>1.4.0</mybatis.generator.version>
-        <mybatis.spring.boot.version>2.1.1</mybatis.spring.boot.version>
+        <mybatis.spring.boot.version>2.1.4</mybatis.spring.boot.version>
         <mybatis.plus.version>3.4.1</mybatis.plus.version>
 
         <redission.version>3.15.5</redission.version>
