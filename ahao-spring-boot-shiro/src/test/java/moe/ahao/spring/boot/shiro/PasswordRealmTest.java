@@ -2,7 +2,6 @@ package moe.ahao.spring.boot.shiro;
 
 import moe.ahao.domain.entity.AjaxDTO;
 import moe.ahao.spring.boot.Starter;
-import moe.ahao.util.commons.io.JSONHelper;
 import moe.ahao.util.spring.SpringContextHolder;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -15,30 +14,27 @@ import org.apache.shiro.util.ByteSource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@ContextConfiguration(classes = Starter.class)
+@SpringJUnitWebConfig(classes = Starter.class)
 @ActiveProfiles("cache-memory")
 public class PasswordRealmTest {
 
-    @Autowired
-    protected WebApplicationContext wac;
+    private MockMvc mockMvc;
+    @BeforeEach
+    void setup(WebApplicationContext wac) {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
 
     @BeforeEach
     void init() throws Exception {
@@ -57,17 +53,13 @@ public class PasswordRealmTest {
 
     @Test
     public void loginSuccess() throws Exception {
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        String responseString = mockMvc.perform(post("/login")
+        mockMvc.perform(post("/login")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("username", "admin1")
             .param("password", "pw1"))
-            .andExpect(status().isOk())
             .andDo(print())
-            .andReturn()
-            .getResponse().getContentAsString();   //将相应的数据转换为字符串
-        int result = JSONHelper.getInt(responseString, "result");
-        Assertions.assertEquals(AjaxDTO.SUCCESS, result);
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.result").value(AjaxDTO.SUCCESS));
     }
 
 

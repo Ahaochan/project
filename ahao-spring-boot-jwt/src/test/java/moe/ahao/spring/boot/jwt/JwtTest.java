@@ -3,13 +3,10 @@ package moe.ahao.spring.boot.jwt;
 import io.jsonwebtoken.*;
 import moe.ahao.spring.boot.Starter;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -21,15 +18,16 @@ import java.util.Date;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@ContextConfiguration(classes = Starter.class)
+@SpringJUnitWebConfig(classes = Starter.class)
 class JwtTest {
 
-    @Autowired
-    protected WebApplicationContext wac;
+    private MockMvc mockMvc;
+    @BeforeEach
+    void setup(WebApplicationContext wac) {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
 
     @Test
     void verify() {
@@ -69,58 +67,46 @@ class JwtTest {
 
     }
 
-
     @Test
     void success() throws Exception {
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
         String token = mockMvc.perform(post("/jwt")
             .param("username", "admin")
             .param("password", "pw"))
-            .andExpect(status().isOk())
             .andDo(print())
+            .andExpect(status().isOk())
             .andReturn()
             .getResponse().getContentAsString();
         System.out.println("获取token: " + token);
 
-
-        String responseString = mockMvc.perform(get("/test")
+        String msg = "hello";
+        mockMvc.perform(get("/test")
             .header("Authorization", token)
-            .param("msg", "hello"))
-            .andExpect(status().isOk())
+            .param("msg", msg))
             .andDo(print())
-            .andReturn()
-            .getResponse().getContentAsString();
+            .andExpect(status().isOk())
+            .andExpect(content().string("接收:" + msg));
 
-        Assertions.assertEquals("接收:hello", responseString);
     }
 
     @Test
     void failByNoToken() throws Exception {
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-
-        String responseString = mockMvc.perform(get("/test")
+        mockMvc.perform(get("/test")
             .param("msg", "hello")
             .accept(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(status().is5xxServerError())
             .andDo(print())
-            .andReturn()
-            .getResponse().getContentAsString();
-
-        Assertions.assertEquals("{\"result\":1,\"msg\":\"获取 token 失败, 请重新获取 token\",\"obj\":null}", responseString);
+            .andExpect(status().is5xxServerError())
+            .andExpect(jsonPath("$.result").value(1))
+            .andExpect(jsonPath("$.msg").value("获取 token 失败, 请重新获取 token"))
+            .andExpect(jsonPath("$.obj").isEmpty());
     }
 
     @Test
     void failByErrorPassword() throws Exception {
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-
-        String token = mockMvc.perform(post("/jwt")
+        mockMvc.perform(post("/jwt")
             .param("username", "admin")
             .param("password", "error"))
-            .andExpect(status().isOk())
             .andDo(print())
-            .andReturn()
-            .getResponse().getContentAsString();
-        System.out.println("获取token: " + token);
-        Assertions.assertEquals("", token);
+            .andExpect(status().isOk())
+            .andExpect(content().string(""));
     }
 }
