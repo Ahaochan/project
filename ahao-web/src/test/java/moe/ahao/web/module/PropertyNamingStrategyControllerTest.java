@@ -2,17 +2,20 @@ package moe.ahao.web.module;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import moe.ahao.spring.web.config.JacksonHttpMessageConvertersWebMvcConfigurer;
 import moe.ahao.spring.web.converter.MappingJackson2HttpMessageConverterRegister;
-import moe.ahao.util.commons.lang.reflect.ReflectHelper;
-import moe.ahao.web.AhaoApplication;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@ContextConfiguration(classes = {AhaoApplication.class, PropertyNamingStrategyControllerTest.TestController.class})
+@ContextConfiguration(classes = {JacksonHttpMessageConvertersWebMvcConfigurer.class, PropertyNamingStrategyControllerTest.TestController.class,
+    WebMvcAutoConfiguration.class, JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
+})
 public class PropertyNamingStrategyControllerTest {
 
     @Autowired
@@ -37,7 +42,8 @@ public class PropertyNamingStrategyControllerTest {
     public void test() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
-        Map<PropertyNamingStrategy, MediaType> map = ReflectHelper.getValue(MappingJackson2HttpMessageConverterRegister.class, "strategyMediaTypeMap");
+        Map<PropertyNamingStrategy, MediaType> map = (Map<PropertyNamingStrategy, MediaType>) ReflectionTestUtils.getField(MappingJackson2HttpMessageConverterRegister.class, "strategyMediaTypeMap");
+        Assertions.assertNotNull(map);
 
         for (Map.Entry<PropertyNamingStrategy, MediaType> entry : map.entrySet()) {
             PropertyNamingStrategy strategy = entry.getKey();

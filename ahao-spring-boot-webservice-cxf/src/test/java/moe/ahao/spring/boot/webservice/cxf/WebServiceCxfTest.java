@@ -3,7 +3,6 @@ package moe.ahao.spring.boot.webservice.cxf;
 import moe.ahao.spring.boot.Starter;
 import moe.ahao.spring.boot.webservice.cxf.controller.StudentService;
 import moe.ahao.spring.boot.webservice.cxf.entity.Student;
-import moe.ahao.util.commons.lang.reflect.ReflectHelper;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
@@ -19,6 +18,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -74,8 +74,8 @@ class WebServiceCxfTest {
         Object[] student = client.invoke("getStudent", 1L);
         Assertions.assertNotEquals(Student.class, student[0].getClass());
         Assertions.assertEquals("moe.ahao.cxf.Student", student[0].getClass().getName());
-        Assertions.assertEquals(1L, ((Long) ReflectHelper.getValue(student[0], "id")).longValue());
-        Assertions.assertEquals("Admin"+1, ReflectHelper.getValue(student[0], "name"));
+        Assertions.assertEquals(1L, ((Long) ReflectionTestUtils.getField(student[0], "id")).longValue());
+        Assertions.assertEquals("Admin"+1, ReflectionTestUtils.getField(student[0], "name"));
     }
 
 //    @Test

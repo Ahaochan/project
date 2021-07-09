@@ -3,7 +3,6 @@ package moe.ahao.spring.boot.wechat.mp;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.*;
 import moe.ahao.spring.boot.Starter;
-import moe.ahao.util.commons.lang.reflect.ReflectHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Map;
 
@@ -49,7 +49,9 @@ public class BaseMpTest {
         Assumptions.assumeTrue(false, "微信公众号的单元测试依赖实际的公众号配置");
         Assumptions.assumeTrue(StringUtils.isNotBlank(wxMpService.getWxMpConfigStorage().getAppId()), "需配置实际的微信配置");
 
-        Map<String, WxMpConfigStorage> configStorageMap = ReflectHelper.getValue(wxMpService, "configStorageMap");
+        Map<String, WxMpConfigStorage> configStorageMap = (Map<String, WxMpConfigStorage>) ReflectionTestUtils.getField(wxMpService, "configStorageMap");
+        Assertions.assertNotNull(configStorageMap);
+
         configStorageMap.forEach((k, v) -> System.out.println("加载微信公众配置:" + v.toString()));
         Assertions.assertEquals(1, configStorageMap.size(), "单元测试公众号测试只能配置一个公众号");
 
