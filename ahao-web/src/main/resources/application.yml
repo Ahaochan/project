@@ -4,9 +4,14 @@ server:
   servlet:
     context-path: /
   tomcat:
-    max-threads: 200
-    max-connections: 10000
-    accept-count: 100
+    max-threads: 200       # 最大工作线程数
+    max-connections: 10000 # 超过10000个请求连接就放到请求队列里
+    accept-count: 100      # 请求队列的大小
+    accesslog:
+      enabled: true
+      encoding: UTF-8
+      directory: logs
+    max-http-form-post-size: # Post请求体最大长度, 默认不限制
   max-http-header-size: 8KB # 每个请求都会创建一个8KB大小的byte[], org.apache.coyote.http11.Http11InputBuffer.java:698
 
 # =================================== Spring 通用配置 ==========================================
