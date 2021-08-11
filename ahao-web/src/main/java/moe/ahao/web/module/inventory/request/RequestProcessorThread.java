@@ -11,8 +11,10 @@ public class RequestProcessorThread implements Callable<Boolean> {
     private final static Logger logger = LoggerFactory.getLogger(RequestProcessorThread.class);
 
     private BlockingQueue<Request> queue;
-    public RequestProcessorThread(BlockingQueue<Request> queue) {
+    private Map<Long, Boolean> flagMap;
+    public RequestProcessorThread(BlockingQueue<Request> queue, Map<Long, Boolean> flagMap) {
         this.queue = queue;
+        this.flagMap = flagMap;
     }
 
     @Override
@@ -23,8 +25,6 @@ public class RequestProcessorThread implements Callable<Boolean> {
                 Long productId = request.getProductId();
                 logger.info("线程处理请求, id:{}", productId);
 
-                RequestQueue requestQueue = RequestQueue.getInstance();
-                Map<Long, Boolean> flagMap = requestQueue.getFlagMap();
                 if(request instanceof ProductInventoryDBUpdateRequest) {
                     flagMap.put(productId, true);
                 } else if(request instanceof ProductInventoryCacheReloadRequest){
