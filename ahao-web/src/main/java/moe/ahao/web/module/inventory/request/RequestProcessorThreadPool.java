@@ -27,7 +27,12 @@ public class RequestProcessorThreadPool implements InitializingBean, DisposableB
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        this.threadPool = Executors.newFixedThreadPool(threadCount);
+        this.threadPool = new ThreadPoolExecutor(threadCount, threadCount, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(),
+            r -> {
+                Thread thread = new Thread(r, "request-processor-thread" + r.hashCode());
+                thread.setDaemon(true);
+                return thread;
+            });
         for (int i = 0; i < threadCount; i++) {
             BlockingQueue<Request> queue = new ArrayBlockingQueue<>(queueLength);
             this.queues.add(queue);
