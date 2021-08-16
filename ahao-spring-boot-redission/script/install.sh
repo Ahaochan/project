@@ -31,6 +31,7 @@ if [ true ]; then
     sed -i "s/^[# ]*replicaof .*/replicaof ${MASTER_HOST}/g" /etc/redis/${PORT}.conf
     sed -i "s/^replica-read-only .*/replica-read-only yes/g" /etc/redis/${PORT}.conf
     sed -i "s/^[# ]*masterauth .*/masterauth ${PW}/g" /etc/redis/${PORT}.conf
+    sed -i "s/^[# ]*requirepass .*/requirepass ${PW}/g" /etc/redis/${PORT}.conf
 else
     # master配置
     sed -i "s/^[# ]*requirepass .*/requirepass ${PW}/g" /etc/redis/${PORT}.conf
