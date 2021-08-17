@@ -25,16 +25,13 @@ sed -i "s#^bind .*#bind 127.0.0.1#g" /etc/redis/${PORT}.conf
 
 # 5. 主从配置
 PW="password"
+sed -i "s/^[# ]*masterauth .*/masterauth ${PW}/g" /etc/redis/${PORT}.conf
+sed -i "s/^[# ]*requirepass .*/requirepass ${PW}/g" /etc/redis/${PORT}.conf
 if [ true ]; then
     # slave节点配置
     MASTER_HOST="127.0.0.1 6379"
     sed -i "s/^[# ]*replicaof .*/replicaof ${MASTER_HOST}/g" /etc/redis/${PORT}.conf
     sed -i "s/^replica-read-only .*/replica-read-only yes/g" /etc/redis/${PORT}.conf
-    sed -i "s/^[# ]*masterauth .*/masterauth ${PW}/g" /etc/redis/${PORT}.conf
-    sed -i "s/^[# ]*requirepass .*/requirepass ${PW}/g" /etc/redis/${PORT}.conf
-else
-    # master配置
-    sed -i "s/^[# ]*requirepass .*/requirepass ${PW}/g" /etc/redis/${PORT}.conf
 fi;
 
 # 5. 启动脚本

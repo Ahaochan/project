@@ -17,6 +17,7 @@ fi
 
 # 3. 开机时启动
 PORTS=(26379 26380 26381)
+PW="password"
 
 # 4. 配置文件
 for ((i=0;i<${#PORTS[@]};i++))
@@ -35,6 +36,7 @@ do
     sed -i "s#^pidfile /var/run/redis-sentinel[[:digit:]]*.pid#pidfile /var/run/redis-sentinel${PORT}.pid#g" /etc/sentinel/"${PORT}".conf
     sed -i "s#^logfile .*#logfile /var/log/sentinel/${PORT}#g" /etc/sentinel/"${PORT}".conf
     sed -i "s#^dir .*#dir /var/sentinel/${PORT}#g" /etc/sentinel/"${PORT}".conf
+    echo "sentinel auth-pass mymaster ${PW}" >> /etc/sentinel/"${PORT}".conf
 
     # 5. 启动脚本
     redis-sentinel /etc/sentinel/"${PORT}".conf
