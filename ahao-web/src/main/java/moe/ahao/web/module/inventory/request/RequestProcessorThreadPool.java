@@ -7,7 +7,6 @@ import org.springframework.beans.factory.InitializingBean;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.*;
 
 public class RequestProcessorThreadPool implements InitializingBean, DisposableBean {
@@ -18,7 +17,7 @@ public class RequestProcessorThreadPool implements InitializingBean, DisposableB
 
     private ExecutorService threadPool;
     private List<BlockingQueue<Request>> queues;
-    private Map<Long, Boolean> flagMap;
+    private ConcurrentMap<Long, Boolean> flagMap;
 
     public RequestProcessorThreadPool() {
         this.queues = new ArrayList<>();
