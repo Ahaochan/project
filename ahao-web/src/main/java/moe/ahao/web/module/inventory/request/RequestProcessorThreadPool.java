@@ -16,6 +16,7 @@ public class RequestProcessorThreadPool implements InitializingBean, DisposableB
     private int queueLength = 100;
 
     private ExecutorService threadPool;
+    private List<RequestProcessorThread> workers;
     private List<BlockingQueue<Request>> queues;
     private ConcurrentMap<Long, Boolean> flagMap;
 
@@ -32,15 +33,21 @@ public class RequestProcessorThreadPool implements InitializingBean, DisposableB
                 thread.setDaemon(true);
                 return thread;
             });
+        this.workers = new ArrayList<>(threadCount);
         for (int i = 0; i < threadCount; i++) {
             BlockingQueue<Request> queue = new ArrayBlockingQueue<>(queueLength);
             this.queues.add(queue);
-            threadPool.submit(new RequestProcessorThread(queue, flagMap));
+            RequestProcessorThread worker = new RequestProcessorThread(queue, flagMap);
+            this.workers.add(worker);
+            threadPool.submit(worker);
         }
     }
 
     @Override
     public void destroy() {
+        for (RequestProcessorThread worker : workers) {
+            worker.shutdown();
+        }
         threadPool.shutdown();
         try {
             while (!threadPool.awaitTermination(1, TimeUnit.MINUTES)) {

@@ -6,23 +6,30 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
 
 public class RequestProcessorThread implements Callable<Boolean> {
     private final static Logger logger = LoggerFactory.getLogger(RequestProcessorThread.class);
 
     private BlockingQueue<Request> queue;
     private ConcurrentMap<Long, Boolean> flagMap;
+    private volatile boolean isRunning;
     public RequestProcessorThread(BlockingQueue<Request> queue, ConcurrentMap<Long, Boolean> flagMap) {
         this.queue = queue;
         this.flagMap = flagMap;
+        this.isRunning = true;
     }
 
     @Override
     public Boolean call() throws Exception {
         try {
-            while (true) {
+            while (isRunning) {
                 // 1. 阻塞队列获取请求
-                Request request = queue.take();
+                Request request = queue.poll(1, TimeUnit.SECONDS);
+                if(request == null) {
+                    continue;
+                }
+
                 Long productId = request.getProductId();
                 logger.info("线程处理请求, id:{}", productId);
 
@@ -59,5 +66,9 @@ public class RequestProcessorThread implements Callable<Boolean> {
             e.printStackTrace();
         }
         return true;
+    }
+
+    public void shutdown() {
+        this.isRunning = false;
     }
 }
