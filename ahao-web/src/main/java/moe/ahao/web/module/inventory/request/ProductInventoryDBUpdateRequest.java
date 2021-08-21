@@ -20,18 +20,18 @@ public class ProductInventoryDBUpdateRequest implements Request {
         Long productId = productInventory.getProductId();
         Long count = productInventory.getProductInventoryCount();
         // 1. 删除缓存
-        logger.info("数据库更新请求, 删除缓存中的数据, id:{}", productId);
+        logger.info("写请求, 删除缓存中的数据, id:{}", productId);
         productInventoryService.removeCache(productId);
 
         try {
-            logger.info("数据库更新请求, 模拟业务处理耗时, id:{}", productId);
+            logger.info("写请求, 模拟业务处理耗时, id:{}", productId);
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         // 2. 更新数据库
-        logger.info("数据库更新请求, 更新的数据, id:{}, count:{}", productId, count);
+        logger.info("写请求, 更新的数据, id:{}, count:{}", productId, count);
         productInventoryService.updateByProductId(productId, count);
     }
 

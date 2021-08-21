@@ -55,9 +55,9 @@ public class ProductInventoryController {
         logger.info("接收到读请求, 不能在200ms内从缓存中读到数据, productId:{}", productId);
         ProductInventory productInventory = productInventoryService.findOneById(productId);
         if(productInventory != null) {
-            // 1. Redis缓存过期, flag=false, 重新刷新缓存
+            // 1. 之前有过读请求, flag=false, 但是Redis缓存过期, 重新刷新缓存
             // 2. 等待超时, 直接查库, 重新刷新缓存
-            // 3. 数据库里本身就没有
+            // 3. 数据库里本身就没有, 缓存穿透
             Request request2 = new ProductInventoryCacheReloadRequest(productId, productInventoryService, true);
             logger.info("接收到读请求, 不能在200ms内从缓存中读到数据, 数据库查到数据并刷新缓存, productId:{}, count:{}", productId, productInventory);
             requestAsyncProcessService.process(request2);

@@ -26,10 +26,10 @@ public class ProductInventoryCacheReloadRequest implements Request {
     public void process() {
         // 1. 查询库存
         ProductInventory productInventory = productInventoryService.findOneById(productId);
-        logger.info("缓存更新请求, 查询数据库中的数据, productId:{}, productInventory:{}", productId, productInventory);
+        logger.info("读请求, 查询数据库中的数据, productId:{}, productInventory:{}", productId, productInventory);
         // 2. 更新缓存
         if(productInventory != null) {
-            logger.info("缓存更新请求, 更新缓存, productId:{}, count:{}", productId, productInventory.getProductInventoryCount());
+            logger.info("读请求, 更新缓存, productId:{}, count:{}", productId, productInventory.getProductInventoryCount());
             productInventoryService.saveCache(productId, productInventory.getProductInventoryCount());
         }
     }
