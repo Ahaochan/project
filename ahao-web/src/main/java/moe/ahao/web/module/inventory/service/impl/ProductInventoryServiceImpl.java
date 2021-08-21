@@ -1,18 +1,19 @@
 package moe.ahao.web.module.inventory.service.impl;
 
-import moe.ahao.util.spring.redis.RedisHelper;
 import moe.ahao.web.module.inventory.entity.ProductInventory;
 import moe.ahao.web.module.inventory.mapper.ProductInventoryMapper;
 import moe.ahao.web.module.inventory.service.ProductInventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class ProductInventoryServiceImpl implements ProductInventoryService {
     @Autowired
     private ProductInventoryMapper productInventoryMapper;
+    private Map<Long, Long> redisCache = new HashMap<>();
 
     @Override
     public ProductInventory findOneById(Long id) {
@@ -33,8 +34,9 @@ public class ProductInventoryServiceImpl implements ProductInventoryService {
         if(id == null || id < 0) {
             return false;
         }
-        String key = this.getCacheKey(id);
-        RedisHelper.setEx(key, count, 1, TimeUnit.HOURS);
+        // String key = this.getCacheKey(id);
+        // RedisHelper.setEx(key, count, 1, TimeUnit.HOURS);
+        redisCache.put(id, count);
         return true;
     }
 
@@ -43,8 +45,10 @@ public class ProductInventoryServiceImpl implements ProductInventoryService {
         if(id == null || id < 0) {
             return false;
         }
-        String key = this.getCacheKey(id);
-        return RedisHelper.del(key);
+        // String key = this.getCacheKey(id);
+        // return RedisHelper.del(key);
+        redisCache.put(id, null);
+        return true;
     }
 
     @Override
@@ -52,8 +56,9 @@ public class ProductInventoryServiceImpl implements ProductInventoryService {
         if(id == null || id < 0) {
             return -1L;
         }
-        String key = this.getCacheKey(id);
-        Long count = RedisHelper.getLong(key);
+        // String key = this.getCacheKey(id);
+        // Long count = RedisHelper.getLong(key);
+        Long count = redisCache.get(id);
         return count;
     }
 
