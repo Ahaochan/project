@@ -30,8 +30,9 @@ make && make install
 
 # 3. 启动项目
 /opt/openresty/nginx/sbin/nginx -V
-/opt/openresty/nginx/sbin/nginx
+/opt/openresty/nginx/sbin/nginx -t -c /opt/openresty/nginx/conf/nginx.conf
 /opt/openresty/nginx/sbin/nginx -s reload
+
 curl 127.0.0.1/hello
 
 # 4. 下载lualib
