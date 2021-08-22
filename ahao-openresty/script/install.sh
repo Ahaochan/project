@@ -35,9 +35,17 @@ make && make install
 
 curl 127.0.0.1/hello
 
-# 4. 下载lualib
+# 4. 下载http lib
 cd lualib/resty || return 1
 wget https://raw.githubusercontent.com/ledgetech/lua-resty-http/master/lib/resty/http.lua
 wget https://raw.githubusercontent.com/ledgetech/lua-resty-http/master/lib/resty/http_headers.lua
 cd - || return 1
+/opt/openresty/nginx/sbin/nginx -s reload
+
+# 5. 下载模板渲染lib
+cd lualib/resty || return 1
+wget https://raw.githubusercontent.com/bungle/lua-resty-template/master/lib/resty/template.lua
+mkdir html && cd html || return 1
+wget https://raw.githubusercontent.com/bungle/lua-resty-template/master/lib/resty/template/html.lua
+cd - && cd - || return 1
 /opt/openresty/nginx/sbin/nginx -s reload

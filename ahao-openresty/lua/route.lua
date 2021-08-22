@@ -12,7 +12,7 @@ local hash = ngx.crc32_long(id);
 local index = hash % #hosts + 1;
 local backend = "http://"..hosts[index];
 local requestUri = "/"..ngx.var.request_uri; -- 获取uri和参数
-ngx.log(ngx.INFO, "id", id, ", backend:", backend)
+ngx.log(ngx.INFO, "backend", backend, ", requestUri:", requestUri);
 
 -- 3. 发起http请求
 local http = require("resty.http")
