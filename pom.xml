@@ -75,6 +75,7 @@
         <module>ahao-spring-cloud-stream</module>
         <module>ahao-spring-cloud-zookeeper</module>
         <module>ahao-spring-cloud-zuul</module>
+        <module>ahao-storm</module>
         <module>ahao-thrift</module>
         <module>ahao-web</module>
 
