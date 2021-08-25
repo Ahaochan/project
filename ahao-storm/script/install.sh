@@ -2,12 +2,14 @@
 # 1. 安裝依赖
 docker run -p 2181:2181 -p 2888:2888 -p 3888:3888 -p 8080:8080 zookeeper
 
+# 2. 下载Storm
 VERSION=1.1.0
 wget https://archive.apache.org/dist/storm/apache-storm-${VERSION}/apache-storm-${VERSION}.tar.gz
 tar xzf apache-storm-${VERSION}.tar.gz
 mv apache-storm-${VERSION} storm
 cd storm || return 1
 
+# 3. 修改配置
 vim conf/storm.yaml
 # 配置zk地址
 # storm.zookeeper.servers:
@@ -22,10 +24,14 @@ vim conf/storm.yaml
 #     - 6701
 # ui.port: 8081
 
-
+# 4. 启动Storm
 # nohup bin/storm nimbus >> /dev/null &
 bin/storm nimbus
 bin/storm supervisor
 bin/storm ui
+bin/storm logviewer
 
+# 5. 提交Topology
+bin/storm jar ahao-storm-1.0.0.jar moe.ahao.storm.WordCountTopology wordCountTopology
+bin/storm kill wordCountTopology
 
