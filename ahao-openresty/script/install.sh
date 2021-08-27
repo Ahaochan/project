@@ -52,3 +52,10 @@ mkdir html && cd html || return 1
 wget https://raw.githubusercontent.com/bungle/lua-resty-template/master/lib/resty/template/html.lua
 cd /opt/openresty || return 1
 /opt/openresty/nginx/sbin/nginx -s reload
+
+# 6. 下载kafka
+wget https://github.com/doujiang24/lua-resty-kafka/archive/refs/heads/master.zip
+unzip master.zip
+cp -rf lua-resty-kafka-master/lib/resty lualib
+rm -rf master.zip lua-resty-kafka-master
+/opt/openresty/nginx/sbin/nginx -s reload
