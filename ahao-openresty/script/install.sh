@@ -6,7 +6,8 @@ apt-get install libpcre3-dev libssl-dev perl make build-essential curl zlib1g-de
 VERSION=1.19.3.1
 wget https://openresty.org/download/openresty-${VERSION}.tar.gz
 tar xzf openresty-${VERSION}.tar.gz
-cd openresty-${VERSION} || return 1
+mv openresty-${VERSION} openresty
+cd openresty || return 1
 
 cd bundle/LuaJIT* || return 1
 make clean && make && make install
@@ -31,6 +32,7 @@ make && make install
 # 3. 启动项目
 /opt/openresty/nginx/sbin/nginx -V
 /opt/openresty/nginx/sbin/nginx -t -c /opt/openresty/nginx/conf/nginx.conf
+/opt/openresty/nginx/sbin/nginx
 /opt/openresty/nginx/sbin/nginx -s reload
 
 curl 127.0.0.1/hello
@@ -38,6 +40,7 @@ curl 127.0.0.1/hello
 # 4. 下载http lib
 cd lualib/resty || return 1
 wget https://raw.githubusercontent.com/ledgetech/lua-resty-http/master/lib/resty/http.lua
+wget https://raw.githubusercontent.com/ledgetech/lua-resty-http/master/lib/resty/http_connect.lua
 wget https://raw.githubusercontent.com/ledgetech/lua-resty-http/master/lib/resty/http_headers.lua
 cd - || return 1
 /opt/openresty/nginx/sbin/nginx -s reload
@@ -47,5 +50,5 @@ cd lualib/resty || return 1
 wget https://raw.githubusercontent.com/bungle/lua-resty-template/master/lib/resty/template.lua
 mkdir html && cd html || return 1
 wget https://raw.githubusercontent.com/bungle/lua-resty-template/master/lib/resty/template/html.lua
-cd - && cd - || return 1
+cd /opt/openresty || return 1
 /opt/openresty/nginx/sbin/nginx -s reload
