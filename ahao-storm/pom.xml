@@ -17,6 +17,7 @@
 
     <properties>
         <start-class>moe.ahao.storm.WordCountTopology</start-class>
+        <apache.curator.version>2.13.0</apache.curator.version>
     </properties>
 
     <dependencies>
@@ -41,6 +42,12 @@
                     <artifactId>log4j-to-slf4j</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+            <version>${apache.curator.version}</version>
         </dependency>
     </dependencies>
 
