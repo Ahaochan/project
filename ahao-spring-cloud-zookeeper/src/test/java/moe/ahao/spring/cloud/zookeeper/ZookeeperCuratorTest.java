@@ -11,6 +11,7 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.retry.*;
 import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
@@ -29,7 +30,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class ZookeeperCuratorTest {
-    public static final String connectString = "192.168.75.134:2181";
+    public static final String connectString = "192.168.153.134:2181";
     private static final CuratorWatcher watcher = e -> System.out.printf("watch事件:%s%n", e);
 
     private CuratorFramework zk;
@@ -79,6 +80,13 @@ public class ZookeeperCuratorTest {
             .withMode(CreateMode.EPHEMERAL)
             .withACL(aclList)
             .forPath("/ahao-tmp", "ahao-data".getBytes(StandardCharsets.UTF_8));
+        // 重复创建节点抛出异常
+        Assertions.assertThrows(KeeperException.NodeExistsException.class, () ->
+            zk.create()
+                .creatingParentsIfNeeded() // 自动创建父节点
+                .withMode(CreateMode.EPHEMERAL)
+                .withACL(aclList)
+                .forPath("/ahao-tmp", "ahao-data".getBytes(StandardCharsets.UTF_8)));
         // 异步创建一个永久节点
         zk.create()
             .creatingParentsIfNeeded() // 自动创建父节点
