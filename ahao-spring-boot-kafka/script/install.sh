@@ -14,7 +14,7 @@ if [ ! -f "bin/kafka-server-start.sh" ]; then
 fi
 
 # 3. 配置参数
-KAFKA_HEAP_OPTS=" -Xms6g  -Xmx6g"
+KAFKA_HEAP_OPTS=" -Xms2g  -Xmx2g"
 KAFKA_JVM_PERFORMANCE_OPTS=" -server -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+ExplicitGCInvokesConcurrent -Djava.awt.headless=true"
 IP=$(hostname -I | awk '{print $1}')
 ZK="127.0.0.1:12181,127.0.0.1:22181,127.0.0.1:32181/kafka-chroot1"
