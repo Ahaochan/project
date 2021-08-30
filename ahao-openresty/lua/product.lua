@@ -13,7 +13,7 @@ end
 
 -- 2. 上报kafka
 local broker_list = {
-    { host = "192.168.19.128", port = 19092 }
+    { host = "192.168.153.134", port = 19092 }
 }
 
 local log_json = {
