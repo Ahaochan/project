@@ -1,8 +1,6 @@
 package moe.ahao.spring.cloud.hystrix;
 
-import com.netflix.hystrix.HystrixCommand;
-import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixObservableCommand;
+import com.netflix.hystrix.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -73,8 +71,16 @@ public class HystrixCommandTest {
 
     public class UppercaseHystrixCommand extends HystrixCommand<String> {
         private final String name;
+
         public UppercaseHystrixCommand(String name) {
-            super(HystrixCommandGroupKey.Factory.asKey("uppercase-thread-pool"));
+            super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("uppercase-group"))
+                .andCommandKey(HystrixCommandKey.Factory.asKey("uppercase-1"))
+                .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("thread-pool"))
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+                    .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)) // 线程池
+                .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter().withCoreSize(10) // 设置线程池core大小
+                    .withQueueSizeRejectionThreshold(15)) // 阻塞队列长度
+            );
             this.name = name;
         }
 
@@ -86,8 +92,12 @@ public class HystrixCommandTest {
 
     public class UppercaseHystrixObservableCommand extends HystrixObservableCommand<String> {
         private final String[] names;
+
         public UppercaseHystrixObservableCommand(String[] names) {
-            super(HystrixCommandGroupKey.Factory.asKey("uppercase-observable-thread-pool"));
+            super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("uppercase-group"))
+                .andCommandKey(HystrixCommandKey.Factory.asKey("uppercase-2"))
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+                    .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD))); // 线程池
             this.names = names;
         }
 
