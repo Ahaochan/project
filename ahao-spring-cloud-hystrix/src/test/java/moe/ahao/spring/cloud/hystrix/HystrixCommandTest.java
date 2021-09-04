@@ -1,6 +1,7 @@
 package moe.ahao.spring.cloud.hystrix;
 
 import com.netflix.hystrix.*;
+import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -68,6 +69,32 @@ public class HystrixCommandTest {
         Assertions.assertTrue(latch.await(1, TimeUnit.SECONDS));
     }
 
+    @DisplayName("从缓存中获取数据")
+    @Test
+    public void hystrixCacheTest() throws Exception {
+        String name = "hello";
+        HystrixRequestContext context1 = HystrixRequestContext.initializeContext();
+
+        HystrixCommand<String> command1 = new UppercaseHystrixCacheCommand(name);
+        String result1 = command1.execute();
+        Assertions.assertEquals(name.toUpperCase(), result1);
+        Assertions.assertFalse(command1.isResponseFromCache());
+
+        HystrixCommand<String> command2 = new UppercaseHystrixCacheCommand(name);
+        String result2 = command2.execute();
+        Assertions.assertEquals(name.toUpperCase(), result2);
+        Assertions.assertTrue(command2.isResponseFromCache());
+
+        context1.shutdown();
+
+        HystrixRequestContext context2 = HystrixRequestContext.initializeContext();
+        HystrixCommand<String> command3 = new UppercaseHystrixCacheCommand(name);
+        String result3 = command3.execute();
+        Assertions.assertEquals(name.toUpperCase(), result3);
+        Assertions.assertFalse(command3.isResponseFromCache());
+        context2.shutdown();
+    }
+
     @DisplayName("fallback降级")
     @Test
     public void fallbackTest() throws Exception {
@@ -126,6 +153,32 @@ public class HystrixCommandTest {
                     }
                 }
             }).subscribeOn(Schedulers.io());
+        }
+    }
+
+    public class UppercaseHystrixCacheCommand extends HystrixCommand<String> {
+        private final String name;
+
+        public UppercaseHystrixCacheCommand(String name) {
+            super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("uppercase-group"))
+                .andCommandKey(HystrixCommandKey.Factory.asKey("uppercase-3"))
+                .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("thread-pool"))
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+                    .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)) // 线程池
+                .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter().withCoreSize(10) // 设置线程池core大小
+                    .withQueueSizeRejectionThreshold(15)) // 阻塞队列长度
+            );
+            this.name = name;
+        }
+
+        @Override
+        protected String run() throws Exception {
+            return name.toUpperCase();
+        }
+
+        @Override
+        protected String getCacheKey() {
+            return "cache_" + name;
         }
     }
 
