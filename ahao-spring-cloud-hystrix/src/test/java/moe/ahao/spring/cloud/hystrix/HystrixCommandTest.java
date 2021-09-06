@@ -68,6 +68,16 @@ public class HystrixCommandTest {
         Assertions.assertTrue(latch.await(1, TimeUnit.SECONDS));
     }
 
+    @DisplayName("fallback降级")
+    @Test
+    public void fallbackTest() throws Exception {
+        String name = "hello";
+
+        HystrixCommand<String> command = new FallbackCommand(name);
+        String result = command.execute();
+        Assertions.assertEquals(name, result);
+    }
+
 
     public class UppercaseHystrixCommand extends HystrixCommand<String> {
         private final String name;
@@ -116,6 +126,31 @@ public class HystrixCommandTest {
                     }
                 }
             }).subscribeOn(Schedulers.io());
+        }
+    }
+
+    public class FallbackCommand extends HystrixCommand<String> {
+        private final String name;
+
+        public FallbackCommand(String name) {
+            super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("uppercase-group"))
+                .andCommandKey(HystrixCommandKey.Factory.asKey("uppercase-4"))
+                .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("thread-pool"))
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+                    .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)) // 线程池
+                .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter().withCoreSize(10) // 设置线程池core大小
+                    .withQueueSizeRejectionThreshold(15)) // 阻塞队列长度
+            );
+            this.name = name;
+        }
+        @Override
+        protected String run() throws Exception {
+            throw new NullPointerException("错误");
+        }
+
+        @Override
+        protected String getFallback() {
+            return name;
         }
     }
 }
