@@ -105,6 +105,16 @@ public class HystrixCommandTest {
         Assertions.assertEquals(name, result);
     }
 
+    @DisplayName("timeout降级")
+    @Test
+    public void timeoutTest() throws Exception {
+        String name = "hello";
+
+        HystrixCommand<String> command = new TimeoutCommand(name);
+        String result = command.execute();
+        Assertions.assertEquals(name, result);
+    }
+
 
     public class UppercaseHystrixCommand extends HystrixCommand<String> {
         private final String name;
@@ -127,14 +137,14 @@ public class HystrixCommandTest {
         }
     }
 
-    public class UppercaseHystrixObservableCommand extends HystrixObservableCommand<String> {
+    public static class UppercaseHystrixObservableCommand extends HystrixObservableCommand<String> {
         private final String[] names;
 
         public UppercaseHystrixObservableCommand(String[] names) {
             super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("uppercase-group"))
                 .andCommandKey(HystrixCommandKey.Factory.asKey("uppercase-2"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
-                    .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD))); // 线程池
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter())
+            );
             this.names = names;
         }
 
@@ -156,17 +166,14 @@ public class HystrixCommandTest {
         }
     }
 
-    public class UppercaseHystrixCacheCommand extends HystrixCommand<String> {
+    public static class UppercaseHystrixCacheCommand extends HystrixCommand<String> {
         private final String name;
 
         public UppercaseHystrixCacheCommand(String name) {
             super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("uppercase-group"))
                 .andCommandKey(HystrixCommandKey.Factory.asKey("uppercase-3"))
                 .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("thread-pool"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
-                    .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)) // 线程池
-                .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter().withCoreSize(10) // 设置线程池core大小
-                    .withQueueSizeRejectionThreshold(15)) // 阻塞队列长度
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter())
             );
             this.name = name;
         }
@@ -182,23 +189,44 @@ public class HystrixCommandTest {
         }
     }
 
-    public class FallbackCommand extends HystrixCommand<String> {
+    public static class FallbackCommand extends HystrixCommand<String> {
         private final String name;
 
         public FallbackCommand(String name) {
             super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("uppercase-group"))
                 .andCommandKey(HystrixCommandKey.Factory.asKey("uppercase-4"))
                 .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("thread-pool"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
-                    .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)) // 线程池
-                .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter().withCoreSize(10) // 设置线程池core大小
-                    .withQueueSizeRejectionThreshold(15)) // 阻塞队列长度
             );
             this.name = name;
         }
         @Override
         protected String run() throws Exception {
             throw new NullPointerException("错误");
+        }
+
+        @Override
+        protected String getFallback() {
+            return name;
+        }
+    }
+
+    public static class TimeoutCommand extends HystrixCommand<String> {
+        private final String name;
+
+        public TimeoutCommand(String name) {
+            super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("uppercase-group"))
+                .andCommandKey(HystrixCommandKey.Factory.asKey("uppercase-5"))
+                .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("thread-pool"))
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+                    .withExecutionTimeoutEnabled(true)
+                    .withExecutionTimeoutInMilliseconds(500))
+            );
+            this.name = name;
+        }
+        @Override
+        protected String run() throws Exception {
+            Thread.sleep(1000);
+            return name.toUpperCase();
         }
 
         @Override
