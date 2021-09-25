@@ -3,7 +3,7 @@
 # 针对 service1 服务的配置
 service1:
   ribbon:
-    listOfServers: www.baidu.com:80, www.bing.com:80
+    listOfServers: http://www.baidu.com:80/, http://cn.bing.com:80/
     NFLoadBalancerClassName: com.netflix.loadbalancer.ZoneAwareLoadBalancer
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
     NFLoadBalancerPingClassName: com.netflix.loadbalancer.DummyPing

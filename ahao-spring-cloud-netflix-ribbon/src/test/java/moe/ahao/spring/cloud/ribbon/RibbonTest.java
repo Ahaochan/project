@@ -33,7 +33,7 @@ public class RibbonTest {
         Assertions.assertEquals(80, server1.getPort());
 
         ServiceInstance server2 = loadBalancerClient.choose(SERVICE_NAME);
-        Assertions.assertEquals("www.bing.com", server2.getHost());
+        Assertions.assertEquals("cn.bing.com", server2.getHost());
         Assertions.assertEquals(80, server2.getPort());
     }
 
