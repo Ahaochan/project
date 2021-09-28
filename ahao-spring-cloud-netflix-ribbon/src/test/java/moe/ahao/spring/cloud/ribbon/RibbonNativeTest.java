@@ -5,6 +5,7 @@ import com.netflix.client.http.HttpRequest;
 import com.netflix.client.http.HttpResponse;
 import com.netflix.config.ConfigurationManager;
 import com.netflix.loadbalancer.BaseLoadBalancer;
+import com.netflix.loadbalancer.PingUrl;
 import com.netflix.loadbalancer.Server;
 import com.netflix.niws.client.http.RestClient;
 import org.apache.commons.lang3.StringUtils;
@@ -61,6 +62,9 @@ public class RibbonNativeTest {
             Assertions.assertEquals("server" + i, server.getHost());
             Assertions.assertEquals(80 + i, server.getPort());
         }
+
+        balancer.setPing(new PingUrl());
+        balancer.setPingInterval(1);
 
         Server server = balancer.chooseServer(null);
         System.out.println(server.getHostPort());
