@@ -1,4 +1,14 @@
 feign:
+  # 压缩配置
+  compression:
+    request:
+      enabled: true
+      mime-types: "text/xml", "application/xml", "application/json"
+      min-request-size: 2048
+    response:
+      enabled: true
+      useGzipDecoder: false
+  # 普通配置
   client:
     config:
       default: # 全局配置
