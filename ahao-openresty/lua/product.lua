@@ -46,7 +46,9 @@ if product_cache == "" or product_cache == nil then
     })
     product_cache = resp.body;
     ngx.log(ngx.INFO, "================> load data: ", product_cache);
-    cache_ngx:set(product_cache_key, product_cache, 10);
+    math.randomseed(tostring(os.time()):reverse():sub(1, 7))
+    local expire_time = math.random(600, 1200)
+    cache_ngx:set(product_cache_key, product_cache, expire_time);
 end
 
 -- 4. 解析json
