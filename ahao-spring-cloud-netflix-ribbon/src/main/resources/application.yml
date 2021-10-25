@@ -1,5 +1,12 @@
 # 可配置属性: com.netflix.client.config.CommonClientConfigKey
 
+spring:
+  cloud:
+    loadbalancer:
+      retry:
+        # 在RetryLoadBalancerInterceptor里面为RetryTemplate注入重试器
+        enabled: true
+
 # 针对 service1 服务的配置
 service1:
   ribbon:
@@ -9,14 +16,18 @@ service1:
     NFLoadBalancerPingClassName: com.netflix.loadbalancer.DummyPing
     NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
     NIWSServerListFilterClassName: org.springframework.cloud.netflix.ribbon.ZonePreferenceServerListFilter
-
 # 全局配置
 ribbon:
   eager-load:
     enabled: true
+  # LoadBalancerCommand.execute 方法中读取
   ReadTimeout: 1000
+  # LoadBalancerCommand.execute 方法中读取
   ConnectTimeout: 1000
   GZipPayload: true
+  # FeignLoadBalancer.getRequestSpecificRetryHandler 方法中读取
   OkToRetryOnAllOperations: true
+  # RequestSpecificRetryHandler 构造函数中读取
   MaxAutoRetries: 1
+  # RequestSpecificRetryHandler 构造函数中读取
   MaxAutoRetriesNextServer: 1
