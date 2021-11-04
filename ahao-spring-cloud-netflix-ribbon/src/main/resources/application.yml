@@ -4,7 +4,8 @@ spring:
   cloud:
     loadbalancer:
       retry:
-        # 在RetryLoadBalancerInterceptor里面为RetryTemplate注入重试器
+        # 在RetryLoadBalancerInterceptor里面为RetryTemplate注入重试器, 需要添加spring retry依赖
+        # 和下面的ribbon重试没有关系
         enabled: true
 
 # 针对 service1 服务的配置
@@ -25,9 +26,9 @@ ribbon:
   # LoadBalancerCommand.execute 方法中读取
   ConnectTimeout: 1000
   GZipPayload: true
-  # FeignLoadBalancer.getRequestSpecificRetryHandler 方法中读取
+  # FeignLoadBalancer.getRequestSpecificRetryHandler 方法中读取, 无论请求的什么时候有异常, 都会触发重试
   OkToRetryOnAllOperations: true
-  # RequestSpecificRetryHandler 构造函数中读取
+  # 同一台实例最大重试次数, RequestSpecificRetryHandler 构造函数中读取
   MaxAutoRetries: 1
-  # RequestSpecificRetryHandler 构造函数中读取
+  # 最多允许切换多少台实例, RequestSpecificRetryHandler 构造函数中读取
   MaxAutoRetriesNextServer: 1

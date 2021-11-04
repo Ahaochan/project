@@ -14,6 +14,12 @@ eureka:
 spring:
   application:
     name: eureka-consumer
+  cloud:
+    loadbalancer:
+      retry:
+        # 在RetryLoadBalancerInterceptor里面为RetryTemplate注入重试器, 需要添加spring retry依赖
+        # 和下面的ribbon重试没有关系
+        enabled: true
 server:
   port: 8082
 feign:
