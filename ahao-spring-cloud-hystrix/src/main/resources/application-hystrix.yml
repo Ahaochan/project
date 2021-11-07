@@ -25,4 +25,12 @@ feign:
 
 # com.netflix.hystrix.HystrixCommandProperties
 # 隔离线程超时时间，默认1s
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 1234
+hystrix.command:
+  default:
+    execution:
+      isolation.thread.timeoutInMilliseconds: 1000
+      circuitBreaker:
+        # 一定时间内，如果经过断路器的流量不超过20次，那也没必要去开启断路器，默认是20
+        requestVolumeThreshold: 20
+  EUREKA-SERVER:
+    execution.isolation.thread.timeoutInMilliseconds: 1000
