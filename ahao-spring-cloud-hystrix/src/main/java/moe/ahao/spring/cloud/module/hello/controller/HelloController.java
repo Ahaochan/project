@@ -21,6 +21,7 @@ public class HelloController implements HelloApi {
     @Autowired
     private HelloService helloService;
 
+    @Override
     public String hello() {
         RequestContextHolder.currentRequestAttributes().setAttribute(KEY, "RequestContextHolder value", RequestAttributes.SCOPE_REQUEST);
         threadLocal.set("threadLocal value");
