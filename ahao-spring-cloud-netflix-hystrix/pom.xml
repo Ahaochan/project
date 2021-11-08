@@ -17,5 +17,6 @@
 
     <modules>
         <module>ahao-spring-cloud-hystrix</module>
+        <module>ahao-spring-cloud-hystrix-dashboard</module>
     </modules>
 </project>

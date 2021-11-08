@@ -6,9 +6,8 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableCircuitBreaker
-//@EnableHystrixDashboard
 public class HystrixConfig {
     @Bean
     public HystrixConcurrencyStrategy hystrixConcurrencyStrategy() {

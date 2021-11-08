@@ -19,3 +19,6 @@ hystrix.command:
         requestVolumeThreshold: 20
   EUREKA-SERVER:
     execution.isolation.thread.timeoutInMilliseconds: 1000
+
+management.endpoints.web.exposure.include:
+  - hystrix.stream

@@ -2,7 +2,7 @@
 一个`Hytrix`熔断降级的`Demo`. 注意, `Hytrix`已经停止开发, 但还在维护中.
 
 # 使用步骤
-1. 启动[本项目](ahao-spring-cloud-hystrix/src/main/java/moe/ahao/spring/cloud/Starter.java)
+1. 启动[服务](ahao-spring-cloud-hystrix/src/main/java/moe/ahao/spring/cloud/Starter.java)
 1. 访问[http://127.0.0.1:8080/hello](http://127.0.0.1:8080/hello), 输出熔断降级后的结果
 
 # 熔断降级的两种实现
@@ -73,5 +73,12 @@ public class HelloService {
 }
 ```
 
-# 熔断降级的监控和集群监控
-本`Demo`不涉及
+# Hystrix Dashboard监控单个服务实例
+1. 启动[服务](ahao-spring-cloud-hystrix/src/main/java/moe/ahao/spring/cloud/Starter.java)
+2. 访问[http://127.0.0.1:8080/hello](http://127.0.0.1:8080/hello), 输出熔断降级后的结果
+3. 启动[`Dashboard`](ahao-spring-cloud-hystrix-dashboard/src/main/java/moe/ahao/spring/cloud/Starter.java)
+4. 访问[`Dashboard`](http://localhost:9090/hystrix) 输入[`http://localhost:8080/actuator/hystrix.stream`](http://localhost:8080/actuator/hystrix.stream)
+5. 访问[http://127.0.0.1:8080/hello](http://127.0.0.1:8080/hello), 观察[`Dashboard`](http://localhost:9090/hystrix)
+
+
+# Hystrix Turbine监控服务集群
