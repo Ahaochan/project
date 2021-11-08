@@ -2,10 +2,7 @@
 一个`Hytrix`熔断降级的`Demo`. 注意, `Hytrix`已经停止开发, 但还在维护中.
 
 # 使用步骤
-1. 启动[Eureka](../ahao-spring-cloud-eureka/ahao-spring-cloud-eureka-server/src/main/java/moe/ahao/spring/cloud/eureka/EurekaServerApplication.java)
 1. 启动[本项目](src/main/java/moe/ahao/spring/cloud/Starter.java)
-1. 访问[http://127.0.0.1:8080/hello](http://127.0.0.1:8080/hello), 正常输出
-1. 停止`Eureka`
 1. 访问[http://127.0.0.1:8080/hello](http://127.0.0.1:8080/hello), 输出熔断降级后的结果
 
 # 熔断降级的两种实现
