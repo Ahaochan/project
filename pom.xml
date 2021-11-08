@@ -67,7 +67,7 @@
         <module>ahao-spring-cloud-contract</module>
         <module>ahao-spring-cloud-eureka</module>
         <module>ahao-spring-cloud-gateway</module>
-        <module>ahao-spring-cloud-hystrix</module>
+        <module>ahao-spring-cloud-netflix-hystrix</module>
         <module>ahao-spring-cloud-netflix-ribbon</module>
         <module>ahao-spring-cloud-openfeign</module>
         <!-- <module>ahao-spring-cloud-security-oauth2</module> -->

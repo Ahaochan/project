@@ -2,11 +2,11 @@
 一个`Hytrix`熔断降级的`Demo`. 注意, `Hytrix`已经停止开发, 但还在维护中.
 
 # 使用步骤
-1. 启动[本项目](src/main/java/moe/ahao/spring/cloud/Starter.java)
+1. 启动[本项目](ahao-spring-cloud-hystrix/src/main/java/moe/ahao/spring/cloud/Starter.java)
 1. 访问[http://127.0.0.1:8080/hello](http://127.0.0.1:8080/hello), 输出熔断降级后的结果
 
 # 熔断降级的两种实现
-第一种是远程服务, 借助`Feign`, 关注[`HelloApi`](src/main/java/moe/ahao/spring/cloud/module/hello/api)
+第一种是远程服务, 借助`Feign`, 关注[`HelloApi`](ahao-spring-cloud-hystrix/src/main/java/moe/ahao/spring/cloud/module/hello/api)
 ```java
 @FeignClient(name= "EUREKA-SERVER", fallback = HelloApiHystrix.class)
 public interface HelloApi {
@@ -25,7 +25,7 @@ public class HelloApiHystrix implements HelloApi {
 }
 ```
 
-第二种是本地服务, 关注[`HelloService`](src/main/java/moe/ahao/spring/cloud/module/hello/service)
+第二种是本地服务, 关注[`HelloService`](ahao-spring-cloud-hystrix/src/main/java/moe/ahao/spring/cloud/module/hello/service)
 ```java
 @Service
 public class HelloService {

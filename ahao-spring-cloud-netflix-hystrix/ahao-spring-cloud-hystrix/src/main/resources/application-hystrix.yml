@@ -1,18 +1,3 @@
-# 服务注册中心配置
-eureka:
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
-    register-with-eureka: true
-    fetch-registry: true
-  instance:
-    hostname: 127.0.0.1
-spring:
-  application:
-    name: hystrix
-server:
-  port: 8080
-
 # 启动 hystrix
 feign:
   hystrix:
