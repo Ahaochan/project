@@ -12,7 +12,7 @@
 
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE_ERROR"/>
+        <appender-ref ref="ASYNC_FILE_ERROR"/>
     </root>
     <!-- ============================================= 日志级别 配置 ============================================= -->
 </configuration>

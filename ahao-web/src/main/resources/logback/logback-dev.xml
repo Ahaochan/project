@@ -91,10 +91,10 @@
         <!-- 控制台输出 -->
         <appender-ref ref="STDOUT"/>
         <!-- 文件输出 -->
-        <appender-ref ref="FILE_LOG"/>
-        <appender-ref ref="FILE_ERROR"/>
+<!--        <appender-ref ref="FILE_LOG"/>-->
+<!--        <appender-ref ref="FILE_ERROR"/>-->
         <!-- 异步输出 -->
-<!--        <appender-ref ref="ASYNC_LOG"/>-->
-<!--        <appender-ref ref="ASYNC_ERROR"/>-->
+        <appender-ref ref="ASYNC_LOG"/>
+        <appender-ref ref="ASYNC_ERROR"/>
     </root>
 </configuration>

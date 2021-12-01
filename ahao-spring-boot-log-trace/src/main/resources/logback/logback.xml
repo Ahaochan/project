@@ -54,6 +54,12 @@
             <maxHistory>${log.history.max}</maxHistory>
         </rollingPolicy>
     </appender>
+    <appender name ="ASYNC_FILE_ERROR" class= "ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref ="FILE_ERROR"/>
+    </appender>
     <!-- ============================================= Appender 配置 ============================================= -->
 
     <!-- ============================================= 日志级别 配置 ============================================= -->
