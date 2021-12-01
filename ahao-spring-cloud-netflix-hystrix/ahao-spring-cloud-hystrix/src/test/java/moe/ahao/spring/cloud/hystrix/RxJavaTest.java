@@ -68,4 +68,11 @@ public class RxJavaTest {
                 }
             });
     }
+
+    @Test
+    public void observableMap() {
+        Observable.just(1, 2, 3)
+            .map(i -> i + 10)
+            .subscribe(System.out::println);
+    }
 }
