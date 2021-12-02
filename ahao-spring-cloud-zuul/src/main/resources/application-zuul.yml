@@ -12,6 +12,8 @@ spring:
     name: zuul-client
 
 zuul:
+  # 敏感请求头不传给后端
+  sensitive-headers: accept-language,cookie
   routes:
     my-api:
       path: "/api/**"
@@ -24,6 +26,7 @@ zuul:
     max-total-connections: 200
   ribbon:
     eager-load:
+      # 预加载ribbon客户端
       enabled: true
 
 springfox:
