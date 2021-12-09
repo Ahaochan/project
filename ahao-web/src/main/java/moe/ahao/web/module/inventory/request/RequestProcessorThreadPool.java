@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.*;
 
 public class RequestProcessorThreadPool implements InitializingBean, DisposableBean {
-    private final static Logger logger = LoggerFactory.getLogger(RequestProcessorThreadPool.class);
+    private static final Logger logger = LoggerFactory.getLogger(RequestProcessorThreadPool.class);
 
     private int threadCount = 10;
     private int queueLength = 100;

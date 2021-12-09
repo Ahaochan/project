@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 
 @Service
 public class RequestAsyncProcessServiceImpl implements RequestAsyncProcessService {
-    private final static Logger logger = LoggerFactory.getLogger(RequestAsyncProcessServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RequestAsyncProcessServiceImpl.class);
 
     @Autowired
     private RequestProcessorThreadPool threadPool;

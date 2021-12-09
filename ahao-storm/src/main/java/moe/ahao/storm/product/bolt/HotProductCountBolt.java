@@ -18,8 +18,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HotProductCountBolt extends BaseRichBolt {
-    private final static int LRU_SIZE = 1000;
-    private final static int PRE_WARM_SIZE = 10;
+    private static final int LRU_SIZE = 1000;
+    private static final int PRE_WARM_SIZE = 10;
 
     private final LRUMap<Long, Long> lru = new LRUMap<>(LRU_SIZE);
     private CuratorFramework zk;

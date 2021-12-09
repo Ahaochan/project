@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ProductInventoryCacheReloadRequest implements Request {
-    private final static Logger logger = LoggerFactory.getLogger(ProductInventoryCacheReloadRequest.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductInventoryCacheReloadRequest.class);
 
     private Long productId;
     private ProductInventoryService productInventoryService;

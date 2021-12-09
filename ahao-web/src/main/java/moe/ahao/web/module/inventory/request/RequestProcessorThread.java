@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 public class RequestProcessorThread implements Callable<Boolean> {
-    private final static Logger logger = LoggerFactory.getLogger(RequestProcessorThread.class);
+    private static final Logger logger = LoggerFactory.getLogger(RequestProcessorThread.class);
 
     private BlockingQueue<Request> queue;
     private ConcurrentMap<Long, Boolean> flagMap;

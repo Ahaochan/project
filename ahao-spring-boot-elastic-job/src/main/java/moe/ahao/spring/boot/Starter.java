@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @SpringBootApplication(scanBasePackages = "moe.ahao")
 @EnableConfigurationProperties
 public class Starter {
-    private final static Logger logger = LoggerFactory.getLogger(Starter.class);
+    private static final Logger logger = LoggerFactory.getLogger(Starter.class);
 
     public static void main(String[] args) {
         try {

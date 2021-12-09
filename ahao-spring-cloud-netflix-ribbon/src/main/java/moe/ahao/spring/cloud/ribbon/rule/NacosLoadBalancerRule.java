@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * @see com.alibaba.cloud.nacos.ribbon.NacosRule
  */
 public class NacosLoadBalancerRule extends AbstractLoadBalancerRule {
-    private final static Logger logger = LoggerFactory.getLogger(NacosLoadBalancerRule.class);
+    private static final Logger logger = LoggerFactory.getLogger(NacosLoadBalancerRule.class);
 
     private NacosDiscoveryProperties properties;
 

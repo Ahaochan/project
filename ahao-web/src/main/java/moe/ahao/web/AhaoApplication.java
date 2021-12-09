@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = "moe.ahao")
 public class AhaoApplication {
 
-    private final static Logger logger = LoggerFactory.getLogger(AhaoApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(AhaoApplication.class);
 
     public static void main(String[] args) {
         try {

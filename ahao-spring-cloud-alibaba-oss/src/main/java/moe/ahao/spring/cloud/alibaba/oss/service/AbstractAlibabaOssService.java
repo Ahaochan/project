@@ -22,7 +22,7 @@ import java.util.Date;
  * 抽象 Oss 服务, 不同 Bucket 继承本类, 并实现 abstract 方法即可.
  */
 public abstract class AbstractAlibabaOssService implements InitializingBean, AlibabaOssService {
-    private final static Logger logger = LoggerFactory.getLogger(AbstractAlibabaOssService.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractAlibabaOssService.class);
 
     private OSS ossClient;
     private OssProperties ossProperties;

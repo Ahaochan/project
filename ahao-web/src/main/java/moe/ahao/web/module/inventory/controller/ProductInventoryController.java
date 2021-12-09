@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/async")
 public class ProductInventoryController {
-    private final static Logger logger = LoggerFactory.getLogger(ProductInventoryController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductInventoryController.class);
 
     @Autowired
     private ProductInventoryService productInventoryService;

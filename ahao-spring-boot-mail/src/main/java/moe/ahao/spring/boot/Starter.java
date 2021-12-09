@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @SpringBootApplication(scanBasePackages = "moe.ahao", exclude = {DataSourceAutoConfiguration.class})
 public class Starter {
 
-    private final static Logger logger = LoggerFactory.getLogger(Starter.class);
+    private static final Logger logger = LoggerFactory.getLogger(Starter.class);
 
     public static void main(String[] args) {
         try {

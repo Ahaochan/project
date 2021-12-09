@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ProductInventoryDBUpdateRequest implements Request {
-    private final static Logger logger = LoggerFactory.getLogger(ProductInventoryDBUpdateRequest.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductInventoryDBUpdateRequest.class);
     private final ProductInventory productInventory;
     private final ProductInventoryService productInventoryService;
 
