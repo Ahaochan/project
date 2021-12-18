@@ -1,6 +1,7 @@
 package moe.ahao.spring.boot.mybatis.tk;
 
-import moe.ahao.spring.boot.mybatis.tk.config.MapperConfig;
+import moe.ahao.spring.boot.mybatis.tk.config.MultiMyBatisConfig;
+import moe.ahao.spring.boot.mybatis.tk.config.MybatisTKConfig;
 import moe.ahao.spring.boot.mybatis.tk.module.entity.User;
 import moe.ahao.spring.boot.mybatis.tk.module.mapper.UserMapper;
 import org.apache.ibatis.cursor.Cursor;
@@ -26,7 +27,7 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {MapperConfig.class,
+@ContextConfiguration(classes = {MybatisTKConfig.class, MultiMyBatisConfig.class,
     DataSourceAutoConfiguration.class, MybatisAutoConfiguration.class,
     DataSourceTransactionManagerAutoConfiguration.class, TransactionAutoConfiguration.class})
 @ActiveProfiles("test")

@@ -3,6 +3,7 @@ package moe.ahao.spring.boot.mybatis.plus;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusLanguageDriverAutoConfiguration;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import moe.ahao.spring.boot.mybatis.plus.config.MultiMyBatisConfig;
 import moe.ahao.spring.boot.mybatis.plus.config.MyBatisPlusConfig;
 import moe.ahao.spring.boot.mybatis.plus.module.entity.User;
 import moe.ahao.spring.boot.mybatis.plus.module.enums.Sex;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {MyBatisPlusConfig.class,
+@ContextConfiguration(classes = {MyBatisPlusConfig.class, MultiMyBatisConfig.class,
     DataSourceAutoConfiguration.class,
     MybatisPlusAutoConfiguration.class, MybatisPlusLanguageDriverAutoConfiguration.class})
 @ActiveProfiles("test")

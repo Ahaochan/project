@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.apache.ibatis.reflection.MetaObject;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,8 +15,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@Configuration
-@MapperScan("moe.ahao.spring.boot.**.mapper")
+@Configuration(proxyBeanMethods = false)
 public class MyBatisPlusConfig {
 
     /**
