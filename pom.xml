@@ -53,6 +53,7 @@
         <module>ahao-spring-boot-shiro</module>
         <module>ahao-spring-boot-skywalking</module>
         <module>ahao-spring-boot-swagger</module>
+        <module>ahao-spring-boot-transaction</module>
         <module>ahao-spring-boot-validator</module>
         <module>ahao-spring-boot-webflux</module>
         <module>ahao-spring-boot-webservice</module>
