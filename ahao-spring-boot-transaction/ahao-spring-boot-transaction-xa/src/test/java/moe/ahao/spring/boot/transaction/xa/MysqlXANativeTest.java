@@ -3,7 +3,7 @@ package moe.ahao.spring.boot.transaction.xa;
 import com.mysql.cj.jdbc.JdbcConnection;
 import com.mysql.cj.jdbc.MysqlXAConnection;
 import com.mysql.cj.jdbc.MysqlXid;
-import org.junit.jupiter.api.Test;
+import moe.ahao.spring.boot.transaction.BaseTest;
 
 import javax.sql.XAConnection;
 import javax.transaction.xa.XAResource;
@@ -11,25 +11,15 @@ import javax.transaction.xa.Xid;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 
-public class MysqlXANativeTest {
-    @Test
-    public void mysql() throws Exception {
-        String url = "jdbc:mysql://localhost:3306";
-        try (Connection conn = DriverManager.getConnection(url, "root", "root");
-             Statement s = conn.createStatement();) {
-            s.execute("create database if not exists ahaodb");
-            s.execute("drop table if exists ahaodb.user");
-            s.execute("create table ahaodb.user ( id int primary key, username varchar(50))");
-            s.execute("insert ahaodb.user (id, username) values (1, 'user1'), (2, 'user2')");
-        }
+public class MysqlXANativeTest extends BaseTest {
 
+    public void test(boolean rollback) throws Exception {
         // 这个XAResource其实你可以认为是RM（Resource Manager）的一个代码中的对象实例
         XAConnection xaConnection1 = null;
         XAConnection xaConnection2 = null;
-        try (Connection connection1 = DriverManager.getConnection(url + "/ahaodb", "root", "root");
-             Connection connection2 = DriverManager.getConnection(url + "/ahaodb", "root", "root");) {
+        try (Connection connection1 = DriverManager.getConnection(URL + "/ahaodb", "root", "root");
+             Connection connection2 = DriverManager.getConnection(URL + "/ahaodb", "root", "root");) {
             // 这个XAResource其实你可以认为是RM（Resource Manager）的一个代码中的对象实例
             xaConnection1 = new MysqlXAConnection((JdbcConnection) connection1, true);
             XAResource xaResource1 = xaConnection1.getXAResource();
@@ -38,17 +28,15 @@ public class MysqlXANativeTest {
             XAResource xaResource2 = xaConnection2.getXAResource();
 
             // 定义子事务要执行的SQL语句, xid是子事务的唯一标识
-            Xid xid1 = this.prepare(xaResource1, "bqual1", connection1.prepareStatement(
-                "update user set username = 'admin1' where id = 1"));
-            Xid xid2 = this.prepare(xaResource2, "bqual2", connection2.prepareStatement(
-                "update user set username = 'admin2' where id = 2"));
+            Xid xid1 = this.prepare(xaResource1, "bqual1", connection1.prepareStatement(SQL1));
+            Xid xid2 = this.prepare(xaResource2, "bqual2", connection2.prepareStatement(SQL2));
             // 2PC的阶段一: 向两个库都发送prepare消息，执行事务中的SQL语句，但是不提交
             int prepareResult1 = xaResource1.prepare(xid1);
             int prepareResult2 = xaResource2.prepare(xid2);
 
             // 2PC的阶段二: 两个库都发送commit消息，提交事务
             // 如果两个库对prepare都返回ok, 那么就全部commit, 对每个库都发送commit消息, 完成自己本地事务的提交
-            if (prepareResult1 == XAResource.XA_OK && prepareResult2 == XAResource.XA_OK) {
+            if (prepareResult1 == XAResource.XA_OK && prepareResult2 == XAResource.XA_OK && !rollback) {
                 xaResource1.commit(xid1, false);
                 xaResource2.commit(xid2, false);
             }
@@ -58,8 +46,8 @@ public class MysqlXANativeTest {
                 xaResource2.rollback(xid2);
             }
         } finally {
-            if(xaConnection1 != null) xaConnection1.close();
-            if(xaConnection2 != null) xaConnection2.close();
+            if (xaConnection1 != null) xaConnection1.close();
+            if (xaConnection2 != null) xaConnection2.close();
         }
     }
 
