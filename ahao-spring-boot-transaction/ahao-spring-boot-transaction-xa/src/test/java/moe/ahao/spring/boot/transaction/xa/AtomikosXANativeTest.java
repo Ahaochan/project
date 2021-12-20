@@ -34,17 +34,20 @@ public class AtomikosXANativeTest extends BaseTest {
         AtomikosDataSourceBean atomikosDS2 = createAtomikosDataSourceBean("resource2");
 
         UserTransaction userTransaction = new UserTransactionImp();
+        // 必须在getConnection之前开启事务, 否则事务回滚失效
+        userTransaction.begin();
+
         try (Connection connection1 = atomikosDS1.getConnection();
              Connection connection2 = atomikosDS2.getConnection();
              PreparedStatement ps1 = connection1.prepareStatement("update user set username = 'admin1' where id = 1");
              PreparedStatement ps2 = connection2.prepareStatement("update user set username = 'admin2' where id = 2");){
-            // 开启事务
-            userTransaction.begin();
+
 
             // 执行db1上的sql
             ps1.executeUpdate();
             if(rollback) {
-                int i = 1/0; // TODO 回滚失败
+                userTransaction.rollback();
+                return;
             }
             ps2.executeUpdate();
 

@@ -34,9 +34,15 @@ public class MysqlXANativeTest extends BaseTest {
             int prepareResult1 = xaResource1.prepare(xid1);
             int prepareResult2 = xaResource2.prepare(xid2);
 
+            if(rollback) {
+                xaResource1.rollback(xid1);
+                xaResource2.rollback(xid2);
+                return;
+            }
+
             // 2PC的阶段二: 两个库都发送commit消息，提交事务
             // 如果两个库对prepare都返回ok, 那么就全部commit, 对每个库都发送commit消息, 完成自己本地事务的提交
-            if (prepareResult1 == XAResource.XA_OK && prepareResult2 == XAResource.XA_OK && !rollback) {
+            if (prepareResult1 == XAResource.XA_OK && prepareResult2 == XAResource.XA_OK) {
                 xaResource1.commit(xid1, false);
                 xaResource2.commit(xid2, false);
             }
