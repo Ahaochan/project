@@ -25,19 +25,20 @@ public class AtomikosXATest extends BaseTest {
         @Autowired
         private JdbcTemplate jdbcTemplate;
 
-        public void update(int i) {
-            jdbcTemplate.update("update user set username = 'admin" + i + "' where id = " + i);
+        public void update(boolean rollback) {
+            jdbcTemplate.update("update user set username = 'admin1' where id = 1");
+            if (rollback) {
+                int i = 1 / 0;
+            }
+            jdbcTemplate.update("update user set username = 'admin2' where id = 2");
         }
     }
 
     @Autowired
     private AhaoService ahaoService;
+
     @Override
     protected void test(boolean rollback) throws Exception {
-        ahaoService.update(1);
-        if(rollback) {
-            int i = 1/0; // TODO 回滚失败
-        }
-        ahaoService.update(2);
+        ahaoService.update(rollback);
     }
 }

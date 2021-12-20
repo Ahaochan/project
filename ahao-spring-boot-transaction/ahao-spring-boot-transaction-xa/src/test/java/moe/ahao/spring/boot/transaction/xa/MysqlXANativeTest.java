@@ -34,7 +34,7 @@ public class MysqlXANativeTest extends BaseTest {
             int prepareResult1 = xaResource1.prepare(xid1);
             int prepareResult2 = xaResource2.prepare(xid2);
 
-            if(rollback) {
+            if (rollback) {
                 xaResource1.rollback(xid1);
                 xaResource2.rollback(xid2);
                 return;

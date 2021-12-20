@@ -40,12 +40,12 @@ public class AtomikosXANativeTest extends BaseTest {
         try (Connection connection1 = atomikosDS1.getConnection();
              Connection connection2 = atomikosDS2.getConnection();
              PreparedStatement ps1 = connection1.prepareStatement("update user set username = 'admin1' where id = 1");
-             PreparedStatement ps2 = connection2.prepareStatement("update user set username = 'admin2' where id = 2");){
+             PreparedStatement ps2 = connection2.prepareStatement("update user set username = 'admin2' where id = 2");) {
 
 
             // 执行db1上的sql
             ps1.executeUpdate();
-            if(rollback) {
+            if (rollback) {
                 userTransaction.rollback();
                 return;
             }
