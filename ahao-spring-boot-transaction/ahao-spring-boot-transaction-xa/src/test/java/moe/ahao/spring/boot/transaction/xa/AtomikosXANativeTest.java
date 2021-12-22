@@ -14,7 +14,7 @@ public class AtomikosXANativeTest extends BaseTest {
 
     private AtomikosDataSourceBean createAtomikosDataSourceBean(String resourceName) {
         Properties p = new Properties();
-        p.setProperty("url", URL + "/ahaodb");
+        p.setProperty("url", url("ahaodb"));
         p.setProperty("user", "root");
         p.setProperty("password", "root");
 

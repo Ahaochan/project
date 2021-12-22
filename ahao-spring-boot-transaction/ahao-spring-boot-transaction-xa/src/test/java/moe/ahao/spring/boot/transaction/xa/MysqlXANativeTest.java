@@ -18,8 +18,8 @@ public class MysqlXANativeTest extends BaseTest {
         // 这个XAResource其实你可以认为是RM（Resource Manager）的一个代码中的对象实例
         XAConnection xaConnection1 = null;
         XAConnection xaConnection2 = null;
-        try (Connection connection1 = DriverManager.getConnection(URL + "/ahaodb", "root", "root");
-             Connection connection2 = DriverManager.getConnection(URL + "/ahaodb", "root", "root");) {
+        try (Connection connection1 = DriverManager.getConnection(url("ahaodb"), "root", "root");
+             Connection connection2 = DriverManager.getConnection(url("ahaodb"), "root", "root");) {
             // 这个XAResource其实你可以认为是RM（Resource Manager）的一个代码中的对象实例
             xaConnection1 = new MysqlXAConnection((JdbcConnection) connection1, true);
             XAResource xaResource1 = xaConnection1.getXAResource();

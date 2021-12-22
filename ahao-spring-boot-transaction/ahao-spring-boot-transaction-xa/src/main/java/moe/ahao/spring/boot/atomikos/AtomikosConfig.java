@@ -20,6 +20,8 @@ public class AtomikosConfig {
 
     @Bean(TX_MANAGER)
     @Primary
+    // transactionManager属性要和这里的bean名称保持一致
+    // @Transactional(transactionManager = TX_MANAGER, rollbackFor = Exception.class)
     public JtaTransactionManager transactionManager() {
         UserTransactionManager userTransactionManager = new UserTransactionManager();
         UserTransaction userTransaction = new UserTransactionImp();

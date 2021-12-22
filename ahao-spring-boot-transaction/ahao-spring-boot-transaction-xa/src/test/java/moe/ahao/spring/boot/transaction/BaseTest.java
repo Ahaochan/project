@@ -11,13 +11,16 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public abstract class BaseTest {
-    public static final String URL = "jdbc:mysql://localhost:3306";
     public static final String SQL1 = "update user set username = 'admin1' where id = 1";
     public static final String SQL2 = "update user set username = 'admin2' where id = 2";
 
+    public static String url(String dbname) {
+        return "jdbc:mysql://localhost:3306" + (dbname != null ? "/" + dbname : "") + "?useSSL=false";
+    }
+
     @BeforeEach
     public void beforeEach() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, "root", "root");
+        try (Connection conn = DriverManager.getConnection(url(null), "root", "root");
              Statement s = conn.createStatement();) {
             s.execute("create database if not exists ahaodb");
             s.execute("drop table if exists ahaodb.user");
@@ -48,7 +51,7 @@ public abstract class BaseTest {
 
     @AfterEach
     public void afterEach() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, "root", "root");
+        try (Connection conn = DriverManager.getConnection(url(null), "root", "root");
              Statement s = conn.createStatement();) {
             s.execute("drop table if exists ahaodb.user");
             s.execute("drop database if exists ahaodb");
@@ -58,7 +61,7 @@ public abstract class BaseTest {
     protected abstract void test(boolean rollback) throws Exception;
 
     public void assertCommit() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, "root", "root");
+        try (Connection conn = DriverManager.getConnection(url(null), "root", "root");
              Statement s = conn.createStatement();
              ResultSet rs = s.executeQuery("select username from ahaodb.user");) {
 
@@ -70,7 +73,7 @@ public abstract class BaseTest {
     }
 
     public void assertRollback() throws Exception {
-        try (Connection conn = DriverManager.getConnection(URL, "root", "root");
+        try (Connection conn = DriverManager.getConnection(url(null), "root", "root");
              Statement s = conn.createStatement();
              ResultSet rs = s.executeQuery("select username from ahaodb.user");) {
 
