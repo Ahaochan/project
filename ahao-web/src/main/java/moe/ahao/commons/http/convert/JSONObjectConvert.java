@@ -1,5 +1,6 @@
 package moe.ahao.commons.http.convert;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
@@ -21,6 +22,6 @@ public class JSONObjectConvert implements Convert<JSONObject> {
         if(StringUtils.isEmpty(json)){
             return new JSONObject();
         }
-        return JSONObject.parseObject(json);
+        return JSON.parseObject(json);
     }
 }
