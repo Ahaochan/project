@@ -71,11 +71,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
             )
             .exceptionHandling(e -> e.authenticationEntryPoint(authenticationEntryPoint))
-            .sessionManagement(s -> s.invalidSessionUrl(URL_LOGIN))
-            .csrf(
-                s -> s
+            .sessionManagement(s -> s.invalidSessionUrl(URL_LOGIN)
+//            .csrf(
+//                s -> s
 //                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                    .disable() // TODO 禁用csrf
+//                    .disable()
             );
     }
 }
