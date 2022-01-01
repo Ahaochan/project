@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>ahao-spring-boot-transaction-seata</module>
         <module>ahao-spring-boot-transaction-xa</module>
     </modules>
 
