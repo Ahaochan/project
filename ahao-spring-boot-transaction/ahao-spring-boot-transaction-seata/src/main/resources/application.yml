@@ -1,0 +1,15 @@
+spring:
+  application:
+    # 这里的name要和seata.vgroup-mapping的key保持一致
+    name: ahao-seata
+
+seata:
+  tx-service-group: ahao-all
+  service:
+    grouplist:
+      # 这里的key要和seata.vgroup-mapping的value保持一致
+      ahao-server1: 127.0.0.1:8080
+    vgroup-mapping:
+      # 这里的key要和spring.application.name保持一致
+      # 这里的value要和seata.service.grouplist的key保持一致
+      ahao-seata: ahao-server1
