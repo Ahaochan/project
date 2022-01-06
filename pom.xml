@@ -20,6 +20,7 @@
         <module>ahao-btrace</module>
         <module>ahao-common-utils</module>
         <module>ahao-docker</module>
+        <module>ahao-maven-archetype-all</module>
         <module>ahao-mybatis-generator</module>
         <module>ahao-sonar</module>
         <module>ahao-spring-boot-actuator</module>
@@ -214,13 +215,11 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <!--======================================================= 单元测试 =======================================================-->
