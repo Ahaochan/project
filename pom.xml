@@ -20,6 +20,7 @@
         <module>ahao-btrace</module>
         <module>ahao-common-utils</module>
         <module>ahao-docker</module>
+        <module>ahao-mapstruct</module>
         <module>ahao-maven-archetype-all</module>
         <module>ahao-mybatis-generator</module>
         <module>ahao-sonar</module>
