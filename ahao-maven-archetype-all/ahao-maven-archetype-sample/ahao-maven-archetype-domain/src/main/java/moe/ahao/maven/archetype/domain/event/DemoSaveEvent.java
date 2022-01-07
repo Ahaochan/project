@@ -1,6 +1,6 @@
 package moe.ahao.maven.archetype.domain.event;
 
-public class DemoEvent {
+public class DemoSaveEvent {
     private Integer id;
 
     public Integer getId() {

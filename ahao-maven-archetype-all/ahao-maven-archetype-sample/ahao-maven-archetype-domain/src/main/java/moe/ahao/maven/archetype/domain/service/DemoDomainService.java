@@ -1,11 +1,11 @@
 package moe.ahao.maven.archetype.domain.service;
 
 import moe.ahao.maven.archetype.domain.entity.DemoEntity;
-import moe.ahao.maven.archetype.domain.event.DemoEvent;
+import moe.ahao.maven.archetype.domain.event.DemoSaveEvent;
+import moe.ahao.maven.archetype.domain.gateway.publisher.DemoEventPublisher;
 import moe.ahao.maven.archetype.domain.gateway.repository.DemoRepository;
 import moe.ahao.maven.archetype.domain.value.DemoId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class DemoDomainService {
     @Autowired
-    private ApplicationEventPublisher publisher;
+    private DemoEventPublisher publisher;
 
     @Autowired
     private DemoRepository demoRepository;
@@ -25,9 +25,9 @@ public class DemoDomainService {
         }
         DemoId demoId = demoRepository.insertOne(entity);
 
-        DemoEvent event = new DemoEvent();
+        DemoSaveEvent event = new DemoSaveEvent();
         event.setId(demoId.getId());
-        publisher.publishEvent(event);
+        publisher.publish(event);
         return demoId;
     }
 
