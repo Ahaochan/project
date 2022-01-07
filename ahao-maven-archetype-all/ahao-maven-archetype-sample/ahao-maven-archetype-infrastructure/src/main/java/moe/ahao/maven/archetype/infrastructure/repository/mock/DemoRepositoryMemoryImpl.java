@@ -34,7 +34,7 @@ public class DemoRepositoryMemoryImpl implements DemoRepository {
     }
 
     @Override
-    public DemoEntity findOneById(DemoId id) {
+    public DemoEntity findOne(DemoId id) {
         DemoPO po = map.get(id.getId());
 
         DemoEntity entity = new DemoEntity(new DemoId(po.getId()));
@@ -43,7 +43,7 @@ public class DemoRepositoryMemoryImpl implements DemoRepository {
     }
 
     @Override
-    public List<DemoEntity> findListByName(DemoName demoName) {
+    public List<DemoEntity> findList(DemoName demoName) {
         return map.values().stream()
             .filter(po -> Objects.equals(po.getName(), demoName.getName()))
             .map(po -> {

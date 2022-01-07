@@ -32,7 +32,7 @@ public class DemoRepositoryMyBatisImpl implements DemoRepository {
     }
 
     @Override
-    public DemoEntity findOneById(DemoId id) {
+    public DemoEntity findOne(DemoId id) {
         DemoPO demoPO = demoMapper.selectById(id.getId());
 
         DemoEntity entity = new DemoEntity(id);
@@ -41,7 +41,7 @@ public class DemoRepositoryMyBatisImpl implements DemoRepository {
     }
 
     @Override
-    public List<DemoEntity> findListByName(DemoName demoName) {
+    public List<DemoEntity> findList(DemoName demoName) {
         List<DemoPO> list = demoMapper.selectList(new QueryWrapper<DemoPO>().lambda()
             .eq(DemoPO::getName, demoName.getName()));
 

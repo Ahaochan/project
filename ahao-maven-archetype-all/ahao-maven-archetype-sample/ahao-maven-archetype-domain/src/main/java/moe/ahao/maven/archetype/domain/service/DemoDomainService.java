@@ -19,7 +19,7 @@ public class DemoDomainService {
     private DemoRepository demoRepository;
 
     public DemoId save(DemoEntity entity) {
-        List<DemoEntity> sameNameList = demoRepository.findListByName(entity.getName());
+        List<DemoEntity> sameNameList = demoRepository.findList(entity.getName());
         if(sameNameList.size() > 0) {
             throw new RuntimeException("不能有重名的实体");
         }
@@ -32,6 +32,6 @@ public class DemoDomainService {
     }
 
     public DemoEntity findById(DemoId demoId) {
-        return demoRepository.findOneById(demoId);
+        return demoRepository.findOne(demoId);
     }
 }

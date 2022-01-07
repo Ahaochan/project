@@ -9,7 +9,7 @@ import java.util.List;
 public interface DemoRepository {
     DemoId insertOne(DemoEntity entity);
 
-    DemoEntity findOneById(DemoId id);
+    DemoEntity findOne(DemoId id);
 
-    List<DemoEntity> findListByName(DemoName demoName);
+    List<DemoEntity> findList(DemoName demoName);
 }
