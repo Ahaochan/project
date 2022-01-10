@@ -3,7 +3,7 @@ package moe.ahao.maven.archetype.domain.value;
 import java.util.Objects;
 
 public class DemoName {
-    private String name;
+    private final String name;
     public DemoName(String name) {
         if(name == null || name.length() <= 0) {
             throw new RuntimeException("Demo实体名称不能为空");

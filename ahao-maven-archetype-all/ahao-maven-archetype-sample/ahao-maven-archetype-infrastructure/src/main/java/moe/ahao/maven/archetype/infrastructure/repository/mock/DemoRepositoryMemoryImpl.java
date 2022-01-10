@@ -29,7 +29,7 @@ public class DemoRepositoryMemoryImpl implements DemoRepository {
 
         map.put(id.getId(), po);
 
-        id.setId(po.getId());
+        entity.setId(new DemoId(po.getId()));
         return id;
     }
 

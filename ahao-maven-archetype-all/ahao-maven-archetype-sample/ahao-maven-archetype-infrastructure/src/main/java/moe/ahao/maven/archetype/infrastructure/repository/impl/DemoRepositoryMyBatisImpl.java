@@ -27,7 +27,7 @@ public class DemoRepositoryMyBatisImpl implements DemoRepository {
 
         demoMapper.insert(po);
 
-        id.setId(po.getId());
+        entity.setId(new DemoId(po.getId()));
         return id;
     }
 
