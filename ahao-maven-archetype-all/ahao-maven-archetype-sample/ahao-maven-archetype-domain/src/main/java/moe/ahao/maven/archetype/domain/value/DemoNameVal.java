@@ -2,9 +2,9 @@ package moe.ahao.maven.archetype.domain.value;
 
 import java.util.Objects;
 
-public class DemoName {
+public class DemoNameVal {
     private final String name;
-    public DemoName(String name) {
+    public DemoNameVal(String name) {
         if(name == null || name.length() <= 0) {
             throw new RuntimeException("Demo实体名称不能为空");
         }
@@ -19,7 +19,7 @@ public class DemoName {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DemoName demoName = (DemoName) o;
+        DemoNameVal demoName = (DemoNameVal) o;
         return Objects.equals(name, demoName.name);
     }
 

@@ -1,6 +1,6 @@
-package moe.ahao.maven.archetype.api.req;
+package moe.ahao.maven.archetype.api.resp;
 
-public class DemoCommandReq {
+public class DemoInfoDTO {
     private Integer id;
     private String name;
 

@@ -1,10 +1,10 @@
 package moe.ahao.maven.archetype.adapter.http;
 
 import moe.ahao.maven.archetype.api.DemoApi;
-import moe.ahao.maven.archetype.api.req.DemoCommandReq;
-import moe.ahao.maven.archetype.api.req.DemoQueryReq;
-import moe.ahao.maven.archetype.api.resp.DemoCommandResp;
-import moe.ahao.maven.archetype.api.resp.DemoQueryResp;
+import moe.ahao.maven.archetype.api.req.DemoCommand;
+import moe.ahao.maven.archetype.api.req.DemoInfoQuery;
+import moe.ahao.maven.archetype.api.resp.DemoInfoDTO;
+import moe.ahao.maven.archetype.api.resp.Result;
 import moe.ahao.maven.archetype.application.DemoCommandService;
 import moe.ahao.maven.archetype.application.DemoQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +18,19 @@ public class DemoController implements DemoApi {
     private DemoQueryService demoQueryService;
 
     @Override
-    public DemoQueryResp query(DemoQueryReq req) {
+    public Result<DemoInfoDTO> query(DemoInfoQuery req) {
         Integer id = req.getId();
         String name = demoQueryService.getNameById(id);
 
-        DemoQueryResp resp = new DemoQueryResp();
+        DemoInfoDTO resp = new DemoInfoDTO();
         resp.setId(id);
         resp.setName(name);
-        return resp;
+        return new Result<>(resp);
     }
 
     @Override
-    public DemoCommandResp command(DemoCommandReq req) {
-        DemoCommandResp resp = demoCommandService.save(req);
-        return resp;
+    public Result<Integer> command(DemoCommand req) {
+        Integer id = demoCommandService.save(req);
+        return new Result<>(id);
     }
 }

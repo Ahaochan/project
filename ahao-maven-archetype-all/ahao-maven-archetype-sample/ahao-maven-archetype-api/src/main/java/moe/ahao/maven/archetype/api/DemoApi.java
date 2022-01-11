@@ -1,15 +1,15 @@
 package moe.ahao.maven.archetype.api;
 
-import moe.ahao.maven.archetype.api.req.DemoCommandReq;
-import moe.ahao.maven.archetype.api.req.DemoQueryReq;
-import moe.ahao.maven.archetype.api.resp.DemoCommandResp;
-import moe.ahao.maven.archetype.api.resp.DemoQueryResp;
+import moe.ahao.maven.archetype.api.req.DemoCommand;
+import moe.ahao.maven.archetype.api.req.DemoInfoQuery;
+import moe.ahao.maven.archetype.api.resp.DemoInfoDTO;
+import moe.ahao.maven.archetype.api.resp.Result;
 import org.springframework.web.bind.annotation.GetMapping;
 
 public interface DemoApi {
     @GetMapping("/query")
-    DemoQueryResp query(DemoQueryReq req);
+    Result<DemoInfoDTO> query(DemoInfoQuery req);
 
     @GetMapping("/command")
-    DemoCommandResp command(DemoCommandReq req);
+    Result<Integer> command(DemoCommand req);
 }

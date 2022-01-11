@@ -1,6 +1,6 @@
-package moe.ahao.maven.archetype.api.resp;
+package moe.ahao.maven.archetype.api.req;
 
-public class DemoCommandResp {
+public class DemoInfoQuery {
     private Integer id;
 
     public Integer getId() {

@@ -1,15 +1,15 @@
 package moe.ahao.maven.archetype.domain.gateway.repository;
 
 import moe.ahao.maven.archetype.domain.entity.DemoEntity;
-import moe.ahao.maven.archetype.domain.value.DemoId;
-import moe.ahao.maven.archetype.domain.value.DemoName;
+import moe.ahao.maven.archetype.domain.value.DemoIdVal;
+import moe.ahao.maven.archetype.domain.value.DemoNameVal;
 
 import java.util.List;
 
 public interface DemoRepository {
-    DemoId insertOne(DemoEntity entity);
+    DemoIdVal insert(DemoEntity entity);
 
-    DemoEntity findOne(DemoId id);
+    DemoEntity find(DemoIdVal id);
 
-    List<DemoEntity> findList(DemoName demoName);
+    List<DemoEntity> findList(DemoNameVal demoName);
 }

@@ -3,8 +3,8 @@ package moe.ahao.maven.archetype.infrastructure.repository.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import moe.ahao.maven.archetype.domain.entity.DemoEntity;
 import moe.ahao.maven.archetype.domain.gateway.repository.DemoRepository;
-import moe.ahao.maven.archetype.domain.value.DemoId;
-import moe.ahao.maven.archetype.domain.value.DemoName;
+import moe.ahao.maven.archetype.domain.value.DemoIdVal;
+import moe.ahao.maven.archetype.domain.value.DemoNameVal;
 import moe.ahao.maven.archetype.infrastructure.repository.mybatis.mapper.DemoMapper;
 import moe.ahao.maven.archetype.infrastructure.repository.mybatis.po.DemoPO;
 import org.springframework.stereotype.Repository;
@@ -19,36 +19,36 @@ public class DemoRepositoryMyBatisImpl implements DemoRepository {
     private DemoMapper demoMapper;
 
     @Override
-    public DemoId insertOne(DemoEntity entity) {
-        DemoId id = entity.getId();
+    public DemoIdVal insert(DemoEntity entity) {
+        DemoIdVal id = entity.getId();
 
         DemoPO po = new DemoPO();
         po.setName(entity.getName().getName());
 
         demoMapper.insert(po);
 
-        entity.setId(new DemoId(po.getId()));
+        entity.setId(new DemoIdVal(po.getId()));
         return id;
     }
 
     @Override
-    public DemoEntity findOne(DemoId id) {
+    public DemoEntity find(DemoIdVal id) {
         DemoPO demoPO = demoMapper.selectById(id.getId());
 
         DemoEntity entity = new DemoEntity(id);
-        entity.setName(new DemoName(demoPO.getName()));
+        entity.setName(new DemoNameVal(demoPO.getName()));
         return entity;
     }
 
     @Override
-    public List<DemoEntity> findList(DemoName demoName) {
+    public List<DemoEntity> findList(DemoNameVal demoName) {
         List<DemoPO> list = demoMapper.selectList(new QueryWrapper<DemoPO>().lambda()
             .eq(DemoPO::getName, demoName.getName()));
 
         List<DemoEntity> resultList = new ArrayList<>(list.size());
         for (DemoPO po : list) {
-            DemoEntity entity = new DemoEntity(new DemoId(po.getId()));
-            entity.setName(new DemoName(po.getName()));
+            DemoEntity entity = new DemoEntity(new DemoIdVal(po.getId()));
+            entity.setName(new DemoNameVal(po.getName()));
 
             resultList.add(entity);
         }

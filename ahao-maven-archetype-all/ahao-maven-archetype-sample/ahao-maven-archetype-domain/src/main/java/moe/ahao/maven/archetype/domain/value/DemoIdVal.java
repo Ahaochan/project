@@ -2,9 +2,9 @@ package moe.ahao.maven.archetype.domain.value;
 
 import java.util.Objects;
 
-public class DemoId {
+public class DemoIdVal {
     private final Integer id;
-    public DemoId(Integer id) {
+    public DemoIdVal(Integer id) {
         this.id = id;
     }
 
@@ -16,7 +16,7 @@ public class DemoId {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DemoId demoId = (DemoId) o;
+        DemoIdVal demoId = (DemoIdVal) o;
         return Objects.equals(id, demoId.id);
     }
 

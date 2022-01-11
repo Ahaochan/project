@@ -1,29 +1,29 @@
 package moe.ahao.maven.archetype.domain.entity;
 
-import moe.ahao.maven.archetype.domain.value.DemoId;
-import moe.ahao.maven.archetype.domain.value.DemoName;
+import moe.ahao.maven.archetype.domain.value.DemoIdVal;
+import moe.ahao.maven.archetype.domain.value.DemoNameVal;
 
 public class DemoEntity {
-    private DemoId id;
-    private DemoName name;
+    private DemoIdVal id;
+    private DemoNameVal name;
 
-    public DemoEntity(DemoId id) {
+    public DemoEntity(DemoIdVal id) {
         this.id = id;
     }
 
-    public DemoId getId() {
+    public DemoIdVal getId() {
         return id;
     }
 
-    public void setId(DemoId id) {
+    public void setId(DemoIdVal id) {
         this.id = id;
     }
 
-    public DemoName getName() {
+    public DemoNameVal getName() {
         return name;
     }
 
-    public void setName(DemoName name) {
+    public void setName(DemoNameVal name) {
         this.name = name;
     }
 }
