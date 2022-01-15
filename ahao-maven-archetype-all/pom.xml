@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>ahao-maven-archetype</module>
+        <!-- <module>ahao-maven-archetype</module>-->
         <module>ahao-maven-archetype-sample</module>
     </modules>
 </project>
