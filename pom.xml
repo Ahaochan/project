@@ -94,6 +94,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <java.persistence.version>2.2</java.persistence.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
 
         <ahao.version>1.0.0</ahao.version>
 

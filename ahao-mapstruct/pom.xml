@@ -11,11 +11,6 @@
 
     <artifactId>ahao-mapstruct</artifactId>
 
-    <properties>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.mapstruct</groupId>
