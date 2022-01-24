@@ -1,7 +1,7 @@
 package moe.ahao.spring.boot.ddd.application.service;
 
 import moe.ahao.spring.boot.ddd.api.command.OrderCreateCommand;
-import moe.ahao.spring.boot.ddd.application.converter.OrderAssembler;
+import moe.ahao.spring.boot.ddd.application.assembler.OrderAssembler;
 import moe.ahao.spring.boot.ddd.domain.entity.Order;
 import moe.ahao.spring.boot.ddd.domain.service.OrderDomainService;
 import moe.ahao.spring.boot.ddd.domain.value.OrderIdVal;

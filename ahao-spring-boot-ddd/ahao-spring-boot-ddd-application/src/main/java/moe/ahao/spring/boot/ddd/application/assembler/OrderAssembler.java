@@ -1,4 +1,4 @@
-package moe.ahao.spring.boot.ddd.application.converter;
+package moe.ahao.spring.boot.ddd.application.assembler;
 
 import moe.ahao.spring.boot.ddd.api.command.OrderCreateCommand;
 import moe.ahao.spring.boot.ddd.domain.entity.Order;
