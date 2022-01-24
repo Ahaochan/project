@@ -16,6 +16,7 @@
         <module>ahao-maven-archetype-adapter</module>
         <module>ahao-maven-archetype-api</module>
         <module>ahao-maven-archetype-application</module>
+        <module>ahao-maven-archetype-common</module>
         <module>ahao-maven-archetype-domain</module>
         <module>ahao-maven-archetype-infrastructure</module>
         <module>ahao-maven-archetype-starter</module>
@@ -71,6 +72,11 @@
             </dependency>
             <dependency>
                 <groupId>moe.ahao</groupId>
+                <artifactId>ahao-maven-archetype-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>moe.ahao</groupId>
                 <artifactId>ahao-maven-archetype-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -83,6 +89,11 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>moe.ahao</groupId>
+            <artifactId>ahao-maven-archetype-common</artifactId>
+        </dependency>
+
         <!--======================================================= Spring Boot =======================================================-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

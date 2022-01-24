@@ -9,13 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ahao-maven-archetype-domain</artifactId>
+    <artifactId>ahao-maven-archetype-common</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
-            <groupId>moe.ahao</groupId>
-            <artifactId>ahao-common-utils</artifactId>
-        </dependency>
     </dependencies>
 </project>
