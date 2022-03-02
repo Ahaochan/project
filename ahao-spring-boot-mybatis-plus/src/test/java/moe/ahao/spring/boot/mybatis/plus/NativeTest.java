@@ -1,4 +1,4 @@
-package moe.ahao.spring.boot.mybatis.simple;
+package moe.ahao.spring.boot.mybatis.plus;
 
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.mapping.Environment;

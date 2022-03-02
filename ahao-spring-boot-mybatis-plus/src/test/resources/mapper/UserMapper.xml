@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="moe.ahao.spring.boot.mybatis.plus.module.mapper.UserMapper">
+
+    <insert id="insertSQL" parameterType="moe.ahao.spring.boot.mybatis.plus.module.entity.User">
+        insert into user(username, password) values(#{username}, #{password})
+    </insert>
+    <insert id="insertBatchSQL" parameterType="arraylist">
+        insert into user(username, password) values
+        <foreach collection="users" item="user" separator="," >
+            (#{user.username}, #{user.password})
+        </foreach>
+    </insert>
+</mapper>
