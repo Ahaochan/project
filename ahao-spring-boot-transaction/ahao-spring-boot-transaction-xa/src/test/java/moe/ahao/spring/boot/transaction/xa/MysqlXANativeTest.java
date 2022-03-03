@@ -27,7 +27,7 @@ public class MysqlXANativeTest extends BaseTest {
             xaConnection2 = new MysqlXAConnection((JdbcConnection) connection2, true);
             XAResource xaResource2 = xaConnection2.getXAResource();
 
-            // 定义子事务要执行的SQL语句, xid是子事务的唯一标识
+            // 生成xid, xid是子事务的唯一标识, 通过START和END两个操作, 定义子事务要执行的SQL语句
             Xid xid1 = this.prepare(xaResource1, "bqual1", connection1.prepareStatement(SQL1));
             Xid xid2 = this.prepare(xaResource2, "bqual2", connection2.prepareStatement(SQL2));
             // 2PC的阶段一: 向两个库都发送prepare消息，执行事务中的SQL语句，但是不提交
