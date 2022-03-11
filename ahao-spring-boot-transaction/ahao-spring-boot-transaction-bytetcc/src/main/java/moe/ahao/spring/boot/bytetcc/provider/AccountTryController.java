@@ -21,11 +21,11 @@ public class AccountTryController implements AccountService {
     @GetMapping("/increase")
     @Transactional
     @Override
-    public void increaseAmount(@RequestParam String accountId,@RequestParam double amount) {
+    public void increaseAmount(@RequestParam String accountId, @RequestParam double amount) {
         int value = this.jdbcTemplate.update(
-            "update ahao_account set forzen = forzen + ? where account_id = ?;",
+            "update ahao_account1 set frozen = frozen + ? where account_id = ?;",
             amount, accountId);
-        String msg = "增加金额try阶段: " + accountId + "冻结增加" + amount;
+        String msg = "TCC事务: 增加金额try阶段: " + accountId + "冻结增加" + amount;
         if (value != 1) {
             throw new IllegalStateException(msg + ", 失败");
         }
@@ -35,11 +35,11 @@ public class AccountTryController implements AccountService {
     @GetMapping("/decrease")
     @Transactional
     @Override
-    public void decreaseAmount(@RequestParam String accountId,@RequestParam double amount) {
+    public void decreaseAmount(@RequestParam String accountId, @RequestParam double amount) {
         int value = this.jdbcTemplate.update(
-            "update ahao_account set amount = amount - ?, forzen = forzen + ? where account_id = ?;",
-            amount, amount, accountId);
-        String msg = "减少金额try阶段: " + accountId + "余额扣减" + amount +", 并冻结" + amount;
+            "update ahao_account1 set amount = amount - ?, frozen = frozen + ? where account_id = ? and amount >= ?;",
+            amount, amount, accountId, amount);
+        String msg = "TCC事务: 减少金额try阶段: " + accountId + "余额扣减" + amount + ", 并冻结" + amount;
         if (value != 1) {
             throw new IllegalStateException(msg + ", 失败");
         }

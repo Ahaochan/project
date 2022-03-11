@@ -18,9 +18,9 @@ public class AccountServiceConfirm implements AccountService {
     @Override
     public void increaseAmount(String accountId, double amount) {
         int value = this.jdbcTemplate.update(
-            "update ahao_account set amount = amount + ?, forzen = forzen - ? where account_id = ?;",
-            amount, amount, accountId);
-        String msg = "增加金额confirm阶段: " + accountId + "余额增加" + amount + ", 冻结减少" + amount;
+            "update ahao_account1 set amount = amount + ?, frozen = frozen - ? where account_id = ? and frozen >= ?;",
+            amount, amount, accountId, amount);
+        String msg = "TCC事务: 增加金额confirm阶段: " + accountId + "余额增加" + amount + ", 冻结减少" + amount;
         if (value != 1) {
             throw new IllegalStateException(msg + ", 失败");
         }
@@ -31,9 +31,9 @@ public class AccountServiceConfirm implements AccountService {
     @Override
     public void decreaseAmount(String accountId, double amount) {
         int value = this.jdbcTemplate.update(
-            "update ahao_account set forzen = forzen - ? where account_id = ?;",
-            amount, accountId);
-        String msg = "减少金额confirm阶段: " + accountId + "冻结减少" + amount;
+            "update ahao_account1 set frozen = frozen - ? where account_id = ? and frozen >= ?;",
+            amount, accountId, amount);
+        String msg = "TCC事务: 减少金额confirm阶段: " + accountId + "冻结减少" + amount;
         if (value != 1) {
             throw new IllegalStateException(msg + ", 失败");
         }

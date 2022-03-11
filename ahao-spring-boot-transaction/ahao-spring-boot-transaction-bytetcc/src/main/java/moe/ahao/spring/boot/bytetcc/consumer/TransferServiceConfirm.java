@@ -11,19 +11,19 @@ import static moe.ahao.spring.boot.bytetcc.consumer.TransferServiceConfirm.BEAN_
 public class TransferServiceConfirm implements TransferService {
     public static final String BEAN_NAME = "transferServiceConfirm";
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-	@Transactional
-	public void transfer(String sourceAccountId, String targetAccountId, double amount) {
+    @Transactional
+    public void transfer(String sourceAccountId, String targetAccountId, double amount) {
         int value = this.jdbcTemplate.update(
-            "update ahao_account2 set amount = amount + ?, frozen = frozen - ? where account_id = ?",
-            amount, amount, targetAccountId);
-        String msg = "转账confirm阶段: " + targetAccountId + "余额增加" + amount + ", 冻结减少" + amount;
+            "update ahao_account2 set amount = amount + ?, frozen = frozen - ? where account_id = ? and forzen >= ?",
+            amount, amount, targetAccountId, amount);
+        String msg = "TCC事务: 转账confirm阶段: " + targetAccountId + "余额增加" + amount + ", 冻结减少" + amount;
         if (value != 1) {
             throw new IllegalStateException(msg + ", 失败");
         }
         System.out.println(msg);
-	}
+    }
 
 }
