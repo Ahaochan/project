@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.redisson.RedissonMultiLock;
+import org.redisson.RedissonRedLock;
 import org.redisson.api.*;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,18 @@ class RedissionTest {
 
         Assertions.assertTrue(multiLock.tryLock(60, TimeUnit.SECONDS));
         multiLock.unlock();
+    }
+
+    @Test
+    void redLock() throws Exception {
+        RLock lock1 = redissonClient.getLock(REDIS_KEY + 1);
+        RLock lock2 = redissonClient.getLock(REDIS_KEY + 2);
+        RLock lock3 = redissonClient.getLock(REDIS_KEY + 3);
+
+        RedissonRedLock redLock = new RedissonRedLock(lock1, lock2, lock3);
+
+        Assertions.assertTrue(redLock.tryLock(60, TimeUnit.SECONDS));
+        redLock.unlock();
     }
 
     @Test
