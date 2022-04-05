@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.redisson.RedissonMultiLock;
 import org.redisson.api.*;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ class RedissionTest {
     private RedissonClient redissonClient;
 
     @Test
-    public void lock() throws Exception {
+    void lock() throws Exception {
         RLock lock = redissonClient.getLock(REDIS_KEY);
 
         Assertions.assertTrue(lock.tryLock(60, TimeUnit.SECONDS));
@@ -46,7 +47,7 @@ class RedissionTest {
     }
 
     @Test
-    public void lockTwoThread() throws Exception {
+    void lockTwoThread() throws Exception {
         int count = 2;
         CountDownLatch success = new CountDownLatch(count);
         CountDownLatch latch = new CountDownLatch(count);
@@ -85,7 +86,19 @@ class RedissionTest {
     }
 
     @Test
-    public void bloomFilter() {
+    void multiLock() throws Exception {
+        RLock lock1 = redissonClient.getLock(REDIS_KEY + 1);
+        RLock lock2 = redissonClient.getLock(REDIS_KEY + 2);
+        RLock lock3 = redissonClient.getLock(REDIS_KEY + 3);
+
+        RedissonMultiLock multiLock = new RedissonMultiLock(lock1, lock2, lock3);
+
+        Assertions.assertTrue(multiLock.tryLock(60, TimeUnit.SECONDS));
+        multiLock.unlock();
+    }
+
+    @Test
+    void bloomFilter() {
         RBloomFilter<String> bloomFilter = redissonClient.getBloomFilter(REDIS_KEY);
         // 初始化布隆过滤器，预计统计元素数量为55000000，期望误差率为0.03
         bloomFilter.tryInit(55000000L, 0.03);
@@ -98,7 +111,7 @@ class RedissionTest {
     }
 
     @Test
-    public void rateLimiter() throws Exception {
+    void rateLimiter() throws Exception {
         RRateLimiter limiter = redissonClient.getRateLimiter(REDIS_KEY);
         // 初始化 最大流速 = 每1秒钟产生2个令牌
         limiter.trySetRate(RateType.OVERALL, 2, 1, RateIntervalUnit.SECONDS);
