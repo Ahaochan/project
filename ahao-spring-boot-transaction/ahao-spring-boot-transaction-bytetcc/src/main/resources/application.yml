@@ -1,6 +1,7 @@
-# ByteTCC必须指定端口
-server:
-  port: 8080
+# ByteTCC必须指定端口和应用名称
+server.port: 8080
+spring.application.name: "ahao-bytetcc"
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
