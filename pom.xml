@@ -100,7 +100,7 @@
 
         <ahao.version>1.0.0</ahao.version>
 
-        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <spring-boot.version>2.4.13</spring-boot.version>
         <spring-boot.admin.version>2.2.1</spring-boot.admin.version>
         <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
         <spring-cloud.alibaba.version>2.2.6.RELEASE</spring-cloud.alibaba.version>
@@ -118,7 +118,7 @@
         <alibaba.easyexcel.version>3.0.5</alibaba.easyexcel.version><!-- TODO easyexcel 依赖 poi 3.17-->
         <alibaba.fastjson.version>1.2.62</alibaba.fastjson.version> <!-- TODO fastjson 太多 bug 了 -->
         <alibaba.transmittable-thread-local.version>2.11.4</alibaba.transmittable-thread-local.version>
-        <google.guava.version>29.0-jre</google.guava.version>
+        <google.guava.version>30.0-jre</google.guava.version>
         <google.protobuf.version>2.5.0</google.protobuf.version>
 
         <mybatis.version>3.5.2</mybatis.version>
