@@ -10,4 +10,5 @@ bin/zkServer.sh start
 bin/zkServer.sh restart
 bin/zkServer.sh stop
 
+curl http://127.0.0.1:8080/commands/stats
 # 访问`http://虚拟机IP:8080/commands/stats`, 成功访问
