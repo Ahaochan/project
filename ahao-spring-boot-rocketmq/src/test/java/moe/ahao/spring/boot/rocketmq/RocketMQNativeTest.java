@@ -203,11 +203,17 @@ class RocketMQNativeTest {
 
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageExtList, ConsumeConcurrentlyContext context) {
-                for (MessageExt m : messageExtList) {
-                    System.out.println(Thread.currentThread().getName() + ": " + new String(m.getBody(), StandardCharsets.UTF_8));
+                try {
+                    for (MessageExt m : messageExtList) {
+                        System.out.println(Thread.currentThread().getName() + ": " + new String(m.getBody(), StandardCharsets.UTF_8));
+                    }
+                    System.out.println("");
+                    return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return ConsumeConcurrentlyStatus.RECONSUME_LATER;
                 }
-                System.out.println("");
-                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+
             }
         });
         consumer.start();
@@ -225,11 +231,16 @@ class RocketMQNativeTest {
         consumer.registerMessageListener(new MessageListenerOrderly() {
             @Override
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> messageExtList, ConsumeOrderlyContext context) {
-                for (MessageExt m : messageExtList) {
-                    System.out.println(Thread.currentThread().getName() + ": " + m.getQueueId() + ": " + new String(m.getBody(), StandardCharsets.UTF_8));
+                try {
+                    for (MessageExt m : messageExtList) {
+                        System.out.println(Thread.currentThread().getName() + ": " + m.getQueueId() + ": " + new String(m.getBody(), StandardCharsets.UTF_8));
+                    }
+                    System.out.println("");
+                    return ConsumeOrderlyStatus.SUCCESS;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
                 }
-                System.out.println("");
-                return ConsumeOrderlyStatus.SUCCESS;
             }
         });
         consumer.start();
