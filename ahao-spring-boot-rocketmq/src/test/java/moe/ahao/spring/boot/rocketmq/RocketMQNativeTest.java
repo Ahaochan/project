@@ -148,18 +148,30 @@ class RocketMQNativeTest {
         producer.setTransactionListener(new TransactionListener() {
             @Override
             public LocalTransactionState executeLocalTransaction(Message msg, Object arg) {
-                String body = new String(msg.getBody(), StandardCharsets.UTF_8);
-                flagMap.put(body, true);
-                System.out.println("本地事务执行成功:" + msg.toString());
-                return LocalTransactionState.COMMIT_MESSAGE;
+                try {
+                    String body = new String(msg.getBody(), StandardCharsets.UTF_8);
+                    flagMap.put(body, true);
+                    System.out.println("本地事务执行成功:" + msg.toString());
+                    return LocalTransactionState.COMMIT_MESSAGE;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("本地事务执行失败, " + e.getMessage());
+                    return LocalTransactionState.ROLLBACK_MESSAGE;
+                }
             }
 
             @Override
             public LocalTransactionState checkLocalTransaction(MessageExt msg) {
-                String body = new String(msg.getBody(), StandardCharsets.UTF_8);
-                Boolean result = flagMap.get(body);
-                System.out.println("检查本地事务:" + result + ": " + msg);
-                return Boolean.TRUE.equals(result) ? LocalTransactionState.COMMIT_MESSAGE : LocalTransactionState.ROLLBACK_MESSAGE;
+                try {
+                    String body = new String(msg.getBody(), StandardCharsets.UTF_8);
+                    Boolean result = flagMap.get(body);
+                    System.out.println("检查本地事务:" + result + ": " + msg);
+                    return Boolean.TRUE.equals(result) ? LocalTransactionState.COMMIT_MESSAGE : LocalTransactionState.ROLLBACK_MESSAGE;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("检查本地事务失败, " + e.getMessage());
+                    return LocalTransactionState.ROLLBACK_MESSAGE;
+                }
             }
         });
         producer.start();
