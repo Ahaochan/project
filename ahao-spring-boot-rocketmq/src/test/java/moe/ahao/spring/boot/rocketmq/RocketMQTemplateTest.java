@@ -23,7 +23,7 @@ import java.util.UUID;
 @ContextConfiguration(classes = {RocketMQAutoConfiguration.class,
     MyRocketMQListener.class, MyRocketMQTransactionListener.class})
 @ActiveProfiles("rocketmq")
-public class ProducerTest {
+public class RocketMQTemplateTest {
     public static final String GROUP_TX = "ahao-transaction-group";
     public static final String TOPIC  = "ahao-topic";
 

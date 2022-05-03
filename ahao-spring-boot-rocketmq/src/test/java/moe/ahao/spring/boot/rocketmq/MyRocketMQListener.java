@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@RocketMQMessageListener(consumerGroup = "consumer-group", topic = ProducerTest.TOPIC)
+@RocketMQMessageListener(consumerGroup = "consumer-group", topic = RocketMQTemplateTest.TOPIC)
 public class MyRocketMQListener implements RocketMQListener<String> {
     public List<String> receiveList = new ArrayList<>();
 
