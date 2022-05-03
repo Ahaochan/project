@@ -179,8 +179,8 @@ class RocketMQNativeTest {
         for (int i = 0; i < 10; i++) {
             Message msg = new Message(TOPIC, "transactionProducer", ("transactionProducer" + i).getBytes(StandardCharsets.UTF_8));
             // 事务消息不支持延时消息和批量消息
-            SendResult sendResult = producer.sendMessageInTransaction(msg, null);
-            System.out.println("第" + i + "条消息发送结果:" + sendResult);
+            TransactionSendResult sendResult = producer.sendMessageInTransaction(msg, null);
+            System.out.println("第" + i + "条消息发送结果:" + sendResult.getLocalTransactionState() + ", :" + sendResult);
         }
 
         Thread.sleep(10000);
