@@ -3,7 +3,7 @@ package moe.ahao.spring.boot.transaction.xa;
 import com.mysql.cj.jdbc.JdbcConnection;
 import com.mysql.cj.jdbc.MysqlXAConnection;
 import com.mysql.cj.jdbc.MysqlXid;
-import moe.ahao.spring.boot.transaction.BaseTest;
+import moe.ahao.transaction.AbstractTransactionTest;
 
 import javax.sql.XAConnection;
 import javax.transaction.xa.XAResource;
@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-public class MysqlXANativeTest extends BaseTest {
+public class MysqlXANativeTest extends AbstractTransactionTest {
 
     public void test(boolean rollback) throws Exception {
         // 这个XAResource其实你可以认为是RM（Resource Manager）的一个代码中的对象实例

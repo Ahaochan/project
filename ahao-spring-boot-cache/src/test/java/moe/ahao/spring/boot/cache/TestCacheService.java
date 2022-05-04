@@ -42,7 +42,7 @@ public class TestCacheService {
      */
     public String doExecute(String id) {
         try {
-            Thread.sleep(3000L);
+            Thread.sleep(100L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -3,14 +3,14 @@ package moe.ahao.spring.boot.transaction.xa;
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
 import com.mysql.cj.jdbc.MysqlXADataSource;
-import moe.ahao.spring.boot.transaction.BaseTest;
+import moe.ahao.transaction.AbstractTransactionTest;
 
 import javax.transaction.UserTransaction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Properties;
 
-public class AtomikosXANativeTest extends BaseTest {
+public class AtomikosXANativeTest extends AbstractTransactionTest {
 
     private AtomikosDataSourceBean createAtomikosDataSourceBean(String resourceName) {
         Properties p = new Properties();

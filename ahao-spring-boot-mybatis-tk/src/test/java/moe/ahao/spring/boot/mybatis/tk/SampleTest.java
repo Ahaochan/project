@@ -1,8 +1,8 @@
 package moe.ahao.spring.boot.mybatis.tk;
 
 import moe.ahao.spring.boot.mybatis.tk.config.MultiMyBatisConfig;
-import moe.ahao.spring.boot.mybatis.tk.module.entity.User;
-import moe.ahao.spring.boot.mybatis.tk.module.mapper.UserMapper;
+import moe.ahao.spring.boot.mybatis.tk.module.mapper.UserTKMapper;
+import moe.ahao.transaction.mybatis.entity.User;
 import org.apache.ibatis.cursor.Cursor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,14 +33,14 @@ import java.util.List;
 class SampleTest {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserTKMapper userTKMapper;
 
     @Test
     void testDeleteById() {
-        int count = userMapper.deleteByPrimaryKey(1);
+        int count = userTKMapper.deleteByPrimaryKey(1);
         Assertions.assertEquals(1, count);
 
-        User user = userMapper.selectByPrimaryKey(1);
+        User user = userTKMapper.selectByPrimaryKey(1);
         Assertions.assertNull(user);
     }
 
@@ -48,13 +48,13 @@ class SampleTest {
     void testLikeQuery() {
         Example.Builder builder = new Example.Builder(User.class);
 
-        List<User> leftLikeList = userMapper.selectByExample(builder.where(WeekendSqls.<User>custom().andLike(User::getEmail, "%@qq.com")).build());
+        List<User> leftLikeList = userTKMapper.selectByExample(builder.where(WeekendSqls.<User>custom().andLike(User::getEmail, "%@qq.com")).build());
         Assertions.assertEquals(5, leftLikeList.size());
 
-        List<User> rightLikeList = userMapper.selectByExample(builder.where(WeekendSqls.<User>custom().andLike(User::getUsername, "user%")).build());
+        List<User> rightLikeList = userTKMapper.selectByExample(builder.where(WeekendSqls.<User>custom().andLike(User::getUsername, "user%")).build());
         Assertions.assertEquals(5, rightLikeList.size());
 
-        List<User> likeList = userMapper.selectByExample(builder.where(WeekendSqls.<User>custom().andLike(User::getEmail, "%qq%")).build());
+        List<User> likeList = userTKMapper.selectByExample(builder.where(WeekendSqls.<User>custom().andLike(User::getEmail, "%qq%")).build());
         Assertions.assertEquals(5, likeList.size());
     }
 
@@ -74,11 +74,11 @@ class SampleTest {
         User user1 = new User();
         user1.setUsername("username");
         user1.setPassword("password");
-        int count = userMapper.insert(user1);
+        int count = userTKMapper.insert(user1);
         Assertions.assertEquals(1, count);
         Assertions.assertNotNull(user1.getId());
 
-        User user2 = userMapper.selectByPrimaryKey(user1.getId());
+        User user2 = userTKMapper.selectByPrimaryKey(user1.getId());
         Assertions.assertEquals(user1.getUsername(), user2.getUsername());
         Assertions.assertEquals(user1.getPassword(), user2.getPassword());
     }
@@ -86,7 +86,7 @@ class SampleTest {
     @Test
     @Transactional
     void scanFoo0() throws Exception {
-        try (Cursor<User> cursor = userMapper.selectCursorAll()) {
+        try (Cursor<User> cursor = userTKMapper.selectCursorAll()) {
             Iterator<User> it = cursor.iterator();
 
             while (it.hasNext()) {

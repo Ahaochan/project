@@ -1,9 +1,9 @@
 package moe.ahao.spring.boot.jpa;
 
 import moe.ahao.spring.boot.Starter;
-import moe.ahao.spring.boot.jpa.module.entity.User;
-import moe.ahao.spring.boot.jpa.module.entity.UserSpecifications;
-import moe.ahao.spring.boot.jpa.module.mapper.UserMapper;
+import moe.ahao.transaction.jpa.entity.User;
+import moe.ahao.transaction.jpa.entity.UserSpecifications;
+import moe.ahao.transaction.jpa.repository.UserJPARepository;
 import moe.ahao.util.commons.io.JSONHelper;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.Assertions;
@@ -37,28 +37,28 @@ import java.util.List;
 class SampleTest {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserJPARepository userJPARepository;
 
     @Autowired
     private EntityManager em;
 
     @Test
     void testNativeSql() throws Exception {
-        int count = userMapper.getCount();
+        int count = userJPARepository.getCount();
         Assertions.assertEquals(5, count);
 
         Date date = DateUtils.parseDate("2019-11-13 12:00:00", "yyyy-MM-dd HH:mm:ss");
-        List<User> list = userMapper.findByCreateTimeAfter(date);
+        List<User> list = userJPARepository.findByCreateTimeAfter(date);
         Assertions.assertEquals(2, list.size());
         System.out.println(JSONHelper.toString(list));
     }
 
     @Test
     void testLikeQuery() {
-        List<User> leftLikeList = userMapper.getUsersByUsernameLike("user%");
+        List<User> leftLikeList = userJPARepository.getUsersByUsernameLike("user%");
         Assertions.assertEquals(5, leftLikeList.size());
 
-        List<User> allLikeList = userMapper.findByNameAllLike("user");
+        List<User> allLikeList = userJPARepository.findByNameAllLike("user");
         Assertions.assertEquals(5, allLikeList.size());
     }
 
@@ -66,7 +66,7 @@ class SampleTest {
     void testHql() throws Exception {
         Date start = DateUtils.parseDate("2019-11-12 12:00:00", "yyyy-MM-dd HH:mm:ss");
         Date end = DateUtils.parseDate("2019-11-14 12:00:00", "yyyy-MM-dd HH:mm:ss");
-        List<User> between = userMapper.findByCreateTimeBetween(start, end);
+        List<User> between = userJPARepository.findByCreateTimeBetween(start, end);
         Assertions.assertEquals(2, between.size());
     }
 
@@ -76,11 +76,11 @@ class SampleTest {
         User user1 = new User();
         user1.setUsername("username");
         user1.setPassword("password");
-        User user2 = userMapper.save(user1);
+        User user2 = userJPARepository.save(user1);
         System.out.println(user2.getId());
         Assertions.assertNotNull(user2.getId());
 
-        User user3 = userMapper.getOne(user2.getId());
+        User user3 = userJPARepository.getOne(user2.getId());
         Assertions.assertEquals(user1.getUsername(), user3.getUsername());
         Assertions.assertEquals(user1.getPassword(), user3.getPassword());
     }
@@ -103,7 +103,7 @@ class SampleTest {
             Predicate username = criteriaBuilder.like(root.get("username"), "%user%");
             return username;
         };
-        List<User> resultList = userMapper.findAll(specification);
+        List<User> resultList = userJPARepository.findAll(specification);
         Assertions.assertEquals(5, resultList.size());
     }
 
@@ -111,7 +111,7 @@ class SampleTest {
     void testSpecifications() {
         Specification<User> specification = UserSpecifications.sexIn(1, 2)
             .and(UserSpecifications.usernameAllLike("user"));
-        List<User> resultList = userMapper.findAll(specification);
+        List<User> resultList = userJPARepository.findAll(specification);
         Assertions.assertEquals(5, resultList.size());
     }
 
@@ -121,7 +121,7 @@ class SampleTest {
             new Sort.Order(Sort.Direction.ASC, "id"),
             new Sort.Order(Sort.Direction.DESC, "username"))));
 
-        Page<User> page = userMapper.findAll((root, criteriaQuery, criteriaBuilder) -> null, pageable);
+        Page<User> page = userJPARepository.findAll((root, criteriaQuery, criteriaBuilder) -> null, pageable);
         Assertions.assertEquals(5, page.getTotalElements());
         Assertions.assertEquals(2, page.getContent().size());
     }

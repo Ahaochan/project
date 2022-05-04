@@ -1,7 +1,7 @@
 package moe.ahao.spring.boot.redis;
 
+import moe.ahao.embedded.EmbeddedRedisTest;
 import moe.ahao.spring.boot.redis.config.RedisConfig;
-import moe.ahao.spring.boot.redis.config.RedisExtension;
 import moe.ahao.util.spring.SpringContextHolder;
 import moe.ahao.util.spring.redis.RedisHelper;
 import org.junit.jupiter.api.AfterEach;
@@ -18,6 +18,7 @@ import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Date;
 import java.util.Set;
@@ -27,11 +28,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-@ExtendWith(RedisExtension.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, RedissonAutoConfiguration.class, SpringContextHolder.class})
 @ActiveProfiles("test-redis")
-class RedissionTest {
+class RedissionTest extends EmbeddedRedisTest {
     private static final String REDIS_KEY = "key";
 
     @Autowired
@@ -59,7 +60,7 @@ class RedissionTest {
         new Thread(() -> {
             try {
                 Assertions.assertTrue(lock.tryLock(0, 60, TimeUnit.SECONDS));
-                Thread.sleep(1000);
+                Thread.sleep(100);
                 success.countDown();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -69,11 +70,11 @@ class RedissionTest {
             }
         }).start();
         // 2. 第二个线程获取不到锁
-        Thread.sleep(100);
+        Thread.sleep(1);
         new Thread(() -> {
             try {
                 Assertions.assertFalse(lock.tryLock(0, 60, TimeUnit.SECONDS));
-                Thread.sleep(1000);
+                Thread.sleep(100);
                 success.countDown();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -137,7 +138,7 @@ class RedissionTest {
                     System.out.println(new Date() + "：线程[" + Thread.currentThread().getName() + "]尝试获取Semaphore锁");
                     semaphore.acquire();
                     System.out.println(new Date() + "：线程[" + Thread.currentThread().getName() + "]成功获取到了Semaphore锁，开始工作");
-                    Thread.sleep(3000);
+                    Thread.sleep(100);
                     semaphore.release();
                     System.out.println(new Date() + "：线程[" + Thread.currentThread().getName() + "]释放Semaphore锁");
                 } catch (Exception e) {
@@ -154,7 +155,7 @@ class RedissionTest {
 
     @Test
     void countDownLatch() throws Exception {
-        int size = 10;
+        int size = 3;
         RCountDownLatch latch = redissonClient.getCountDownLatch(REDIS_KEY);
         latch.trySetCount(size);
         for (int i = 0; i < size; i++) {
@@ -194,13 +195,13 @@ class RedissionTest {
     void rateLimiter() throws Exception {
         RRateLimiter limiter = redissonClient.getRateLimiter(REDIS_KEY);
         // 初始化 最大流速 = 每1秒钟产生2个令牌
-        limiter.trySetRate(RateType.OVERALL, 2, 1, RateIntervalUnit.SECONDS);
+        limiter.trySetRate(RateType.OVERALL, 2, 200, RateIntervalUnit.MILLISECONDS);
 
         CountDownLatch latch = new CountDownLatch(2);
         Assertions.assertTrue(limiter.tryAcquire(2,0, TimeUnit.SECONDS));
         Assertions.assertFalse(limiter.tryAcquire(1,0, TimeUnit.SECONDS));
 
-        Thread.sleep(1000);
+        Thread.sleep(200);
         Assertions.assertTrue(limiter.tryAcquire(2,0, TimeUnit.SECONDS));
         Assertions.assertFalse(limiter.tryAcquire(1,0, TimeUnit.SECONDS));
 

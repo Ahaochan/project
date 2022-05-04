@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import moe.ahao.domain.entity.BaseDO;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class CodeGeneratorTest {
     private DataSourceProperties properties;
 
     @Test
+    @Disabled("有需要再手动执行")
     public void generator() {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();

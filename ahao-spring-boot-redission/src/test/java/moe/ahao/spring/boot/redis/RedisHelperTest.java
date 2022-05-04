@@ -1,9 +1,8 @@
 package moe.ahao.spring.boot.redis;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import moe.ahao.embedded.EmbeddedRedisTest;
 import moe.ahao.spring.boot.redis.config.RedisConfig;
-import moe.ahao.spring.boot.redis.config.RedisExtension;
-import moe.ahao.spring.boot.redis.entity.User;
 import moe.ahao.util.spring.SpringContextHolder;
 import moe.ahao.util.spring.redis.RedisHelper;
 import org.junit.jupiter.api.AfterEach;
@@ -16,19 +15,17 @@ import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.*;
 
 
-@ExtendWith(RedisExtension.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, JacksonAutoConfiguration.class, SpringContextHolder.class})
 @ActiveProfiles("test-redis")
-class RedisHelperTest {
+class RedisHelperTest extends EmbeddedRedisTest {
     private static final String REDIS_KEY = "key";
     private static final String REDIS_HASH_FIELD = "field";
 
@@ -151,17 +148,19 @@ class RedisHelperTest {
         RedisHelper.set(REDIS_KEY, longList);
         Assertions.assertEquals(longList, RedisHelper.getObject(REDIS_KEY, new TypeReference<List<Long>>() {}));
 
-        User user = new User(1, "张三");
-        RedisHelper.set(REDIS_KEY, user);
-        Assertions.assertEquals(user, RedisHelper.getObject(REDIS_KEY, new TypeReference<User>() {}));
+        Data data = new Data();
+        data.id = 1L;
+        data.name = "张三";
+        RedisHelper.set(REDIS_KEY, data);
+        Assertions.assertEquals(data, RedisHelper.getObject(REDIS_KEY, new TypeReference<Data>() {}));
     }
 
     @Test
     void setEx() throws Exception {
         String msg = "hello_world";
-        RedisHelper.setEx(REDIS_KEY, msg, 2, TimeUnit.SECONDS);
+        RedisHelper.setEx(REDIS_KEY, msg, 200, TimeUnit.MILLISECONDS);
         Assertions.assertEquals(msg, RedisHelper.getString(REDIS_KEY));
-        Thread.sleep(5000);
+        Thread.sleep(200);
         Assertions.assertNull(RedisHelper.getString(REDIS_KEY));
     }
 
@@ -255,19 +254,18 @@ class RedisHelperTest {
     public void expire() throws Exception{
         String value = "value";
         RedisHelper.set(REDIS_KEY, value);
-        Thread.sleep(2000);
         Assertions.assertEquals(value, RedisHelper.getString(REDIS_KEY));
 
-        RedisHelper.expire(REDIS_KEY, 1, TimeUnit.SECONDS);
+        RedisHelper.expire(REDIS_KEY, 200, TimeUnit.MILLISECONDS);
         Assertions.assertEquals(value, RedisHelper.getString(REDIS_KEY));
-        Thread.sleep(2000);
+        Thread.sleep(200);
         Assertions.assertNull(RedisHelper.getString(REDIS_KEY));
 
         for (int i = 0; i < 100; i++) {
-            RedisHelper.incrEx(REDIS_KEY, 1, TimeUnit.SECONDS);
+            RedisHelper.incrEx(REDIS_KEY, 1000, TimeUnit.MILLISECONDS);
         }
         Assertions.assertEquals(100, RedisHelper.getInteger(REDIS_KEY).intValue());
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         Assertions.assertNull(RedisHelper.getInteger(REDIS_KEY));
     }
 
@@ -280,5 +278,31 @@ class RedisHelperTest {
     @AfterEach
     void after() {
         RedisHelper.del(REDIS_KEY);
+    }
+
+    static class Data {
+        Long id;
+        String name;
+
+        public Long getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Data data = (Data) o;
+            return Objects.equals(id, data.id) && Objects.equals(name, data.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, name);
+        }
     }
 }

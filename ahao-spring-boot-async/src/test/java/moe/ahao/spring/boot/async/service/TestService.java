@@ -13,7 +13,7 @@ public class TestService {
     @Async
     public void executeVoid(Object value) throws Exception {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -1,7 +1,7 @@
 package moe.ahao.spring.boot.transaction.xa;
 
 import moe.ahao.spring.boot.Starter;
-import moe.ahao.spring.boot.transaction.BaseTest;
+import moe.ahao.transaction.AbstractTransactionTest;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +18,7 @@ import static moe.ahao.spring.boot.atomikos.AtomikosConfig.TX_MANAGER;
 @ContextConfiguration(classes = {Starter.class, AtomikosXATest.AhaoService.class})
 
 @ActiveProfiles("atomikos")
-public class AtomikosXATest extends BaseTest {
+public class AtomikosXATest extends AbstractTransactionTest {
 
     @Transactional(transactionManager = TX_MANAGER, rollbackFor = Exception.class)
     public static class AhaoService {

@@ -14,10 +14,6 @@
     <artifactId>ahao-spring-boot-security</artifactId>
     <packaging>jar</packaging>
 
-    <properties>
-        <embedded.redis.version>0.6</embedded.redis.version>
-    </properties>
-
     <dependencies>
         <!--======================================================= 自定义模块 =======================================================-->
         <dependency>

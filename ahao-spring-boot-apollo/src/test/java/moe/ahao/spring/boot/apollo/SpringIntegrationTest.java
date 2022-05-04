@@ -78,7 +78,7 @@ public class SpringIntegrationTest {
         Assertions.assertEquals(dbNs, updateEvent1.getNamespace());
         Assertions.assertEquals(PropertyChangeType.MODIFIED, updateEvent1.getChange("spring.datasource.username").getChangeType());
         Assertions.assertEquals(value, updateEvent1.getChange(key).getNewValue());
-        Thread.sleep(3000); // 等待事件异步消费
+        Thread.sleep(200); // 等待事件异步消费
         Assertions.assertEquals(value, dbProperties.username);
 
         apollo.addOrModifyProperty(dbNs, key, "root");

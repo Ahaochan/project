@@ -44,7 +44,7 @@ import static moe.ahao.spring.boot.mybatis.plus.config.MultiMyBatisConfig.Spring
 @Configuration(proxyBeanMethods = false)
 public class MultiMyBatisConfig implements InitializingBean {
     @Configuration
-    @MapperScan(value = "moe.ahao.spring.boot.**.mapper", sqlSessionFactoryRef = SQL_SESSION_FACTORY_REF)
+    @MapperScan(value = "moe.ahao.**.mapper", sqlSessionFactoryRef = SQL_SESSION_FACTORY_REF)
     public class SpringMybatisConfig {
         public static final String SQL_SESSION_FACTORY_REF = "springSqlSessionFactory";
 

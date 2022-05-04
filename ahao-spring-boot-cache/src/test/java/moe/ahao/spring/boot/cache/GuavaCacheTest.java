@@ -20,7 +20,7 @@ public class GuavaCacheTest {
     public void init() {
         cache = CacheBuilder.newBuilder()
             .maximumSize(200) // 设置大小和条目数
-            .expireAfterAccess(1, TimeUnit.SECONDS) // 缓存失效时间
+            .expireAfterAccess(100, TimeUnit.MILLISECONDS) // 缓存失效时间
             // 清除缓存的监听器, 用于保活
             .removalListener((RemovalListener<String, String>) removalNotification -> System.out.println("缓存数据删除, key:" + removalNotification.getKey() + ", value:" + removalNotification.getValue()))
             // 缓存加载器, 如果key不存在就加载
@@ -61,7 +61,7 @@ public class GuavaCacheTest {
     public void timeout() throws Exception {
         String key = "ahao_key";
         cache.put(key, "ahao_value");
-        Thread.sleep(2000);
+        Thread.sleep(200);
         Assertions.assertEquals(this.load(key), cache.get(key));
     }
 

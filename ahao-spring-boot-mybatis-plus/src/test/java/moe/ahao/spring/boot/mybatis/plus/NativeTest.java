@@ -1,5 +1,6 @@
 package moe.ahao.spring.boot.mybatis.plus;
 
+import moe.ahao.transaction.DBConstant;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
@@ -13,8 +14,6 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -23,17 +22,12 @@ import java.util.List;
 import java.util.Map;
 
 public class NativeTest {
-    @ComponentScan("moe.ahao.spring.boot.mybatis.simple")
-    @MapperScan("moe.ahao.spring.boot.mybatis.simple")
+    // @ComponentScan("moe.ahao.spring.boot.mybatis.plus")
+    @MapperScan("moe.ahao.spring.boot.mybatis.plus")
     static class TestConfig {
         @Bean
         public DataSource dataSource(){
-            DriverManagerDataSource ds = new DriverManagerDataSource();
-            ds.setDriverClassName(org.h2.Driver.class.getName());
-            // ds.setPassword("123456");
-            // ds.setUsername("root");
-            ds.setUrl("jdbc:p6spy:h2:mem:db1;DB_CLOSE_DELAY=-1;MODE=MySQL;");
-            return ds;
+            return DBConstant.createH2DataSource();
         }
         @Bean
         public SqlSessionFactory sqlSessionFactory() throws Exception {
@@ -57,10 +51,10 @@ public class NativeTest {
         DataSource ds = context.getBean(DataSource.class);
         try (Connection connection = ds.getConnection();
         Statement statement = connection.createStatement();) {
-            statement.executeUpdate("create table t(id int primary key , name varchar(50));");
+            // TODO 使用通用的实体类
+            statement.executeUpdate("create table if not exists t(id int primary key , name varchar(50));");
             statement.executeUpdate("insert into t(id, name) values(1, 'admin')");
         }
-
 
         AhaoMapper mapper = context.getBean(AhaoMapper.class);
         List<Map<String, Object>> list = mapper.findList();
@@ -79,7 +73,8 @@ public class NativeTest {
 
         try (Connection connection = ds.getConnection();
              Statement statement = connection.createStatement();) {
-            statement.executeUpdate("create table t(id int primary key , name varchar(50));");
+            // TODO 使用通用的实体类
+            statement.executeUpdate("create table if not exists t(id int primary key , name varchar(50));");
             statement.executeUpdate("insert into t(id, name) values(1, 'admin')");
         }
 

@@ -28,7 +28,7 @@ public class AsyncTest {
         testService.executeVoid(msg);
         Assertions.assertNull(TestService.value);
 
-        Thread.sleep(2000);
+        Thread.sleep(400);
         Assertions.assertEquals(msg, TestService.value);
     }
 
@@ -47,7 +47,7 @@ public class AsyncTest {
         System.setOut(new PrintStream(baos, true, StandardCharsets.UTF_8.name()));
 
         testService.executeException();
-        Thread.sleep(3000);
+        Thread.sleep(200);
 
         String msg = baos.toString(StandardCharsets.UTF_8.name());
         System.setOut(sout);

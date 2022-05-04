@@ -1,8 +1,8 @@
 package moe.ahao.spring.boot.integration.lock;
 
 
+import moe.ahao.embedded.EmbeddedRedisTest;
 import moe.ahao.spring.boot.Starter;
-import moe.ahao.spring.boot.config.RedisExtension;
 import moe.ahao.util.spring.SpringContextHolder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,16 +15,17 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.integration.redis.util.RedisLockRegistry;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
-@ExtendWith(RedisExtension.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = {Starter.class, RedisAutoConfiguration.class, JacksonAutoConfiguration.class, SpringContextHolder.class})
 @ActiveProfiles("redis")
-public class RedisLockTest {
+public class RedisLockTest extends EmbeddedRedisTest {
 
     @Autowired
     private RedisConnectionFactory factory;
@@ -38,11 +39,11 @@ public class RedisLockTest {
         boolean b1 = lock.tryLock(2, TimeUnit.SECONDS);
         Assertions.assertTrue(b1);
 
-        TimeUnit.SECONDS.sleep(1);
+        Thread.sleep(100);
         boolean b2 = lock.tryLock(2, TimeUnit.SECONDS);
         Assertions.assertTrue(b2);
 
-        TimeUnit.SECONDS.sleep(3);
+        Thread.sleep(100);
         boolean b3 = lock.tryLock(2, TimeUnit.SECONDS);
         Assertions.assertTrue(b3);
 
@@ -63,7 +64,7 @@ public class RedisLockTest {
         Runnable task = () -> {
             try {
                 boolean b1 = lock.tryLock(2, TimeUnit.SECONDS);
-                TimeUnit.SECONDS.sleep(3);
+                Thread.sleep(100);
                 System.out.println(b1);
                 // Assertions.assertTrue(b1);
             } catch (Exception e) {

@@ -1,5 +1,7 @@
 package moe.ahao.spring.boot.redis;
 
+import moe.ahao.embedded.EmbeddedRedisTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
@@ -10,18 +12,19 @@ import org.redisson.config.Config;
 /**
  * https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95
  */
-class RedissionClientTest {
+class RedissionClientTest extends EmbeddedRedisTest {
     @Test
     void single() {
         Config config = new Config();
         config.useSingleServer()
-            .setAddress("127.0.0.1").setPassword("");
+            .setAddress("redis://127.0.0.1:6379").setPassword(null);
         RedissonClient redisson = Redisson.create(config);
 
         this.test(redisson);
     }
 
     @Test
+    @Disabled("集群配置脚本参考script目录")
     void cluster() {
         Config config = new Config();
         config.useClusterServers()
