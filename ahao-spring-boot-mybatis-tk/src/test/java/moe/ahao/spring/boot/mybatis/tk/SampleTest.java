@@ -30,6 +30,7 @@ import java.util.List;
     DataSourceAutoConfiguration.class, MybatisAutoConfiguration.class,
     DataSourceTransactionManagerAutoConfiguration.class, TransactionAutoConfiguration.class})
 @ActiveProfiles("test")
+// TODO 奇怪的BUG
 class SampleTest {
 
     @Autowired

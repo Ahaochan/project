@@ -32,7 +32,8 @@ public class SpringTest {
 
     @BeforeEach
     public void beforeEach(@Value("${spring.rabbitmq.host}") String host) {
-        Assumptions.assumeTrue(StringUtils.isNotBlank(host));
+        // TODO 内嵌RabbitMQ，https://github.com/AlejandroRivera/embedded-rabbitmq
+        Assumptions.assumeTrue(StringUtils.isNotBlank(host), "需要配置实际的 rabbitmq 地址");
     }
 
     @Test

@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = Starter.class)
 @ActiveProfiles("test")
+// TODO nacos控制台不知道账号密码了
 public class NacosConfigTest {
 
     @Value("${ahao.version}")

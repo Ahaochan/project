@@ -34,6 +34,7 @@ public class DirectProducerTest {
 
     @BeforeEach
     public void beforeEach(@Value("${spring.rabbitmq.host}") String host) {
+        // TODO 内嵌RabbitMQ，https://github.com/AlejandroRivera/embedded-rabbitmq
         Assumptions.assumeTrue(StringUtils.isNotBlank(host));
         Assertions.assertNotNull(rabbitTemplate);
         Assertions.assertNotNull(consumer);

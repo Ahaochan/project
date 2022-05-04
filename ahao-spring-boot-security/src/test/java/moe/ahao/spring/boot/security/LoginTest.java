@@ -41,6 +41,7 @@ public class LoginTest {
             .param("username", "admin")
             .param("password", "admin"))
             .andDo(print())
+            // TODO 302
             .andExpect(status().isOk())
             .andReturn()
             .getResponse().getContentAsString();   //将相应的数据转换为字符串
@@ -54,6 +55,7 @@ public class LoginTest {
             .param("username", "admin1")
             .param("password", "admin1"))
             .andDo(print())
+            // TODO 302
             .andExpect(status().isUnauthorized())
             .andReturn()
             .getResponse().getContentAsString();   //将相应的数据转换为字符串
@@ -67,6 +69,7 @@ public class LoginTest {
             .param("username", "admin")
             .param("password", "123456"))
             .andDo(print())
+            // TODO 302
             .andExpect(status().isUnauthorized())
             .andReturn()
             .getResponse().getContentAsString();   //将相应的数据转换为字符串

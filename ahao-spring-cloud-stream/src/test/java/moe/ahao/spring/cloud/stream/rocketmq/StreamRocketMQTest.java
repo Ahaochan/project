@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
     RocketMQAutoConfiguration.class, RocketMQBinderAutoConfiguration.class,})
 
 @ActiveProfiles("rocketmq")
+// TODO 类都不见了
 public class StreamRocketMQTest extends BaseTest {
     @Test
     public void test() throws Exception {

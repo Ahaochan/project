@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ZookeeperNativeTest {
+    // TODO 内嵌ZK
     public static final String connectString = "192.168.153.134:2181";
     private static final Watcher watcher = e -> System.out.printf("watch事件:%s%n", e);
 

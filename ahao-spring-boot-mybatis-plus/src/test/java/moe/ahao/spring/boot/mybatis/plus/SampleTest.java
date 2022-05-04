@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import moe.ahao.spring.boot.mybatis.plus.config.MultiMyBatisConfig;
 import moe.ahao.spring.boot.mybatis.plus.config.MyBatisPlusConfig;
 import moe.ahao.transaction.mybatis.entity.User;
-import moe.ahao.transaction.mybatis.enums.Sex;
 import moe.ahao.transaction.mybatis.mapper.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -42,6 +41,7 @@ class SampleTest {
 
     @Test
     void testLikeQuery() {
+        // TODO 不使用Mybatis Plus高级特性，枚举
         List<User> leftLikeList = userMapper.selectList(new QueryWrapper<User>().likeLeft("email", "@qq.com"));
         Assertions.assertEquals(5, leftLikeList.size());
 
@@ -53,17 +53,6 @@ class SampleTest {
     }
 
     @Test
-    void testEnumQuery() {
-        List<User> manList = userMapper.selectList(new QueryWrapper<User>().eq("sex", "1"));
-        Assertions.assertEquals(2, manList.size());
-        manList.forEach(u -> Assertions.assertEquals(Sex.man, u.getSex()));
-
-        List<User> womanList = userMapper.selectList(new QueryWrapper<User>().eq("sex", "2"));
-        Assertions.assertEquals(3, womanList.size());
-        womanList.forEach(u -> Assertions.assertEquals(Sex.woman, u.getSex()));
-    }
-
-    @Test
     void testInsert() {
         User user1 = new User();
         user1.setUsername("username");
@@ -72,6 +61,7 @@ class SampleTest {
         Assertions.assertEquals(1, count);
         Assertions.assertNotNull(user1.getId());
 
+        // TODO 不使用Mybatis Plus高级特性，枚举
         User user2 = userMapper.selectById(user1.getId());
         Assertions.assertEquals(user1.getUsername(), user2.getUsername());
         Assertions.assertEquals(user1.getPassword(), user2.getPassword());

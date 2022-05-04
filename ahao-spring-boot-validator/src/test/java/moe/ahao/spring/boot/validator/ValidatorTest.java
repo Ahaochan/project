@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringJUnitWebConfig(classes = Starter.class)
+// TODO 奇怪的bug
 public class ValidatorTest {
 
     private MockMvc mockMvc;

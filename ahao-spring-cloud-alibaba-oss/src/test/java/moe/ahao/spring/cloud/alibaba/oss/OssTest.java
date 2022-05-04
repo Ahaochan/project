@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = Starter.class)
+// TODO ${spring.cloud.alicloud.access-key} can't be empty.
 public class OssTest {
     @Autowired
     private AlibabaOssService alibabaOssService;

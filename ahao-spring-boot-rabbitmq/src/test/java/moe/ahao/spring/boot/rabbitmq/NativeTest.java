@@ -24,7 +24,8 @@ public class NativeTest {
 
     @BeforeEach
     public void beforeEach() throws Exception {
-        Assumptions.assumeTrue(StringUtils.isNotBlank(HOST));
+        // TODO 内嵌RabbitMQ，https://github.com/AlejandroRivera/embedded-rabbitmq
+        Assumptions.assumeTrue(StringUtils.isNotBlank(HOST), "需要配置实际的 rabbitmq 地址");
 
         // 1. 建立连接工厂
         connectionFactory = new ConnectionFactory();

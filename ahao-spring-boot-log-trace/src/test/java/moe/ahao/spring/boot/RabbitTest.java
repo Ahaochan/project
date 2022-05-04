@@ -50,6 +50,7 @@ public class RabbitTest {
         Assertions.assertNotNull(consumer);
 
         String rabbitHost = SpringContextHolder.getValue("spring.rabbitmq.host");
+        // TODO 内嵌RabbitMQ，https://github.com/AlejandroRivera/embedded-rabbitmq
         Assumptions.assumeTrue(StringUtils.isNotBlank(rabbitHost), "需要配置实际的 rabbitmq 地址");
         TestRabbitConsumer.value = null;
 

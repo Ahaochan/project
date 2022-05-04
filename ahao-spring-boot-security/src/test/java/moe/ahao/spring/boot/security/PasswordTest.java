@@ -23,6 +23,7 @@ public class PasswordTest {
             Class.forName("org.bouncycastle.crypto.params.Argon2Parameters$Builder");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            // TODO 依赖未加载
             Assumptions.assumeTrue(false, "依赖未加载");
         }
 
@@ -36,6 +37,7 @@ public class PasswordTest {
 
     @Test
     public void SCrypt() {
+        // TODO NoClassDefFoundError: org/bouncycastle/crypto/generators/SCrypt
         valid(new SCryptPasswordEncoder());
     }
 

@@ -26,6 +26,7 @@ public class IniRealmTest {
 
         // 2. 获取 Subject
         Subject subject = SecurityUtils.getSubject();
+        // TODO PasswordRealmTest影响本次单元测试结果
         Assertions.assertFalse(subject.isAuthenticated());
 
         // 3. 断言 会话属性是否正常
