@@ -4,6 +4,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("moe.ahao.spring.boot.**.mapper")
+@MapperScan("moe.ahao.**.mapper")
 public class MybatisConfig {
 }
