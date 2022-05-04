@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.2.RELEASE</version>
+        <version>2.3.12.RELEASE</version>
     </parent>
 
     <modules>
@@ -100,10 +100,10 @@
 
         <ahao.version>1.0.0</ahao.version>
 
-        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-        <spring-boot.admin.version>2.2.1</spring-boot.admin.version>
-        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
-        <spring-cloud.alibaba.version>2.2.6.RELEASE</spring-cloud.alibaba.version>
+        <spring.boot.version>2.3.12.RELEASE</spring.boot.version>
+        <spring.boot.admin.version>2.2.1</spring.boot.admin.version>
+        <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
+        <spring.cloud.alibaba.version>2.2.7.RELEASE</spring.cloud.alibaba.version>
         <spring.swagger.version>3.0.0</spring.swagger.version>
         <spring.swagger.bootstrap.version>1.9.6</spring.swagger.bootstrap.version>
         <spring.dubbo.version>2.7.8</spring.dubbo.version>
@@ -135,6 +135,12 @@
             <id>aliyun-repo</id>
             <name>阿里云 Maven</name>
             <url>https://maven.aliyun.com/nexus/content/repositories/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
         <repository>
             <id>center-repo</id>
@@ -151,13 +157,20 @@
                 <artifactId>ahao-common-utils</artifactId>
                 <version>1.0.0</version>
             </dependency>
+            <dependency>
+                <groupId>moe.ahao</groupId>
+                <artifactId>ahao-common-utils</artifactId>
+                <version>1.0.0</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
             <!--======================================================= 自定义模块 =======================================================-->
 
             <!--======================================================= Spring =======================================================-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
+                <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -167,27 +180,17 @@
                 <version>2.2.1</version>
                 <type>pom</type>
             </dependency>
-
-
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-dependencies-bom</artifactId>
-                <version>${spring.dubbo.version}</version>
+                <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring-cloud.alibaba.version}</version>
+                <version>${spring.cloud.alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
