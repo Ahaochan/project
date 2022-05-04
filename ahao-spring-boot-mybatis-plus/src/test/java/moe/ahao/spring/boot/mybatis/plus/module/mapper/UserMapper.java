@@ -8,4 +8,5 @@ import java.util.List;
 public interface UserMapper extends BaseMapper<User> {
     void insertSQL(User user);
     void insertBatchSQL(List<User> users);
+    void truncate();
 }

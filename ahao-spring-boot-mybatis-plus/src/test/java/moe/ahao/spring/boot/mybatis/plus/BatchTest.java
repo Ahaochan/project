@@ -45,7 +45,10 @@ public class BatchTest {
 
             dataList.add(user);
         }
-
+    }
+    @AfterEach
+    public void afterEach() {
+        userMapper.truncate();
     }
 
     /**

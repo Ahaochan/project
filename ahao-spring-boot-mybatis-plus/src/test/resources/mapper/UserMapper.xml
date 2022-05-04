@@ -11,4 +11,7 @@
             (#{user.username}, #{user.password})
         </foreach>
     </insert>
+    <update id="truncate">
+        truncate table user;
+    </update>
 </mapper>
