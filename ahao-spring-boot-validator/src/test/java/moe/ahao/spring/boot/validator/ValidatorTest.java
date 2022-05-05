@@ -1,8 +1,6 @@
 package moe.ahao.spring.boot.validator;
 
 import moe.ahao.spring.boot.Starter;
-import moe.ahao.spring.boot.validator.dependency.NestedObj;
-import moe.ahao.spring.boot.validator.dependency.User;
 import moe.ahao.util.commons.io.JSONHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringJUnitWebConfig(classes = Starter.class)
-// TODO 奇怪的bug
 public class ValidatorTest {
 
     private MockMvc mockMvc;

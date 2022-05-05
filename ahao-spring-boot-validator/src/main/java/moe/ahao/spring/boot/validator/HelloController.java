@@ -1,4 +1,4 @@
-package moe.ahao.spring.boot.validator.dependency;
+package moe.ahao.spring.boot.validator;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package moe.ahao.spring.boot.validator.dependency;
+package moe.ahao.spring.boot.validator;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
