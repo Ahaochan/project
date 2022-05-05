@@ -26,7 +26,7 @@
         <dependency>
             <groupId>org.apache.thrift</groupId>
             <artifactId>libthrift</artifactId>
-        <!-- TODO dubbo 和 alibaba 的 nacos 依赖冲突-->
+            <version>0.16.0</version>
         </dependency>
     </dependencies>
 </project>
