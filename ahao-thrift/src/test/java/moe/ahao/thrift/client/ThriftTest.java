@@ -2,9 +2,7 @@ package moe.ahao.thrift.client;
 
 import moe.ahao.thrift.gen.StudentService;
 import moe.ahao.thrift.service.StudentServiceImpl;
-import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TThreadPoolServer;
 import org.apache.thrift.transport.TServerSocket;
@@ -22,30 +20,31 @@ public class ThriftTest {
 
     @BeforeAll
     public static void beforeAll() throws Exception {
-        TServerSocket serverTransport = new TServerSocket(port);
-        TBinaryProtocol.Factory proFactory = new TBinaryProtocol.Factory();
-        TProcessor processor = new StudentService.Processor<>(new StudentServiceImpl());
-
-        TThreadPoolServer.Args serverArgs = new TThreadPoolServer.Args(serverTransport);
-        serverArgs.processor(processor);
-        serverArgs.protocolFactory(proFactory);
+        // 打开一个Socket连接, 监听9090端口
+        TThreadPoolServer.Args serverArgs = new TThreadPoolServer.Args(new TServerSocket(port))
+            // 设置监听处理器
+            .processor(new StudentService.Processor<>(new StudentServiceImpl()))
+            // 设置协议类型
+            .protocolFactory(new TBinaryProtocol.Factory());
 
         server = new TThreadPoolServer(serverArgs);
         new Thread(() -> server.serve()).start();
     }
 
     @AfterAll
-    public static void afterAll() {
+    public static void afterAll() throws Exception {
+        // TODO org.apache.thrift.transport.TTransportException: Socket is closed by peer.
+        server.setShouldStop(true);
         server.stop();
     }
 
     @Test
     public void test() throws Exception {
+        // 打开一个Socket连接, 监听9090端口
         try(TTransport transport = new TSocket("127.0.0.1", port);) {
             transport.open();
-            TProtocol protocol = new TBinaryProtocol(transport);
 
-            StudentService.Client client = new StudentService.Client(protocol);
+            StudentService.Client client = new StudentService.Client(new TBinaryProtocol(transport));
 
             String name = "ahao";
             String result = client.hello(name);
