@@ -41,7 +41,6 @@ class SampleTest {
 
     @Test
     void testLikeQuery() {
-        // TODO 不使用Mybatis Plus高级特性，枚举
         List<User> leftLikeList = userMapper.selectList(new QueryWrapper<User>().likeLeft("email", "@qq.com"));
         Assertions.assertEquals(5, leftLikeList.size());
 
@@ -61,7 +60,6 @@ class SampleTest {
         Assertions.assertEquals(1, count);
         Assertions.assertNotNull(user1.getId());
 
-        // TODO 不使用Mybatis Plus高级特性，枚举
         User user2 = userMapper.selectById(user1.getId());
         Assertions.assertEquals(user1.getUsername(), user2.getUsername());
         Assertions.assertEquals(user1.getPassword(), user2.getPassword());

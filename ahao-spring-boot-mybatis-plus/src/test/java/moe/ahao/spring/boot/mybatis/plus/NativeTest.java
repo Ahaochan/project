@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.mybatis.plus;
 
-import moe.ahao.transaction.DBConstant;
+import moe.ahao.transaction.DBTestUtils;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
@@ -22,12 +22,11 @@ import java.util.List;
 import java.util.Map;
 
 public class NativeTest {
-    // @ComponentScan("moe.ahao.spring.boot.mybatis.plus")
     @MapperScan("moe.ahao.spring.boot.mybatis.plus")
     static class TestConfig {
         @Bean
         public DataSource dataSource(){
-            return DBConstant.createH2DataSource();
+            return DBTestUtils.createH2DataSource();
         }
         @Bean
         public SqlSessionFactory sqlSessionFactory() throws Exception {
@@ -61,6 +60,8 @@ public class NativeTest {
         Map<String, Object> one = mapper.findOne(1);
 
         Assertions.assertEquals(one, list.get(0));
+
+        DBTestUtils.clearDB(ds);
     }
 
     @Test
@@ -85,5 +86,7 @@ public class NativeTest {
 
             Assertions.assertEquals(one, list.get(0));
         }
+
+        DBTestUtils.clearDB(ds);
     }
 }
