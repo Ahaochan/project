@@ -4,22 +4,30 @@ import com.mysql.cj.jdbc.JdbcConnection;
 import com.mysql.cj.jdbc.MysqlXAConnection;
 import com.mysql.cj.jdbc.MysqlXid;
 import moe.ahao.transaction.AbstractTransactionTest;
+import moe.ahao.transaction.DBTestUtils;
 
+import javax.sql.DataSource;
 import javax.sql.XAConnection;
 import javax.transaction.xa.XAResource;
 import javax.transaction.xa.Xid;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-public class MysqlXANativeTest extends AbstractTransactionTest {
+import static moe.ahao.transaction.bank.transfer.service.BankTransferAccountMybatisService.DECREASE_AMOUNT_SQL;
+import static moe.ahao.transaction.bank.transfer.service.BankTransferAccountMybatisService.INCREASE_AMOUNT_SQL;
 
-    public void test(boolean rollback) throws Exception {
+
+public class MysqlXANativeTest extends AbstractTransactionTest {
+    @Override
+    protected void execute(boolean rollback) throws Exception {
         // 这个XAResource其实你可以认为是RM（Resource Manager）的一个代码中的对象实例
         XAConnection xaConnection1 = null;
         XAConnection xaConnection2 = null;
-        try (Connection connection1 = DriverManager.getConnection(url("ahaodb"), "root", "root");
-             Connection connection2 = DriverManager.getConnection(url("ahaodb"), "root", "root");) {
+
+        DataSource dataSource1 = DBTestUtils.createMysqlDataSource("ahaodb");
+        DataSource dataSource2 = DBTestUtils.createMysqlDataSource("ahaodb");
+        try (Connection connection1 = dataSource1.getConnection();
+             Connection connection2 = dataSource2.getConnection();) {
             // 这个XAResource其实你可以认为是RM（Resource Manager）的一个代码中的对象实例
             xaConnection1 = new MysqlXAConnection((JdbcConnection) connection1, true);
             XAResource xaResource1 = xaConnection1.getXAResource();
@@ -28,8 +36,9 @@ public class MysqlXANativeTest extends AbstractTransactionTest {
             XAResource xaResource2 = xaConnection2.getXAResource();
 
             // 生成xid, xid是子事务的唯一标识, 通过START和END两个操作, 定义子事务要执行的SQL语句
-            Xid xid1 = this.prepare(xaResource1, "bqual1", connection1.prepareStatement(SQL1));
-            Xid xid2 = this.prepare(xaResource2, "bqual2", connection2.prepareStatement(SQL2));
+            // 账户1给账户2转100元
+            Xid xid1 = this.prepare(xaResource1, "bqual1", connection1.prepareStatement(String.format(INCREASE_AMOUNT_SQL, "100", "2")));
+            Xid xid2 = this.prepare(xaResource2, "bqual2", connection2.prepareStatement(String.format(DECREASE_AMOUNT_SQL, "100", "1", "100")));
             // 2PC的阶段一: 向两个库都发送prepare消息，执行事务中的SQL语句，但是不提交
             int prepareResult1 = xaResource1.prepare(xid1);
             int prepareResult2 = xaResource2.prepare(xid2);

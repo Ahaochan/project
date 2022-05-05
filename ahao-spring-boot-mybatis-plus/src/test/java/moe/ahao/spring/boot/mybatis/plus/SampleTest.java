@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.autoconfigure.MybatisPlusLanguageDriverAutoConfi
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import moe.ahao.spring.boot.mybatis.plus.config.MultiMyBatisConfig;
 import moe.ahao.spring.boot.mybatis.plus.config.MyBatisPlusConfig;
-import moe.ahao.transaction.mybatis.entity.User;
-import moe.ahao.transaction.mybatis.mapper.UserMapper;
+import moe.ahao.transaction.user.mybatis.entity.User;
+import moe.ahao.transaction.user.mybatis.mapper.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

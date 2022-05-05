@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.mysql.cj.jdbc.MysqlXADataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ahaodb?useSSL=false
+    url: jdbc:mysql://${MYSQL_URL}/ahaodb?useSSL=false
     username: root
     password: root
 

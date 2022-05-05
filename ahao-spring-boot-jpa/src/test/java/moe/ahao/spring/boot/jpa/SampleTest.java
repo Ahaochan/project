@@ -1,9 +1,9 @@
 package moe.ahao.spring.boot.jpa;
 
 import moe.ahao.spring.boot.Starter;
-import moe.ahao.transaction.jpa.entity.User;
-import moe.ahao.transaction.jpa.entity.UserSpecifications;
-import moe.ahao.transaction.jpa.repository.UserJPARepository;
+import moe.ahao.transaction.user.jpa.entity.User;
+import moe.ahao.transaction.user.jpa.entity.UserSpecifications;
+import moe.ahao.transaction.user.jpa.repository.UserJPARepository;
 import moe.ahao.util.commons.io.JSONHelper;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.Assertions;

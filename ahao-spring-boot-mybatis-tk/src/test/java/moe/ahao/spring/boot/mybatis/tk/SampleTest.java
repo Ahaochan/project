@@ -2,7 +2,7 @@ package moe.ahao.spring.boot.mybatis.tk;
 
 import moe.ahao.spring.boot.mybatis.tk.config.MultiMyBatisConfig;
 import moe.ahao.spring.boot.mybatis.tk.module.mapper.UserTKMapper;
-import moe.ahao.transaction.mybatis.entity.User;
+import moe.ahao.transaction.user.mybatis.entity.User;
 import org.apache.ibatis.cursor.Cursor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

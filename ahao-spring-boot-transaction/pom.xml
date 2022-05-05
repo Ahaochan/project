@@ -21,11 +21,23 @@
     </modules>
 
     <dependencies>
+        <!--======================================================= 自定义模块 =======================================================-->
+        <dependency>
+            <groupId>moe.ahao</groupId>
+            <artifactId>ahao-common-utils</artifactId>
+        </dependency>
         <dependency>
             <groupId>moe.ahao</groupId>
             <artifactId>ahao-common-utils</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
+        </dependency>
+        <!--======================================================= 自定义模块 =======================================================-->
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis.plus.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
