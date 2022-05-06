@@ -43,5 +43,13 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
+        <!--======================================================= 单元测试 =======================================================-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--======================================================= 单元测试 =======================================================-->
     </dependencies>
 </project>

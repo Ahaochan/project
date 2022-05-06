@@ -2,14 +2,19 @@ spring:
   application:
     # 这里的name要和seata.vgroup-mapping的key保持一致
     name: ahao-seata
+  datasource:
+    url: jdbc:mysql://${MYSQL_URL}/ahaodb?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&tinyInt1isBit=false&rewriteBatchedStatements=true&useAffectedRows=true
+    username: root
+    password: root
 
 seata:
-  tx-service-group: ahao-all
+  enabled: true
+  tx-service-group: ahao-seata-tx-group
   service:
-    grouplist:
-      # 这里的key要和seata.vgroup-mapping的value保持一致
-      ahao-server1: 127.0.0.1:8080
     vgroup-mapping:
       # 这里的key要和spring.application.name保持一致
       # 这里的value要和seata.service.grouplist的key保持一致
-      ahao-seata: ahao-server1
+      ahao-seata-tx-group: default
+    grouplist:
+      # 这里的key要和seata.vgroup-mapping的value保持一致
+      default: 192.168.19.128:8091
