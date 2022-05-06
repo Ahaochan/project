@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 @Configuration(proxyBeanMethods = false)
 public class MultiMyBatisConfig {
     @Configuration
-    @MapperScan(value = "moe.ahao.**.mapper", sqlSessionFactoryRef = SpringMybatisConfig.SQL_SESSION_FACTORY_REF)
+    @MapperScan(value = "moe.ahao.spring.boot.mybatis.tk.**.mapper", sqlSessionFactoryRef = SpringMybatisConfig.SQL_SESSION_FACTORY_REF)
     public static class SpringMybatisConfig {
         public static final String SQL_SESSION_FACTORY_REF = "springSqlSessionFactory";
 

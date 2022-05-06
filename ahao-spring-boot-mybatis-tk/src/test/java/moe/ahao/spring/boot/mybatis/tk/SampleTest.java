@@ -1,21 +1,15 @@
 package moe.ahao.spring.boot.mybatis.tk;
 
-import moe.ahao.spring.boot.mybatis.tk.config.MultiMyBatisConfig;
+import moe.ahao.spring.boot.Starter;
+import moe.ahao.spring.boot.mybatis.tk.module.entity.UserTK;
 import moe.ahao.spring.boot.mybatis.tk.module.mapper.UserTKMapper;
-import moe.ahao.transaction.user.mybatis.entity.User;
+import moe.ahao.transaction.AbstractUserTest;
 import org.apache.ibatis.cursor.Cursor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.WeekendSqls;
@@ -24,15 +18,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {MultiMyBatisConfig.class,
-    DataSourceAutoConfiguration.class, MybatisAutoConfiguration.class,
-    DataSourceTransactionManagerAutoConfiguration.class, TransactionAutoConfiguration.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @ActiveProfiles("test")
-// TODO 奇怪的BUG
-class SampleTest {
-
+// @ContextConfiguration(classes = {MultiMyBatisConfig.class,
+//     DataSourceAutoConfiguration.class, MybatisAutoConfiguration.class,
+//     DataSourceTransactionManagerAutoConfiguration.class, TransactionAutoConfiguration.class})
+class SampleTest extends AbstractUserTest {
     @Autowired
     private UserTKMapper userTKMapper;
 
@@ -41,45 +32,34 @@ class SampleTest {
         int count = userTKMapper.deleteByPrimaryKey(1);
         Assertions.assertEquals(1, count);
 
-        User user = userTKMapper.selectByPrimaryKey(1);
+        UserTK user = userTKMapper.selectByPrimaryKey(1);
         Assertions.assertNull(user);
     }
 
     @Test
     void testLikeQuery() {
-        Example.Builder builder = new Example.Builder(User.class);
+        Example.Builder builder = new Example.Builder(UserTK.class);
 
-        List<User> leftLikeList = userTKMapper.selectByExample(builder.where(WeekendSqls.<User>custom().andLike(User::getEmail, "%@qq.com")).build());
+        List<UserTK> leftLikeList = userTKMapper.selectByExample(builder.where(WeekendSqls.<UserTK>custom().andLike(UserTK::getEmail, "%@qq.com")).build());
         Assertions.assertEquals(5, leftLikeList.size());
 
-        List<User> rightLikeList = userTKMapper.selectByExample(builder.where(WeekendSqls.<User>custom().andLike(User::getUsername, "user%")).build());
+        List<UserTK> rightLikeList = userTKMapper.selectByExample(builder.where(WeekendSqls.<UserTK>custom().andLike(UserTK::getUsername, "user%")).build());
         Assertions.assertEquals(5, rightLikeList.size());
 
-        List<User> likeList = userTKMapper.selectByExample(builder.where(WeekendSqls.<User>custom().andLike(User::getEmail, "%qq%")).build());
+        List<UserTK> likeList = userTKMapper.selectByExample(builder.where(WeekendSqls.<UserTK>custom().andLike(UserTK::getEmail, "%qq%")).build());
         Assertions.assertEquals(5, likeList.size());
     }
 
     @Test
-    void testEnumQuery() {
-        // List<User> manList = userMapper.selectList(new QueryWrapper<User>().eq("sex", "1"));
-        // Assertions.assertEquals(2, manList.size());
-        // manList.forEach(u -> Assertions.assertEquals(Sex.man, u.getSex()));
-        //
-        // List<User> womanList = userMapper.selectList(new QueryWrapper<User>().eq("sex", "2"));
-        // Assertions.assertEquals(3, womanList.size());
-        // womanList.forEach(u -> Assertions.assertEquals(Sex.woman, u.getSex()));
-    }
-
-    @Test
     void testInsert() {
-        User user1 = new User();
+        UserTK user1 = new UserTK();
         user1.setUsername("username");
         user1.setPassword("password");
         int count = userTKMapper.insert(user1);
         Assertions.assertEquals(1, count);
         Assertions.assertNotNull(user1.getId());
 
-        User user2 = userTKMapper.selectByPrimaryKey(user1.getId());
+        UserTK user2 = userTKMapper.selectByPrimaryKey(user1.getId());
         Assertions.assertEquals(user1.getUsername(), user2.getUsername());
         Assertions.assertEquals(user1.getPassword(), user2.getPassword());
     }
@@ -87,11 +67,11 @@ class SampleTest {
     @Test
     @Transactional
     void scanFoo0() throws Exception {
-        try (Cursor<User> cursor = userTKMapper.selectCursorAll()) {
-            Iterator<User> it = cursor.iterator();
+        try (Cursor<UserTK> cursor = userTKMapper.selectCursorAll()) {
+            Iterator<UserTK> it = cursor.iterator();
 
             while (it.hasNext()) {
-                List<User> userList = new ArrayList<>();
+                List<UserTK> userList = new ArrayList<>();
                 for (int i = 0; i < 3 && it.hasNext(); i++) {
                     userList.add(it.next());
                 }
