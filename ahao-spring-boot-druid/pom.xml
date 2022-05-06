@@ -20,6 +20,12 @@
             <groupId>moe.ahao</groupId>
             <artifactId>ahao-common-utils</artifactId>
         </dependency>
+        <dependency>
+            <groupId>moe.ahao</groupId>
+            <artifactId>ahao-common-utils</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
         <!--======================================================= 自定义模块 =======================================================-->
 
         <!--======================================================= Spring Boot =======================================================-->
@@ -38,12 +44,11 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis.spring.boot.version}</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis.plus.version}</version>
         </dependency>
         <!--======================================================= 数据库相关 =======================================================-->
 

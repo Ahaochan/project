@@ -1,6 +1,7 @@
 package moe.ahao.spring.boot.jpa;
 
 import moe.ahao.spring.boot.Starter;
+import moe.ahao.transaction.AbstractUserTest;
 import moe.ahao.transaction.user.jpa.entity.User;
 import moe.ahao.transaction.user.jpa.entity.UserSpecifications;
 import moe.ahao.transaction.user.jpa.repository.UserJPARepository;
@@ -8,7 +9,6 @@ import moe.ahao.util.commons.io.JSONHelper;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -17,8 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -30,15 +28,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = Starter.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @ActiveProfiles("test")
-class SampleTest {
-
+class SampleTest extends AbstractUserTest {
     @Autowired
     private UserJPARepository userJPARepository;
-
     @Autowired
     private EntityManager em;
 

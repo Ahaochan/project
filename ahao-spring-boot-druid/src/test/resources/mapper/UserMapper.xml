@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="moe.ahao.spring.boot.druid.module.mapper.UserMapper">
-    <select id="selectById" resultType="moe.ahao.spring.boot.druid.module.entity.User">
-        select * from sys_user where id = #{id};
-    </select>
-</mapper>

@@ -2,13 +2,6 @@ spring:
   datasource:
     druid:
       driver-class-name: org.h2.Driver
-      url: jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MODE=MySQL;
+      url: jdbc:h2:mem:ahaodb;DB_CLOSE_DELAY=-1;MODE=MySQL;
       username: root
-      password: test
-
-      # 连接测试, 会降低性能
-      validation-query: select 'x' # 判断连接是否成功的 sql 语句
-      validation-query-timeout: 5  # 检测连接是否有效的超时时间, 单位是毫秒
-      test-on-borrow: true         # 申请连接时执行 validationQuery 检测连接是否有效
-      test-on-return: false        # 归还连接时执行validationQuery检测连接是否有效
-      test-while-idle: true        # 申请连接时, 如果空闲时间大于 time-between-eviction-runs-millis, 则执行 validation-query 判断连接是否有效
+      password: root
