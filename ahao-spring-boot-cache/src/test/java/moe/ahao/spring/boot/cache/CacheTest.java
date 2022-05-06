@@ -1,25 +1,21 @@
 package moe.ahao.spring.boot.cache;
 
+import moe.ahao.spring.boot.Starter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.UUID;
 
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {CacheConfig.class, CaffeineCacheConfig.class, RedisCacheConfig.class, TestCacheService.class,
-    RedisAutoConfiguration.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @ActiveProfiles("simple")
-class CacheTest {
 
+// @ContextConfiguration(classes = {CacheConfig.class, CaffeineCacheConfig.class, RedisCacheConfig.class, TestCacheService.class,
+//     RedisAutoConfiguration.class})
+class CacheTest {
     @Autowired
     private TestCacheService service;
 
@@ -53,5 +49,4 @@ class CacheTest {
 
         service.removeCache(id);
     }
-
 }

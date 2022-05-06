@@ -8,34 +8,30 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import moe.ahao.domain.entity.BaseDO;
+import moe.ahao.spring.boot.Starter;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {DataSourceAutoConfiguration.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
+// @ContextConfiguration(classes = {DataSourceAutoConfiguration.class})
 @ActiveProfiles("mysql")
-public class CodeGeneratorTest {
+class CodeGeneratorTest {
 
     @Autowired
     private DataSourceProperties properties;
 
     @Test
     @Disabled("有需要再手动执行")
-    public void generator() {
+    void generator() {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
         String[] tableName = {"user"}; // show table status WHERE 1=1 AND NAME IN ('cl_transfer_queue_fail')

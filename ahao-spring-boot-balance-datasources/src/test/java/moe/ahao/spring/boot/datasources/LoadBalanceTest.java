@@ -1,19 +1,13 @@
 package moe.ahao.spring.boot.datasources;
 
-import moe.ahao.spring.boot.datasources.config.DataSourceConfig;
-import moe.ahao.spring.boot.datasources.repository.DataSourcePropertiesMemoryImpl;
-import moe.ahao.util.spring.SpringContextHolder;
+import moe.ahao.spring.boot.Starter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -21,11 +15,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {SpringContextHolder.class, DataSourceConfig.class, DataSourcePropertiesMemoryImpl.class,
-    ConfigurationPropertiesAutoConfiguration.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @ActiveProfiles("test")
+
+// @ContextConfiguration(classes = {SpringContextHolder.class, DataSourceConfig.class, DataSourcePropertiesMemoryImpl.class,
+//     ConfigurationPropertiesAutoConfiguration.class})
 class LoadBalanceTest {
     @Autowired
     @Qualifier("dynamicDataSource")

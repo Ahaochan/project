@@ -2,23 +2,20 @@ package moe.ahao.spring.boot.orika;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
+import moe.ahao.spring.boot.Starter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {OrikaAutoConfiguration.class, OrikaTest.OrikaStudentMapperFactoryConfigurer.class})
-class OrikaTest {
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {Starter.class, OrikaTest.OrikaStudentMapperFactoryConfigurer.class})
+// @ContextConfiguration(classes = {OrikaAutoConfiguration.class, OrikaTest.OrikaStudentMapperFactoryConfigurer.class})
+class OrikaTest {
     @Autowired
     private MapperFacade mapperFacade;
 

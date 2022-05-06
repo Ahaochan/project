@@ -4,20 +4,16 @@ import moe.ahao.spring.boot.async.config.AsyncConfig;
 import moe.ahao.spring.boot.async.service.TestService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Future;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {AsyncConfig.class, TestService.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    classes = {AsyncConfig.class, TestService.class})
 public class AsyncTest {
     @Autowired
     private TestService testService;
@@ -53,6 +49,5 @@ public class AsyncTest {
         System.setOut(sout);
 
         Assertions.assertEquals("moe.ahao.spring.boot.async.service.TestService#executeException(), 错误信息: 错误\r\n", msg);
-
     }
 }

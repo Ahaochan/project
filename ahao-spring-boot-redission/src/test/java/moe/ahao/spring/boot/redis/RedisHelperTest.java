@@ -2,29 +2,21 @@ package moe.ahao.spring.boot.redis;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import moe.ahao.embedded.EmbeddedRedisTest;
-import moe.ahao.spring.boot.redis.config.RedisConfig;
-import moe.ahao.util.spring.SpringContextHolder;
 import moe.ahao.util.spring.redis.RedisHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
-import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.*;
 import java.util.concurrent.*;
 
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, JacksonAutoConfiguration.class, SpringContextHolder.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @ActiveProfiles("test-redis")
+// @ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, JacksonAutoConfiguration.class, SpringContextHolder.class})
 class RedisHelperTest extends EmbeddedRedisTest {
     private static final String REDIS_KEY = "key";
     private static final String REDIS_HASH_FIELD = "field";
@@ -160,7 +152,7 @@ class RedisHelperTest extends EmbeddedRedisTest {
         String msg = "hello_world";
         RedisHelper.setEx(REDIS_KEY, msg, 200, TimeUnit.MILLISECONDS);
         Assertions.assertEquals(msg, RedisHelper.getString(REDIS_KEY));
-        Thread.sleep(200);
+        Thread.sleep(300);
         Assertions.assertNull(RedisHelper.getString(REDIS_KEY));
     }
 

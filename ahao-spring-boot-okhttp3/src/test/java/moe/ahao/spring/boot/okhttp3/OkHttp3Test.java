@@ -1,27 +1,21 @@
 package moe.ahao.spring.boot.okhttp3;
 
-import moe.ahao.spring.boot.okhttp3.config.OkHttp3Config;
+import moe.ahao.spring.boot.Starter;
 import okhttp3.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {OkHttp3Config.class})
-public class OkHttp3Test {
-
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
+// @ContextConfiguration(classes = {OkHttp3Config.class})
+class OkHttp3Test {
     @Autowired
     private OkHttpClient client;
-
     @Test
-    public void get() {
+    void get() {
         String url = "https://bing.com";
         Request request = new Request.Builder()
             .url(url)

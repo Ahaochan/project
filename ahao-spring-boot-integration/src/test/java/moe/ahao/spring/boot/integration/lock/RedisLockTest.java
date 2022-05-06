@@ -3,35 +3,28 @@ package moe.ahao.spring.boot.integration.lock;
 
 import moe.ahao.embedded.EmbeddedRedisTest;
 import moe.ahao.spring.boot.Starter;
-import moe.ahao.util.spring.SpringContextHolder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
-import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.integration.redis.util.RedisLockRegistry;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {Starter.class, RedisAutoConfiguration.class, JacksonAutoConfiguration.class, SpringContextHolder.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
+// @ContextConfiguration(classes = {Starter.class, RedisAutoConfiguration.class, JacksonAutoConfiguration.class, SpringContextHolder.class})
 @ActiveProfiles("redis")
-public class RedisLockTest extends EmbeddedRedisTest {
+class RedisLockTest extends EmbeddedRedisTest {
 
     @Autowired
     private RedisConnectionFactory factory;
 
     @Test
-    public void singleThread() throws Exception {
+    void singleThread() throws Exception {
         String keyPrefix = "ahao";
         RedisLockRegistry redisLockRegistry = new RedisLockRegistry(factory, keyPrefix);
 
@@ -54,7 +47,7 @@ public class RedisLockTest extends EmbeddedRedisTest {
     }
 
     @Test
-    public void multiThread() throws Exception {
+    void multiThread() throws Exception {
         String keyPrefix = "ahao";
         RedisLockRegistry redisLockRegistry = new RedisLockRegistry(factory, keyPrefix);
 

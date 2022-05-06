@@ -1,31 +1,25 @@
 package moe.ahao.spring.boot.i18n;
 
+import moe.ahao.spring.boot.Starter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Locale;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {MessageSourceAutoConfiguration.class})
-public class SampleTest {
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
+// @ContextConfiguration(classes = MessageSourceAutoConfiguration.class)
+class SampleTest {
     @Autowired
     private MessageSource messageSource;
 
     @Test
-    public void simple() {
-
+    void simple() {
         // RequestContextUtils.getLocale(request);
         // LocaleContextHolder.getLocale();
-
         Assertions.assertEquals("消息1", messageSource.getMessage("message1", null, Locale.CHINA));
         Assertions.assertEquals("message1", messageSource.getMessage("message1", null, Locale.US));
 
