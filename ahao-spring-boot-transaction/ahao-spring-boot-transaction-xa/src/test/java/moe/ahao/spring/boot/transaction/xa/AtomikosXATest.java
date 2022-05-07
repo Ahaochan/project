@@ -3,6 +3,7 @@ package moe.ahao.spring.boot.transaction.xa;
 import moe.ahao.spring.boot.Starter;
 import moe.ahao.transaction.AbstractTransactionTest;
 import moe.ahao.transaction.bank.transfer.service.BankTransferAccountMybatisService;
+import moe.ahao.transaction.bank.transfer.service.BankTransferService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 import static moe.ahao.spring.boot.atomikos.AtomikosConfig.TX_MANAGER;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE,
-    classes = {Starter.class, AtomikosXATest.AhaoService.class, BankTransferAccountMybatisService.class})
+    classes = {Starter.class, AtomikosXATest.TestService.class, BankTransferService.class, BankTransferAccountMybatisService.class})
 @ActiveProfiles("atomikos")
 
 // @ContextConfiguration(classes = {AtomikosConfig.class, AtomikosXATest.AhaoService.class, BankTransferAccountMybatisService.class,
@@ -22,24 +23,34 @@ import static moe.ahao.spring.boot.atomikos.AtomikosConfig.TX_MANAGER;
 //     MybatisPlusAutoConfiguration.class})
 public class AtomikosXATest extends AbstractTransactionTest {
     @Autowired
-    private AhaoService ahaoService;
+    private TestService testService;
+
+
     @Override
-    protected void execute(boolean rollback) throws Exception {
-        ahaoService.update(rollback);
+    protected void doCommit() throws Exception {
+        testService.commit();
     }
 
-    @Transactional(transactionManager = TX_MANAGER, rollbackFor = Exception.class)
-    @MapperScan(value = "moe.ahao.**.mapper")
-    public static class AhaoService {
-        @Autowired
-        private BankTransferAccountMybatisService service;
+    @Override
+    protected void doRollback() throws Exception {
+        testService.rollback();
+    }
 
-        public void update(boolean rollback) {
-            service.decrease(1L, new BigDecimal("100"));
-            if (rollback) {
-                int i = 1 / 0;
-            }
-            service.increase(2L, new BigDecimal("100"));
+    @MapperScan(value = "moe.ahao.**.mapper")
+    public static class TestService extends BankTransferService{
+        public TestService(BankTransferAccountMybatisService bankTransferAccountMybatisService) {
+            super(bankTransferAccountMybatisService);
+        }
+
+        @Transactional(transactionManager = TX_MANAGER, rollbackFor = Exception.class)
+        public void commit() {
+            this.transfer(1L, 2L, new BigDecimal("100"));
+        }
+
+        @Transactional(transactionManager = TX_MANAGER, rollbackFor = Exception.class)
+        public void rollback() {
+            this.transfer(1L, 2L, new BigDecimal("100"));
+            this.transfer(1L, 2L, new BigDecimal("100")); // 没钱了所以回滚了
         }
     }
 }
