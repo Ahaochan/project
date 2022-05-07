@@ -9,12 +9,14 @@ spring:
 
 seata:
   enabled: true
+  # 当前应用的事务分组
   tx-service-group: ahao-seata-tx-group
   service:
     vgroup-mapping:
-      # 这里的key要和spring.application.name保持一致
-      # 这里的value要和seata.service.grouplist的key保持一致
+      # 根据事务分组, 去找到TC集群名称
+      # 这里的key要和seata.service.tx-service-group保持一致
       ahao-seata-tx-group: default
     grouplist:
-      # 这里的key要和seata.vgroup-mapping的value保持一致
+      # 根据TC集群名称, 去找到TC服务地址
+      # 这里的key要和seata.service.vgroup-mapping的value保持一致
       default: 192.168.19.128:8091
