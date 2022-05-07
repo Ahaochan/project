@@ -1,6 +1,6 @@
 spring:
   application:
-    name: "ZOOKEEPER-CLIENT"
+    name: "ZOOKEEPER-TEST"
   cloud:
     zookeeper:
       enabled: true

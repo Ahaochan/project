@@ -3,30 +3,25 @@ package moe.ahao.spring.cloud.zookeeper;
 import moe.ahao.embedded.EmbeddedZookeeperTest;
 import moe.ahao.spring.cloud.Starter;
 import moe.ahao.spring.cloud.zookeeper.config.HelloApi;
-import moe.ahao.spring.cloud.zookeeper.config.TestConfig;
-import moe.ahao.util.spring.SpringContextHolder;
 import org.apache.curator.framework.CuratorFramework;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {SpringContextHolder.class, Starter.class, TestConfig.class, HelloApi.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @ActiveProfiles("test")
-// TODO No instances available for ZOOKEEPER-CLIENT
-public class ZookeeperTest extends EmbeddedZookeeperTest {
+// @ContextConfiguration(classes = {SpringContextHolder.class, Starter.class, TestConfig.class, HelloApi.class})
+class ZookeeperTest extends EmbeddedZookeeperTest {
     public static final String applicationName = "ZOOKEEPER-CLIENT";
 
     @Autowired
@@ -35,9 +30,10 @@ public class ZookeeperTest extends EmbeddedZookeeperTest {
     @Autowired
     private DiscoveryClient discoveryClient;
 
-    @Test
-    public void serviceUrl() {
+    @BeforeEach
+    void serviceUrl() {
         List<ServiceInstance> list = discoveryClient.getInstances("ZOOKEEPER-CLIENT");
+        Assumptions.assumeTrue(list.size() > 0, "必须先启动Starter, 并修改配置文件中的ZK地址");
         for (ServiceInstance serviceInstance : list) {
             System.out.println(serviceInstance.getUri().toString());
         }
@@ -47,7 +43,7 @@ public class ZookeeperTest extends EmbeddedZookeeperTest {
     @Autowired
     private RestTemplate loadBalancedRestTemplate;
     @Test
-    public void testLoadBalanced() throws Exception {
+    void testLoadBalanced() throws Exception {
         String serverName = applicationName.toUpperCase();
         String msg = "测试";
         String response = loadBalancedRestTemplate.getForObject("http://" + serverName + "/hello?msg=" + msg, String.class);
@@ -61,7 +57,7 @@ public class ZookeeperTest extends EmbeddedZookeeperTest {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
     @Test
-    public void testLoadBalancerClient() {
+    void testLoadBalancerClient() {
         String serverName = applicationName.toUpperCase();
         ServiceInstance server = loadBalancerClient.choose(serverName);
 
@@ -78,7 +74,7 @@ public class ZookeeperTest extends EmbeddedZookeeperTest {
     @Autowired
     private HelloApi feignClient;
     @Test
-    public void test3() {
+    void test3() {
         String msg = "测试";
         String response = feignClient.hello(msg);
         System.out.println(response);
