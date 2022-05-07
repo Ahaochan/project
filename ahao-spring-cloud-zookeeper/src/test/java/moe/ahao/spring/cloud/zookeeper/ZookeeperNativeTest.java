@@ -1,5 +1,6 @@
 package moe.ahao.spring.cloud.zookeeper;
 
+import moe.ahao.embedded.EmbeddedZookeeperTest;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs;
@@ -15,9 +16,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
-public class ZookeeperNativeTest {
-    // TODO 内嵌ZK
-    public static final String connectString = "192.168.153.134:2181";
+public class ZookeeperNativeTest extends EmbeddedZookeeperTest {
+    public static final String connectString = "127.0.0.1:2181";
     private static final Watcher watcher = e -> System.out.printf("watch事件:%s%n", e);
 
     @Test

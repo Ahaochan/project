@@ -56,15 +56,15 @@ class CuratorLockTest extends CuratorBaseTest {
     void semaphore() throws Exception {
         InterProcessSemaphoreV2 semaphore = new InterProcessSemaphoreV2(zk, "/ahao-semaphore-v2", 2);
 
-        int size = 10;
-        CountDownLatch latch = new CountDownLatch(10);
+        int size = 3;
+        CountDownLatch latch = new CountDownLatch(size);
         for (int i = 0; i < size; i++) {
             new Thread(() -> {
                 try {
                     System.out.println(new Date() + "：线程[" + Thread.currentThread().getName() + "]尝试获取Semaphore锁");
                     Lease lease = semaphore.acquire();
                     System.out.println(new Date() + "：线程[" + Thread.currentThread().getName() + "]成功获取到了Semaphore锁，开始工作");
-                    Thread.sleep(3000);
+                    Thread.sleep(200);
                     semaphore.returnLease(lease);
                     System.out.println(new Date() + "：线程[" + Thread.currentThread().getName() + "]释放Semaphore锁");
                 } catch (Exception e) {

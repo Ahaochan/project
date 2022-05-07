@@ -1,5 +1,6 @@
 package moe.ahao.spring.cloud.zookeeper.curator;
 
+import moe.ahao.embedded.EmbeddedZookeeperTest;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.AuthInfo;
 import org.apache.curator.framework.CuratorFramework;
@@ -13,8 +14,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
-abstract class CuratorBaseTest {
-    public static final String connectString = "192.168.19.128:2181";
+abstract class CuratorBaseTest extends EmbeddedZookeeperTest {
+    public static final String connectString = "127.0.0.1:2181";
 
     protected CuratorFramework zk;
 

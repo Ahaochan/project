@@ -1,13 +1,12 @@
 package moe.ahao.spring.cloud.zookeeper;
 
+import moe.ahao.embedded.EmbeddedZookeeperTest;
 import moe.ahao.spring.cloud.Starter;
 import moe.ahao.spring.cloud.zookeeper.config.HelloApi;
 import moe.ahao.spring.cloud.zookeeper.config.TestConfig;
 import moe.ahao.util.spring.SpringContextHolder;
 import org.apache.curator.framework.CuratorFramework;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,8 @@ import java.util.List;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = {SpringContextHolder.class, Starter.class, TestConfig.class, HelloApi.class})
 @ActiveProfiles("test")
-public class ZookeeperTest {
+// TODO No instances available for ZOOKEEPER-CLIENT
+public class ZookeeperTest extends EmbeddedZookeeperTest {
     public static final String applicationName = "ZOOKEEPER-CLIENT";
 
     @Autowired
@@ -34,12 +34,6 @@ public class ZookeeperTest {
 
     @Autowired
     private DiscoveryClient discoveryClient;
-
-    @BeforeEach
-    public void init() {
-        boolean enabled = SpringContextHolder.getBoolean("spring.cloud.zookeeper.enabled");
-        Assumptions.assumeTrue(enabled);
-    }
 
     @Test
     public void serviceUrl() {
@@ -53,7 +47,7 @@ public class ZookeeperTest {
     @Autowired
     private RestTemplate loadBalancedRestTemplate;
     @Test
-    public void testLoadBalanced() {
+    public void testLoadBalanced() throws Exception {
         String serverName = applicationName.toUpperCase();
         String msg = "测试";
         String response = loadBalancedRestTemplate.getForObject("http://" + serverName + "/hello?msg=" + msg, String.class);
@@ -83,7 +77,6 @@ public class ZookeeperTest {
     // ================================ 使用 Feign 做负载均衡  =================================================
     @Autowired
     private HelloApi feignClient;
-
     @Test
     public void test3() {
         String msg = "测试";
