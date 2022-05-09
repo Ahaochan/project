@@ -20,12 +20,10 @@ public class LocalTCCTest extends AbstractTransactionTest {
     @Override
     protected void doCommit() throws Exception {
         tccGlobalService.transfer(1L, 2L, new BigDecimal("100"));
-        Thread.sleep(1000L);
     }
 
     @Override
     protected void doRollback() throws Exception {
         tccGlobalService.transfer(1L, 2L, new BigDecimal("200"));
-        Thread.sleep(1000L);
     }
 }
