@@ -14,15 +14,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@ContextConfiguration(classes = Starter.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = Starter.class)
 class WebServiceCxfTest {
     static final String wsdlAddress = "http://127.0.0.1:8080/ahao-cxf/StudentEndpoint?wsdl";
 
@@ -37,7 +32,7 @@ class WebServiceCxfTest {
             Assertions.assertNotNull(wsdl);
             System.out.println(wsdl);
         }
-   }
+    }
 
 
     @Test
@@ -55,7 +50,7 @@ class WebServiceCxfTest {
         Assertions.assertEquals(msg, ws.echoMsg(msg));
         Student student = ws.getStudent(1L);
         Assertions.assertEquals(1L, student.getId().longValue());
-        Assertions.assertEquals("Admin"+1, student.getName());
+        Assertions.assertEquals("Admin" + 1, student.getName());
     }
 
     @Test
@@ -75,7 +70,7 @@ class WebServiceCxfTest {
         Assertions.assertNotEquals(Student.class, student[0].getClass());
         Assertions.assertEquals("moe.ahao.cxf.Student", student[0].getClass().getName());
         Assertions.assertEquals(1L, ((Long) ReflectionTestUtils.getField(student[0], "id")).longValue());
-        Assertions.assertEquals("Admin"+1, ReflectionTestUtils.getField(student[0], "name"));
+        Assertions.assertEquals("Admin" + 1, ReflectionTestUtils.getField(student[0], "name"));
     }
 
 //    @Test

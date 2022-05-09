@@ -4,43 +4,34 @@ import com.ctrip.framework.apollo.enums.PropertyChangeType;
 import com.ctrip.framework.apollo.model.ConfigChangeEvent;
 import com.ctrip.framework.apollo.spring.annotation.ApolloConfigChangeListener;
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
+import moe.ahao.spring.boot.Starter;
 import moe.ahao.spring.boot.apollo.config.ApolloExtension;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(classes = {ApolloConfig.class, SpringIntegrationTest.TestConfiguration.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {Starter.class, SpringIntegrationTest.TestConfiguration.class})
 @ActiveProfiles("test")
-
-@EnableConfigurationProperties
-@EnableAutoConfiguration
-public class SpringIntegrationTest {
-    public static final String dbNs = "db";
+class SpringIntegrationTest {
+    static final String dbNs = "db";
 
     @RegisterExtension
-    public static ApolloExtension apollo = new ApolloExtension();
+    static ApolloExtension apollo = new ApolloExtension();
 
     @Test
     @DirtiesContext
-    public void testInject() {
+    void testInject() {
         Assertions.assertEquals("value1", testBean.key1);
         Assertions.assertEquals("value2", testBean.key2);
 
@@ -67,7 +58,7 @@ public class SpringIntegrationTest {
 
     @Test
     @DirtiesContext
-    public void testConfigurationProperties() throws Exception {
+    void testConfigurationProperties() throws Exception {
         Assertions.assertEquals("root", dbProperties.username);
         Assertions.assertEquals("root", dbProperties.password);
 
@@ -96,7 +87,7 @@ public class SpringIntegrationTest {
 
     @EnableApolloConfig
     @Configuration
-    public static class TestConfiguration {
+    static class TestConfiguration {
 
         @Bean
         public TestBean testBean() {
@@ -110,7 +101,7 @@ public class SpringIntegrationTest {
         }
     }
 
-    public static class TestBean {
+    static class TestBean {
         @Value("${key1:default}")
         public String key1;
         @Value("${key2:default}")
@@ -125,7 +116,7 @@ public class SpringIntegrationTest {
         }
     }
 
-    public static class DBProperties {
+    static class DBProperties {
         public String url;
         public String username;
         public String password;
