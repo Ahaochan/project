@@ -28,6 +28,11 @@
 
         <!--======================================================= Spring Boot =======================================================-->
         <dependency>
+            <!-- https://stackoverflow.com/a/63726227 -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
             <version>${cxf.version}</version>
