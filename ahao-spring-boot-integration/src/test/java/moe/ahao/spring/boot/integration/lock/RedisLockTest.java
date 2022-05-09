@@ -1,10 +1,11 @@
 package moe.ahao.spring.boot.integration.lock;
 
 
-import moe.ahao.embedded.EmbeddedRedisTest;
+import moe.ahao.embedded.RedisExtension;
 import moe.ahao.spring.boot.Starter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -18,7 +19,9 @@ import java.util.concurrent.locks.Lock;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 // @ContextConfiguration(classes = {Starter.class, RedisAutoConfiguration.class, JacksonAutoConfiguration.class, SpringContextHolder.class})
 @ActiveProfiles("redis")
-class RedisLockTest extends EmbeddedRedisTest {
+class RedisLockTest {
+    @RegisterExtension
+    static RedisExtension redisExtension = new RedisExtension();
 
     @Autowired
     private RedisConnectionFactory factory;

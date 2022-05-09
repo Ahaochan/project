@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.zookeeper;
 
-import moe.ahao.embedded.EmbeddedZookeeperTest;
+import moe.ahao.embedded.ZookeeperExtension;
 import moe.ahao.spring.cloud.Starter;
 import moe.ahao.spring.cloud.zookeeper.config.HelloApi;
 import org.apache.curator.framework.CuratorFramework;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.client.ServiceInstance;
@@ -21,7 +22,10 @@ import java.util.List;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @ActiveProfiles("test")
 // @ContextConfiguration(classes = {SpringContextHolder.class, Starter.class, TestConfig.class, HelloApi.class})
-class ZookeeperTest extends EmbeddedZookeeperTest {
+class ZookeeperTest {
+    @RegisterExtension
+    static ZookeeperExtension zookeeperExtension = new ZookeeperExtension();
+
     public static final String applicationName = "ZOOKEEPER-CLIENT";
 
     @Autowired

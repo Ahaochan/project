@@ -1,12 +1,13 @@
 package moe.ahao.spring.boot.redis;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import moe.ahao.embedded.EmbeddedRedisTest;
+import moe.ahao.embedded.RedisExtension;
 import moe.ahao.util.spring.redis.RedisHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -17,7 +18,10 @@ import java.util.concurrent.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @ActiveProfiles("test-redis")
 // @ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, JacksonAutoConfiguration.class, SpringContextHolder.class})
-class RedisHelperTest extends EmbeddedRedisTest {
+class RedisHelperTest {
+    @RegisterExtension
+    static RedisExtension redisExtension = new RedisExtension();
+
     private static final String REDIS_KEY = "key";
     private static final String REDIS_HASH_FIELD = "field";
 

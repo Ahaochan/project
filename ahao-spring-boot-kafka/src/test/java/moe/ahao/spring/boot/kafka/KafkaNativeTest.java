@@ -1,13 +1,13 @@
 package moe.ahao.spring.boot.kafka;
 
-import moe.ahao.embedded.EmbeddedKafkaTest;
+import moe.ahao.embedded.KafkaExtension;
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.config.ConfigResource;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -19,12 +19,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 
-public class KafkaNativeTest extends EmbeddedKafkaTest {
+class KafkaNativeTest {
+    @RegisterExtension
+    static KafkaExtension kafkaExtension = new KafkaExtension();
 
     @ParameterizedTest
     @ValueSource(strings = "my-topic")
-    @Disabled
-    public void topic(String topicName) throws Exception {
+    void topic(String topicName) throws Exception {
+        AdminClient adminClient = kafkaExtension.getAdminClient();
+
         NewTopic newTopic = new NewTopic(topicName, 1, (short) 1);
         CreateTopicsResult createTopicsResult = adminClient.createTopics(Arrays.asList(newTopic));
         createTopicsResult.all().get();
@@ -53,9 +56,9 @@ public class KafkaNativeTest extends EmbeddedKafkaTest {
      * 每个消费者单独一个线程, 里面 while 循环单独处理消息
      */
     @Test
-    public void consumerSync() throws Exception {
+    void consumerSync() throws Exception {
         // 1. 初始化消费者
-        Map<String, Object> prop = EmbeddedKafkaTest.initConsumerProperties();
+        Map<String, Object> prop = kafkaExtension.initConsumerProperties();
         Consumer<String, String> consumer = new KafkaConsumer<>(prop);
         consumer.subscribe(Arrays.asList(KafkaConfig.TOPIC_NAME)); // 订阅几个 topic
         // consumer.assign(Arrays.asList(new TopicPartition(KafkaConfig.TOPIC_NAME, 0))); // 订阅 topic 的某个 partition
@@ -64,10 +67,10 @@ public class KafkaNativeTest extends EmbeddedKafkaTest {
         // 2. 拉取所有消息
         ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(10)); // 拉取 10s 的消息
         System.out.println("拉取消息总数:" + records.count());
-        Assertions.assertEquals(SIZE, records.count());
+        Assertions.assertEquals(KafkaExtension.SIZE, records.count());
 
         // 3. 根据 partition 分区
-        CountDownLatch latch = new CountDownLatch(PARTITION);
+        CountDownLatch latch = new CountDownLatch(KafkaExtension.PARTITION);
 
         List<TopicPartition> topicPartitionList = new ArrayList<>(records.partitions());
         for (TopicPartition topicPartition : topicPartitionList) {
@@ -100,9 +103,9 @@ public class KafkaNativeTest extends EmbeddedKafkaTest {
     }
 
     @Test
-    public void consumerThreadPool() throws Exception {
+    void consumerThreadPool() throws Exception {
         // 1. 初始化消费者
-        Map<String, Object> prop = KafkaNativeTest.initConsumerProperties();
+        Map<String, Object> prop = kafkaExtension.initConsumerProperties();
         prop.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, String.valueOf(true));
         Consumer<String, String> consumer = new KafkaConsumer<>(prop);
         consumer.subscribe(Arrays.asList(KafkaConfig.TOPIC_NAME)); // 订阅几个 topic
@@ -112,10 +115,10 @@ public class KafkaNativeTest extends EmbeddedKafkaTest {
         // 2. 拉取所有消息
         ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(10)); // 拉取 10s 的消息
         System.out.println("拉取消息总数:" + records.count());
-        Assertions.assertEquals(SIZE, records.count());
+        Assertions.assertEquals(KafkaExtension.SIZE, records.count());
 
         // 3. 根据 partition 分区
-        CountDownLatch latch = new CountDownLatch(PARTITION);
+        CountDownLatch latch = new CountDownLatch(KafkaExtension.PARTITION);
         ExecutorService threadPool = Executors.newFixedThreadPool(4);
 
         List<TopicPartition> topicPartitionList = new ArrayList<>(records.partitions());

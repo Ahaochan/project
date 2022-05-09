@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.zookeeper;
 
-import moe.ahao.embedded.EmbeddedZookeeperTest;
+import moe.ahao.embedded.ZookeeperExtension;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs;
@@ -11,22 +11,26 @@ import org.apache.zookeeper.data.Stat;
 import org.apache.zookeeper.server.auth.DigestAuthenticationProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
-public class ZookeeperNativeTest extends EmbeddedZookeeperTest {
-    public static final String connectString = "127.0.0.1:2181";
+class ZookeeperNativeTest {
+    @RegisterExtension
+    static ZookeeperExtension zookeeperExtension = new ZookeeperExtension();
+
     private static final Watcher watcher = e -> System.out.printf("watch事件:%s%n", e);
 
     @Test
-    public void connect() throws Exception {
+    void connect() throws Exception {
         long sessionId;
         byte[] password;
         // 1. 连接
         ZooKeeper zk = null;
         try {
+            String connectString = zookeeperExtension.getConnectString();
             zk = new ZooKeeper(connectString, 5000, watcher, false);
             System.out.printf("连接状态:%s%n", zk.getState());
             Thread.sleep(1000);
@@ -41,6 +45,7 @@ public class ZookeeperNativeTest extends EmbeddedZookeeperTest {
         }
         // 2. 重连
         try {
+            String connectString = zookeeperExtension.getConnectString();
             zk = new ZooKeeper(connectString, 5000, watcher, sessionId, password, false);
             System.out.printf("连接状态:%s%n", zk.getState());
             Thread.sleep(1000);
@@ -57,9 +62,10 @@ public class ZookeeperNativeTest extends EmbeddedZookeeperTest {
     }
 
     @Test
-    public void node() throws Exception {
+    void node() throws Exception {
         ZooKeeper zk = null;
         try {
+            String connectString = zookeeperExtension.getConnectString();
             zk = new ZooKeeper(connectString, 5000, watcher, false);
             List<ACL> aclList = ZooDefs.Ids.OPEN_ACL_UNSAFE;
             // 同步创建一个临时节点
@@ -103,9 +109,10 @@ public class ZookeeperNativeTest extends EmbeddedZookeeperTest {
 
 
     @Test
-    public void acl() throws Exception {
+    void acl() throws Exception {
         ZooKeeper zk = null;
         try {
+            String connectString = zookeeperExtension.getConnectString();
             zk = new ZooKeeper(connectString, 5000, watcher, false);
             // 1. 创建 world:anyone:crdwa
             // List<ACL> worldAclList = ZooDefs.Ids.OPEN_ACL_UNSAFE;
@@ -134,7 +141,7 @@ public class ZookeeperNativeTest extends EmbeddedZookeeperTest {
     }
 
     @Test
-    public void digest() throws Exception {
+    void digest() throws Exception {
         String idPassword = "ahao:pw";
         String digest = DigestAuthenticationProvider.generateDigest(idPassword);
         System.out.println(digest);

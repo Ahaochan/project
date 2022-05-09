@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.zookeeper.curator;
 
-import moe.ahao.embedded.EmbeddedZookeeperTest;
+import moe.ahao.embedded.ZookeeperExtension;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.AuthInfo;
 import org.apache.curator.framework.CuratorFramework;
@@ -9,13 +9,15 @@ import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.curator.retry.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
-abstract class CuratorBaseTest extends EmbeddedZookeeperTest {
-    public static final String connectString = "127.0.0.1:2181";
+abstract class CuratorBaseTest {
+    @RegisterExtension
+    static ZookeeperExtension zookeeperExtension = new ZookeeperExtension();
 
     protected CuratorFramework zk;
 
@@ -35,6 +37,7 @@ abstract class CuratorBaseTest extends EmbeddedZookeeperTest {
         List<AuthInfo> authInfoList = Arrays.asList(
             new AuthInfo("digest", "ahao:pw".getBytes(StandardCharsets.UTF_8))
         );
+        String connectString = zookeeperExtension.getConnectString();
         zk = CuratorFrameworkFactory.builder()
             .connectString(connectString)
             .sessionTimeoutMs(60 * 1000)    // CuratorFrameworkFactory.DEFAULT_SESSION_TIMEOUT_MS

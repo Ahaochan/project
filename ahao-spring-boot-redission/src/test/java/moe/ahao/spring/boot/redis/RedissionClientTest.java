@@ -1,8 +1,9 @@
 package moe.ahao.spring.boot.redis;
 
-import moe.ahao.embedded.EmbeddedRedisTest;
+import moe.ahao.embedded.RedisExtension;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RMap;
@@ -12,7 +13,10 @@ import org.redisson.config.Config;
 /**
  * https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95
  */
-class RedissionClientTest extends EmbeddedRedisTest {
+class RedissionClientTest {
+    @RegisterExtension
+    static RedisExtension redisExtension = new RedisExtension();
+
     @Test
     void single() {
         Config config = new Config();

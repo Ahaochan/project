@@ -1,11 +1,12 @@
 package moe.ahao.spring.boot.redis;
 
-import moe.ahao.embedded.EmbeddedRedisTest;
+import moe.ahao.embedded.RedisExtension;
 import moe.ahao.util.spring.redis.RedisHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.redisson.RedissonMultiLock;
 import org.redisson.RedissonRedLock;
 import org.redisson.api.*;
@@ -24,7 +25,9 @@ import java.util.stream.Stream;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @ActiveProfiles("test-redis")
 // @ContextConfiguration(classes = {RedisConfig.class, RedisAutoConfiguration.class, RedissonAutoConfiguration.class, SpringContextHolder.class})
-class RedissionTest extends EmbeddedRedisTest {
+class RedissionTest {
+    @RegisterExtension
+    static RedisExtension redisExtension = new RedisExtension();
     private static final String REDIS_KEY = "key";
 
     @Autowired
