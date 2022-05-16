@@ -1,7 +1,7 @@
 package moe.ahao.spring.boot.jwt.exception;
 
 import io.jsonwebtoken.JwtException;
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -22,8 +22,8 @@ public class JwtExceptionHandler {
     @ExceptionHandler(JwtException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public AjaxDTO jwtException(JwtException e) {
+    public Result<Object> jwtException(JwtException e) {
         logger.error("token异常:", e);
-        return AjaxDTO.failure(e.getMessage());
+        return Result.failure(e.getMessage());
     }
 }

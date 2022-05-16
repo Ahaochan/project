@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.eureka.controller;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.spring.cloud.eureka.EurekaConsumerApplication;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -44,13 +44,13 @@ public class LoadBalancerAnnotationController {
     }
 
     @PostMapping("/body1")
-    public AjaxDTO body(@RequestBody AjaxDTO dto) {
+    public Result<Object> body(@RequestBody Result<Object> dto) {
         String serverName = EurekaConsumerApplication.serverName;
-        return restTemplate.postForObject("http://" + serverName + "/body", dto, AjaxDTO.class);
+        return restTemplate.postForObject("http://" + serverName + "/body", dto, Result.class);
     }
 
     @PostMapping(value = "/form-data1", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart("file") MultipartFile multipartFile) throws IOException {
+    public Result<Object> formData(@RequestParam String param, @RequestParam String json, @RequestPart("file") MultipartFile multipartFile) throws IOException {
         String fileName = multipartFile.getOriginalFilename();
         String suffix = FilenameUtils.getExtension(fileName);
         String prefix = FilenameUtils.getBaseName(fileName);
@@ -68,23 +68,23 @@ public class LoadBalancerAnnotationController {
         map.add("file", new FileSystemResource(file));
 
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(map, headers);
-        ResponseEntity<AjaxDTO> response = restTemplate.postForEntity(url, request, AjaxDTO.class);
+        ResponseEntity<Result> response = restTemplate.postForEntity(url, request, Result.class);
 
         FileUtils.deleteQuietly(file);
         return response.getBody();
     }
 
     @GetMapping(value = "/download1.txt")
-    public AjaxDTO download(@RequestParam String name, @RequestParam String data) throws IOException {
+    public Result<Object> download(@RequestParam String name, @RequestParam String data) throws IOException {
         String serverName = EurekaConsumerApplication.serverName;
 
         ResponseEntity<byte[]> entity = restTemplate.exchange("http://" + serverName + "/download.txt?name=" + name + "&data=" + data, HttpMethod.GET,
             new HttpEntity<>(new HttpHeaders()), byte[].class);
         byte[] body = entity.getBody();
         if (body == null) {
-            return AjaxDTO.failure("");
+            return Result.failure("");
         }
         String msg = new String(body, StandardCharsets.UTF_8);
-        return AjaxDTO.success(name, msg);
+        return Result.success(name, msg);
     }
 }

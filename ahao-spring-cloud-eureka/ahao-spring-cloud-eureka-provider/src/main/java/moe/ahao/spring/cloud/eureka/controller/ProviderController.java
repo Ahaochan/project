@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.eureka.controller;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
@@ -28,17 +28,17 @@ public class ProviderController {
     }
 
     @PostMapping("/body")
-    public AjaxDTO body(@RequestBody AjaxDTO dto) {
+    public Result<Object> body(@RequestBody Result<Object> dto) {
         return dto;
     }
 
     @PostMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
-        logger.error("文件名: " + file.getName());
-        logger.error("原始文件名: " + file.getOriginalFilename());
-        logger.error("文件大小: " + file.getSize());
+    public Result<List<String>> formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
+        logger.error("文件名: {}", file.getName());
+        logger.error("原始文件名: {}", file.getOriginalFilename());
+        logger.error("文件大小: {}", file.getSize());
         List<String> result = Arrays.asList(param, json, new String(file.getBytes(), StandardCharsets.UTF_8));
-        return AjaxDTO.success(result);
+        return Result.success(result);
     }
 
     @GetMapping("/download.txt")

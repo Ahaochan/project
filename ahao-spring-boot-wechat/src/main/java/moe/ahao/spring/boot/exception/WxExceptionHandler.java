@@ -1,7 +1,7 @@
 package moe.ahao.spring.boot.exception;
 
 import me.chanjar.weixin.common.error.WxErrorException;
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -22,8 +22,8 @@ public class WxExceptionHandler {
     @ExceptionHandler(WxErrorException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public AjaxDTO wxErrorException(WxErrorException e) {
+    public Result<Object> wxErrorException(WxErrorException e) {
         logger.error("微信接口异常:", e);
-        return AjaxDTO.failure(e.getError());
+        return Result.failure(e.getError());
     }
 }

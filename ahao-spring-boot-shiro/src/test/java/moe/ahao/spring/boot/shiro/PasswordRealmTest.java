@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.shiro;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.spring.boot.Starter;
 import moe.ahao.util.spring.SpringContextHolder;
 import org.apache.shiro.SecurityUtils;
@@ -59,7 +59,7 @@ public class PasswordRealmTest {
             .param("password", "pw1"))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.result").value(AjaxDTO.SUCCESS));
+            .andExpect(jsonPath("$.code").value(Result.SUCCESS));
     }
 
 

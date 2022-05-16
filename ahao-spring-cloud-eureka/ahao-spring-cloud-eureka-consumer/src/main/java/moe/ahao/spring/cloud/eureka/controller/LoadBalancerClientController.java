@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.eureka.controller;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.spring.cloud.eureka.EurekaConsumerApplication;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -40,16 +40,17 @@ public class LoadBalancerClientController {
     }
 
     @PostMapping("/body2")
-    public AjaxDTO body(@RequestBody AjaxDTO dto) {
+    public Result<Object> body(@RequestBody Result<Object> dto) {
         String serverName = EurekaConsumerApplication.serverName;
         ServiceInstance server = loadBalancerClient.choose(serverName);
 
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject("http://" + server.getHost() + ":" + server.getPort() + "/body", dto, AjaxDTO.class);
+        Result<Object> result = restTemplate.postForObject("http://" + server.getHost() + ":" + server.getPort() + "/body", dto, Result.class);
+        return result;
     }
 
     @PostMapping(value = "/form-data2", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart("file") MultipartFile multipartFile) throws IOException {
+    public Result<Object> formData(@RequestParam String param, @RequestParam String json, @RequestPart("file") MultipartFile multipartFile) throws IOException {
         String fileName = multipartFile.getOriginalFilename();
         String suffix = FilenameUtils.getExtension(fileName);
         String prefix = FilenameUtils.getBaseName(fileName);
@@ -69,14 +70,14 @@ public class LoadBalancerClientController {
 
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(map, headers);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<AjaxDTO> response = restTemplate.postForEntity(url, request, AjaxDTO.class);
+        ResponseEntity<Result> response = restTemplate.postForEntity(url, request, Result.class);
 
         FileUtils.deleteQuietly(file);
         return response.getBody();
     }
 
     @GetMapping(value = "/download2.txt")
-    public AjaxDTO download(@RequestParam String name, @RequestParam String data) throws IOException {
+    public Result<Object> download(@RequestParam String name, @RequestParam String data) throws IOException {
         String serverName = EurekaConsumerApplication.serverName;
         ServiceInstance server = loadBalancerClient.choose(serverName);
 
@@ -85,9 +86,9 @@ public class LoadBalancerClientController {
             new HttpEntity<>(new HttpHeaders()), byte[].class);
         byte[] body = entity.getBody();
         if (body == null) {
-            return AjaxDTO.failure("");
+            return Result.failure("");
         }
         String msg = new String(body, StandardCharsets.UTF_8);
-        return AjaxDTO.success(name, msg);
+        return Result.success(name, msg);
     }
 }

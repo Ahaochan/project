@@ -1,7 +1,7 @@
 package moe.ahao.spring.boot.rabbitmq;
 
-import moe.ahao.domain.entity.AjaxDTO;
 import moe.ahao.domain.entity.BaseDO;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.util.spring.SpringContextHolder;
 import moe.ahao.util.spring.mq.RabbitMQHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -88,15 +88,15 @@ public class DirectProducerTest {
 
     @Test
     public void sendGenericObject() throws Exception {
-        AjaxDTO msg = AjaxDTO.get(1, "测试", 123);
+        Result<Integer> msg = Result.get(1, "测试", 123);
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.send(DirectConsumer.QUEUE_NAME, msg);
         boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
-        AjaxDTO actual = (AjaxDTO) DirectConsumer.value;
+        Result<Integer> actual = (Result<Integer>) DirectConsumer.value;
         Assertions.assertNotNull(actual);
-        Assertions.assertEquals(msg.getResult(), actual.getResult());
+        Assertions.assertEquals(msg.getCode(), actual.getCode());
         Assertions.assertEquals(msg.getMsg(), actual.getMsg());
         Assertions.assertEquals(msg.getObj(), actual.getObj());
         Assertions.assertTrue(success);
@@ -142,15 +142,15 @@ public class DirectProducerTest {
 
     @Test
     public void sendDelayGenericObject() throws Exception {
-        AjaxDTO msg = AjaxDTO.get(1, "测试", 123);
+        Result<Integer> msg = Result.get(1, "测试", 123);
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.sendDelay(DirectConsumer.QUEUE_NAME, msg, 5000);
         boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
-        AjaxDTO actual = (AjaxDTO) DirectConsumer.value;
+        Result<Integer> actual = (Result<Integer>) DirectConsumer.value;
         Assertions.assertNotNull(actual);
-        Assertions.assertEquals(msg.getResult(), actual.getResult());
+        Assertions.assertEquals(msg.getCode(), actual.getCode());
         Assertions.assertEquals(msg.getMsg(), actual.getMsg());
         Assertions.assertEquals(msg.getObj(), actual.getObj());
         Assertions.assertTrue(success);
@@ -166,15 +166,15 @@ public class DirectProducerTest {
 
     @Test
     public void sendGenericError() throws Exception {
-        AjaxDTO msg = AjaxDTO.get(1, "测试", 123L);
+        Result<Long> msg = Result.get(1, "测试", 123L);
 
         DirectConsumer.latch = new CountDownLatch(1);
         RabbitMQHelper.send(DirectConsumer.QUEUE_NAME, msg);
         boolean success = DirectConsumer.latch.await(10, TimeUnit.SECONDS);
 
-        AjaxDTO actual = (AjaxDTO) DirectConsumer.value;
+        Result<Long> actual = (Result<Long>) DirectConsumer.value;
         Assertions.assertNotNull(actual);
-        Assertions.assertEquals(msg.getResult(), actual.getResult());
+        Assertions.assertEquals(msg.getCode(), actual.getCode());
         Assertions.assertEquals(msg.getMsg(), actual.getMsg());
         Assertions.assertTrue(success);
         // =========================== Long 转为了 Integer ==============================

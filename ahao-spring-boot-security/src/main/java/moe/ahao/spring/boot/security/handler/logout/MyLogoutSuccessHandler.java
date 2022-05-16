@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.security.handler.logout;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.util.commons.io.JSONHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class MyLogoutSuccessHandler extends HttpStatusReturningLogoutSuccessHand
         String msg = "注销成功";
         logger.info("注销成功:{}", auth);
 
-        AjaxDTO dto = AjaxDTO.success(msg, auth);
+        Result<Authentication> dto = Result.success(msg, auth);
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         response.getWriter().write(JSONHelper.toString(dto));

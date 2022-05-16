@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.shiro;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -61,20 +61,20 @@ public class LoginController {
 
         if(SecurityUtils.getSubject().isAuthenticated()) {
             // TODO 更新最后登录时间和最后登录IP
-            return AjaxDTO.success("登录成功");
+            return Result.success("登录成功");
         }
-        return AjaxDTO.failure("登录失败");
+        return Result.failure("登录失败");
     }
 
     @GetMapping("/logout")
-    public AjaxDTO logout() {
+    public Result<Object> logout() {
         Subject subject = SecurityUtils.getSubject();
         if (!subject.isAuthenticated()) {
-            return AjaxDTO.failure("当前没有登陆用户, 退出失败");
+            return Result.failure("当前没有登陆用户, 退出失败");
         }
 
         subject.logout(); // TODO session 会销毁，在SessionListener监听session销毁，清理权限缓存
-        return AjaxDTO.success("退出成功");
+        return Result.success("退出成功");
     }
 
     @GetMapping("/unauthorized")

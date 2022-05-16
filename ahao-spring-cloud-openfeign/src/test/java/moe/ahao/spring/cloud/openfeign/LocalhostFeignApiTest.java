@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.openfeign;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.spring.cloud.Starter;
 import moe.ahao.util.commons.io.JSONHelper;
 import moe.ahao.util.commons.lang.RandomHelper;
@@ -49,11 +49,11 @@ public class LocalhostFeignApiTest {
 
         for (int i = 2; i <= 3; i++) {
             mockMvc.perform(get("/get" + i)
-                .param("result", String.valueOf(result))
+                .param("code", String.valueOf(result))
                 .param("msg", msg))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result").value(result))
+                .andExpect(jsonPath("$.code").value(result))
                 .andExpect(jsonPath("$.msg").value(msg))
                 .andExpect(jsonPath("$.obj").isEmpty());
         }
@@ -66,11 +66,11 @@ public class LocalhostFeignApiTest {
 
         for (int i = 2; i <= 3; i++) {
             mockMvc.perform(post("/post" + i)
-                .param("result", String.valueOf(result))
+                .param("code", String.valueOf(result))
                 .param("msg", msg))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result").value(result))
+                .andExpect(jsonPath("$.code").value(result))
                 .andExpect(jsonPath("$.msg").value(msg))
                 .andExpect(jsonPath("$.obj").isEmpty());
         }
@@ -84,17 +84,17 @@ public class LocalhostFeignApiTest {
         mockMvc.perform(post("/post" + 4)
             .param("msg", msg)
             .contentType(MediaType.APPLICATION_JSON)
-            .content(JSONHelper.toString(AjaxDTO.get(result, msg, null))))
+            .content(JSONHelper.toString(Result.get(result, msg, null))))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.result").value(result))
+            .andExpect(jsonPath("$.code").value(result))
             .andExpect(jsonPath("$.msg").value(msg + msg))
             .andExpect(jsonPath("$.obj").isEmpty());
     }
 
     @Test
     public void testMultipart123() throws Exception {
-        int result = AjaxDTO.SUCCESS;
+        int result = Result.SUCCESS;
         String msg = "Hello world";
         MockMultipartFile file = new MockMultipartFile("file", "file.txt", "text/plain", msg.getBytes(StandardCharsets.UTF_8));
 
@@ -106,7 +106,7 @@ public class LocalhostFeignApiTest {
                 .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result").value(result))
+                .andExpect(jsonPath("$.code").value(result))
                 .andExpect(jsonPath("$.msg").value(msg))
                 .andExpect(jsonPath("$.obj").isEmpty());
         }
@@ -114,34 +114,36 @@ public class LocalhostFeignApiTest {
 
     @Test
     public void testMultipart4() throws Exception {
-        int result = AjaxDTO.SUCCESS;
+        int result = Result.SUCCESS;
         String msg = "Hello world";
-        String param = "?msg=" + msg + "&result=" + result;
+        String param = "?msg=" + msg + "&code=" + result;
         MockMultipartFile file = new MockMultipartFile("file", "file.txt", "text/plain", msg.getBytes(StandardCharsets.UTF_8));
 
+        // TODO Current request is not a multipart request
         mockMvc.perform(multipart("/multipart" + 4 + param)
             .file(file))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.result").value(result))
+            .andExpect(jsonPath("$.code").value(result))
             .andExpect(jsonPath("$.msg").value(msg + msg))
             .andExpect(jsonPath("$.obj").isEmpty());
     }
 
     @Test
     public void testMultipart56() throws Exception {
-        int result = AjaxDTO.SUCCESS;
+        int result = Result.SUCCESS;
         String msg = "Hello world";
-        MockMultipartFile req = new MockMultipartFile("req", "", "application/json", JSONHelper.toString(AjaxDTO.success(msg)).getBytes(StandardCharsets.UTF_8));
+        MockMultipartFile req = new MockMultipartFile("req", "", "application/json", JSONHelper.toString(Result.success(msg)).getBytes(StandardCharsets.UTF_8));
         MockMultipartFile file = new MockMultipartFile("file", "file.txt", "text/plain", msg.getBytes(StandardCharsets.UTF_8));
 
         for (int i = 5; i <= 6; i++) {
+            // TODO the request doesn't contain a multipart/form-data or multipart/mixed stream, content type header is application/json
             mockMvc.perform(multipart("/multipart" + i)
                 .file(req)
                 .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result").value(result))
+                .andExpect(jsonPath("$.code").value(result))
                 .andExpect(jsonPath("$.msg").value(msg + msg))
                 .andExpect(jsonPath("$.obj").isEmpty());
         }
@@ -149,11 +151,12 @@ public class LocalhostFeignApiTest {
 
     @Test
     public void fallback() throws Exception {
+        // TODO 404
         mockMvc.perform(get("/fallback").contentType(MediaType.APPLICATION_JSON_UTF8))
             .andDo(print())
             .andExpect(status().is5xxServerError())
-            .andExpect(jsonPath("$.result").value(AjaxDTO.failure().getResult()))
-            .andExpect(jsonPath("$.msg").value(AjaxDTO.failure().getMsg()))
+            .andExpect(jsonPath("$.code").value(Result.failure().getCode()))
+            .andExpect(jsonPath("$.msg").value(Result.failure().getMsg()))
             .andExpect(jsonPath("$.obj").isEmpty());
     }
 }

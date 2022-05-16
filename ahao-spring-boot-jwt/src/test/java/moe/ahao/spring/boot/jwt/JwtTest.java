@@ -95,7 +95,7 @@ class JwtTest {
             .accept(MediaType.APPLICATION_JSON_UTF8))
             .andDo(print())
             .andExpect(status().is5xxServerError())
-            .andExpect(jsonPath("$.result").value(1))
+            .andExpect(jsonPath("$.code").value(1))
             .andExpect(jsonPath("$.msg").value("获取 token 失败, 请重新获取 token"))
             .andExpect(jsonPath("$.obj").isEmpty());
     }

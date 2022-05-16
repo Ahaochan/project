@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.openfeign.config;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.http.MediaType;
@@ -13,38 +13,38 @@ public interface LocalhostFeignApi {
     Integer path(@PathVariable Integer id);
 
     @GetMapping("/get2")
-    AjaxDTO get2(@RequestParam Integer result, @RequestParam String msg);
+    Result<Object> get2(@RequestParam Integer result, @RequestParam String msg);
 
     @GetMapping("/get3")
-    AjaxDTO get3(@SpringQueryMap AjaxDTO req);
+    Result<Object> get3(@SpringQueryMap Result<Object> req);
 
     @PostMapping("/post2")
-    AjaxDTO post2(@RequestParam Integer result, @RequestParam String msg);
+    Result<Object> post2(@RequestParam Integer result, @RequestParam String msg);
 
     @PostMapping("/post3")
-    AjaxDTO post3(@SpringQueryMap AjaxDTO req);
+    Result<Object> post3(@SpringQueryMap Result<Object> req);
 
     @PostMapping("/post4")
-    AjaxDTO post4(@RequestParam String msg, @RequestBody AjaxDTO req);
+    Result<Object> post4(@RequestParam String msg, @RequestBody Result<Object> req);
 
     @PostMapping(value = "/multipart1", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    AjaxDTO multipart1(MultipartFile file);
+    Result<Object> multipart1(MultipartFile file);
 
     @PostMapping(value = "/multipart2", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    AjaxDTO multipart2(@RequestParam MultipartFile file);
+    Result<Object> multipart2(@RequestParam MultipartFile file);
 
     @PostMapping(value = "/multipart3", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    AjaxDTO multipart3(@RequestPart MultipartFile file);
+    Result<Object> multipart3(@RequestPart MultipartFile file);
 
     @PostMapping("/multipart4")
-    AjaxDTO multipart4(AjaxDTO req, @RequestParam MultipartFile file);
+    Result<Object> multipart4(Result<Object> req, @RequestParam MultipartFile file);
 
     @PostMapping("/multipart5")
-    AjaxDTO multipart5(@RequestPart AjaxDTO req, @RequestParam MultipartFile file);
+    Result<Object> multipart5(@RequestPart Result<Object> req, @RequestParam MultipartFile file);
 
-//    @PostMapping("/multipart6")
-//    AjaxDTO multipart6(@RequestPart AjaxDTO req, @RequestPart MultipartFile file);
+    // @PostMapping("/multipart6")
+    // Result<Object> multipart6(@RequestPart Result<Object> req, @RequestPart MultipartFile file);
 
     @PostMapping("/fallback")
-    AjaxDTO fallback();
+    Result<Object> fallback();
 }

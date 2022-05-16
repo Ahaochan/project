@@ -1,6 +1,7 @@
 package moe.ahao.spring.cloud.eureka;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import com.fasterxml.jackson.core.type.TypeReference;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.util.commons.io.JSONHelper;
 import moe.ahao.util.commons.lang.time.DateHelper;
 import org.junit.jupiter.api.Assertions;
@@ -45,7 +46,6 @@ public class FeignTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"/param1", "/param2", "/param3"})
-    @Disabled("按照Readme.md文档进行测试")
     public void param(String url) throws Exception {
         String msg = DateHelper.getNow("yyyy-MM-dd HH:mm:ss");
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -61,10 +61,9 @@ public class FeignTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"/body1", "/body2", "/body3"})
-    @Disabled("按照Readme.md文档进行测试")
     public void body(String url) throws Exception {
         String msg = DateHelper.getNow("yyyy-MM-dd HH:mm:ss");
-        AjaxDTO param = AjaxDTO.failure(msg, msg);
+        Result<String> param = Result.failure(msg, msg);
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
         String response = mockMvc.perform(post(url)
@@ -74,15 +73,14 @@ public class FeignTest {
             .andDo(print())
             .andReturn()
             .getResponse().getContentAsString();
-        Assertions.assertEquals(param, JSONHelper.parse(response, AjaxDTO.class));
+        Assertions.assertEquals(param, JSONHelper.parse(response, Result.class));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"/form-data1", "/form-data2", "/form-data3"})
-    @Disabled("按照Readme.md文档进行测试")
     public void formData(String url) throws Exception {
         String msg = DateHelper.getNow("yyyy-MM-dd HH:mm:ss");
-        AjaxDTO param = AjaxDTO.failure(msg, msg);
+        Result<String> param = Result.failure(msg, msg);
         MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", msg.getBytes(StandardCharsets.UTF_8));
 
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -94,19 +92,18 @@ public class FeignTest {
             .andDo(print())
             .andReturn()
             .getResponse().getContentAsString();
-        AjaxDTO result = JSONHelper.parse(response, AjaxDTO.class);
-        Assertions.assertEquals(AjaxDTO.SUCCESS, result.getResult());
+        Result<List<String>> result = JSONHelper.parse(response, new TypeReference<Result<List<String>>>() {});
+        Assertions.assertEquals(Result.SUCCESS, result.getCode());
 
         List<String> data = (List<String>) result.getObj();
         Assertions.assertEquals(3, data.size());
         Assertions.assertEquals(msg, data.get(0));
-        Assertions.assertEquals(param, JSONHelper.parse(data.get(1), AjaxDTO.class));
+        Assertions.assertEquals(param, JSONHelper.parse(data.get(1), Result.class));
         Assertions.assertEquals(msg, data.get(2));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"/download1.txt", "/download2.txt", "/download3.txt"})
-    @Disabled("按照Readme.md文档进行测试")
     public void download(String url) throws Exception {
         String name = "hello";
         String msg = DateHelper.getNow("yyyy-MM-dd HH:mm:ss");
@@ -119,11 +116,11 @@ public class FeignTest {
             .andDo(print())
             .andReturn()
             .getResponse().getContentAsString();
-        AjaxDTO result = JSONHelper.parse(response, AjaxDTO.class);
+        Result<String> result = JSONHelper.parse(response, new TypeReference<Result<String>>() {});
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(AjaxDTO.SUCCESS, result.getResult());
+        Assertions.assertEquals(Result.SUCCESS, result.getCode());
 
-        String data = (String) result.getObj();
+        String data = result.getObj();
         Assertions.assertEquals(name, result.getMsg());
         Assertions.assertEquals(msg, data);
     }

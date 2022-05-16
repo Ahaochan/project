@@ -1,6 +1,6 @@
 package moe.ahao.web.module;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,78 +23,78 @@ public class SimpleController {
     }
 
     @GetMapping("/get1")
-    public AjaxDTO get1(Integer result, String msg) {
-        return AjaxDTO.get(result, msg, null);
+    public Result<Object> get1(Integer result, String msg) {
+        return Result.get(result, msg, null);
     }
     @GetMapping("/get2")
-    public AjaxDTO get2(@RequestParam Integer result, @RequestParam String msg) {
-        return AjaxDTO.get(result, msg, null);
+    public Result<Object> get2(@RequestParam Integer result, @RequestParam String msg) {
+        return Result.get(result, msg, null);
     }
     @GetMapping("/get3")
-    public AjaxDTO get3(AjaxDTO req) {
+    public Result<Object> get3(Result<Object> req) {
         return req;
     }
 
     @PostMapping("/post1")
-    public AjaxDTO post1(Integer result, String msg) {
-        return AjaxDTO.get(result, msg, null);
+    public Result<Object> post1(Integer result, String msg) {
+        return Result.get(result, msg, null);
     }
     @PostMapping("/post2")
-    public AjaxDTO post2(@RequestParam Integer result, @RequestParam String msg) {
-        return AjaxDTO.get(result, msg, null);
+    public Result<Object> post2(@RequestParam Integer result, @RequestParam String msg) {
+        return Result.get(result, msg, null);
     }
     @PostMapping("/post3")
-    public AjaxDTO post3(AjaxDTO req) {
+    public Result<Object> post3(Result<Object> req) {
         return req;
     }
     @PostMapping("/post4")
-    public AjaxDTO post4(@RequestParam String msg, @RequestBody AjaxDTO req) {
-        return AjaxDTO.get(req.getResult(), req.getMsg() + msg, req.getObj());
+    public Result<Object> post4(@RequestParam String msg, @RequestBody Result<Object> req) {
+        return Result.get(req.getCode(), req.getMsg() + msg, req.getObj());
     }
     @PostMapping("/post5")
-    public AjaxDTO post5(@RequestBody AjaxDTO req) {
+    public Result<Object> post5(@RequestBody Result<Object> req) {
         return req;
     }
 
     @PostMapping("multipart1")
-    public AjaxDTO multipart1(MultipartFile file) throws IOException {
-        return AjaxDTO.success(new String(file.getBytes(), StandardCharsets.UTF_8));
+    public Result<Object> multipart1(MultipartFile file) throws IOException {
+        return Result.success(new String(file.getBytes(), StandardCharsets.UTF_8));
     }
     @PostMapping("multipart2")
-    public AjaxDTO multipart2(@RequestParam MultipartFile file) throws IOException {
-        return AjaxDTO.success(new String(file.getBytes(), StandardCharsets.UTF_8));
+    public Result<Object> multipart2(@RequestParam MultipartFile file) throws IOException {
+        return Result.success(new String(file.getBytes(), StandardCharsets.UTF_8));
     }
     @PostMapping("multipart3")
-    public AjaxDTO multipart3(@RequestPart MultipartFile file) throws IOException {
-        return AjaxDTO.success(new String(file.getBytes(), StandardCharsets.UTF_8));
+    public Result<Object> multipart3(@RequestPart MultipartFile file) throws IOException {
+        return Result.success(new String(file.getBytes(), StandardCharsets.UTF_8));
     }
     @PostMapping("multipart4")
-    public AjaxDTO multipart4(AjaxDTO req, @RequestParam MultipartFile file) throws IOException {
-        return AjaxDTO.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
+    public Result<Object> multipart4(Result<Object> req, @RequestParam MultipartFile file) throws IOException {
+        return Result.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
     }
     @PostMapping("multipart5")
-    public AjaxDTO multipart5(@RequestPart AjaxDTO req, @RequestParam MultipartFile file) throws IOException {
-        return AjaxDTO.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
+    public Result<Object> multipart5(@RequestPart Result<Object> req, @RequestParam MultipartFile file) throws IOException {
+        return Result.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
     }
     @PostMapping("multipart6")
-    public AjaxDTO multipart6(@RequestPart AjaxDTO req, @RequestPart MultipartFile file) throws IOException {
-        return AjaxDTO.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
+    public Result<Object> multipart6(@RequestPart Result<Object> req, @RequestPart MultipartFile file) throws IOException {
+        return Result.success(req.getMsg() + new String(file.getBytes(), StandardCharsets.UTF_8));
     }
 
     @PostMapping("form-data1")
-    public AjaxDTO formData1(AjaxDTO req) {
+    public Result<Object> formData1(Result<Object> req) {
         return req;
     }
     @PostMapping("form-data2")
-    public AjaxDTO formData3(@ModelAttribute AjaxDTO req) {
+    public Result<Object> formData3(@ModelAttribute Result<Object> req) {
         return req;
     }
     @PostMapping("form-data3")
-    public AjaxDTO formData3(Integer result, String msg) {
-        return AjaxDTO.get(result, msg, null);
+    public Result<Object> formData3(Integer result, String msg) {
+        return Result.get(result, msg, null);
     }
     @PostMapping("form-data4")
-    public AjaxDTO formData4(@RequestParam Integer result, @RequestParam String msg) {
-        return AjaxDTO.get(result, msg, null);
+    public Result<Object> formData4(@RequestParam Integer result, @RequestParam String msg) {
+        return Result.get(result, msg, null);
     }
 }

@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.security.handler.entrypoint;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.util.commons.io.JSONHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         logger.debug("未授权用户尝试访问受保护资源, 已拒绝请求");
 
-        AjaxDTO result = AjaxDTO.failure("请登录后重试");
+        Result<Object> result = Result.failure("请登录后重试");
 
         response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied");
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);

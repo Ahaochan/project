@@ -1,8 +1,8 @@
 package moe.ahao.spring.boot.rabbitmq;
 
 import com.rabbitmq.client.Channel;
-import moe.ahao.domain.entity.AjaxDTO;
 import moe.ahao.domain.entity.BaseDO;
+import moe.ahao.domain.entity.Result;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -63,11 +63,11 @@ public class DirectConsumer {
     }
 
     @RabbitHandler
-    public void directQueue(@Payload AjaxDTO msg, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
+    public void directQueue(@Payload Result<Object> msg, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             System.out.println("消息接收时间:" + sdf.format(new Date()));
-            System.out.println("接收到的消息:" + msg.getResult() + "," + msg.getMsg() + "," + msg.getObj());
+            System.out.println("接收到的消息:" + msg.getCode() + "," + msg.getMsg() + "," + msg.getObj());
             Thread.sleep(1000);
             value = msg;
 

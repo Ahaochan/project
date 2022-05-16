@@ -1,6 +1,6 @@
 package moe.ahao.web.module;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.util.commons.io.JSONHelper;
 import moe.ahao.util.commons.lang.RandomHelper;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,12 +50,13 @@ public class SimpleControllerTest {
         String msg = "Hello world";
 
         for (int i = 1; i <= 3; i++) {
+            // TODO NPE
             mockMvc.perform(get("/simple/get" + i)
-                .param("result", String.valueOf(result))
+                .param("code", String.valueOf(result))
                 .param("msg", msg))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(JSONHelper.toString(AjaxDTO.get(result, msg, null))));
+                .andExpect(content().json(JSONHelper.toString(Result.get(result, msg, null))));
         }
     }
 
@@ -65,12 +66,13 @@ public class SimpleControllerTest {
         String msg = "Hello world";
 
         for (int i = 1; i <= 3; i++) {
+            // TODO NPE
             mockMvc.perform(post("/simple/post" + i)
-                .param("result", String.valueOf(result))
+                .param("code", String.valueOf(result))
                 .param("msg", msg))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(JSONHelper.toString(AjaxDTO.get(result, msg, null))));
+                .andExpect(content().json(JSONHelper.toString(Result.get(result, msg, null))));
         }
     }
 
@@ -82,15 +84,15 @@ public class SimpleControllerTest {
         mockMvc.perform(post("/simple/post" + 4)
             .param("msg", msg)
             .contentType(MediaType.APPLICATION_JSON)
-            .content(JSONHelper.toString(AjaxDTO.get(result, msg, null))))
+            .content(JSONHelper.toString(Result.get(result, msg, null))))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(content().json(JSONHelper.toString(AjaxDTO.get(result, msg + msg, null))));
+            .andExpect(content().json(JSONHelper.toString(Result.get(result, msg + msg, null))));
     }
 
     @Test
     public void testMultipart123() throws Exception {
-        int result = AjaxDTO.SUCCESS;
+        int result = Result.SUCCESS;
         String msg = "Hello world";
         MockMultipartFile file = new MockMultipartFile("file", "file.txt", "text/plain", msg.getBytes(StandardCharsets.UTF_8));
 
@@ -99,13 +101,13 @@ public class SimpleControllerTest {
                 .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(JSONHelper.toString(AjaxDTO.get(result, msg, null))));
+                .andExpect(content().json(JSONHelper.toString(Result.get(result, msg, null))));
         }
     }
 
     @Test
     public void testMultipart4() throws Exception {
-        int result = AjaxDTO.SUCCESS;
+        int result = Result.SUCCESS;
         String msg = "Hello world";
         String param = "?msg=" + msg + "&result=" + result;
         MockMultipartFile file = new MockMultipartFile("file", "file.txt", "text/plain", msg.getBytes(StandardCharsets.UTF_8));
@@ -114,14 +116,14 @@ public class SimpleControllerTest {
             .file(file))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(content().json(JSONHelper.toString(AjaxDTO.get(result, msg + msg, null))));
+            .andExpect(content().json(JSONHelper.toString(Result.get(result, msg + msg, null))));
     }
 
     @Test
     public void testMultipart56() throws Exception {
-        int result = AjaxDTO.SUCCESS;
+        int result = Result.SUCCESS;
         String msg = "Hello world";
-        MockMultipartFile req = new MockMultipartFile("req", "", "application/json", JSONHelper.toString(AjaxDTO.success(msg)).getBytes(StandardCharsets.UTF_8));
+        MockMultipartFile req = new MockMultipartFile("req", "", "application/json", JSONHelper.toString(Result.success(msg)).getBytes(StandardCharsets.UTF_8));
         MockMultipartFile file = new MockMultipartFile("file", "file.txt", "text/plain", msg.getBytes(StandardCharsets.UTF_8));
 
         for (int i = 5; i <= 6; i++) {
@@ -130,7 +132,7 @@ public class SimpleControllerTest {
                 .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(JSONHelper.toString(AjaxDTO.get(result, msg + msg, null))));
+                .andExpect(content().json(JSONHelper.toString(Result.get(result, msg + msg, null))));
         }
     }
 }

@@ -1,6 +1,6 @@
 package moe.ahao.spring.cloud.eureka.controller;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.spring.cloud.eureka.EurekaConsumerApplication;
 import moe.ahao.util.commons.io.IOHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +25,11 @@ public class FeignController {
         String param(@RequestParam String msg);
 
         @PostMapping("/body")
-        AjaxDTO body(@RequestBody AjaxDTO dto);
+        Result<Object> body(@RequestBody Result<Object> dto);
 
         @PostMapping(value = "/form-data", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
             // 注意, 这里 body 的 required = false 并不生效
-        AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file);
+        Result<Object> formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file);
 
         @GetMapping("/download.txt")
         ResponseEntity<Resource> download(@RequestParam String name, @RequestParam String data);
@@ -44,24 +44,24 @@ public class FeignController {
     }
 
     @PostMapping("/body3")
-    public AjaxDTO body(@RequestBody AjaxDTO dto) {
+    public Result<Object> body(@RequestBody Result<Object> dto) {
         return feignClient.body(dto);
     }
 
     @PostMapping(value = "/form-data3", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AjaxDTO formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file) {
+    public Result<Object> formData(@RequestParam String param, @RequestParam String json, @RequestPart(value = "file", required = false) MultipartFile file) {
         return feignClient.formData(param, json, file);
     }
 
     @GetMapping(value = "/download3.txt")
-    public AjaxDTO download(@RequestParam String name, @RequestParam String data) throws IOException {
+    public Result<String> download(@RequestParam String name, @RequestParam String data) throws IOException {
         ResponseEntity<Resource> download = feignClient.download(name, data);
         Resource body = download.getBody();
         if (body == null) {
-            return AjaxDTO.failure("");
+            return Result.failure("");
         }
         String filename = body.getFilename();
         String response = IOHelper.toString(body.getInputStream());
-        return AjaxDTO.success(filename, response);
+        return Result.success(filename, response);
     }
 }

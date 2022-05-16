@@ -1,6 +1,6 @@
 package moe.ahao.spring.boot.security.handler.authentication;
 
-import moe.ahao.domain.entity.AjaxDTO;
+import moe.ahao.domain.entity.Result;
 import moe.ahao.util.commons.io.JSONHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
         String msg = exception.getMessage();
         logger.error("登录失败:{}", msg, exception);
 
-        AjaxDTO dto = AjaxDTO.failure(msg);
+        Result<Object> dto = Result.failure(msg);
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         response.getWriter().write(JSONHelper.toString(dto));
