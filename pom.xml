@@ -52,6 +52,7 @@
         <module>ahao-spring-boot-redission</module>
         <module>ahao-spring-boot-rocketmq</module>
         <module>ahao-spring-boot-security</module>
+        <module>ahao-spring-boot-sentinel</module>
         <module>ahao-spring-boot-session</module>
         <module>ahao-spring-boot-shiro</module>
         <module>ahao-spring-boot-skywalking</module>
@@ -67,6 +68,7 @@
         <module>ahao-spring-boot-wechat</module>
         <module>ahao-spring-boot-xxljob</module>
         <module>ahao-spring-cloud-alibaba-nacos-config</module>
+        <module>ahao-spring-cloud-alibaba-nacos-discovery</module>
         <module>ahao-spring-cloud-alibaba-oss</module>
         <module>ahao-spring-cloud-alibaba-sidecar</module>
         <module>ahao-spring-cloud-config</module>
