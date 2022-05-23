@@ -8,3 +8,7 @@ wget https://github.com/alibaba/Sentinel/releases/download/${VERSION}/sentinel-d
 java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar
 
 # 默认用户名和密码都是 sentinel
+
+# 3. 验证
+curl http://127.0.0.1:8080
+curl http://127.0.0.1:8719/tree?type=root
