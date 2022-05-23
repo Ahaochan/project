@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -51,34 +52,6 @@ class RedisHelperTest {
     }
 
     @Test
-    void setByte() {
-        byte data1 = Byte.MIN_VALUE;
-        RedisHelper.set(REDIS_KEY, data1);
-        Assertions.assertEquals(data1, RedisHelper.getByte(REDIS_KEY).byteValue());
-        Assertions.assertEquals(Byte.toString(data1), RedisHelper.getString(REDIS_KEY));
-
-        Byte data2 = Byte.MAX_VALUE;
-        RedisHelper.set(REDIS_KEY, data2);
-        Assertions.assertEquals(data2, RedisHelper.getByte(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Byte>() {}));
-        Assertions.assertEquals(Byte.toString(data2), RedisHelper.getString(REDIS_KEY));
-    }
-
-    @Test
-    void setShort() {
-        short data1 = Short.MIN_VALUE;
-        RedisHelper.set(REDIS_KEY, data1);
-        Assertions.assertEquals(data1, RedisHelper.getShort(REDIS_KEY).shortValue());
-        Assertions.assertEquals(Short.toString(data1), RedisHelper.getString(REDIS_KEY));
-
-        Short data2 = Short.MAX_VALUE;
-        RedisHelper.set(REDIS_KEY, data2);
-        Assertions.assertEquals(data2, RedisHelper.getShort(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Short>() {}));
-        Assertions.assertEquals(Short.toString(data2), RedisHelper.getString(REDIS_KEY));
-    }
-
-    @Test
     void setInteger() {
         int data1 = Integer.MIN_VALUE;
         RedisHelper.set(REDIS_KEY, data1);
@@ -107,31 +80,17 @@ class RedisHelperTest {
     }
 
     @Test
-    void setFloat() {
-        float data1 = Float.MIN_VALUE;
+    void setBigDecimal() {
+        BigDecimal data1 = new BigDecimal("123.456789");
         RedisHelper.set(REDIS_KEY, data1);
-        Assertions.assertEquals(data1, RedisHelper.getFloat(REDIS_KEY).floatValue(), 3);
-        Assertions.assertEquals(Float.toString(data1), RedisHelper.getString(REDIS_KEY));
+        Assertions.assertEquals(data1, RedisHelper.getBigDecimal(REDIS_KEY));
+        Assertions.assertEquals(data1.toString(), RedisHelper.getString(REDIS_KEY));
 
-        Float data2 = Float.MAX_VALUE;
+        BigDecimal data2 = new BigDecimal("987.654321");
         RedisHelper.set(REDIS_KEY, data2);
-        Assertions.assertEquals(data2, RedisHelper.getFloat(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Float>() {}));
-        Assertions.assertEquals(Float.toString(data2), RedisHelper.getString(REDIS_KEY));
-    }
-
-    @Test
-    void setDouble() {
-        double data1 = Double.MIN_VALUE;
-        RedisHelper.set(REDIS_KEY, data1);
-        Assertions.assertEquals(data1, RedisHelper.getDouble(REDIS_KEY).doubleValue(), 3);
-        Assertions.assertEquals(Double.toString(data1), RedisHelper.getString(REDIS_KEY));
-
-        Double data2 = Double.MAX_VALUE;
-        RedisHelper.set(REDIS_KEY, data2);
-        Assertions.assertEquals(data2, RedisHelper.getDouble(REDIS_KEY));
-        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<Double>() {}));
-        Assertions.assertEquals(Double.toString(data2), RedisHelper.getString(REDIS_KEY));
+        Assertions.assertEquals(data2, RedisHelper.getBigDecimal(REDIS_KEY));
+        Assertions.assertEquals(data2, RedisHelper.getObject(REDIS_KEY, new TypeReference<BigDecimal>() {}));
+        Assertions.assertEquals(data2.toString(), RedisHelper.getString(REDIS_KEY));
     }
 
     @Test
