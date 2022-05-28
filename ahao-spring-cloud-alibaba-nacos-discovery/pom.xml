@@ -30,5 +30,11 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+            <!-- 1.4.1使用http注册, 2.x使用grpc注册 -->
+            <version>1.4.1</version>
+        </dependency>
     </dependencies>
 </project>
