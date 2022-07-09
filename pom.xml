@@ -57,6 +57,7 @@
         <module>ahao-spring-boot-shiro</module>
         <module>ahao-spring-boot-skywalking</module>
         <module>ahao-spring-boot-statemachine</module>
+        <module>ahao-spring-boot-statemachine-squirrel</module>
         <module>ahao-spring-boot-swagger</module>
         <module>ahao-spring-boot-transaction</module>
         <module>ahao-spring-boot-validator</module>
