@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {Starter.class, SpringIntegrationTest.TestConfiguration.class})
 @ActiveProfiles("test")
+// TODO Could not resolve placeholder 'apollo.bootstrap.namespaces' in value "${apollo.bootstrap.namespaces}"
 class SpringIntegrationTest {
     static final String dbNs = "db";
 

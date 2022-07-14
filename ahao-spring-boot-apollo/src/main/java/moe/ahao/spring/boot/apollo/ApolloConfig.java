@@ -16,7 +16,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
 
 @EnableApolloConfig
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ApolloConfig implements ApplicationContextAware, InitializingBean {
     private static final Logger logger = LoggerFactory.getLogger(ApolloConfig.class);
 

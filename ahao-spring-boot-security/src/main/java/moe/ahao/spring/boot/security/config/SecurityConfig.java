@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
+ * TODO SpringBootWebSecurityConfiguration已过时
  * 继承 {@link WebSecurityConfigurerAdapter} 以覆盖 {@link SpringBootWebSecurityConfiguration} 配置
  * 使用 {@link EnableWebSecurity} 修饰配置类, 以启用 {@link WebSecurityConfiguration} 的 springSecurityFilterChain
  *

@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableTransactionManagement
 @ConditionalOnBean(DataSourcePropertiesRepository.class)
 @ConditionalOnProperty(prefix = "spring.datasource.balance", value = "primary")

@@ -17,7 +17,7 @@ import java.sql.Statement;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @ActiveProfiles("test")
-
+// TODO No qualifying bean of type 'javax.sql.DataSource' available: expected at least 1 bean which qualifies as autowire candidate.
 // @ContextConfiguration(classes = {SpringContextHolder.class, DataSourceConfig.class, DataSourcePropertiesMemoryImpl.class,
 //     ConfigurationPropertiesAutoConfiguration.class})
 class LoadBalanceTest {

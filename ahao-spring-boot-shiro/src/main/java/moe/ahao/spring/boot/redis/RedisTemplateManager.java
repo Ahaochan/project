@@ -10,7 +10,6 @@ import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashSet;
@@ -89,9 +88,6 @@ public class RedisTemplateManager implements IRedisManager, InitializingBean {
                 keys.add(key);
             }
             return keys;
-        } catch (IOException e) {
-            logger.error("get redis keys failed", e);
         }
-        return Collections.emptySet();
     }
 }

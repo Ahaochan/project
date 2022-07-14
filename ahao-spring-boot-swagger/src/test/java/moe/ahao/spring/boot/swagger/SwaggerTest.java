@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Starter.class)
+// TODO NPE
 class SwaggerTest {
     @LocalServerPort
     private int port;
