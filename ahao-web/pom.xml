@@ -23,6 +23,12 @@
             <groupId>moe.ahao</groupId>
             <artifactId>ahao-common-utils</artifactId>
         </dependency>
+        <dependency>
+            <groupId>moe.ahao</groupId>
+            <artifactId>ahao-common-utils</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
         <!--======================================================= 自定义模块 =======================================================-->
 
         <!--======================================================= Alibaba =======================================================-->
@@ -95,6 +101,20 @@
             <version>1.1.2</version>
         </dependency>
         <!--======================================================= JSP相关 =======================================================-->
+
+        <!--======================================================= 单元测试 =======================================================-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.kstyrc</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>${embedded.redis.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--======================================================= 单元测试 =======================================================-->
     </dependencies>
 
     <build>

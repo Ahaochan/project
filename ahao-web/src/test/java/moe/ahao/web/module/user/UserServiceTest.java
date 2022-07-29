@@ -1,7 +1,7 @@
 package moe.ahao.web.module.user;
 
 import moe.ahao.web.module.user.entity.User;
-import moe.ahao.web.module.user.mapper.UserMapper;
+import moe.ahao.web.module.user.mapper.AhaoUserMapper;
 import moe.ahao.web.module.user.service.UserService;
 import moe.ahao.web.module.user.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +18,7 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
     @MockBean
-    private UserMapper userMapper;
+    private AhaoUserMapper userMapper;
 
     @Test
     public void testGetUserById() {

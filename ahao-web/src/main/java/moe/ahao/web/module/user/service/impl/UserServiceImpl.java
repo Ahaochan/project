@@ -2,7 +2,7 @@ package moe.ahao.web.module.user.service.impl;
 
 import moe.ahao.web.module.user.controller.dto.UserSaveDTO;
 import moe.ahao.web.module.user.entity.User;
-import moe.ahao.web.module.user.mapper.UserMapper;
+import moe.ahao.web.module.user.mapper.AhaoUserMapper;
 import moe.ahao.web.module.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserMapper userMapper;
+    private AhaoUserMapper userMapper;
 
     @Override
     public User getUserById(Long id) {
