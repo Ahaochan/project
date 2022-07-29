@@ -2,17 +2,19 @@ package moe.ahao.web.module;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import moe.ahao.embedded.RedisExtension;
 import moe.ahao.spring.web.config.JacksonHttpMessageConvertersWebMvcConfigurer;
-import moe.ahao.spring.web.converter.MappingJackson2HttpMessageConverterRegister;
+import moe.ahao.web.AhaoApplication;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
-import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.jackson.JacksonProperties;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,24 +22,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringJUnitWebConfig(classes = {JacksonHttpMessageConvertersWebMvcConfigurer.class, PropertyNamingStrategyControllerTest.TestController.class,
-    WebMvcAutoConfiguration.class, JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
-})
+// @SpringJUnitWebConfig(classes = {JacksonHttpMessageConvertersWebMvcConfigurer.class, PropertyNamingStrategyControllerTest.TestController.class,
+//     WebMvcAutoConfiguration.class, JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
+// })
+
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {AhaoApplication.class, PropertyNamingStrategyControllerTest.TestController.class})
+@ActiveProfiles("test-jackson")
 public class PropertyNamingStrategyControllerTest {
+    @RegisterExtension
+    static RedisExtension redisExtension = new RedisExtension();
 
     @Autowired
     protected WebApplicationContext wac;
+
+    @Autowired
+    private JacksonProperties jacksonProperties;
+
+    @Test
+    public void checkDateFormat() throws Exception {
+        String dateFormat = jacksonProperties.getDateFormat();
+        Assertions.assertNotNull(dateFormat);
+    }
 
     @Test
     public void test() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
-        Map<PropertyNamingStrategy, MediaType> map = (Map<PropertyNamingStrategy, MediaType>) ReflectionTestUtils.getField(MappingJackson2HttpMessageConverterRegister.class, "strategyMediaTypeMap");
+        Map<PropertyNamingStrategy, MediaType> map = Arrays.stream(JacksonHttpMessageConvertersWebMvcConfigurer.PropertyNamingStrategyConverter.values())
+            .collect(Collectors.toMap(JacksonHttpMessageConvertersWebMvcConfigurer.PropertyNamingStrategyConverter::getStrategy, JacksonHttpMessageConvertersWebMvcConfigurer.PropertyNamingStrategyConverter::getMediaType));;
         Assertions.assertNotNull(map);
 
         for (Map.Entry<PropertyNamingStrategy, MediaType> entry : map.entrySet()) {

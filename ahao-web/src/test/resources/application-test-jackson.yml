@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:ahaodb;DB_CLOSE_DELAY=-1;MODE=MySQL;
+    username: root
+    password: root
+
+spring.jackson.date-format: moe.ahao.util.commons.lang.time.MultiDateFormat
