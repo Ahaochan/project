@@ -1,29 +1,25 @@
-feign:
-  # 压缩配置
-  compression:
-    request:
-      enabled: true
-      mime-types: text/xml, application/xml, application/json
-      min-request-size: 2048
-    response:
-      enabled: true
-      useGzipDecoder: false
-  # 普通配置
-  client:
-    config:
-      default: # 全局配置
-        connectTimeout: 5000 # 连接超时时间
-        readTimeout: 5000    # 读取超时时间
-        errorDecoder:        # 错误解码器
-        retryer:             # 重试策略
-        requestInterceptors: # 拦截器
-        #  - org.springframework.cloud.openfeign.encoding.FeignAcceptGzipEncodingInterceptor
-        #  - org.springframework.cloud.openfeign.encoding.FeignContentGzipEncodingInterceptor
-        decode404: false # 是否对404错误码解码, feign.SynchronousMethodHandler#executeAndDecode(RequestTemplate, Request.Options)
-        encoder: # 编码器
-        decoder: # 解码器
-        contract:
-  httpclient:
-    enabled: true
-    max-connections: 200          # Feign的最大连接数
-    max-connections-per-route: 50 # Feign的单个url最大连接数
+################################################## feign 配置 ##################################################
+# 压缩配置
+feign.compression.request.enabled: true
+feign.compression.request.mime-types: text/xml, application/xml, application/json
+feign.compression.request.min-request-size: 2048
+feign.compression.response.enabled: true
+feign.compression.response.useGzipDecoder: false
+# 普通配置
+## default全局配置
+feign.client.config.default.connectTimeout: 5000 # 连接超时时间
+feign.client.config.default.readTimeout: 5000    # 读取超时时间
+feign.client.config.default.errorDecoder:        # 错误解码器
+feign.client.config.default.retryer:             # 重试策略
+feign.client.config.default.requestInterceptors: # 拦截器
+#  - org.springframework.cloud.openfeign.encoding.FeignAcceptGzipEncodingInterceptor
+#  - org.springframework.cloud.openfeign.encoding.FeignContentGzipEncodingInterceptor
+feign.client.config.default.decode404: false # 是否对404错误码解码, feign.SynchronousMethodHandler#executeAndDecode(RequestTemplate, Request.Options)
+feign.client.config.default.encoder: # 编码器
+feign.client.config.default.decoder: # 解码器
+feign.client.config.default.contract:
+feign.client.config.default.loggerLevel: full # 日志级别: feign.Logger.Level.FULL
+feign.httpclient.enabled: true
+feign.httpclient.max-connections: 200          # Feign的最大连接数
+feign.httpclient.max-connections-per-route: 50 # Feign的单个url最大连接数
+################################################## feign 配置 ##################################################
