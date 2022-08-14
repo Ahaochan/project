@@ -44,6 +44,7 @@
         <module>ahao-spring-boot-log4j2</module>
         <module>ahao-spring-boot-log-trace</module>
         <module>ahao-spring-boot-mail</module>
+        <module>ahao-spring-boot-mongodb</module>
         <module>ahao-spring-boot-mybatis-plus</module>
         <module>ahao-spring-boot-mybatis-tk</module>
         <module>ahao-spring-boot-okhttp3</module>
