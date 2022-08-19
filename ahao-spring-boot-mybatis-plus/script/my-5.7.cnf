@@ -1,0 +1,8 @@
+[mysqld]
+# 配置MySQLreplaction需要定义，不要和canal的slaveId重复
+server_id       =   1
+# 开启binlog
+log-bin         =   /var/lib/mysql/mysql-bin
+# 选择ROW模式
+binlog_format   =   ROW
+
