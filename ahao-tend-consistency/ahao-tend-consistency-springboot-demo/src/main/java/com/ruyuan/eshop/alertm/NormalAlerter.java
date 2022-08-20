@@ -1,7 +1,7 @@
 package com.ruyuan.eshop.alertm;
 
-import com.ruyuan.consistency.custom.alerter.ConsistencyFrameworkAlerter;
-import com.ruyuan.consistency.model.ConsistencyTaskInstance;
+import moe.ahao.tend.consistency.core.custom.alerter.ConsistencyFrameworkAlerter;
+import moe.ahao.tend.consistency.core.infrastructure.repository.impl.mybatis.data.ConsistencyTaskInstance;
 import org.springframework.stereotype.Component;
 
 /**

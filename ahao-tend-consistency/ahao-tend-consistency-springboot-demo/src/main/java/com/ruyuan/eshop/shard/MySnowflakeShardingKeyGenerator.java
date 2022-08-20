@@ -1,10 +1,9 @@
 package com.ruyuan.eshop.shard;
 
-import com.google.common.base.Preconditions;
-import com.ruyuan.consistency.custom.shard.ShardingKeyGenerator;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import moe.ahao.tend.consistency.core.custom.shard.ShardingKeyGenerator;
 
 import java.util.Calendar;
 import java.util.Properties;
@@ -81,15 +80,18 @@ public final class MySnowflakeShardingKeyGenerator implements ShardingKeyGenerat
             return false;
         }
         long timeDifferenceMilliseconds = lastMilliseconds - currentMilliseconds;
-        Preconditions.checkState(timeDifferenceMilliseconds < getMaxTolerateTimeDifferenceMilliseconds(),
-                "Clock is moving backwards, last time is %d milliseconds, current time is %d milliseconds", lastMilliseconds, currentMilliseconds);
+        if(timeDifferenceMilliseconds >= getMaxTolerateTimeDifferenceMilliseconds()) {
+            throw new IllegalStateException(String.format("Clock is moving backwards, last time is %d milliseconds, current time is %d milliseconds", lastMilliseconds, currentMilliseconds));
+        }
         Thread.sleep(timeDifferenceMilliseconds);
         return true;
     }
 
     private long getWorkerId() {
         long result = Long.valueOf(properties.getProperty("worker.id", String.valueOf(WORKER_ID)));
-        Preconditions.checkArgument(result >= 0L && result < WORKER_ID_MAX_VALUE);
+        if(result < 0 && result >= WORKER_ID_MAX_VALUE) {
+            throw new IllegalArgumentException();
+        }
         return result;
     }
 

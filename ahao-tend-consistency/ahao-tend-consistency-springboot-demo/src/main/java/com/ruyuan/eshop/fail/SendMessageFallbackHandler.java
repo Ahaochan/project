@@ -1,7 +1,7 @@
 package com.ruyuan.eshop.fail;
 
-import cn.hutool.json.JSONUtil;
 import com.ruyuan.eshop.order.OrderInfoDTO;
+import moe.ahao.util.commons.io.JSONHelper;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,7 +22,7 @@ public class SendMessageFallbackHandler {
     }
 
     public void sendRightNowAsyncMessage(OrderInfoDTO orderInfo) {
-        LOG.info("[立即执行异步任务测试] 降级逻辑 执行sendRightNowAsyncMessage(OrderInfoDTO)方法 {}", JSONUtil.toJsonStr(orderInfo));
+        LOG.info("[立即执行异步任务测试] 降级逻辑 执行sendRightNowAsyncMessage(OrderInfoDTO)方法 {}", JSONHelper.toString(orderInfo));
         System.out.println(1 / 0); // 模拟降级也失败的情况
     }
 

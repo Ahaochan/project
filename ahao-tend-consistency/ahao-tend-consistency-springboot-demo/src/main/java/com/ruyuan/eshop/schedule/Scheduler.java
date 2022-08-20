@@ -1,7 +1,7 @@
 package com.ruyuan.eshop.schedule;
 
-import com.ruyuan.consistency.manager.TaskScheduleManager;
 import lombok.extern.slf4j.Slf4j;
+import moe.ahao.tend.consistency.core.manager.TaskScheduleManager;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

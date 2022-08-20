@@ -1,11 +1,11 @@
 package com.ruyuan.eshop.order;
 
-import cn.hutool.json.JSONUtil;
-import com.ruyuan.consistency.annotation.ConsistencyTask;
-import com.ruyuan.consistency.enums.PerformanceEnum;
-import com.ruyuan.consistency.enums.ThreadWayEnum;
 import com.ruyuan.eshop.fail.SendMessageFallbackHandler;
 import lombok.extern.slf4j.Slf4j;
+import moe.ahao.tend.consistency.core.annotation.ConsistencyTask;
+import moe.ahao.tend.consistency.core.infrastructure.enums.PerformanceEnum;
+import moe.ahao.tend.consistency.core.infrastructure.enums.ThreadWayEnum;
+import moe.ahao.util.commons.io.JSONHelper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,14 +32,14 @@ public class SendMessageComponent {
     @ConsistencyTask(
             executeIntervalSec = 20,
             delayTime = 10,
-            performanceWay = PerformanceEnum.PERFORMANCE_SCHEDULE,
+            performanceWay = PerformanceEnum.SCHEDULE,
             threadWay = ThreadWayEnum.ASYNC,
             fallbackClass = SendMessageFallbackHandler.class,
             alertActionBeanName = "normalAlerter"
     )
     public void send(OrderInfoDTO orderInfo) {
 //         System.out.println(1 / 0); // 模拟失败
-        log.info("[异步调度任务测试] 执行send(OrderInfoDTO)方法 {}", JSONUtil.toJsonStr(orderInfo));
+        log.info("[异步调度任务测试] 执行send(OrderInfoDTO)方法 {}", JSONHelper.toString(orderInfo));
     }
 
     /**
@@ -56,21 +56,21 @@ public class SendMessageComponent {
      * @param orderInfo 订单
      */
     @ConsistencyTask(
-            performanceWay = PerformanceEnum.PERFORMANCE_RIGHT_NOW,
+            performanceWay = PerformanceEnum.NOW,
             threadWay = ThreadWayEnum.SYNC
     )
     public void sendRightNowAsyncMessage(OrderInfoDTO orderInfo) {
-        log.info("[异步调度任务测试] 执行sendRightNowAsyncMessage(OrderInfoDTO)方法 {}", JSONUtil.toJsonStr(orderInfo));
+        log.info("[异步调度任务测试] 执行sendRightNowAsyncMessage(OrderInfoDTO)方法 {}", JSONHelper.toString(orderInfo));
         System.out.println(1 / 0); // 模拟失败
     }
 
-    @ConsistencyTask(performanceWay = PerformanceEnum.PERFORMANCE_RIGHT_NOW)
+    @ConsistencyTask(performanceWay = PerformanceEnum.NOW)
     public void sendRightNowAsyncMessage(List<OrderInfoDTO> orderInfos) {
-        log.info("[异步调度任务测试] 执行sendRightNowAsyncMessage1(OrderInfoDTO)方法 {}", JSONUtil.toJsonStr(orderInfos));
+        log.info("[异步调度任务测试] 执行sendRightNowAsyncMessage1(OrderInfoDTO)方法 {}", JSONHelper.toString(orderInfos));
 //        System.out.println(1 / 0);
     }
 
-    @ConsistencyTask(performanceWay = PerformanceEnum.PERFORMANCE_RIGHT_NOW)
+    @ConsistencyTask(performanceWay = PerformanceEnum.NOW)
     public void sendRightNowAsyncMessage2() {
         log.info("[异步调度任务测试] 执行sendRightNowAsyncMessage2(OrderInfoDTO)方法");
     }

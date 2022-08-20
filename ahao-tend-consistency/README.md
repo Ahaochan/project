@@ -311,7 +311,7 @@ long generateShardKey();
         alertActionBeanName = "normalAlerter" 
 )
 public void sendRightNowAsyncMessage(OrderInfoDTO orderInfo) {
-    log.info("[异步调度任务测试] 执行sendRightNowAsyncMessage(OrderInfoDTO)方法 {}", JSONUtil.toJsonStr(orderInfo));
+    log.info("[异步调度任务测试] 执行sendRightNowAsyncMessage(OrderInfoDTO)方法 {}", JSONHelper.toString(orderInfo));
 }
 ```
 
@@ -335,7 +335,7 @@ public void sendRightNowAsyncMessage(OrderInfoDTO orderInfo) {
         alertActionBeanName = "normalAlerter" 
 )
 public void sendRightNowAsyncMessage(OrderInfoDTO orderInfo) {
-    log.info("[异步调度任务测试] 执行sendRightNowAsyncMessage(OrderInfoDTO)方法 {}", JSONUtil.toJsonStr(orderInfo));
+    log.info("[异步调度任务测试] 执行sendRightNowAsyncMessage(OrderInfoDTO)方法 {}", JSONHelper.toString(orderInfo));
 }
 ```
 

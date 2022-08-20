@@ -1,7 +1,7 @@
 package com.ruyuan.eshop.range;
 
-import com.ruyuan.consistency.custom.query.TaskTimeRangeQuery;
-import com.ruyuan.consistency.utils.DateUtils;
+import moe.ahao.tend.consistency.core.custom.query.TaskTimeRangeQuery;
+import moe.ahao.tend.consistency.core.utils.DateUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;

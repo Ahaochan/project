@@ -1,9 +1,9 @@
 package com.ruyuan.eshop.order.dao;
 
-import cn.hutool.json.JSONUtil;
-import com.ruyuan.consistency.annotation.ConsistencyTask;
 import com.ruyuan.eshop.order.domain.entity.OrderSnapshotDO;
 import lombok.extern.slf4j.Slf4j;
+import moe.ahao.tend.consistency.core.annotation.ConsistencyTask;
+import moe.ahao.util.commons.io.JSONHelper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class OrderSnapshotDAO {
      */
     @ConsistencyTask(alertActionBeanName = "tendConsistencyAlerter")
     public void batchSave(List<OrderSnapshotDO> orderSnapshotDOList) {
-        log.info("进入OrderSnapshotDAO#batchSave orderSnapshotDOList={}", JSONUtil.toJsonPrettyStr(orderSnapshotDOList));
+        log.info("进入OrderSnapshotDAO#batchSave orderSnapshotDOList={}", JSONHelper.toString(orderSnapshotDOList));
     }
 
 

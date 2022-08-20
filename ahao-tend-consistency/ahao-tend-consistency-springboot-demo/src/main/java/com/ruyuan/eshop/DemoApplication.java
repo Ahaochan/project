@@ -1,6 +1,6 @@
 package com.ruyuan.eshop;
 
-import com.ruyuan.consistency.annotation.EnableTendConsistencyTask;
+import moe.ahao.tend.consistency.core.annotation.EnableTendConsistencyTask;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;

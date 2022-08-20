@@ -14,22 +14,26 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!--======================================================= 自定义模块 =======================================================-->
+        <dependency>
+            <groupId>moe.ahao</groupId>
+            <artifactId>ahao-common-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>moe.ahao</groupId>
+            <artifactId>ahao-common-utils</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <!--======================================================= 自定义模块 =======================================================-->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
         </dependency>
-
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.4.1</version>
-        </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.11</version>
         </dependency>
 
         <dependency>
