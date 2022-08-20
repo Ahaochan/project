@@ -7,10 +7,20 @@ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.1-li
 tar xvf elasticsearch-7.8.1-linux-x86_64.tar.gz
 cd elasticsearch-7.8.1
 
-# 2. 启动 es
+# 2. 系统参数调整
+echo "* soft nofile 65535" > /etc/security/limits.conf
+echo "* hard nofile 65535" > /etc/security/limits.conf
+echo "* soft nproc 4096" > /etc/security/limits.conf
+echo "* hard nproc 4096" > /etc/security/limits.conf
+echo "vm.max_map_count=262144" > /etc/sysctl.conf && sysctl-p
 export ES_JAVA_OPTS="-Xms256m -Xmx256m"
-sudo sysctl -w vm.max_map_count=262144
-chown -R ahao:ahao "$(pwd)"
+
+# 3. 创建es用户, es不能用root启动
+groupadd es
+useradd es -g es
+chown -R es:es "$(pwd)"
+mkdir -p data log
+
 bin/elasticsearch -E node.name=node1 -E cluster.initial_master_nodes=node1 -E path.data=node1_data -E network.host=0.0.0.0 -E http.port=9200 -d
 
 curl http://127.0.0.1:9200
