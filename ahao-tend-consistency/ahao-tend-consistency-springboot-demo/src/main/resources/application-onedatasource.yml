@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/task-engine?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+    username: root
+    password: rootroot
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 3000
+
+ruyuan:
+  tend:
+    consistency:
+      parallel:
+        pool:
+          thread-max-pool-size: 6
+          thread-core-pool-size: 6
+          thread-pool-keep-alive-time: 60
+          thread-pool-keep-alive-time-unit: SECONDS
+          thread-pool-queue-size: 100
+          # 框架自身有默认的实现类 来扫描查询任务的开始时间以及结束时间，这里给出定制化的实现类
+          #task-schedule-time-range-class-name: com.ruyuan.eshop.range.MyTaskTimeRangeQuery
+      action:
+        fail-count-threshold: 0
+      shard:
+        task-sharded: false
+      peers:
+        peers-config: 192.168.0.222:8080:1,192.168.0.222:8081:2,192.168.0.222:8082:3
+      task:
+        sharding:
+          # 一致性任务的分片数，不配置默认是上面配置的集群节点的个数
+          task-sharding-count: 3
+      scheduler:
+        # 一致性框架内置的执行任务时的调度器执行任务的频率，每隔多长时间调度一次，任务的调度
+        consistency-task-execute-interval-seconds: 10
+        # leader检测follower是否存活的调度器每隔多长时间执行一次检查
+        follower-alive-check-interval-seconds: 10
+        # follower对leader发送心跳的调度器
+        follower-heartbeat-interval-seconds: 10
+        # leader判定follower宕机的阈值
+        judge-follower-down-seconds-threshold: 120
+        # follower判定leader宕机的阈值
+        judge-leader-down-seconds-threshold: 120
+        # follower用于检测leader是否存活的调度器每隔多长时间执行一次检查
+        leader-alive-check-interval-seconds: 10
+        # leader定时发给follower的心跳的调度器，同时也会将leader对任务的分片信息发送给各个follower节点每隔多长时间执行一次
+        leader-to-follower-heartbeat-interval-seconds: 10
