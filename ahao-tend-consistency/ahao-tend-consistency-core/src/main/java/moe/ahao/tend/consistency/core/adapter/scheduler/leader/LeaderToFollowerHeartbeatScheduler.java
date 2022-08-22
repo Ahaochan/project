@@ -7,8 +7,11 @@ import moe.ahao.tend.consistency.core.adapter.scheduler.common.AbstractSingleSch
 import moe.ahao.tend.consistency.core.election.PeerNodeManager;
 import moe.ahao.tend.consistency.core.election.entity.PeerNode;
 import moe.ahao.tend.consistency.core.election.entity.PeerNodeId;
+import moe.ahao.tend.consistency.core.infrastructure.config.TendConsistencyConfiguration;
 import moe.ahao.tend.consistency.core.infrastructure.gateway.PeerNodeGateway;
-import moe.ahao.tend.consistency.core.sharding.ConsistencyTaskShardingContext;
+import moe.ahao.tend.consistency.core.spi.shard.shardingstrategy.ConsistencyTaskShardingContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -18,15 +21,18 @@ import java.util.stream.Collectors;
  * leader定时发给follower的心跳的调度器，同时也会将leader对任务的分片信息发送给各个follower节点
  **/
 @Slf4j
+@Component
 public class LeaderToFollowerHeartbeatScheduler extends AbstractSingleScheduler {
-    private final PeerNodeGateway peerNodeGateway;
-    private final PeerNodeManager peerNodeManager;
+    @Autowired
+    private TendConsistencyConfiguration tendConsistencyConfiguration;
+    @Autowired
+    private PeerNodeGateway peerNodeGateway;
+    @Autowired
+    private PeerNodeManager peerNodeManager;
     private final ConsistencyTaskShardingContext consistencyTaskShardingContext;
 
-    public LeaderToFollowerHeartbeatScheduler(PeerNodeGateway peerNodeGateway, int initDelaySecond, int delaySecond) {
-        super("leaderHeartScheduler", initDelaySecond, delaySecond);
-        this.peerNodeGateway = peerNodeGateway;
-        this.peerNodeManager = PeerNodeManager.getInstance();
+    public LeaderToFollowerHeartbeatScheduler() {
+        super("leaderHeartScheduler");
         this.consistencyTaskShardingContext = ConsistencyTaskShardingContext.getInstance();
     }
 
@@ -44,7 +50,7 @@ public class LeaderToFollowerHeartbeatScheduler extends AbstractSingleScheduler 
         log.info("进入发送心跳的定时调度任务");
 
         // 1. 从分片上下文获取Leader节点, 也就是自己
-        PeerNodeId currentLeaderId = consistencyTaskShardingContext.getCurrentLeaderPeerId();
+        PeerNodeId currentLeaderId = peerNodeManager.getLeaderPeerNode().getId();
 
         // 2. 构造leader发送心跳给follower的请求体
         LeaderToFollowerHeartbeatRequest request = this.buildRequest();
@@ -67,7 +73,7 @@ public class LeaderToFollowerHeartbeatScheduler extends AbstractSingleScheduler 
     }
 
     private LeaderToFollowerHeartbeatRequest buildRequest() {
-        PeerNodeId currentLeaderId = consistencyTaskShardingContext.getCurrentLeaderPeerId();
+        PeerNodeId currentLeaderId = peerNodeManager.getSelfPeerNode().getId();
         Map<String, List<Long>> cacheShardingResult = consistencyTaskShardingContext.getTaskSharingResult().entrySet().stream()
             .collect(Collectors.toMap(s -> s.getKey().toString(), Map.Entry::getValue));
         LeaderToFollowerHeartbeatRequest request = new LeaderToFollowerHeartbeatRequest();
@@ -75,5 +81,10 @@ public class LeaderToFollowerHeartbeatScheduler extends AbstractSingleScheduler 
         request.setCacheSharingResult(cacheShardingResult);
         request.setChecksum(consistencyTaskShardingContext.getChecksum());
         return request;
+    }
+
+    @Override
+    protected int delaySecond() {
+        return tendConsistencyConfiguration.getLeaderToFollowerHeartbeatIntervalSeconds();
     }
 }

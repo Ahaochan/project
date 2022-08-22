@@ -5,21 +5,28 @@ import moe.ahao.tend.consistency.core.adapter.message.FollowerToLeaderHeartbeatR
 import moe.ahao.tend.consistency.core.adapter.scheduler.common.AbstractSingleScheduler;
 import moe.ahao.tend.consistency.core.election.PeerNodeManager;
 import moe.ahao.tend.consistency.core.election.entity.PeerNode;
+import moe.ahao.tend.consistency.core.infrastructure.config.TendConsistencyConfiguration;
 import moe.ahao.tend.consistency.core.infrastructure.gateway.PeerNodeGateway;
-import moe.ahao.tend.consistency.core.sharding.ConsistencyTaskShardingContext;
+import moe.ahao.tend.consistency.core.spi.shard.shardingstrategy.ConsistencyTaskShardingContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * follower对leader发送心跳使用的调度器
  **/
+@Component
 public class FollowerHeartbeatScheduler extends AbstractSingleScheduler {
-    private final PeerNodeGateway peerNodeGateway;
-    private final PeerNodeManager peerNodeManager;
+    @Autowired
+    private TendConsistencyConfiguration tendConsistencyConfiguration;
+    @Autowired
+    private PeerNodeGateway peerNodeGateway;
+    @Autowired
+    private PeerNodeManager peerNodeManager;
+
     private final ConsistencyTaskShardingContext consistencyTaskShardingContext;
 
-    public FollowerHeartbeatScheduler(PeerNodeGateway peerNodeGateway,int initDelaySecond, int delaySecond) {
-        super("followerHeartbeat", initDelaySecond, delaySecond);
-        this.peerNodeGateway = peerNodeGateway;
-        this.peerNodeManager = PeerNodeManager.getInstance();
+    public FollowerHeartbeatScheduler() {
+        super("followerHeartbeat");
         this.consistencyTaskShardingContext = ConsistencyTaskShardingContext.getInstance();
     }
 
@@ -28,19 +35,23 @@ public class FollowerHeartbeatScheduler extends AbstractSingleScheduler {
         return this::sendFollowerHeartbeatRequest;
     }
 
-
     /**
      * follower向leader发送心跳请求
      */
     private void sendFollowerHeartbeatRequest() {
         // 获取leader节点的 ip:port
-        PeerNode peerNode = PeerNodeManager.getInstance().getAvailableShardingInstances().get(consistencyTaskShardingContext.getCurrentLeaderPeerId());
+        PeerNode peerNode = peerNodeManager.getAvailableShardingInstances().get(peerNodeManager.getSelfPeerNode().getId());
         // 构造发送给leader的心跳请求对象
         FollowerToLeaderHeartbeatRequest request = new FollowerToLeaderHeartbeatRequest();
-        request.setPeerId(consistencyTaskShardingContext.getCurrentPeerId().getVal());
+        request.setPeerId(peerNodeManager.getSelfPeerNode().getId().getVal());
         FollowerToLeaderHeartbeatResponse response = peerNodeGateway.sendFollowerHeartbeatRequest(peerNode, request);
         if (response != null) {
             peerNodeManager.setRecentlyFollowerToLeaderHeartbeatResponse(response);
         }
+    }
+
+    @Override
+    protected int delaySecond() {
+        return tendConsistencyConfiguration.getFollowerHeartbeatIntervalSeconds();
     }
 }

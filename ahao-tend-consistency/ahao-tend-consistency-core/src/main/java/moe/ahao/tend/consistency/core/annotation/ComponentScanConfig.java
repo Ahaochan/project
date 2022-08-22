@@ -6,13 +6,9 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 组件扫描配置
- *
- * @author zhonghuashishan
  */
 @Configuration
-@ComponentScan(value = {"com.ruyuan.consistency"})
-@MapperScan(basePackages = {"com.ruyuan.consistency.mapper"})
+@ComponentScan(value = {"moe.ahao.tend.consistency"})
+@MapperScan(basePackages = {"moe.ahao.tend.consistency.core.infrastructure.repository.impl.mybatis.mapper"})
 public class ComponentScanConfig {
-
-
 }

@@ -1,8 +1,8 @@
 package moe.ahao.tend.consistency.core.infrastructure.config;
 
 import lombok.extern.slf4j.Slf4j;
-import moe.ahao.tend.consistency.core.custom.query.TaskTimeRangeQuery;
-import moe.ahao.tend.consistency.core.custom.shard.ShardingKeyGenerator;
+import moe.ahao.tend.consistency.core.spi.query.TaskTimeRangeQuery;
+import moe.ahao.tend.consistency.core.spi.shard.shardkey.ShardingKeyGenerator;
 import moe.ahao.tend.consistency.core.infrastructure.config.properties.*;
 import moe.ahao.tend.consistency.core.infrastructure.exceptions.ConsistencyException;
 import moe.ahao.tend.consistency.core.utils.DefaultValueUtils;

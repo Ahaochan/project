@@ -4,6 +4,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import moe.ahao.tend.consistency.core.election.PeerElectionHandler;
 import moe.ahao.tend.consistency.core.election.entity.PeerNodeId;
+import moe.ahao.tend.consistency.core.spi.shard.shardingstrategy.ConsistencyTaskShardingContext;
 import moe.ahao.tend.consistency.core.infrastructure.config.TendConsistencyConfiguration;
 import moe.ahao.tend.consistency.core.infrastructure.exceptions.ConsistencyException;
 import moe.ahao.tend.consistency.core.infrastructure.repository.TaskStoreRepository;
@@ -37,7 +38,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class TaskScheduleManager implements ApplicationContextAware {
-
     @Setter
     private ApplicationContext applicationContext;
 
@@ -76,9 +76,9 @@ public class TaskScheduleManager implements ApplicationContextAware {
     public void performanceTask() throws InterruptedException {
         log.info("performanceTask...");
 
-        // 如果分片结果为空，即leader还没有做分片 或者 leader还没有启动
-        Map<PeerNodeId, List<Long>> taskSharingResult = peerElectionHandler
-            .getConsistencyTaskShardingContext().getTaskSharingResult();
+        ConsistencyTaskShardingContext shardingContext = ConsistencyTaskShardingContext.getInstance();
+
+        Map<PeerNodeId, List<Long>> taskSharingResult = shardingContext.getTaskSharingResult();
         if (MapUtils.isEmpty(taskSharingResult)) {
             log.warn("leader尚未启动, 等待leader启动分片后，会下发各节点任务分片索引.");
             return;

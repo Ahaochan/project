@@ -3,7 +3,7 @@ package com.ruyuan.eshop.shard;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import moe.ahao.tend.consistency.core.custom.shard.ShardingKeyGenerator;
+import moe.ahao.tend.consistency.core.spi.shard.shardkey.ShardingKeyGenerator;
 
 import java.util.Calendar;
 import java.util.Properties;

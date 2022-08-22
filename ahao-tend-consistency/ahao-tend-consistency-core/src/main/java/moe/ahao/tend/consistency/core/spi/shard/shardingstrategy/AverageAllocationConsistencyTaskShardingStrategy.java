@@ -1,4 +1,4 @@
-package moe.ahao.tend.consistency.core.sharding.strategy;
+package moe.ahao.tend.consistency.core.spi.shard.shardingstrategy;
 
 import moe.ahao.tend.consistency.core.election.entity.PeerNode;
 import moe.ahao.tend.consistency.core.election.entity.PeerNodeId;
@@ -11,12 +11,6 @@ import java.util.*;
  */
 public final class AverageAllocationConsistencyTaskShardingStrategy implements ConsistencyTaskShardingStrategy {
     private static volatile AverageAllocationConsistencyTaskShardingStrategy instance;
-
-    /**
-     * 获取单例对象
-     *
-     * @return 单例对象
-     */
     public static AverageAllocationConsistencyTaskShardingStrategy getInstance() {
         if (instance == null) {
             synchronized (AverageAllocationConsistencyTaskShardingStrategy.class) {

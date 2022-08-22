@@ -1,4 +1,4 @@
-package moe.ahao.tend.consistency.core.custom.shard;
+package moe.ahao.tend.consistency.core.spi.shard.shardkey;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -38,9 +38,6 @@ public final class SnowflakeShardingKeyGenerator implements ShardingKeyGenerator
     private SnowflakeShardingKeyGenerator() {
     }
 
-    @Setter
-    private static TimeService timeService = new TimeService();
-
     @Getter
     @Setter
     private Properties properties = new Properties();
@@ -68,9 +65,9 @@ public final class SnowflakeShardingKeyGenerator implements ShardingKeyGenerator
      */
     @Override
     public synchronized long generateShardKey() {
-        long currentMilliseconds = timeService.getCurrentMillis();
+        long currentMilliseconds = System.currentTimeMillis();;
         if (waitTolerateTimeDifferenceIfNeed(currentMilliseconds)) {
-            currentMilliseconds = timeService.getCurrentMillis();
+            currentMilliseconds = System.currentTimeMillis();;
         }
         if (lastMilliseconds == currentMilliseconds) {
             if (0L == (sequence = (sequence + 1) & SEQUENCE_MASK)) {
@@ -110,9 +107,9 @@ public final class SnowflakeShardingKeyGenerator implements ShardingKeyGenerator
     }
 
     private long waitUntilNextTime(final long lastTime) {
-        long result = timeService.getCurrentMillis();
+        long result = System.currentTimeMillis();;
         while (result <= lastTime) {
-            result = timeService.getCurrentMillis();
+            result = System.currentTimeMillis();;
         }
         return result;
     }

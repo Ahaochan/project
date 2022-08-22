@@ -1,4 +1,4 @@
-package moe.ahao.tend.consistency.core.custom.alerter;
+package moe.ahao.tend.consistency.core.spi.alerter;
 
 import moe.ahao.tend.consistency.core.infrastructure.repository.impl.mybatis.data.ConsistencyTaskInstance;
 

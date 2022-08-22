@@ -1,21 +1,12 @@
 package moe.ahao.tend.consistency.core.adapter.message;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 上线或下线请求
- *
- * @author zhonghuashishan
  **/
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class RegisterOrCancelRequest {
-
     /**
      * follower的ip地址
      */
@@ -36,5 +27,4 @@ public class RegisterOrCancelRequest {
      * 是否是leader节点下线
      */
     private boolean leaderOffline;
-
 }

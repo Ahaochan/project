@@ -1,8 +1,7 @@
-package moe.ahao.tend.consistency.sharding;
+package moe.ahao.tend.consistency.core.spi.shard.shardingstrategy;
 
 import moe.ahao.tend.consistency.core.election.entity.PeerNode;
 import moe.ahao.tend.consistency.core.election.entity.PeerNodeId;
-import moe.ahao.tend.consistency.core.sharding.strategy.AverageAllocationConsistencyTaskShardingStrategy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

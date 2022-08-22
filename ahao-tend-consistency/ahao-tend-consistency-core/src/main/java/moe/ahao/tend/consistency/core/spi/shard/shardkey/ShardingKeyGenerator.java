@@ -1,4 +1,4 @@
-package moe.ahao.tend.consistency.core.custom.shard;
+package moe.ahao.tend.consistency.core.spi.shard.shardkey;
 
 /**
  * 任务分片键生成器接口

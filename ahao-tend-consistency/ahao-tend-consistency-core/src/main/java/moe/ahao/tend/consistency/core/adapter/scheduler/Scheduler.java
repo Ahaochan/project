@@ -19,11 +19,8 @@ public interface Scheduler {
 
     /**
      * 任务执行调度器
-     *
-     * @param task 一致性任务调度器
-     * @return 一致性任务调度器
      */
-    void createConsistencyTaskScheduler(Runnable task);
+    void createConsistencyTaskScheduler();
 
     /**
      * 创建follower对leader心跳检测的调度器
@@ -32,11 +29,8 @@ public interface Scheduler {
 
     /**
      * 创建follower用于检测leader是否存活的调度器
-     *
-     * @param task 任务
-     * @return follower用于检测leader是否存活的调度器
      */
-    void startLeaderAliveScheduler(Runnable task);
+    void startLeaderAliveScheduler();
 
     /**
      * 取消所有调度任务

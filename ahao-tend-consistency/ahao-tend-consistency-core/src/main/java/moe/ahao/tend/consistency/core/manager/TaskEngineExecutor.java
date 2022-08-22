@@ -31,5 +31,5 @@ public interface TaskEngineExecutor {
      * @param isOpenLocalStorageMode   任务是否只在本地存储中进行了存储
      * @param ex                       异常信息
      */
-    void fallback(ConsistencyTaskInstance taskInstance, boolean isOpenLocalStorageMode, Exception ex);
+    void fallbackExecuteTask(ConsistencyTaskInstance taskInstance, boolean isOpenLocalStorageMode, Exception ex);
 }

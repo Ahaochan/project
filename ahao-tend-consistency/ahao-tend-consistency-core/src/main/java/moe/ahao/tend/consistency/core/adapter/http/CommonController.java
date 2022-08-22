@@ -4,9 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import moe.ahao.domain.entity.Result;
 import moe.ahao.tend.consistency.core.adapter.message.RegisterOrCancelRequest;
 import moe.ahao.tend.consistency.core.adapter.message.RegisterOrCancelResponse;
+import moe.ahao.tend.consistency.core.election.PeerNodeManager;
 import moe.ahao.tend.consistency.core.election.entity.PeerNodeId;
 import moe.ahao.tend.consistency.core.infrastructure.enums.PeerOpTypeEnum;
-import moe.ahao.tend.consistency.core.sharding.ConsistencyTaskShardingContext;
+import moe.ahao.tend.consistency.core.spi.shard.shardingstrategy.ConsistencyTaskShardingContext;
 import moe.ahao.util.commons.io.JSONHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -29,6 +30,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommonController {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
+    @Autowired
+    private PeerNodeManager peerNodeManager;
+
     /**
      * 注册到leader节点
      *
@@ -44,9 +48,9 @@ public class CommonController {
         // 分片节点上下文
         ConsistencyTaskShardingContext consistencyTaskShardingContext = ConsistencyTaskShardingContext.getInstance();
         // 当前节点的id
-        PeerNodeId currentPeerId = consistencyTaskShardingContext.getCurrentPeerId();
+        PeerNodeId currentPeerId = peerNodeManager.getSelfPeerNode().getId();
         // 当前leader的id
-        PeerNodeId currentLeaderPeerId = consistencyTaskShardingContext.getCurrentLeaderPeerId();
+        PeerNodeId currentLeaderPeerId = peerNodeManager.getLeaderPeerNode().getId();
 
         boolean isLeader = false;
 

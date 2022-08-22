@@ -7,12 +7,17 @@ import moe.ahao.tend.consistency.core.adapter.message.FollowerToLeaderHeartbeatR
 import moe.ahao.tend.consistency.core.adapter.message.LeaderToFollowerHeartbeatResponse;
 import moe.ahao.tend.consistency.core.election.entity.PeerNode;
 import moe.ahao.tend.consistency.core.election.entity.PeerNodeId;
+import moe.ahao.tend.consistency.core.utils.NetUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+@Component
 public class PeerNodeManager {
+    @Value("${server.port}")
+    private int currentServerPort;
+
     /**
      * follower回复给leader的心跳响应表 格式： key: PeerId value: HeartbeatResponse
      * leader对应的每个follower，每次收到一个leader心跳，返回了一个响应，leader来说，他拿到的每个响应，都会根据follower peer id
@@ -38,24 +43,49 @@ public class PeerNodeManager {
      */
     @Getter
     private final Map<PeerNodeId, PeerNode> availableShardingInstances = new HashMap<>();
-
-    private static volatile PeerNodeManager instance;
-    public static PeerNodeManager getInstance() {
-        if (instance == null) {
-            synchronized (PeerNodeManager.class) {
-                if (instance == null) {
-                    instance = new PeerNodeManager();
-                }
-            }
-        }
-        return instance;
-    }
+    /**
+     * 当前的leader节点id
+     */
+    @Getter
+    private PeerNode leaderPeerNode;
+    /**
+     * 当前节点
+     */
+    @Getter
+    private PeerNode selfPeerNode;
 
     public void initPeerNodes(List<PeerNode> peerNodes) {
         this.peerNodes = peerNodes;
+        String currentPeerAddress = NetUtils.getCurrentPeerAddress() + ":" + currentServerPort;
+
         for (PeerNode peerNode : peerNodes) {
             // 构造可用于分片集群节点的实例信息map, key:peerId, value:ip:port
             availableShardingInstances.put(peerNode.getId(), peerNode);
+
+            // 获取当前节点的peerId
+            if (peerNode.getAddress().equals(currentPeerAddress)) {
+                this.selfPeerNode = peerNode;
+            }
         }
+    }
+
+    public PeerNode updateLeaderId(PeerNodeId peerNodeId) {
+        this.leaderPeerNode = this.getAvailableShardingInstances().get(peerNodeId);
+        return this.leaderPeerNode;
+    }
+
+    /**
+     * 选举一个作为leader, 现在是取最小节点id作为leader
+     * @return 最小节点id
+     */
+    public PeerNode electionLeaderNode() {
+        return peerNodes.stream()
+            .min(Comparator.comparing(o -> o.getId().getVal()))
+            .orElse(null);
+    }
+
+
+    public boolean selfIsLeader() {
+        return Objects.equals(selfPeerNode, leaderPeerNode);
     }
 }

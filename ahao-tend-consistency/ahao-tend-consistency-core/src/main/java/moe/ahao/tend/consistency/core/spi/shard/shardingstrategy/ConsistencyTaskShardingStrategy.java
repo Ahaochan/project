@@ -1,4 +1,4 @@
-package moe.ahao.tend.consistency.core.sharding.strategy;
+package moe.ahao.tend.consistency.core.spi.shard.shardingstrategy;
 
 import moe.ahao.tend.consistency.core.election.entity.PeerNode;
 import moe.ahao.tend.consistency.core.election.entity.PeerNodeId;
@@ -16,5 +16,4 @@ public interface ConsistencyTaskShardingStrategy {
      * @return 分片结果 格式如下："192.168.0.222:8080:1":[0],"192.168.0.222:8081:2":[1],"192.168.0.222:8082:3":[2]
      */
     Map<PeerNodeId, List<Long>> sharding(List<PeerNode> taskInstances, long shardingTotalCount);
-
 }

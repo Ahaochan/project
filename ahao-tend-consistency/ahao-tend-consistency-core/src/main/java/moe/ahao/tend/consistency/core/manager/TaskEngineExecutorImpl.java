@@ -2,7 +2,6 @@ package moe.ahao.tend.consistency.core.manager;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import moe.ahao.tend.consistency.core.custom.alerter.ConsistencyFrameworkAlerter;
 import moe.ahao.tend.consistency.core.infrastructure.config.TendConsistencyConfiguration;
 import moe.ahao.tend.consistency.core.infrastructure.enums.ConsistencyTaskStatusEnum;
 import moe.ahao.tend.consistency.core.infrastructure.enums.PerformanceEnum;
@@ -11,6 +10,7 @@ import moe.ahao.tend.consistency.core.infrastructure.exceptions.ConsistencyExcep
 import moe.ahao.tend.consistency.core.infrastructure.repository.TaskStoreRepository;
 import moe.ahao.tend.consistency.core.infrastructure.repository.impl.mybatis.data.ConsistencyTaskInstance;
 import moe.ahao.tend.consistency.core.infrastructure.repository.impl.rocksdb.RocksLocalStorage;
+import moe.ahao.tend.consistency.core.spi.alerter.ConsistencyFrameworkAlerter;
 import moe.ahao.tend.consistency.core.utils.ExpressionUtils;
 import moe.ahao.tend.consistency.core.utils.ReflectTools;
 import moe.ahao.util.commons.io.JSONHelper;
@@ -34,9 +34,6 @@ import java.util.Objects;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import static moe.ahao.tend.consistency.core.utils.ExpressionUtils.readExpr;
-import static moe.ahao.tend.consistency.core.utils.ExpressionUtils.rewriteExpr;
 
 /**
  * 任务执行引擎实现类
@@ -176,7 +173,7 @@ public class TaskEngineExecutorImpl implements TaskEngineExecutor, ApplicationCo
                 log.info("[一致性任务框架] 标记为执行成功的结果为 [{}]", successResult > 0);
             } else {
                 // 从RocksDB中移除
-                rocksRemove(taskInstance);
+                this.rocksRemove(taskInstance);
                 log.info("rocksRemoveFallback删除key成功");
             }
         } catch (Exception e) {
@@ -193,7 +190,7 @@ public class TaskEngineExecutorImpl implements TaskEngineExecutor, ApplicationCo
                 log.error("[一致性任务框架] 标记任务执行失败时，发生异常", e);
             }
             // 执行降级逻辑
-            this.fallback(taskInstance, isOpenLocalStorageMode, e);
+            this.fallbackExecuteTask(taskInstance, isOpenLocalStorageMode, e);
         }
     }
 
@@ -204,7 +201,7 @@ public class TaskEngineExecutorImpl implements TaskEngineExecutor, ApplicationCo
      * @param isOpenLocalStorageMode 任务实例是否是本地存储模式
      */
     @Override
-    public void fallback(ConsistencyTaskInstance taskInstance, boolean isOpenLocalStorageMode, Exception ex) {
+    public void fallbackExecuteTask(ConsistencyTaskInstance taskInstance, boolean isOpenLocalStorageMode, Exception ex) {
         log.info("[一致性任务框架] 执行任务降级逻辑...");
         // 如果是数据库连不上的异常，那么就将数据存储到本地。
         // 这里用字符串匹配的方式，是因为框架本身，没有mysql驱动，因为本事也是要嵌入到业务服务中运行的，所以使用字符串匹配的方式
@@ -213,7 +210,7 @@ public class TaskEngineExecutorImpl implements TaskEngineExecutor, ApplicationCo
             // 存储降级，将任务存储到RocksDB中
             rocksLocalStorage.putIfAbsent(taskInstance);
         }
-        // 如果注解(任务实例信息)中没有提供降级类，则退出，不执行降级
+        // 1. 如果没有配置降级策略, 就只告警, 让定时任务去无限重试执行
         if (StringUtils.isEmpty(taskInstance.getFallbackClassName()) ||
             "void".equals(taskInstance.getFallbackClassName())) {
             // 解析并对表达式结果进行校验，并执行相关的告警通知逻辑
@@ -221,7 +218,7 @@ public class TaskEngineExecutorImpl implements TaskEngineExecutor, ApplicationCo
             parseExpressionAndDoAlert(taskInstance);
             return;
         }
-        // 获取全局配置 默认是开启降级策略的 如果失败会进行降级
+        // 2. 如果配置了降级策略, 就先重试N次, 实在不行再降级
         if (taskInstance.getExecuteTimes() <= consistencyConfig.getFailCountThreshold()) {
             return;
         }
@@ -254,7 +251,7 @@ public class TaskEngineExecutorImpl implements TaskEngineExecutor, ApplicationCo
         } catch (Exception e) {
             // 解析并对表达式结果进行校验，并执行相关的告警通知逻辑
             // 在执行完降级逻辑后，再去发送消息。因为如果降级成功了，也就不用发送告警通知了。如果降级失败，再去发送告警通知。
-            parseExpressionAndDoAlert(taskInstance);
+            this.parseExpressionAndDoAlert(taskInstance);
             taskInstance.setFallbackErrorMsg(getErrorMsg(e));
 
             Long executeTime = taskInstance.getExecuteTime();
@@ -324,16 +321,14 @@ public class TaskEngineExecutorImpl implements TaskEngineExecutor, ApplicationCo
      */
     private void parseExpressionAndDoAlert(ConsistencyTaskInstance taskInstance) {
         try {
-            if (StringUtils.isEmpty(taskInstance.getAlertExpression())) {
+            String alertExpression = taskInstance.getAlertExpression();
+            if (StringUtils.isEmpty(alertExpression)) {
                 return;
             }
             // 使用线程的原因是不对正常业务调用造成时间的占用 一般推送消息使用的是发送短信，钉钉、企业微信、邮件等等，
             // 操作会有一定的耗时（不过这个也要看具体的实现类是怎么实现的，如果实现类中使用的是异步推送告警，其实这里也就不用放到线程池中了）
             alertNoticePool.submit(() -> {
-                // 对表达式进行重写
-                String expr = rewriteExpr(taskInstance.getAlertExpression());
-                // 获取表达式解析后的结果
-                String exprResult = readExpr(expr, ExpressionUtils.buildDataMap(taskInstance));
+                boolean exprResult = ExpressionUtils.parseBoolean(alertExpression, ExpressionUtils.buildDataMap(taskInstance));
                 // 执行alert告警
                 doAlert(exprResult, taskInstance);
             });
@@ -348,11 +343,8 @@ public class TaskEngineExecutorImpl implements TaskEngineExecutor, ApplicationCo
      * @param exprResult   表达式解析后的结果
      * @param taskInstance 任务实例信息
      */
-    private void doAlert(String exprResult, ConsistencyTaskInstance taskInstance) {
-        if (StringUtils.isEmpty(exprResult)) {
-            return;
-        }
-        if (!ExpressionUtils.RESULT_FLAG.equals(exprResult)) {
+    private void doAlert(boolean exprResult, ConsistencyTaskInstance taskInstance) {
+        if (!exprResult) {
             return;
         }
         //  执行相关的动作告警动作 发送钉钉消息/发送短信/访问一个URL接口等等方式 这里暂时先打印一条告警日志来代替 如果业务服务实现了框架提供的接口，则会进行调用相关的告警通知逻辑

@@ -1,4 +1,4 @@
-package moe.ahao.tend.consistency.core.sharding;
+package moe.ahao.tend.consistency.core.spi.shard.shardingstrategy;
 
 import lombok.Data;
 import moe.ahao.tend.consistency.core.adapter.message.LeaderToFollowerHeartbeatRequest;
@@ -28,14 +28,6 @@ public class ConsistencyTaskShardingContext {
         return instance;
     }
 
-    /**
-     * 当前的leader节点id
-     */
-    private PeerNodeId currentLeaderPeerId;
-    /**
-     * 当前节点的id
-     */
-    private PeerNodeId currentPeerId;
     /**
      * 分片结果 key peerId value 分片好的shardIndex集合
      */

@@ -9,27 +9,23 @@ public abstract class AbstractSingleScheduler {
     /**
      * 内部的调度线程
      */
-    private final ScheduledExecutorService scheduledExecutorService;
-    private final int initDelaySecond;
-    private final int delaySecond;
-
+    private ScheduledExecutorService scheduledExecutorService;
     private ScheduledFuture<?> scheduledFuture;
 
-    public AbstractSingleScheduler(String threadName, int initDelaySecond, int delaySecond) {
+    public AbstractSingleScheduler(String threadName) {
+        // TODO 懒加载
         this.scheduledExecutorService = Executors
             .newSingleThreadScheduledExecutor(r -> new Thread(r, threadName));
-        this.initDelaySecond = initDelaySecond;
-        this.delaySecond = delaySecond;
     }
+
 
     /**
      * 开启调度任务
      */
     public void start(Runnable runnable) {
         this.cancel();
-
         this.scheduledFuture = scheduledExecutorService
-            .scheduleWithFixedDelay(runnable, initDelaySecond, delaySecond, TimeUnit.SECONDS);
+            .scheduleWithFixedDelay(runnable, this.initDelaySecond(), this.delaySecond(), TimeUnit.SECONDS);
     }
 
     /**
@@ -38,11 +34,19 @@ public abstract class AbstractSingleScheduler {
     public void start() {
         this.cancel();
         this.scheduledFuture = scheduledExecutorService
-            .scheduleWithFixedDelay(this.task(), initDelaySecond, delaySecond, TimeUnit.SECONDS);
+            .scheduleWithFixedDelay(this.task(), this.initDelaySecond(), this.delaySecond(), TimeUnit.SECONDS);
     }
 
     protected Runnable task() {
         return () -> {};
+    }
+
+    protected int initDelaySecond() {
+        return 0;
+    }
+
+    protected int delaySecond() {
+        return 10;
     }
 
     /**

@@ -1,6 +1,8 @@
 package moe.ahao.tend.consistency.core.utils;
 
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -8,13 +10,9 @@ import java.util.Enumeration;
 
 /**
  * 获取本机ip
- *
- * @author zhonghuashishan
  **/
+@Slf4j
 public class NetUtils {
-
-    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(NetUtils.class);
-
     /**
      * 获取当前节点的地址信息
      *
@@ -37,7 +35,7 @@ public class NetUtils {
                 }
             }
         } catch (Exception e) {
-            LOG.error("获取本机ip地址时，发生异常", e);
+            log.error("获取本机ip地址时，发生异常", e);
         }
         return null;
     }

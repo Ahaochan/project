@@ -1,4 +1,4 @@
-package moe.ahao.tend.consistency.core.custom.query;
+package moe.ahao.tend.consistency.core.spi.query;
 
 import java.util.Calendar;
 import java.util.Date;

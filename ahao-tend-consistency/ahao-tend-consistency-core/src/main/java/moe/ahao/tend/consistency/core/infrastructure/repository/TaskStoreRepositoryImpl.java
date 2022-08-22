@@ -2,7 +2,7 @@ package moe.ahao.tend.consistency.core.infrastructure.repository;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import moe.ahao.tend.consistency.core.custom.query.TaskTimeRangeQuery;
+import moe.ahao.tend.consistency.core.spi.query.TaskTimeRangeQuery;
 import moe.ahao.tend.consistency.core.infrastructure.config.TendConsistencyConfiguration;
 import moe.ahao.tend.consistency.core.infrastructure.enums.ConsistencyTaskStatusEnum;
 import moe.ahao.tend.consistency.core.infrastructure.exceptions.ConsistencyException;

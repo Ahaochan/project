@@ -1,6 +1,6 @@
 package com.ruyuan.eshop.range;
 
-import moe.ahao.tend.consistency.core.custom.query.TaskTimeRangeQuery;
+import moe.ahao.tend.consistency.core.spi.query.TaskTimeRangeQuery;
 import moe.ahao.tend.consistency.core.utils.DateUtils;
 import org.springframework.stereotype.Component;
 

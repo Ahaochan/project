@@ -2,8 +2,9 @@ package moe.ahao.tend.consistency.core.infrastructure.repository.impl.mybatis.da
 
 import lombok.extern.slf4j.Slf4j;
 import moe.ahao.tend.consistency.core.annotation.ConsistencyTask;
-import moe.ahao.tend.consistency.core.custom.shard.SnowflakeShardingKeyGenerator;
+import moe.ahao.tend.consistency.core.spi.shard.shardkey.SnowflakeShardingKeyGenerator;
 import moe.ahao.tend.consistency.core.election.PeerElectionHandler;
+import moe.ahao.tend.consistency.core.election.PeerNodeManager;
 import moe.ahao.tend.consistency.core.infrastructure.config.TendConsistencyConfiguration;
 import moe.ahao.tend.consistency.core.infrastructure.enums.ConsistencyTaskStatusEnum;
 import moe.ahao.tend.consistency.core.infrastructure.enums.PerformanceEnum;
@@ -53,6 +54,8 @@ public class ConsistencyTaskInstanceFactory {
      */
     @Autowired
     private TendConsistencyConfiguration tendConsistencyConfiguration;
+    @Autowired
+    private PeerNodeManager peerNodeManager;
 
     /**
      * 根据注解构造构造最终一致性任务的实例
@@ -120,9 +123,9 @@ public class ConsistencyTaskInstanceFactory {
      */
     private Long generateShardKey() {
         SnowflakeShardingKeyGenerator instance = SnowflakeShardingKeyGenerator.getInstance();
-        if (!ObjectUtils.isEmpty(peerElectionHandler.getConsistencyTaskShardingContext()) && StringUtils.isEmpty(workId)) {
-            if (!ObjectUtils.isEmpty(peerElectionHandler.getConsistencyTaskShardingContext().getCurrentPeerId())) {
-                workId = peerElectionHandler.getConsistencyTaskShardingContext().getCurrentPeerId().toString();
+        if (StringUtils.isEmpty(workId)) {
+            if (!ObjectUtils.isEmpty(peerNodeManager.getSelfPeerNode())) {
+                workId = peerNodeManager.getSelfPeerNode().getId().toString();
                 instance.setWorkerId(workId);
             }
         }
