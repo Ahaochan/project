@@ -6,11 +6,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 负责保存任务执行状态的组件
- *
- * @author zhonghuashishan
- * @version 1.0
  */
 public interface ProcessStateStore {
+    String BEAN_NAME = "processStateStore";
 
     /**
      * 记录流程的元数据

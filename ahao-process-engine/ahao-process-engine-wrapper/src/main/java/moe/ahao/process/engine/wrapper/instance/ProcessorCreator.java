@@ -4,11 +4,9 @@ import moe.ahao.process.engine.core.process.Processor;
 
 /**
  * 流程节点实例化器
- *
- * @author zhonghuashishan
- * @version 1.0
  */
 public interface ProcessorCreator {
+    String BEAN_NAME = "processorCreator";
     /**
      * 创建实例
      *

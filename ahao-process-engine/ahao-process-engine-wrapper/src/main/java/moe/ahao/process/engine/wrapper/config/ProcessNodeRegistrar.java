@@ -1,5 +1,6 @@
 package moe.ahao.process.engine.wrapper.config;
 
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import moe.ahao.process.engine.core.store.ProcessStateStore;
 import moe.ahao.process.engine.wrapper.instance.ProcessorCreator;
@@ -7,7 +8,8 @@ import moe.ahao.process.engine.wrapper.model.ProcessContextFactory;
 import moe.ahao.process.engine.wrapper.model.ProcessModel;
 import moe.ahao.process.engine.wrapper.parse.ClassPathXmlProcessParser;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -18,13 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class ProcessNodeRegistrar implements ImportBeanDefinitionRegistrar {
-
-    private final BeanFactory beanFactory;
-
-    public ProcessNodeRegistrar(BeanFactory beanFactory) {
-        this.beanFactory = beanFactory;
-    }
+public class ProcessNodeRegistrar implements BeanFactoryAware, ImportBeanDefinitionRegistrar {
+    @Setter
+    private BeanFactory beanFactory;
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
@@ -44,14 +42,14 @@ public class ProcessNodeRegistrar implements ImportBeanDefinitionRegistrar {
             // 3. 手动注册ProcessContextFactory的实例Bean
             BeanDefinitionBuilder bdb = BeanDefinitionBuilder.rootBeanDefinition(ProcessContextFactory.class);
             bdb.addConstructorArgValue(new ArrayList<>(processList));
-            ProcessorCreator processorCreator = beanFactory.getBean(ProcessorCreator.class);
-            bdb.addConstructorArgValue(processorCreator);
-            ObjectProvider<ProcessStateStore> processStateStore = beanFactory.getBeanProvider(ProcessStateStore.class);
-            processStateStore.ifAvailable(bdb::addConstructorArgValue);
+            bdb.addConstructorArgReference(ProcessorCreator.BEAN_NAME);
+            if(beanDefinitionRegistry.containsBeanDefinition(ProcessStateStore.BEAN_NAME)) {
+                bdb.addConstructorArgReference(ProcessStateStore.BEAN_NAME);
+            }
             beanDefinitionRegistry.registerBeanDefinition(ProcessContextFactory.class.getName(), bdb.getBeanDefinition());
         } catch (Exception e) {
             log.error("ProcessNodeRegistrar register fail!", e);
-            System.exit(1);
+            throw new BeanInitializationException("ProcessNodeRegistrar register fail!", e);
         }
     }
 }

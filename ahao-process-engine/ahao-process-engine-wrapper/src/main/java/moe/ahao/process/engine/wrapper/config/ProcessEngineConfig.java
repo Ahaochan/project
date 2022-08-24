@@ -5,7 +5,7 @@ import moe.ahao.process.engine.wrapper.instance.SpringBeanInstanceCreator;
 import org.springframework.context.annotation.Bean;
 
 public class ProcessEngineConfig {
-    @Bean
+    @Bean(ProcessorCreator.BEAN_NAME)
     public ProcessorCreator processorCreator() {
         return new SpringBeanInstanceCreator();
     }
