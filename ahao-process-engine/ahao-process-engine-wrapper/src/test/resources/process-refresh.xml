@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-context xmlns="http://www.w3school.com.cn"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.w3school.com.cn process-engine.xsd">
+    <process name="refresh">
+        <node name="A" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="B" begin="true"/>
+        <node name="B" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="C"/>
+        <node name="C" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="D"/>
+        <node name="D" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo"/>
+    </process>
+</process-context>

@@ -17,7 +17,6 @@
     <modules>
         <module>ahao-process-engine-core</module>
         <module>ahao-process-engine-wrapper</module>
-        <module>ahao-process-engine-demo</module>
     </modules>
 
     <dependencyManagement>
@@ -25,12 +24,18 @@
             <dependency>
                 <groupId>moe.ahao</groupId>
                 <artifactId>ahao-process-engine-core</artifactId>
-                <version>1.0.0</version>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>moe.ahao</groupId>
+                <artifactId>ahao-process-engine-core</artifactId>
+                <type>test-jar</type>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>moe.ahao</groupId>
                 <artifactId>ahao-process-engine-wrapper</artifactId>
-                <version>1.0.0</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

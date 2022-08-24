@@ -1,12 +1,13 @@
 <?xml version="1.0" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://www.w3school.com.cn"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3school.com.cn"
            xmlns="http://www.w3school.com.cn"
            elementFormDefault="qualified">
+    <!-- 定义<process-context>里的规则 -->
     <xs:element name="process-context">
         <xs:complexType>
             <xs:sequence>
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <!-- 允许包含process标签 -->
                     <xs:element ref="process"/>
                     <xs:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:choice>
@@ -14,24 +15,33 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- 定义<process>里的规则 -->
     <xs:element name="process">
         <xs:complexType>
             <xs:sequence>
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <!-- 允许包含node标签 -->
                     <xs:element ref="node"/>
                     <xs:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:choice>
             </xs:sequence>
+            <!-- <process>标签的name属性, 是必填的 -->
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
 
+    <!-- 定义<node>里的规则 -->
     <xs:element name="node">
         <xs:complexType>
+            <!-- <node>标签的name属性, 是必填的 -->
             <xs:attribute name="name" type="xs:string" use="required"/>
+            <!-- <node>标签的class属性, 是必填的 -->
             <xs:attribute name="class" type="xs:string" use="required"/>
+            <!-- <node>标签的begin属性, 是可填的, 默认为false -->
             <xs:attribute name="begin" type="xs:boolean" use="optional" default="false"/>
+            <!-- <node>标签的next属性, 是可填的, 默认为null -->
             <xs:attribute name="next" type="xs:string" use="optional"/>
+            <!-- <node>标签的invoke-method属性, 是可填的, 默认为sync -->
             <xs:attribute name="invoke-method" type="xs:string" use="optional" default="sync"/>
         </xs:complexType>
     </xs:element>
