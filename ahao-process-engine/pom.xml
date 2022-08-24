@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>moe.ahao</groupId>
+        <artifactId>ahao-all</artifactId>
+        <relativePath>../pom.xml</relativePath>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <version>1.0.0</version>
+
+    <artifactId>ahao-process-engine</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>ahao-process-engine-core</module>
+        <module>ahao-process-engine-wrapper</module>
+        <module>ahao-process-engine-demo</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>moe.ahao</groupId>
+                <artifactId>ahao-process-engine-core</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>moe.ahao</groupId>
+                <artifactId>ahao-process-engine-wrapper</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

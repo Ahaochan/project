@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-context xmlns="http://www.w3school.com.cn"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.w3school.com.cn process-engine.xsd">
+    <process name="process1">
+        <node name="node1" class="com.ruyuan.process.engine.demo.springboot.processor.StandardProcessorDemo" next="node2" begin="true"/>
+        <node name="node2" class="com.ruyuan.process.engine.demo.springboot.processor.RollBackProcessorDemo" next="node3"/>
+        <node name="node3" class="com.ruyuan.process.engine.demo.springboot.processor.DynamicProcessorDemo" next="node4,node5"/>
+        <node name="node4" class="com.ruyuan.process.engine.demo.springboot.processor.RollbackProcessorThrowExceptionDemo"/>
+        <node name="node5" class="com.ruyuan.process.engine.demo.springboot.processor.StandardProcessorDemo"/>
+    </process>
+
+</process-context>
