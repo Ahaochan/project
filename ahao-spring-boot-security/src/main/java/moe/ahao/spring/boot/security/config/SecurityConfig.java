@@ -3,7 +3,6 @@ package moe.ahao.spring.boot.security.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SpringBootWebSecurityConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,7 +16,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 /**
  * TODO SpringBootWebSecurityConfiguration已过时
- * 继承 {@link WebSecurityConfigurerAdapter} 以覆盖 {@link SpringBootWebSecurityConfiguration} 配置
+ * 继承 {@link WebSecurityConfigurerAdapter} 以覆盖 {@link org.springframework.boot.autoconfigure.security.servlet.SpringBootWebSecurityConfiguration} 配置
  * 使用 {@link EnableWebSecurity} 修饰配置类, 以启用 {@link WebSecurityConfiguration} 的 springSecurityFilterChain
  *
  */
