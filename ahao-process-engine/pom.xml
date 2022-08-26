@@ -29,6 +29,7 @@
             <dependency>
                 <groupId>moe.ahao</groupId>
                 <artifactId>ahao-process-engine-core</artifactId>
+                <version>${project.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
