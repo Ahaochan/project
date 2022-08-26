@@ -4,4 +4,4 @@ spring.elasticsearch.uris: http://192.168.19.128:9200
 spring.elasticsearch.connection-timeout: 1s
 spring.elasticsearch.socket-timeout: 1s
 
-
+logging.level.tracer: trace

@@ -2,16 +2,14 @@ package moe.ahao.spring.boot.elastic.elasticsearch;
 
 import moe.ahao.spring.boot.Starter;
 import moe.ahao.util.commons.io.JSONHelper;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.core.IndexOperations;
-import org.springframework.data.elasticsearch.core.IndexedObjectInformation;
-import org.springframework.data.elasticsearch.core.SearchHit;
+import org.springframework.data.elasticsearch.core.*;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.*;
 
@@ -28,6 +26,9 @@ class ElasticsearchTest {
     void beforeEach() {
         // 创建索引
         IndexOperations indexOperations = elasticsearchRestTemplate.indexOps(EsUserDO.class);
+        if(indexOperations.exists()) {
+            indexOperations.delete();
+        }
         Assertions.assertFalse(indexOperations.exists());
         Assertions.assertTrue(indexOperations.create());
         Assertions.assertTrue(indexOperations.exists());
@@ -105,8 +106,8 @@ class ElasticsearchTest {
             new EsUserDO("es_id_3", 3L, "user3")
         );
         Iterable<EsUserDO> responseList = elasticsearchRestTemplate.save(list); // for循环插入
-
         Thread.sleep(1000); // 和注解配置有关, @Setting(refreshInterval = "1s")
+
         Query query = new NativeSearchQueryBuilder().build();
         List<EsUserDO> searchList1 = elasticsearchRestTemplate.search(query, EsUserDO.class).get()
             .map(SearchHit::getContent)
@@ -118,12 +119,46 @@ class ElasticsearchTest {
             System.out.println("删除数据, esId:" + userDO.getEsId());
             elasticsearchRestTemplate.delete(userDO.getEsId(), EsUserDO.class);
         }
-
         Thread.sleep(1000); // 和注解配置有关, @Setting(refreshInterval = "1s")
+
         List<EsUserDO> searchList2 = elasticsearchRestTemplate.search(query, EsUserDO.class).get()
             .map(SearchHit::getContent)
             .collect(Collectors.toList());
         System.out.println("查询出结果:" + JSONHelper.toString(searchList2));
         Assertions.assertEquals(0, searchList2.size());
+    }
+
+    @Test
+    void query() throws Exception {
+        List<EsUserDO> list = Arrays.asList(
+            new EsUserDO("es_id_1", 1L, "user1"),
+            new EsUserDO("es_id_2", 2L, "user2"),
+            new EsUserDO("es_id_3", 3L, "user3")
+        );
+        Iterable<EsUserDO> responseList = elasticsearchRestTemplate.save(list); // for循环插入
+        Thread.sleep(1000); // 和注解配置有关, @Setting(refreshInterval = "1s")
+
+        // 适合简单精准查询
+        Query query1 = new CriteriaQuery(new Criteria("username").is("user1").and("dbId").is(1L));
+        SearchHits<EsUserDO> searchHits1 = elasticsearchRestTemplate.search(query1, EsUserDO.class);
+        System.out.println(searchHits1);
+        Assertions.assertEquals(1, searchHits1.getTotalHits());
+        Assertions.assertEquals("es_id_1", searchHits1.getSearchHits().get(0).getContent().getEsId());
+
+        // 适合原生json查询
+        Query query2 = new StringQuery("{ \"match\": { \"username\": { \"query\": \"user1\" } } }");
+        SearchHits<EsUserDO> searchHits2 = elasticsearchRestTemplate.search(query2, EsUserDO.class);
+        System.out.println(searchHits2);
+        Assertions.assertEquals(1, searchHits2.getTotalHits());
+        Assertions.assertEquals("es_id_1", searchHits2.getSearchHits().get(0).getContent().getEsId());
+
+        // 适合面向对象查询
+        Query query3 = new NativeSearchQueryBuilder()
+            .withQuery(QueryBuilders.boolQuery().must(QueryBuilders.termQuery("username", "user1")))
+            .build();
+        SearchHits<EsUserDO> searchHits3 = elasticsearchRestTemplate.search(query3, EsUserDO.class);
+        System.out.println(searchHits3);
+        Assertions.assertEquals(1, searchHits3.getTotalHits());
+        Assertions.assertEquals("es_id_1", searchHits3.getSearchHits().get(0).getContent().getEsId());
     }
 }
