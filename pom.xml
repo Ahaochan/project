@@ -84,7 +84,7 @@
         <module>ahao-spring-cloud-openfeign</module>
         <!-- <module>ahao-spring-cloud-security-oauth2</module> -->
         <module>ahao-spring-cloud-sleuth</module>
-        <module>ahao-spring-cloud-stream</module>
+        <!-- <module>ahao-spring-cloud-stream</module> -->
         <module>ahao-spring-cloud-zookeeper</module>
         <module>ahao-spring-cloud-zuul</module>
         <module>ahao-storm</module>
