@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
  * 4. 调用 Nacos 自带的权重负载均衡算法
  *
  * @see com.alibaba.cloud.nacos.ribbon.NacosRule
+ * @see com.alibaba.cloud.nacos.balancer.NacosBalancer
+ * @see <a href="https://github.com/alibaba/spring-cloud-alibaba/issues/2177">spring-cloud-starter-alibaba-nacos-discovery-2021.1.jar不再支持Ribbon?</a>
  */
 public class NacosLoadBalancerRule extends AbstractLoadBalancerRule {
     private static final Logger logger = LoggerFactory.getLogger(NacosLoadBalancerRule.class);
