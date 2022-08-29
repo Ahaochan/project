@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 @Documented
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import({ProcessNodeRegistrar.class, ProcessEngineConfig.class})
+@Import({ProcessNodeRegistrar.class, ProcessEngineConfig.class, ProcessScheduleConfig.class})
 public @interface EnableProcessEngine {
     /**
      * 配置文件名称

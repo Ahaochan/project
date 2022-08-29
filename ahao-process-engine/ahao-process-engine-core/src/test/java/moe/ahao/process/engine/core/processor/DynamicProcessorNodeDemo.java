@@ -1,15 +1,15 @@
 package moe.ahao.process.engine.core.processor;
 
-import lombok.NoArgsConstructor;
-import moe.ahao.process.engine.core.process.DynamicProcessor;
-import moe.ahao.process.engine.core.process.ProcessContext;
+import moe.ahao.process.engine.core.ProcessContext;
+import moe.ahao.process.engine.core.node.DynamicProcessorNode;
 
 import java.util.List;
 
-@NoArgsConstructor
-public class DynamicProcessorDemo extends DynamicProcessor {
-    public DynamicProcessorDemo(String name) {
-        super(name);
+public class DynamicProcessorNodeDemo extends DynamicProcessorNode {
+    public DynamicProcessorNodeDemo() {
+    }
+    public DynamicProcessorNodeDemo(String name) {
+        this.setName(name);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class DynamicProcessorDemo extends DynamicProcessor {
     }
 
     @Override
-    protected String nextNodeId(ProcessContext context) {
+    public String nextNodeId(ProcessContext context) {
         int id = context.get("id");
         return id % 2 == 0 ? "D" : "E";
     }

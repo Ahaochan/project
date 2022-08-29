@@ -1,15 +1,15 @@
 package moe.ahao.process.engine.core.processor;
 
-import lombok.NoArgsConstructor;
-import moe.ahao.process.engine.core.process.ProcessContext;
-import moe.ahao.process.engine.core.process.StandardProcessor;
+import moe.ahao.process.engine.core.ProcessContext;
+import moe.ahao.process.engine.core.node.StandardProcessorNode;
 
 import java.util.List;
 
-@NoArgsConstructor
-public class StandardProcessorDemo extends StandardProcessor {
-    public StandardProcessorDemo(String name) {
-        super(name);
+public class StandardProcessorNodeDemo extends StandardProcessorNode {
+    public StandardProcessorNodeDemo() {
+    }
+    public StandardProcessorNodeDemo(String name) {
+        this.setName(name);
     }
 
     @Override

@@ -1,15 +1,15 @@
 package moe.ahao.process.engine.core.processor;
 
-import lombok.NoArgsConstructor;
-import moe.ahao.process.engine.core.process.ProcessContext;
-import moe.ahao.process.engine.core.process.RollbackProcessor;
+import moe.ahao.process.engine.core.ProcessContext;
+import moe.ahao.process.engine.core.node.RollbackProcessorNode;
 
 import java.util.List;
 
-@NoArgsConstructor
-public class RollbackOneProcessorDemo extends RollbackProcessor {
-    public RollbackOneProcessorDemo(String name) {
-        super(name);
+public class RollbackOneProcessorNodeDemo extends RollbackProcessorNode {
+    public RollbackOneProcessorNodeDemo() {
+    }
+    public RollbackOneProcessorNodeDemo(String name) {
+        this.setName(name);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class RollbackOneProcessorDemo extends RollbackProcessor {
     }
 
     @Override
-    protected void rollback(ProcessContext context) {
+    public void rollback(ProcessContext context) {
         System.out.println("线程" + Thread.currentThread().getName() + " 回滚执行RollbackProcessor" + this.getName() + ", id:" + context.get("id"));
         ((List<String>)context.get("path")).add(this.getName());
     }

@@ -1,13 +1,8 @@
-package moe.ahao.process.engine.core.store;
+package moe.ahao.process.engine.core.refresh;
 
 import java.util.Map;
 
-/**
- * @author zhonghuashishan
- * @version 1.0
- */
 public interface ProcessRefreshPolicy {
-
     /**
      * 是否继续执行流程
      *
@@ -16,5 +11,4 @@ public interface ProcessRefreshPolicy {
      * @return 是否继续执行流程
      */
     boolean continueExecuteProcess(String name, Map<String, String> metadata);
-
 }

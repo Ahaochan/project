@@ -1,7 +1,7 @@
 package moe.ahao.process.engine.wrapper.instance;
 
 import lombok.Setter;
-import moe.ahao.process.engine.core.process.Processor;
+import moe.ahao.process.engine.core.node.ProcessorNode;
 import org.springframework.beans.factory.BeanCreationNotAllowedException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
@@ -18,16 +18,16 @@ public class SpringBeanInstanceCreator implements ProcessorCreator, ApplicationC
     private ApplicationContext applicationContext;
 
     @Override
-    public Processor newInstance(Class<?> clazz, String name) {
+    public ProcessorNode newInstance(Class<?> clazz, String name) {
         // 1. 通过Spring容器获取Processor的实例对象
         Object bean = this.getBean(clazz, name);
-        if (!(bean instanceof Processor)) {
+        if (!(bean instanceof ProcessorNode)) {
             throw new IllegalArgumentException("类" + clazz.getName() + "不是Processor实例");
         }
         // 2. 初始化name参数
-        Processor processor = (Processor) bean;
+        ProcessorNode processor = (ProcessorNode) bean;
         processor.setName(name);
-        return (Processor) bean;
+        return (ProcessorNode) bean;
     }
 
     private Object getBean(Class<?> clazz, String name) {

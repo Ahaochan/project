@@ -14,6 +14,7 @@ import java.io.StringReader;
 @Slf4j
 public class StringXmlProcessParser extends XmlProcessParser {
     private final String xmlConfig;
+
     public StringXmlProcessParser(String xmlConfig) {
         this.xmlConfig = xmlConfig;
     }

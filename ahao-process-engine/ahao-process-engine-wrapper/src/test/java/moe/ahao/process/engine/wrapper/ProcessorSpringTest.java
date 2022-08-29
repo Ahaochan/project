@@ -1,22 +1,19 @@
 package moe.ahao.process.engine.wrapper;
 
-import moe.ahao.process.engine.core.process.ProcessContext;
-import moe.ahao.process.engine.core.processor.DynamicProcessorDemo;
-import moe.ahao.process.engine.core.processor.RollbackOneProcessorDemo;
-import moe.ahao.process.engine.core.processor.RollbackTwoProcessorDemo;
-import moe.ahao.process.engine.core.processor.StandardProcessorDemo;
+import moe.ahao.process.engine.core.ProcessContext;
+import moe.ahao.process.engine.core.processor.DynamicProcessorNodeDemo;
+import moe.ahao.process.engine.core.processor.RollbackOneProcessorNodeDemo;
+import moe.ahao.process.engine.core.processor.RollbackTwoProcessorNodeDemo;
+import moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo;
 import moe.ahao.process.engine.wrapper.config.EnableProcessEngine;
-import moe.ahao.process.engine.wrapper.model.ProcessContextFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +21,6 @@ import java.util.List;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = ProcessorSpringTest.TestConfig.class)
 @EnableProcessEngine("process-demo.xml")
 class ProcessorSpringTest {
@@ -36,26 +32,34 @@ class ProcessorSpringTest {
     static class TestConfig {
         @Bean
         @Scope(SCOPE_PROTOTYPE)
-        public DynamicProcessorDemo dynamicProcessorDemo() {
-            return new DynamicProcessorDemo();
+        public DynamicProcessorNodeDemo dynamicProcessorDemo() {
+            DynamicProcessorNodeDemo node = new DynamicProcessorNodeDemo();
+            node.setName("动态节点");
+            return node;
         }
 
         @Bean
         @Scope(SCOPE_PROTOTYPE)
-        public RollbackOneProcessorDemo rollbackOneProcessorDemo() {
-            return new RollbackOneProcessorDemo();
+        public RollbackOneProcessorNodeDemo rollbackOneProcessorDemo() {
+            RollbackOneProcessorNodeDemo node = new RollbackOneProcessorNodeDemo();
+            node.setName("回滚节点1");
+            return node;
         }
 
         @Bean
         @Scope(SCOPE_PROTOTYPE)
-        public RollbackTwoProcessorDemo rollbackTwoProcessorDemo() {
-            return new RollbackTwoProcessorDemo();
+        public RollbackTwoProcessorNodeDemo rollbackTwoProcessorDemo() {
+            RollbackTwoProcessorNodeDemo node = new RollbackTwoProcessorNodeDemo();
+            node.setName("回滚节点2");
+            return node;
         }
 
         @Bean
         @Scope(SCOPE_PROTOTYPE)
-        public StandardProcessorDemo standardProcessorDemo() {
-            return new StandardProcessorDemo();
+        public StandardProcessorNodeDemo standardProcessorDemo() {
+            StandardProcessorNodeDemo node = new StandardProcessorNodeDemo();
+            node.setName("标准节点");
+            return node;
         }
     }
 

@@ -2,9 +2,9 @@ package moe.ahao.process.engine.wrapper.model;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import moe.ahao.process.engine.core.node.ProcessorDefinition;
+import moe.ahao.process.engine.core.definition.ProcessorDefinition;
+import moe.ahao.process.engine.core.definition.ProcessorNodeDefinition;
 import moe.ahao.process.engine.core.node.ProcessorNode;
-import moe.ahao.process.engine.core.process.Processor;
 import moe.ahao.process.engine.wrapper.instance.ProcessorCreator;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -55,15 +55,15 @@ public class ProcessModel {
         }
     }
 
-    public ProcessorDefinition buildDefinition(ProcessorCreator creator) throws Exception {
-        Map<String, ProcessorNode> processorNodeMap = new HashMap<>();
+    public ProcessorDefinition buildDefinition(ProcessorCreator creator) {
+        Map<String, ProcessorNodeDefinition> processorNodeMap = new HashMap<>();
         // 1. 第一次循环，将所有的流程节点配置ProcessNodeModel转化为ProcessorNode实例
-        ProcessorNode firstNode = null;
+        ProcessorNodeDefinition firstNode = null;
         for (ProcessNodeModel nodeModel : nodeModels.values()) {
             // 2.1. 获取业务逻辑处理的Processor
             Class<?> clazz = nodeModel.getClazz();
-            Processor processor = creator.newInstance(clazz, nodeModel.getName());
-            ProcessorNode processorNode = new ProcessorNode(nodeModel.getName(), processor);
+            ProcessorNode processor = creator.newInstance(clazz, nodeModel.getName());
+            ProcessorNodeDefinition processorNode = new ProcessorNodeDefinition(nodeModel.getName(), processor);
             if (nodeModel.isBegin()) {
                 // 2.2. 初始化起始节点, 在addNode()方法里已经进行了唯一性校验
                 firstNode = processorNode;
@@ -74,7 +74,7 @@ public class ProcessModel {
             processorNodeMap.put(nodeModel.getName(), processorNode);
         }
         // 2. 第二次循环，为所有节点建立关联关系
-        for (ProcessorNode processNode : processorNodeMap.values()) {
+        for (ProcessorNodeDefinition processNode : processorNodeMap.values()) {
             Set<String> nextNodeNames = nodeModels.get(processNode.getName()).getNextNodeNames();
             if (CollectionUtils.isEmpty(nextNodeNames)) {
                 continue;
@@ -88,7 +88,7 @@ public class ProcessModel {
             }
         }
         // 3. 创建一个流程实例对象ProcessorDefinition
-        ProcessorDefinition processorDefinition = new ProcessorDefinition(name, firstNode);
+        ProcessorDefinition processorDefinition = new ProcessorDefinition.Builder(name, firstNode).build();
         return processorDefinition;
     }
 }

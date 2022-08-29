@@ -13,5 +13,5 @@ public interface ProcessParser {
      *
      * @return 解析结果
      */
-    List<ProcessModel> parse() throws Exception;
+    List<ProcessModel> parse();
 }

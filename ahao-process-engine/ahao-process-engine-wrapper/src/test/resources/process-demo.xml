@@ -3,41 +3,41 @@
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.w3school.com.cn process-engine.xsd">
     <process name="standard">
-        <node name="A" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="B" begin="true"/>
-        <node name="B" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="C"/>
-        <node name="C" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo"/>
+        <node name="A" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo" next="B" begin="true"/>
+        <node name="B" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo" next="C"/>
+        <node name="C" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo"/>
     </process>
 
     <process name="rollback">
-        <node name="A" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="B" begin="true"/>
-        <node name="B" class="moe.ahao.process.engine.core.processor.RollbackOneProcessorDemo" next="C"/>
-        <node name="C" class="moe.ahao.process.engine.core.processor.RollbackTwoProcessorDemo"/>
+        <node name="A" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo" next="B" begin="true"/>
+        <node name="B" class="moe.ahao.process.engine.core.processor.RollbackOneProcessorNodeDemo" next="C"/>
+        <node name="C" class="moe.ahao.process.engine.core.processor.RollbackTwoProcessorNodeDemo"/>
     </process>
 
     <process name="dynamic">
-        <node name="A" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="B" begin="true"/>
-        <node name="B" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="C"/>
-        <node name="C" class="moe.ahao.process.engine.core.processor.DynamicProcessorDemo" next="D,E" />
-        <node name="D" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo"/>
-        <node name="E" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo"/>
+        <node name="A" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo" next="B" begin="true"/>
+        <node name="B" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo" next="C"/>
+        <node name="C" class="moe.ahao.process.engine.core.processor.DynamicProcessorNodeDemo" next="D,E" />
+        <node name="D" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo"/>
+        <node name="E" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo"/>
     </process>
 
     <process name="process-async">
-        <node name="node1" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="node2"
+        <node name="node1" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo" next="node2"
               begin="true"/>
-        <node name="node2" class="moe.ahao.process.engine.core.processor.RollbackOneProcessorDemo" next="node3"/>
-        <node name="node3" class="moe.ahao.process.engine.core.processor.DynamicProcessorDemo" next="node4,node5"
+        <node name="node2" class="moe.ahao.process.engine.core.processor.RollbackOneProcessorNodeDemo" next="node3"/>
+        <node name="node3" class="moe.ahao.process.engine.core.processor.DynamicProcessorNodeDemo" next="node4,node5"
               invoke-method="async"/>
-        <node name="node4" class="moe.ahao.process.engine.core.processor.RollbackTwoProcessorDemo"/>
-        <node name="node5" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo"/>
+        <node name="node4" class="moe.ahao.process.engine.core.processor.RollbackTwoProcessorNodeDemo"/>
+        <node name="node5" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo"/>
     </process>
 
     <process name="process2">
-        <node name="node1" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="node2"
+        <node name="node1" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo" next="node2"
               begin="true"/>
-        <node name="node2" class="moe.ahao.process.engine.core.processor.RollbackOneProcessorDemo" next="node3"/>
-        <node name="node3" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo" next="node4"/>
-        <node name="node4" class="moe.ahao.process.engine.core.processor.RollbackTwoProcessorDemo" next="node5"/>
-        <node name="node5" class="moe.ahao.process.engine.core.processor.StandardProcessorDemo"/>
+        <node name="node2" class="moe.ahao.process.engine.core.processor.RollbackOneProcessorNodeDemo" next="node3"/>
+        <node name="node3" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo" next="node4"/>
+        <node name="node4" class="moe.ahao.process.engine.core.processor.RollbackTwoProcessorNodeDemo" next="node5"/>
+        <node name="node5" class="moe.ahao.process.engine.core.processor.StandardProcessorNodeDemo"/>
     </process>
 </process-context>

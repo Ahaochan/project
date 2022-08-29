@@ -1,29 +1,20 @@
 package moe.ahao.process.engine.wrapper.config;
 
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import moe.ahao.process.engine.core.store.ProcessStateStore;
+import moe.ahao.process.engine.core.store.ProcessStateDAO;
 import moe.ahao.process.engine.wrapper.instance.ProcessorCreator;
-import moe.ahao.process.engine.wrapper.model.ProcessContextFactory;
-import moe.ahao.process.engine.wrapper.model.ProcessModel;
+import moe.ahao.process.engine.wrapper.ProcessContextFactory;
 import moe.ahao.process.engine.wrapper.parse.ClassPathXmlProcessParser;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class ProcessNodeRegistrar implements BeanFactoryAware, ImportBeanDefinitionRegistrar {
-    @Setter
-    private BeanFactory beanFactory;
-
+public class ProcessNodeRegistrar implements ImportBeanDefinitionRegistrar {
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
         try {
@@ -35,16 +26,15 @@ public class ProcessNodeRegistrar implements BeanFactoryAware, ImportBeanDefinit
             }
             String configFile = (String) annotationAttributes.get("value");
 
-            // 2. 解析得到流程列表, 一个ProcessModel就是一个流程定义
-            ClassPathXmlProcessParser classPathXmlProcessParser = new ClassPathXmlProcessParser(configFile);
-            List<ProcessModel> processList = classPathXmlProcessParser.parse();
+            // 2. 从配置里读取配置文件路径, 初始化一个配置解析器
+            ClassPathXmlProcessParser parser = new ClassPathXmlProcessParser(configFile);
 
             // 3. 手动注册ProcessContextFactory的实例Bean
             BeanDefinitionBuilder bdb = BeanDefinitionBuilder.rootBeanDefinition(ProcessContextFactory.class);
-            bdb.addConstructorArgValue(new ArrayList<>(processList));
+            bdb.addConstructorArgValue(parser);
             bdb.addConstructorArgReference(ProcessorCreator.BEAN_NAME);
-            if(beanDefinitionRegistry.containsBeanDefinition(ProcessStateStore.BEAN_NAME)) {
-                bdb.addConstructorArgReference(ProcessStateStore.BEAN_NAME);
+            if(beanDefinitionRegistry.containsBeanDefinition(ProcessStateDAO.BEAN_NAME)) {
+                bdb.addConstructorArgReference(ProcessStateDAO.BEAN_NAME);
             }
             beanDefinitionRegistry.registerBeanDefinition(ProcessContextFactory.class.getName(), bdb.getBeanDefinition());
         } catch (Exception e) {

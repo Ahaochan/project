@@ -1,6 +1,6 @@
 package moe.ahao.process.engine.wrapper.instance;
 
-import moe.ahao.process.engine.core.process.Processor;
+import moe.ahao.process.engine.core.node.ProcessorNode;
 
 /**
  * 流程节点实例化器
@@ -14,5 +14,5 @@ public interface ProcessorCreator {
      * @param processorName 节点id
      * @return 实例化对象
      */
-    Processor newInstance(Class<?> clazz, String processorName) throws ReflectiveOperationException;
+    ProcessorNode newInstance(Class<?> clazz, String processorName);
 }

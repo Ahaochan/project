@@ -1,7 +1,6 @@
 package moe.ahao.process.engine.wrapper;
 
-import moe.ahao.process.engine.core.process.ProcessContext;
-import moe.ahao.process.engine.wrapper.model.ProcessContextFactory;
+import moe.ahao.process.engine.core.ProcessContext;
 import moe.ahao.process.engine.wrapper.parse.ClassPathXmlProcessParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +14,7 @@ public class ProcessorRefreshTest {
     @Test
     @DisplayName("配置更新")
     void refresh() throws Exception {
-        ProcessContextFactory factory = new ProcessContextFactory(new ClassPathXmlProcessParser("process-demo.xml").parse());
+        ProcessContextFactory factory = new ProcessContextFactory(new ClassPathXmlProcessParser("process-demo.xml"));
         this.assertStandard(factory);
 
         Assertions.assertThrows(Exception.class, () -> factory.refresh(new ClassPathXmlProcessParser("process-no-begin.xml").parse(), true)).printStackTrace();

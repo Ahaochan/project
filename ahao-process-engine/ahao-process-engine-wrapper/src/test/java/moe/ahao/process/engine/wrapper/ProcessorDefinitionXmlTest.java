@@ -2,9 +2,7 @@ package moe.ahao.process.engine.wrapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import moe.ahao.process.engine.core.process.ProcessContext;
-import moe.ahao.process.engine.core.store.DefaultProcessStateStore;
-import moe.ahao.process.engine.core.store.ProcessStateStore;
+import moe.ahao.process.engine.core.ProcessContext;
 import moe.ahao.process.engine.wrapper.parse.ClassPathXmlProcessParser;
 import moe.ahao.process.engine.wrapper.parse.ProcessParser;
 import org.junit.jupiter.api.Assertions;
@@ -24,21 +22,21 @@ public class ProcessorDefinitionXmlTest {
     @DisplayName("没有起始节点")
     void noFirst() {
         ProcessParser parser = new ClassPathXmlProcessParser("process-no-begin.xml");
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new ProcessEngine(parser));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new ProcessContextFactory(parser));
     }
 
     @Test
     @DisplayName("流程成环判断")
     public void ring() throws Exception {
         ProcessParser parser = new ClassPathXmlProcessParser("process-ring.xml");
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new ProcessEngine(parser));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new ProcessContextFactory(parser));
     }
 
     @Test
     @DisplayName("标准流程")
     public void standard() throws Exception {
         ProcessParser parser = new ClassPathXmlProcessParser("process-demo.xml");
-        ProcessEngine processEngine = new ProcessEngine(parser);
+        ProcessContextFactory processEngine = new ProcessContextFactory(parser);
 
         ProcessContext context = processEngine.getContext("standard");
         context.set("id", 123456);
@@ -53,7 +51,7 @@ public class ProcessorDefinitionXmlTest {
     @DisplayName("回滚流程")
     public void rollback() throws Exception {
         ProcessParser parser = new ClassPathXmlProcessParser("process-demo.xml");
-        ProcessEngine processEngine = new ProcessEngine(parser);
+        ProcessContextFactory processEngine = new ProcessContextFactory(parser);
 
         ProcessContext context = processEngine.getContext("rollback");
         context.set("id", 123456);
@@ -68,7 +66,7 @@ public class ProcessorDefinitionXmlTest {
     @DisplayName("动态流程")
     public void dynamic() throws Exception {
         ProcessParser parser = new ClassPathXmlProcessParser("process-demo.xml");
-        ProcessEngine processEngine = new ProcessEngine(parser);
+        ProcessContextFactory processEngine = new ProcessContextFactory(parser);
 
         ProcessContext context = processEngine.getContext("dynamic");
         context.set("id", 123456);
@@ -77,19 +75,6 @@ public class ProcessorDefinitionXmlTest {
         context.start();
         List<String> expect = Arrays.asList("A", "B", "C", "D");
         Assertions.assertIterableEquals(expect, context.get("path"));
-    }
-
-    @Test
-    public void store() throws Exception {
-        ProcessStateStore store = new DefaultProcessStateStore(redissonClient());
-        ProcessEngine processEngine = new ProcessEngine(new ClassPathXmlProcessParser("process-demo.xml"), store);
-
-        ProcessContext process1 = processEngine.getContext("process2");
-
-        TestParam testParam = new TestParam("1", "23");
-        process1.set("param", testParam);
-        process1.set("id", "process2");
-        process1.start();
     }
 
     private static RedissonClient redissonClient() {
