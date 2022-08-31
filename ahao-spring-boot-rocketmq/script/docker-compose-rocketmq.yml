@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  rocketmq-ns:
+    image: apache/rocketmq:4.6.0
+    container_name: rocketmq-ns
+    restart: on-failure
+    ports:
+      - "9876:9876"
+    networks:
+      - ahaonet
+    command: ['/home/rocketmq/rocketmq-4.6.0/bin/mqnamesrv']
+  rocketmq-broker:
+    depends_on:
+      - rocketmq-ns
+    image: apache/rocketmq:4.6.0
+    container_name: rocketmq-broker
+    restart: on-failure
+    ports:
+      - "10909:10909"
+      - "10911:10911"
+      - "10912:10912"
+    volumes:
+      - /opt/rocketmq/conf/broker.conf:/home/rocketmq/rocketmq-4.6.0/conf/broker.conf
+    networks:
+      - ahaonet
+    command: ['/home/rocketmq/rocketmq-4.6.0/bin/mqbroker', '-n', 'rocketmq-ns:9876', '-c', '/home/rocketmq/rocketmq-4.6.0/conf/broker.conf']
+  rocketmq-dashboard:
+    depends_on:
+      - rocketmq-ns
+    image: apacherocketmq/rocketmq-dashboard:1.0.0
+    container_name: rocketmq-dashboard
+    restart: on-failure
+    ports:
+      - "8091:8080"
+    environment:
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=rocketmq-ns:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
+    networks:
+      - ahaonet
+networks:
+  ahaonet:
+    name: ahaonet
+    driver: bridge
+# docker-compose -f docker-compose-rocketmq.yml up -d

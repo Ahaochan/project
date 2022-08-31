@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:6.2.2
+    container_name: redis
+    restart: on-failure
+    ports:
+      - "6379:6379"
+    networks:
+      - ahaonet
+    command: ['redis-server']
+    # command: ['redis-server', '--requirepass', 'root']
+networks:
+  ahaonet:
+    name: ahaonet
+    driver: bridge
+# docker-compose -f docker-compose-redis.yml up -d

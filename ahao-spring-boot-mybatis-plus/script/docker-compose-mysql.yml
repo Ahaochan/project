@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    privileged: true
+    restart: on-failure
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_HOST=%
+      - TZ=Asia/Shanghai
+    networks:
+      - ahaonet
+    volumes:
+      - /opt/mysql/conf:/etc/mysql
+      - /opt/mysql/data:/var/lib/mysql
+      - /opt/mysql/logs:/var/log/mysql
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--innodb_buffer_pool_size=64M']
+networks:
+  ahaonet:
+    name: ahaonet
+    driver: bridge
+# docker-compose -f docker-compose-mysql.yml up -d
