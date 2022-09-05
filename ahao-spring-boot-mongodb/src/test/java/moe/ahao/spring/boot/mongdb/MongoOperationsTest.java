@@ -6,7 +6,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
@@ -26,9 +25,10 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 @EnableAutoConfiguration(exclude = EmbeddedMongoAutoConfiguration.class)
+// @ActiveProfiles("test")
 public class MongoOperationsTest {
-    @RegisterExtension
-    static MongoDBExtension mongoDBExtension = new MongoDBExtension();
+    // @RegisterExtension
+    // static MongoDBExtension mongoDBExtension = new MongoDBExtension();
 
     @Autowired
     private MongoOperations operations;
@@ -46,7 +46,7 @@ public class MongoOperationsTest {
     }
 
     @AfterEach
-    void tearDown() {
+    void afterEach() {
         operations.remove(new Query(), User.class);
         Assertions.assertEquals(0, operations.findAll(User.class).size());
     }
