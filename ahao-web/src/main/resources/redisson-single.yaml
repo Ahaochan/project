@@ -6,7 +6,7 @@ transportMode: NIO # 传输模式
 
 # 单节点配置
 singleServerConfig:
-    address: "redis://192.168.153.137:6379"
+    address: "redis://192.168.19.128:6379"
     database: 0
     password: null
     clientName: null                         # 在Redis节点里显示的客户端名称

@@ -1,5 +1,5 @@
 ### GET 请求
-GET {{host}}/users/{{username}}
+GET {{githubhost}}/users/Ahaochan
 Accept: application/vnd.github.v3+json
 
 > {%
@@ -11,7 +11,7 @@ Accept: application/vnd.github.v3+json
  %}
 
 ### POST 请求 JSON
-POST {{host}}/repos/{{username}}/{{repo}}/issues
+POST {{githubhost}}/repos/Ahaochan/Ahaochan.github.io/issues
 Accept: application/vnd.github.v3+json
 Content-Type: application/json
 Authorization: token {{OAUTH-TOKEN}}

@@ -23,6 +23,15 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!--======================================================= Spring Boot =======================================================-->
+
+        <!--======================================================= SkyWalking =======================================================-->
+        <!-- https://github.com/apache/skywalking-java/blob/main/docs/en/setup/service-agent/java-agent/Application-toolkit-logback-1.x.md#print-skywalking-context-in-your-logs -->
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+            <version>8.7.0</version>
+        </dependency>
+        <!--======================================================= SkyWalking =======================================================-->
     </dependencies>
 
     <build>
