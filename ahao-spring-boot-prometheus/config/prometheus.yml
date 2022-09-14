@@ -1,0 +1,39 @@
+# my global config # prometheus的全局配置
+global:
+  # 指定抓取数据的时间间隔
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  # 指定prometheus重新评估⼀次规则的时间间隔
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute. # scrape_timeout is set to the global default (10s).
+# Alertmanager configuration # 警报管理器Alertmanager的配置项
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets:
+        # - alertmanager:9093
+
+# 指定记录规则和警报规则的⻆⾊列表
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# 指定prometheus抓取的端点数据 # 抓取指标的数据源叫做：端点
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # 从本机的9090端⼝抓取数据并追加到 http://localhost:9090/metrics
+  # 指定抓取prometheus机器本身的作业数据
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+      - targets: ["127.0.0.1:9090"]
+  # Node exporter
+  - job_name: "node_exporter"
+    static_configs:
+      - targets: ["127.0.0.1:9100"]
+  - job_name: "jvm"
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ["127.0.0.1:8080"]

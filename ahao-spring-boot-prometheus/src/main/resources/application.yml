@@ -1,0 +1,9 @@
+server.port: 8080
+spring.application.name: ahao-spring-boot-prometheus
+
+management.health.db.enabled: false
+management.endpoints.web.exposure.include: 'info,health,prometheus'
+management.metrics.export.prometheus.enabled: true
+management.metrics.tags.application: ${spring.application.name}
+management.endpoint.prometheus.enabled: true
+management.endpoint.metrics.enabled: true
