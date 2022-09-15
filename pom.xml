@@ -23,6 +23,7 @@
         <module>ahao-jmh</module>
         <module>ahao-mapstruct</module>
         <module>ahao-mybatis-generator</module>
+        <module>ahao-operate-log</module>
         <module>ahao-process-engine</module>
         <module>ahao-sonar</module>
         <module>ahao-spring-boot-actuator</module>
