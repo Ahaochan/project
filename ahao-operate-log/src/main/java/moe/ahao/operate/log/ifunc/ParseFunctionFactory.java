@@ -1,8 +1,8 @@
 package moe.ahao.operate.log.ifunc;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -10,10 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 
 public class ParseFunctionFactory {
+    private final Map<String, IParseFunction> allFunctionMap = new ConcurrentHashMap<>();
 
-    private Map<String, IParseFunction> allFunctionMap = new ConcurrentHashMap<>();
-
-    @Autowired
     public ParseFunctionFactory(List<IParseFunction> parseFunctions) {
         if (CollectionUtils.isEmpty(parseFunctions)) {
             return;

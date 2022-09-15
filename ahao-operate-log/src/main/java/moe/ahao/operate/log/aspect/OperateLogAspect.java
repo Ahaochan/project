@@ -101,7 +101,7 @@ public class OperateLogAspect {
             throw new UnsupportedOperationException("bizNo cannot be empty!!");
         }
         // 解析日志模板和表达式
-        LogTemplateResult logTemplateResult = parseLogTemplateResult(operateLog.content());
+        LogTemplateResult logTemplateResult = parseLogTemplateResult(operateLog.success());
         // 解析操作人
         operator = expressionEvaluator.executeStringExpression(point, operateLog.operator());
 
@@ -135,7 +135,7 @@ public class OperateLogAspect {
             logContent = String.format(logContentTemplate, expressionResult.toArray(new String[expressionResult.size()]));
         } else {
             // 普通logContent
-            logContent = operateLog.content();
+            logContent = operateLog.success();
         }
 
         // 构造操作日志实例
