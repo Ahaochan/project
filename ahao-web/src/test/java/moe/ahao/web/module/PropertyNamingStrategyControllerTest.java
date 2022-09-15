@@ -3,7 +3,7 @@ package moe.ahao.web.module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import moe.ahao.embedded.RedisExtension;
-import moe.ahao.spring.web.config.JacksonHttpMessageConvertersWebMvcConfigurer;
+import moe.ahao.spring.web.config.JacksonHttpMessageConvertersWebMvcAutoConfig;
 import moe.ahao.web.AhaoApplication;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -53,8 +53,8 @@ public class PropertyNamingStrategyControllerTest {
     public void test() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
-        Map<PropertyNamingStrategy, MediaType> map = Arrays.stream(JacksonHttpMessageConvertersWebMvcConfigurer.PropertyNamingStrategyConverter.values())
-            .collect(Collectors.toMap(JacksonHttpMessageConvertersWebMvcConfigurer.PropertyNamingStrategyConverter::getStrategy, JacksonHttpMessageConvertersWebMvcConfigurer.PropertyNamingStrategyConverter::getMediaType));;
+        Map<PropertyNamingStrategy, MediaType> map = Arrays.stream(JacksonHttpMessageConvertersWebMvcAutoConfig.PropertyNamingStrategyConverter.values())
+            .collect(Collectors.toMap(JacksonHttpMessageConvertersWebMvcAutoConfig.PropertyNamingStrategyConverter::getStrategy, JacksonHttpMessageConvertersWebMvcAutoConfig.PropertyNamingStrategyConverter::getMediaType));;
         Assertions.assertNotNull(map);
 
         for (Map.Entry<PropertyNamingStrategy, MediaType> entry : map.entrySet()) {
