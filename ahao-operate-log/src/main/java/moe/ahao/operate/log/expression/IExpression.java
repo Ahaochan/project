@@ -6,8 +6,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
  * 表达式
- * @author zhonghuashishan
- * @version 1.0
  */
 public interface IExpression {
 

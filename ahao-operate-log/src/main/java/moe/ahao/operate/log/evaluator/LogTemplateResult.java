@@ -1,28 +1,22 @@
 package moe.ahao.operate.log.evaluator;
 
+import lombok.Data;
 import moe.ahao.operate.log.annotation.OperateLog;
 import moe.ahao.operate.log.expression.IExpression;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import java.util.List;
 
 /**
  * 日志模板解析结果
- * @author zhonghuashishan
- * @version 1.0
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class LogTemplateResult {
 
     /**
      * 日志模板里面是否定义表达式（函数表达式或者SpEL表达式）
      */
-    private boolean hasExpression = false;
+    private boolean hasExpression;
 
     /**
      * 表达式
@@ -31,6 +25,7 @@ public class LogTemplateResult {
 
     /**
      * 操作日志模板
+     * 已经清洗成包含%s的字符串, 使用expressions进行填充
      */
     private String contentTemplate;
 

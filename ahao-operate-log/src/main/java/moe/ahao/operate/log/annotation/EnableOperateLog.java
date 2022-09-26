@@ -7,8 +7,6 @@ import java.lang.annotation.*;
 
 /**
  * 启动操作日志框架注解
- * @author zhonghuashishan
- * @version 1.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

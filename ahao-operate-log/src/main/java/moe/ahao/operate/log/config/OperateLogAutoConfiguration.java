@@ -8,7 +8,6 @@ import moe.ahao.operate.log.ifunc.IParseFunction;
 import moe.ahao.operate.log.ifunc.ParseFunctionFactory;
 import moe.ahao.operate.log.service.DefaultOperateLogStoreService;
 import moe.ahao.operate.log.service.OperateLogStoreService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +31,7 @@ public class OperateLogAutoConfiguration {
     }
 
     @Bean
-    public ParseFunctionFactory parseFunctionFactory(@Autowired List<IParseFunction> parseFunctions) {
+    public ParseFunctionFactory parseFunctionFactory(List<IParseFunction> parseFunctions) {
         return new ParseFunctionFactory(parseFunctions);
     }
 
