@@ -1,0 +1,80 @@
+# https://docs.gitlab.cn/jh/install/docker.html
+version: "3.8"
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ee:latest'
+    container_name: gitlab
+    restart: on-failure
+    ports:
+      - "2080:80"
+      - "2443:443"
+      - "1022:22"
+      # 修改默认的ssh端口后, 要指定端口, ssh -T git@gitlab.ahao.moe -p 1022, git clone ssh://git@gitlab.ahao.moe:1022/ahao/ahao-commerce.git
+    environment:
+      GITLAB_ROOT_PASSWORD: "rootroot"
+    volumes:
+      - /opt/gitlab/config:/etc/gitlab    # 用于存储 GitLab 配置文件
+      - /opt/gitlab/logs:/var/log/gitlab  # 用于存储日志
+      - /opt/gitlab/data:/var/opt/gitlab  # 用于存储应用程序数据
+    shm_size: '256m'  # https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-container
+    networks:
+      - ahaonet
+  docker-in-docker:
+    image: docker:dind
+    container_name: docker-in-docker
+    privileged: true # 在 Docker 容器内部执行 Docker 命令, 需要更高的权限要求
+    restart: on-failure
+    ports:
+      - "2376:2376"
+    environment:
+      DOCKER_TLS_CERTDIR: /certs
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /opt/jenkins/jenkins-docker-certs:/certs/client
+
+    command: --storage-driver=overlay2
+    networks:
+      ahaonet:
+        aliases:
+          - docker
+  jenkins:
+    # 密码: docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    restart: on-failure
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      DOCKER_HOST: tcp://docker-in-docker:2376
+      DOCKER_CERT_PATH: /certs/client
+      DOCKER_TLS_VERIFY: 1
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /opt/jenkins/jenkins-docker-certs:/certs/client:ro
+    networks:
+      - ahaonet
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    restart: on-failure
+    ports:
+      - "9000:9000"
+    # environment:
+      # SONAR_JDBC_URL: jdbc:mysql://db:3306/sonar # 默认是h2数据库
+      # SONAR_JDBC_USERNAME: sonar
+      # SONAR_JDBC_PASSWORD: sonar
+      # 默认用户名admin、密码admin
+    volumes:
+      - /opt/sonarqube/data:/opt/sonarqube/data             # 数据文件
+      - /opt/sonarqube/logs:/opt/sonarqube/logs             # 日志文件
+      - /opt/sonarqube/extensions:/opt/sonarqube/extensions # 扩展文件, 如汉化插件：https://github.com/xuhuisheng/sonar-l10n-zh
+    networks:
+      - ahaonet
+networks:
+  ahaonet:
+    name: ahaonet
+    driver: bridge
+volumes:
+  jenkins-data: # https://github.com/jenkinsci/docker/issues/493
+# docker-compose -f docker-compose-devops.yml up -d
