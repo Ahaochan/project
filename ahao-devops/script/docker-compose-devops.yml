@@ -39,7 +39,7 @@ services:
           - docker
   jenkins:
     # 密码: docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
-    image: jenkins/jenkins:lts
+    image: jenkins/jenkins:lts-centos7-jdk8 # 2.357 之后不再支持jdk8, https://docs.cloudbees.com/docs/cloudbees-ci-kb/latest/client-and-managed-masters/maven-jobs-and-java-versions-compatibility
     container_name: jenkins
     restart: on-failure
     ports:
@@ -55,26 +55,48 @@ services:
     networks:
       - ahaonet
   sonarqube:
-    image: sonarqube:community
+    image: sonarqube:7.8-community # 7.8 之后不再支持jdk8和Mysql, https://docs.sonarqube.org/7.8/requirements/requirements/
     container_name: sonarqube
     restart: on-failure
     ports:
       - "9000:9000"
-    # environment:
-      # SONAR_JDBC_URL: jdbc:mysql://db:3306/sonar # 默认是h2数据库
-      # SONAR_JDBC_USERNAME: sonar
-      # SONAR_JDBC_PASSWORD: sonar
+    environment:
+      # 默认是h2数据库, CREATE DATABASE sonar DEFAULT CHARACTER SET utf8;
+      SONARQUBE_JDBC_URL: jdbc:mysql://db:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
+      SONARQUBE_JDBC_USERNAME: root
+      SONARQUBE_JDBC_PASSWORD: root
       # 默认用户名admin、密码admin
     volumes:
-      - /opt/sonarqube/data:/opt/sonarqube/data             # 数据文件
-      - /opt/sonarqube/logs:/opt/sonarqube/logs             # 日志文件
-      - /opt/sonarqube/extensions:/opt/sonarqube/extensions # 扩展文件, 如汉化插件：https://github.com/xuhuisheng/sonar-l10n-zh
+      - sonarqube-data:/opt/sonarqube/data              # 数据文件
+      - sonarqube-logs:/opt/sonarqube/logs              # 日志文件
+      - sonarqube-extensions:/opt/sonarqube/extensions  # 扩展文件, 如汉化插件：https://github.com/xuhuisheng/sonar-l10n-zh
     networks:
       - ahaonet
+  db:
+    image: mysql:5.7
+    container_name: devops_db
+    restart: on-failure
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_HOST=%
+      - TZ=Asia/Shanghai
+    networks:
+      - ahaonet
+    volumes:
+      - /etc/mysql
+      - /var/lib/mysql
+      - /var/log/mysql
+    command: [ 'mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--innodb_buffer_pool_size=64M' ]
 networks:
   ahaonet:
     name: ahaonet
     driver: bridge
 volumes:
   jenkins-data: # https://github.com/jenkinsci/docker/issues/493
+  # 只允许使用内置volume, 不允许使用外部目录, https://docs.sonarqube.org/latest/setup/install-server/#header-3
+  sonarqube-data:
+  sonarqube-logs:
+  sonarqube-extensions:
 # docker-compose -f docker-compose-devops.yml up -d
