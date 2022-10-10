@@ -19,24 +19,6 @@ services:
     shm_size: '256m'  # https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-container
     networks:
       - ahaonet
-  docker-in-docker:
-    image: docker:dind
-    container_name: docker-in-docker
-    privileged: true # 在 Docker 容器内部执行 Docker 命令, 需要更高的权限要求
-    restart: on-failure
-    ports:
-      - "2376:2376"
-    environment:
-      DOCKER_TLS_CERTDIR: /certs
-    volumes:
-      - jenkins-data:/var/jenkins_home
-      - /opt/jenkins/jenkins-docker-certs:/certs/client
-
-    command: --storage-driver=overlay2
-    networks:
-      ahaonet:
-        aliases:
-          - docker
   jenkins:
     # 密码: docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
     image: jenkins/jenkins:lts-centos7-jdk8 # 2.357 之后不再支持jdk8, https://docs.cloudbees.com/docs/cloudbees-ci-kb/latest/client-and-managed-masters/maven-jobs-and-java-versions-compatibility
@@ -45,13 +27,10 @@ services:
     ports:
       - "8080:8080"
       - "50000:50000"
-    environment:
-      DOCKER_HOST: tcp://docker-in-docker:2376
-      DOCKER_CERT_PATH: /certs/client
-      DOCKER_TLS_VERIFY: 1
     volumes:
       - jenkins-data:/var/jenkins_home
-      - /opt/jenkins/jenkins-docker-certs:/certs/client:ro
+      - /usr/bin/docker:/usr/bin/docker           # 解决docker命令找不到的问题
+      - /var/run/docker.sock:/var/run/docker.sock # 容器内访问外部docker daemon, TODO 解决权限问题(太暴力了): chmod a+rw /var/run/docker.sock
     networks:
       - ahaonet
   sonarqube:
