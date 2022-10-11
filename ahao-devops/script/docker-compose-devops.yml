@@ -36,6 +36,8 @@ services:
   sonarqube:
     image: sonarqube:7.8-community # 7.8 之后不再支持jdk8和Mysql, https://docs.sonarqube.org/7.8/requirements/requirements/
     container_name: sonarqube
+    depends_on:
+      - db
     restart: on-failure
     ports:
       - "9000:9000"
