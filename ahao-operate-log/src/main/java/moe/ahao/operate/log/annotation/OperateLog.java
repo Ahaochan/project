@@ -19,6 +19,13 @@ public @interface OperateLog {
     String fail() default "";
 
     /**
+     * 控制生成操作日志的执行时机
+     * true  : 在拦截业务方法执行之前
+     * false : 在拦截业务方法执行之后
+     */
+    boolean executeBefore() default false;
+
+    /**
      * 操作人
      */
     String operator() default "";

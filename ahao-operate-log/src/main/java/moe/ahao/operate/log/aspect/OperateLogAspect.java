@@ -43,7 +43,22 @@ public class OperateLogAspect {
      */
     @Around("@annotation(operateLog)")
     public Object markOperateLog(ProceedingJoinPoint point, OperateLog operateLog) throws Throwable {
-        // 1. 执行业务代码
+        // 1. 解析操作日志模板和表达式
+        LogTemplateResult logTemplateResult = null;
+        OperateLogInstance instance = null;
+        boolean executeBefore = operateLog.executeBefore();
+        try {
+            logTemplateResult = this.parseOperateLog(point, operateLog);
+
+            if(executeBefore) {
+                // 1.1. 在业务方法执行之前生成操作日志
+                instance = this.executeExpressionAndFillPlaceholder(logTemplateResult);
+            }
+        } catch (Exception e) {
+            log.error("operate log parse or build before biz function exception", e);
+        }
+
+        // 2. 执行业务代码
         Object ret = null;
         MethodExecuteResult methodExecuteResult = new MethodExecuteResult(true, null, "");
         try {
@@ -52,19 +67,14 @@ public class OperateLogAspect {
             methodExecuteResult = new MethodExecuteResult(false, e, e.getMessage());
         }
 
-        // 2. 解析操作日志模板和表达式
-        LogTemplateResult logTemplateResult = null;
+        // 3. 只有业务方法执行成功才构造和记录操作日志
         try {
-            logTemplateResult = this.parseOperateLog(point, operateLog);
-        } catch (Exception e) {
-            log.error("operate log parse before biz function exception", e);
-        }
-
-        try {
-            // 只有业务方法执行成功才构造和记录操作日志
             if (logTemplateResult != null && methodExecuteResult.isExecuteOk()) {
-                // 3、执行表达式并填充日志模板占位符
-                OperateLogInstance instance = this.executeExpressionAndFillPlaceholder(logTemplateResult);
+                if(!executeBefore) {
+                    // 4、在业务方法执行之后生成操作日志，执行表达式并填充日志模板占位符
+                    instance = this.executeExpressionAndFillPlaceholder(logTemplateResult);
+                }
+
                 // 4、存储操作日志，需要业务方自行定义
                 operateLogStoreService.storeOperateLog(instance);
             }
