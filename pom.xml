@@ -139,7 +139,7 @@
 
         <xxl.job.version>2.3.0</xxl.job.version>
 
-        <redission.version>3.15.5</redission.version>
+        <redission.version>3.21.1</redission.version>
         <embedded.redis.version>0.6</embedded.redis.version>
     </properties>
 
