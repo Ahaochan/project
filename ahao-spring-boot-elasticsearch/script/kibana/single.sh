@@ -13,7 +13,7 @@ sed -i "s/#i18n.locale: \"en\"/i18n.locale: \"zh-CN\"/g" config/kibana.yml
 # 2. 启动 kibana
 # bin/kibana -e http://127.0.0.1:9200 -H 0.0.0.0 -p 5601
 touch kibana.log
-nohup bin/kibana -e http://127.0.0.1:9200 -H 0.0.0.0 -p 5601 > kibana.log 2>&1 &
+nohup bin/kibana -e http://127.0.0.1:9200 -H 0.0.0.0 -p 5601 --allow-root > kibana.log 2>&1 &
 curl http://127.0.0.1:5601
 
 # 3. 安装插件

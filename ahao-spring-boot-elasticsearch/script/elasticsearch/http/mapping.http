@@ -1,8 +1,8 @@
 ### 查看 accounts 索引的 mapping
-GET {{host}}/accounts/_mapping
+GET {{eshost}}/accounts/_mapping
 
 ### 设置 accounts 索引的 mapping
-PUT {{host}}/accounts
+PUT {{eshost}}/accounts
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 
 ### 设置 accounts 索引的 dynamic tempaltes
-PUT {{host}}/accounts
+PUT {{eshost}}/accounts
 Content-Type: application/json
 
 {

@@ -1,5 +1,5 @@
 ### 使用 standard 分词器分析指定文本
-POST {{host}}/_analyze
+POST {{eshost}}/_analyze
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ### 使用自定义分词器分析指定文本
-POST {{host}}/_analyze
+POST {{eshost}}/_analyze
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 ### 使用分词器分析 accounts 索引下的 name 字段
-POST {{host}}/accounts/_analyze
+POST {{eshost}}/accounts/_analyze
 Content-Type: application/json
 
 {
@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ### 在 accounts 索引下自定义名为 custom_analyzer 的分词器
-PUT {{host}}/accounts
+PUT {{eshost}}/accounts
 Content-Type: application/json
 
 {
@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ### 在 accounts 索引下自定义名为 custom_analyzer 的分词器
 # { "analyzer": "custom_analyzer", "text": "<a>hello world!</a>" }
-PUT {{host}}/accounts
+PUT {{eshost}}/accounts
 Content-Type: application/json
 
 {
@@ -68,7 +68,7 @@ Content-Type: application/json
 
 ### 在 accounts 索引下自定义名为 custom_analyzer 的分词器
 # { "analyzer": "custom_analyzer", "text": "I'm a :) person, and you?" }
-PUT {{host}}/accounts
+PUT {{eshost}}/accounts
 Content-Type: application/json
 
 {

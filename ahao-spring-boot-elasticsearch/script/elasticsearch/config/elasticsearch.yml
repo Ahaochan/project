@@ -1,8 +1,8 @@
-cluster.name: ahao-cluster # 集群名称, 用来判断是否同一集群
-node.name: node1 # 节点名称, 用来区分同一集群中不同的节点
-network.host: 0.0.0.0 # 网络地址和端口, 用于http和transport服务使用
+cluster.name: ahao-cluster  # 集群名称, 用来判断是否同一集群
+node.name: node1            # 节点名称, 用来区分同一集群中不同的节点
+network.host: 0.0.0.0       # 网络地址和端口, 用于http和transport服务使用
 http.port: 9200
 path:
-  data: /opt/es1/data # 数据存储位置
-  logs: /opt/es1/log  # 日志存储位置
+  data: /opt/es/data # 数据存储位置
+  logs: /opt/es/log  # 日志存储位置
 

@@ -1,5 +1,5 @@
 ### 索引模版
-PUT {{host}}/_template/my_template
+PUT {{eshost}}/_template/my_template
 Content-Type: application/json
 
 {
@@ -13,8 +13,8 @@ Content-Type: application/json
 }
 
 ### 查看所有索引模版
-GET {{host}}/_template
+GET {{eshost}}/_template
 ### 查看 my_template 索引模版
-GET {{host}}/_template/my_template
+GET {{eshost}}/_template/my_template
 ### 删除 my_template 索引模版
-DELETE {{host}}/_template/my_template
+DELETE {{eshost}}/_template/my_template

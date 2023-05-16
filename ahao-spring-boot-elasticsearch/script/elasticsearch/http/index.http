@@ -1,8 +1,8 @@
 ### 创建accounts这个index
-PUT {{host}}/accounts
+PUT {{eshost}}/accounts
 
 ### 查看现有索引
-GET {{host}}/_cat/indices
+GET {{eshost}}/_cat/indices?v
 
 ### 删除accounts这个index
-DELETE {{host}}/accounts
+DELETE {{eshost}}/accounts

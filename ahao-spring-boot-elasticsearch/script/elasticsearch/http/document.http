@@ -1,33 +1,45 @@
-### 在accounts这个index下创建type为person, id为1的记录
-POST {{host}}/accounts/person/1
+# _type是es早期版本的设计缺陷。
+#
+# 5.x以前：,个index下面是支持多个type的，
+# 6.x：一个index只支持一个type, type可以自定义。
+# 7.x：所有的type默认为_doc（自定义type也能用，但是会提示不推荐）
+
+### 在accounts这个index下创建type为_doc, id为1的记录
+PUT {{eshost}}/accounts/_doc/1
 Content-Type: application/json
 
 {"name": "John", "lastname": "Doe", "job_description": "System Admin"}
 
-### 在accounts这个index下更新type为person, id为1的记录
-POST {{host}}/accounts/person/1/_update
+### 在accounts这个index下替换type为_doc, id为1的记录, 没带上的字段会被删掉
+PUT {{eshost}}/accounts/_doc/1
+Content-Type: application/json
+
+{"name": "John", "lastname": "John"}
+
+### 在accounts这个index下更新type为_doc, id为1的记录, 只更新带上的字段
+POST {{eshost}}/accounts/_doc/1/_update
 Content-Type: application/json
 
 {"doc": {"job_description": "new System Admin"}}
 
-### 查询accounts这个index下, type为person, id为1的记录
-GET {{host}}/accounts/person/1
-### 查询accounts这个index下, type为person, 根据关键字搜索
-GET {{host}}/accounts/person/_search?q=john
-### 查询accounts这个index下, type为person, 根据关键字搜索
-GET {{host}}/accounts/person/_search
+### 查询accounts这个index下, type为_doc, id为1的记录
+GET {{eshost}}/accounts/_doc/1
+### 查询accounts这个index下, type为_doc, 根据关键字搜索
+GET {{eshost}}/accounts/_doc/_search?q=john
+### 查询accounts这个index下, type为_doc, 根据关键字搜索
+GET {{eshost}}/accounts/_doc/_search
 Content-Type: application/json
 
 {"query": {"match": {"name": "john"}}}
 
-### 在accounts这个index下删除type为person, id为1的记录
-DELETE {{host}}/accounts/person/1
+### 在accounts这个index下删除type为_doc, id为1的记录
+DELETE {{eshost}}/accounts/_doc/1
 
 ### 批量发送请求_bulk
-POST {{host}}/_bulk
+POST {{eshost}}/_bulk
 
 ### 批量查询
-GET {{host}}/_mget
+GET {{eshost}}/_mget
 Content-Type: application/json
 
-{"docs": [{"_index": "accounts", "_type": "person", "_id": "1"}, {"_index": "accounts", "_type": "person", "_id": "2"}]}
+{"docs": [{"_index": "accounts", "_type": "_doc", "_id": "1"}, {"_index": "accounts", "_type": "_doc", "_id": "2"}]}
