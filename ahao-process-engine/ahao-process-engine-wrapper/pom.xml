@@ -47,5 +47,11 @@
             <artifactId>redisson</artifactId>
             <version>${redission.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

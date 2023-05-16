@@ -21,7 +21,7 @@ public class ClassPathXmlProcessParser extends XmlProcessParser {
     }
 
     @Override
-    protected Document getDocument() throws DocumentException {
+    protected Document getDocument() throws Exception {
         log.debug("加载流程配置, 从文件路径加载流程配置: {}", file);
         try (InputStream resourceAsStream = this.getClass().getResourceAsStream(file);) {
             SAXReader saxReader = new SAXReader();

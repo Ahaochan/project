@@ -20,13 +20,37 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
-                    <!-- 允许包含node标签 -->
-                    <xs:element ref="node"/>
+                    <!-- 允许包含nodes和bizRelations标签 -->
+                    <xs:element ref="nodes"/>
+                    <xs:element ref="bizRelations"/>
                     <xs:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:choice>
             </xs:sequence>
             <!-- <process>标签的name属性, 是必填的 -->
             <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bizRelations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="bizConfig"/>
+                    <xs:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- 定义<nodes>里的规则 -->
+    <xs:element name="nodes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="node"/>
+                    <xs:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:choice>
+            </xs:sequence>
         </xs:complexType>
     </xs:element>
 
@@ -43,6 +67,15 @@
             <xs:attribute name="next" type="xs:string" use="optional"/>
             <!-- <node>标签的invoke-method属性, 是可填的, 默认为sync -->
             <xs:attribute name="invoke-method" type="xs:string" use="optional" default="sync"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- 定义<bizConfig>里的规则 -->
+    <xs:element name="bizConfig">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="businessIdentifier" type="xs:integer" use="required"/>
+            <xs:attribute name="orderType" type="xs:integer" use="required"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>

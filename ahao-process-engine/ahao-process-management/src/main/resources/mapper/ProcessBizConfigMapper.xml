@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moe.ahao.process.management.infrastructure.repository.impl.mybatis.mapper.ProcessBizConfigMapper">
+    <select id="selectListLikeName" resultType="moe.ahao.process.management.infrastructure.repository.impl.mybatis.data.ProcessBizConfigDO">
+        select *
+        from process_biz_config
+        <where>
+            <if test="name != null and name.length() > 0">
+                <bind name="nameLike" value="'%'+name+'%'"/>
+                name like #{nameLike}
+            </if>
+        </where>
+    </select>
+    <select id="selectListInIds" resultType="moe.ahao.process.management.infrastructure.repository.impl.mybatis.data.ProcessBizConfigDO">
+        select * from process_biz_config where id in
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">#{item}</foreach>
+    </select>
+</mapper>

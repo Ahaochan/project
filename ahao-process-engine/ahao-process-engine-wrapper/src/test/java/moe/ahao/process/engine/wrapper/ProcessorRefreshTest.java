@@ -18,14 +18,14 @@ public class ProcessorRefreshTest {
         this.assertStandard(factory);
 
         Assertions.assertThrows(Exception.class, () -> factory.refresh(new ClassPathXmlProcessParser("process-no-begin.xml").parse(), true)).printStackTrace();
-
         this.assertStandard(factory);
+
         factory.refresh(new ClassPathXmlProcessParser("process-refresh.xml").parse(), false);
         this.assertStandard(factory);
         this.assertRefresh(factory);
 
         factory.refresh(new ClassPathXmlProcessParser("process-refresh.xml").parse(), true);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> factory.getContext("standard")).printStackTrace();
+        Assertions.assertNull(factory.getContext("standard"));
         this.assertRefresh(factory);
     }
 

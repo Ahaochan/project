@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moe.ahao.process.management.infrastructure.repository.impl.mybatis.mapper.ProcessNodeMapper">
+    <select id="selectOneByName" resultType="moe.ahao.process.management.infrastructure.repository.impl.mybatis.data.ProcessNodeDO">
+        select * from process_node where name = #{name}
+    </select>
+
+    <select id="selectListInName" resultType="moe.ahao.process.management.infrastructure.repository.impl.mybatis.data.ProcessNodeDO">
+        select * from process_node where name in
+        <foreach collection="names" item="item" open="(" close=")" separator=",">#{item}</foreach>
+    </select>
+    <select id="selectListByTypeLikeName" resultType="moe.ahao.process.management.infrastructure.repository.impl.mybatis.data.ProcessNodeDO">
+        <bind name="nameLike" value="'%'+name+'%'"/>
+        select * from process_node where type = #{type} and name like #{nameLike}
+    </select>
+
+</mapper>

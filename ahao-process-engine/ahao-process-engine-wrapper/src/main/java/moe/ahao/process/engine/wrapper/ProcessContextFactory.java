@@ -84,7 +84,7 @@ public class ProcessContextFactory {
     public ProcessContext getContext(String name, String globalUniqueId) {
         ProcessorDefinition processorDefinition = processorDefinitionMap.get(name);
         if (processorDefinition == null) {
-            throw new IllegalArgumentException("流程" + name + "不存在");
+            return null;
         }
         // 为每个流程创建独立的ProcessContext上下文
         return new ProcessContext(globalUniqueId, processorDefinition, processStateStore);

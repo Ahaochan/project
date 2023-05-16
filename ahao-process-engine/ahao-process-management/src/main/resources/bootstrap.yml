@@ -1,0 +1,9 @@
+################################################## Nacos 配置 ##################################################
+spring.application.name: ahao-process-management
+spring.profiles.active: local
+spring.cloud.nacos.server-addr: 192.168.19.128:8848
+spring.cloud.nacos.config.server-addr: ${spring.cloud.nacos.server-addr}
+spring.cloud.nacos.config.file-extension: yaml
+spring.cloud.nacos.config.username: nacos
+spring.cloud.nacos.config.password: nacos
+################################################## Nacos 配置 ##################################################

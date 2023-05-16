@@ -17,6 +17,7 @@
     <modules>
         <module>ahao-process-engine-core</module>
         <module>ahao-process-engine-wrapper</module>
+        <module>ahao-process-management</module>
     </modules>
 
     <dependencyManagement>

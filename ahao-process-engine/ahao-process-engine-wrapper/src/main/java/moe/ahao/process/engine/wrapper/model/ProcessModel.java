@@ -2,15 +2,15 @@ package moe.ahao.process.engine.wrapper.model;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import moe.ahao.process.engine.core.definition.BizConfig;
 import moe.ahao.process.engine.core.definition.ProcessorDefinition;
 import moe.ahao.process.engine.core.definition.ProcessorNodeDefinition;
 import moe.ahao.process.engine.core.node.ProcessorNode;
 import moe.ahao.process.engine.wrapper.instance.ProcessorCreator;
 import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 流程配置，表示一个完整的业务编排流程
@@ -26,6 +26,10 @@ public class ProcessModel {
      * 流程的所有节点，以节点名为key，以节点配置为value
      */
     private final Map<String, ProcessNodeModel> nodeModels;
+    /**
+     * 关联的业务配置
+     */
+    public Set<BizConfigModel> bizConfigModels = new HashSet<>();
     /**
      * 流程的起始节点
      */
@@ -54,6 +58,25 @@ public class ProcessModel {
             this.firstNodeModel = nodeModel;
         }
     }
+
+    /**
+     * 添加多个节点
+     *
+     * @param nodeModel 节点配置
+     */
+    public void addNode(List<ProcessNodeModel> nodeModel) {
+        nodeModel.forEach(this::addNode);
+    }
+
+    /**
+     * 添加多个业务
+     *
+     * @param bizConfigModels 关联的业务
+     */
+    public void addBizConfig(List<BizConfigModel> bizConfigModels) {
+        this.bizConfigModels.addAll(bizConfigModels);
+    }
+
 
     public ProcessorDefinition buildDefinition(ProcessorCreator creator) {
         Map<String, ProcessorNodeDefinition> processorNodeMap = new HashMap<>();
@@ -87,8 +110,10 @@ public class ProcessModel {
                 processNode.addNextNode(processorNodeMap.get(nextNodeName));
             }
         }
-        // 3. 创建一个流程实例对象ProcessorDefinition
-        ProcessorDefinition processorDefinition = new ProcessorDefinition.Builder(name, firstNode).build();
+        // 4. 创建一个流程实例对象ProcessorDefinition, 设置关联的业务
+        ProcessorDefinition processorDefinition = new ProcessorDefinition.Builder(name, firstNode)
+            .addBizConfigs(bizConfigModels.stream().map(m -> new BizConfig(m.getName(), m.getBusinessIdentifier(), m.getOrderType())).collect(Collectors.toList()))
+            .build();
         return processorDefinition;
     }
 }

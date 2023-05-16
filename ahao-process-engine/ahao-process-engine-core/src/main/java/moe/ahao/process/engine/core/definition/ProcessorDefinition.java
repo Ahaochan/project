@@ -2,8 +2,10 @@ package moe.ahao.process.engine.core.definition;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +23,11 @@ public class ProcessorDefinition {
      * 初始节点
      */
     private ProcessorNodeDefinition first;
+    /**
+     * 关联的业务
+     */
+    @Setter
+    private Set<BizConfig> bizConfigs = new HashSet<>();
 
     private ProcessorDefinition(String name) {
         if (StringUtils.isEmpty(name)) {
@@ -38,7 +45,18 @@ public class ProcessorDefinition {
 
     public String toStr() {
         StringBuilder sb = new StringBuilder();
+        sb.append("name:").append(name).append("\n");
+        sb.append("nodes:\n");
         buildStr(sb, first);
+        sb.append("bizConfigs:\n");
+        for(BizConfig bizConfig : bizConfigs) {
+            sb.append(" ").append(bizConfig.getName())
+                .append("->")
+                .append("businessIdentifier:").append(bizConfig.getBusinessIdentifier())
+                .append("|")
+                .append("orderType:").append(bizConfig.getOrderType())
+                .append("\n");
+        }
         return sb.toString();
     }
 
@@ -49,10 +67,18 @@ public class ProcessorDefinition {
         }
     }
 
+    /**
+     * 是否匹配业务线+订单类型
+     */
+    public boolean matchBiz(Integer businessIdentifier, Integer orderType) {
+        return bizConfigs.contains(new BizConfig(businessIdentifier, orderType));
+    }
+
     @Data
     public static class Builder {
         private String name;
         private ProcessorNodeDefinition first;
+        private Set<BizConfig> bizConfigs = new HashSet<>();
 
         public Builder(String name) {
             this(name, null);
@@ -68,9 +94,15 @@ public class ProcessorDefinition {
             return this;
         }
 
+        public Builder addBizConfigs(Collection<BizConfig> bizConfig) {
+            bizConfigs.addAll(bizConfig);
+            return this;
+        }
+
         public ProcessorDefinition build() {
             ProcessorDefinition definition = new ProcessorDefinition(name);
             definition.setFirst(first);
+            definition.setBizConfigs(bizConfigs);
             // 校验是否成环
             if (this.hasRing(first)) {
                 throw new IllegalArgumentException("Processor chain exists ring.");

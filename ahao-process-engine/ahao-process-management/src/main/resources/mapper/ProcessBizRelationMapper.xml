@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moe.ahao.process.management.infrastructure.repository.impl.mybatis.mapper.ProcessBizRelationMapper">
+    <delete id="deleteByProcessConfigName">
+        delete from process_biz_relation where processConfigName = #{processConfigName}
+    </delete>
+    <select id="selectListByProcessConfigName" resultType="moe.ahao.process.management.infrastructure.repository.impl.mybatis.data.ProcessBizRelationDO">
+        select * from process_biz_relation where processConfigName = #{processConfigName}
+    </select>
+    <select id="selectListByProcessConfigNames" resultType="moe.ahao.process.management.infrastructure.repository.impl.mybatis.data.ProcessBizRelationDO">
+        select * from process_biz_relation where processConfigName in
+        <foreach collection="processConfigNames" item="item" open="(" close=")" separator=",">#{item}</foreach>
+    </select>
+</mapper>

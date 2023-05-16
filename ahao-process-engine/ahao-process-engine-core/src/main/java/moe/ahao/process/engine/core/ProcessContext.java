@@ -1,6 +1,7 @@
 package moe.ahao.process.engine.core;
 
 import lombok.extern.slf4j.Slf4j;
+import moe.ahao.process.engine.core.definition.BizConfig;
 import moe.ahao.process.engine.core.definition.ProcessorDefinition;
 import moe.ahao.process.engine.core.definition.ProcessorNodeDefinition;
 import moe.ahao.process.engine.core.enums.InvokeMethod;
@@ -12,6 +13,7 @@ import moe.ahao.process.engine.core.utils.ProcessorUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -67,6 +69,19 @@ public class ProcessContext {
      */
     public void start() {
         start(null);
+    }
+
+    /**
+     * 是否匹配当前的业务
+     * @param businessIdentifier 业务线
+     * @param orderType 订单类型
+     */
+    public boolean matchBiz(Integer businessIdentifier, Integer orderType) {
+        return processorDefinition.matchBiz(businessIdentifier, orderType);
+    }
+
+    public Set<BizConfig> getMatchedBiz() {
+        return processorDefinition.getBizConfigs();
     }
 
     /**
