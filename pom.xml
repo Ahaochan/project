@@ -20,6 +20,7 @@
         <module>ahao-btrace</module>
         <module>ahao-common-utils</module>
         <module>ahao-docker</module>
+        <module>ahao-image</module>
         <module>ahao-jmh</module>
         <module>ahao-mapstruct</module>
         <module>ahao-mybatis-generator</module>
