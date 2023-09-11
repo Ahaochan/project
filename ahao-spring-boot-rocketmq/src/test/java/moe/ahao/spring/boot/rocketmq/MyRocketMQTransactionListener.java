@@ -10,7 +10,7 @@ import org.springframework.messaging.MessageHeaders;
 import java.util.ArrayList;
 import java.util.List;
 
-@RocketMQTransactionListener(txProducerGroup = RocketMQTemplateTest.GROUP_TX)
+@RocketMQTransactionListener
 public class MyRocketMQTransactionListener implements RocketMQLocalTransactionListener {
     public List<String> receiveList = new ArrayList<>();
 

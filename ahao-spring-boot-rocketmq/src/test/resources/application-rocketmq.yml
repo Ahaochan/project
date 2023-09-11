@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: ahao-rocketmq
-
-rocketmq:
-  name-server: 192.168.154.128:9876
-  producer:
-    group: ahao-producer-group

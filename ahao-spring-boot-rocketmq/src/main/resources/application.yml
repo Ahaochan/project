@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: ahao-rocketmq
+  profiles:
+    active: rocketmq

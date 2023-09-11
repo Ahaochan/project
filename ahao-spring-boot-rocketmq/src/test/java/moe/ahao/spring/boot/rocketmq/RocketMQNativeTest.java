@@ -19,18 +19,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 class RocketMQNativeTest {
-    public static final String NS = "192.168.19.128:9876";
-    public static final String TOPIC = "AhaoTopic1";
-    public static final String PRODUCT_GROUP = "ahao-product-group";
+    public static final String NS = "192.168.19.131:9876";
+    public static final String NAMESPACE = Constant.DEFAULT_NAMESPACE;
+    public static final String TOPIC = Constant.DEFAULT_TOPIC;
+    public static final String PRODUCER_GROUP = "ahao-producer-group";
+    public static final String CONSUMER_GROUP = "ahao-consumer-group";
 
     @Test
     void simpleProducer() throws Exception {
-        DefaultMQProducer producer = new DefaultMQProducer(PRODUCT_GROUP);
+        DefaultMQProducer producer = new DefaultMQProducer(NAMESPACE, PRODUCER_GROUP);
         producer.setNamesrvAddr(NS);
         producer.start();
 
         for (int i = 0; i < 10; i++) {
-            Message msg = new Message(TOPIC, "simpleProducer", ("simpleProducer" + i).getBytes(StandardCharsets.UTF_8));
+            Message msg = new Message(TOPIC, Constant.TAG1, ("simpleProducer" + i).getBytes(StandardCharsets.UTF_8));
             SendResult sendResult = producer.send(msg);
             System.out.println("第" + i + "条消息发送结果:" + sendResult);
         }
@@ -39,7 +41,7 @@ class RocketMQNativeTest {
 
     @Test
     void asyncProducer() throws Exception {
-        DefaultMQProducer producer = new DefaultMQProducer(PRODUCT_GROUP);
+        DefaultMQProducer producer = new DefaultMQProducer(NAMESPACE, PRODUCER_GROUP);
         producer.setNamesrvAddr(NS);
         producer.start();
         producer.setRetryTimesWhenSendAsyncFailed(0);
@@ -71,7 +73,7 @@ class RocketMQNativeTest {
 
     @Test
     void onewayProducer() throws Exception {
-        DefaultMQProducer producer = new DefaultMQProducer(PRODUCT_GROUP);
+        DefaultMQProducer producer = new DefaultMQProducer(NAMESPACE, PRODUCER_GROUP);
         producer.setNamesrvAddr(NS);
         producer.start();
 
@@ -84,7 +86,7 @@ class RocketMQNativeTest {
 
     @Test
     void orderlyProducer() throws Exception {
-        DefaultMQProducer producer = new DefaultMQProducer(PRODUCT_GROUP);
+        DefaultMQProducer producer = new DefaultMQProducer(NAMESPACE, PRODUCER_GROUP);
         producer.setNamesrvAddr(NS);
         producer.start();
 
@@ -106,7 +108,7 @@ class RocketMQNativeTest {
 
     @Test
     void delayProducer() throws Exception {
-        DefaultMQProducer producer = new DefaultMQProducer(PRODUCT_GROUP);
+        DefaultMQProducer producer = new DefaultMQProducer(NAMESPACE, PRODUCER_GROUP);
         producer.setNamesrvAddr(NS);
         producer.start();
 
@@ -124,7 +126,7 @@ class RocketMQNativeTest {
 
     @Test
     void batchProducer() throws Exception {
-        DefaultMQProducer producer = new DefaultMQProducer(PRODUCT_GROUP);
+        DefaultMQProducer producer = new DefaultMQProducer(NAMESPACE, PRODUCER_GROUP);
         producer.setNamesrvAddr(NS);
         producer.start();
 
@@ -142,7 +144,7 @@ class RocketMQNativeTest {
     void transactionProducer() throws Exception {
         Map<String, Boolean> flagMap = new HashMap<>();
 
-        TransactionMQProducer producer = new TransactionMQProducer(PRODUCT_GROUP);
+        TransactionMQProducer producer = new TransactionMQProducer(NAMESPACE, PRODUCER_GROUP);
         producer.setNamesrvAddr(NS);
         producer.setExecutorService(Executors.newFixedThreadPool(10));
         producer.setTransactionListener(new TransactionListener() {
@@ -189,7 +191,7 @@ class RocketMQNativeTest {
 
     @Test
     void pullConsumer() throws Exception {
-        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("ahao-consumer-group");
+        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer(NAMESPACE, CONSUMER_GROUP);
         consumer.setNamesrvAddr(NS);
         consumer.start();
 
@@ -208,7 +210,7 @@ class RocketMQNativeTest {
 
     @Test
     public void pushConsumer() throws Exception {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ahao-consumer-group");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(NAMESPACE, CONSUMER_GROUP);
         consumer.setNamesrvAddr(NS);
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
         consumer.subscribe(TOPIC, "*");
@@ -235,7 +237,7 @@ class RocketMQNativeTest {
 
     @Test
     public void orderlyConsumer() throws Exception {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ahao-consumer-group");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(NAMESPACE, CONSUMER_GROUP);
         consumer.setNamesrvAddr(NS);
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
         consumer.subscribe(TOPIC, "*");

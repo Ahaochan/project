@@ -21,8 +21,7 @@ import java.util.UUID;
     MyRocketMQListener.class, MyRocketMQTransactionListener.class})
 @ActiveProfiles("rocketmq")
 public class RocketMQTemplateTest {
-    public static final String GROUP_TX = "ahao-transaction-group";
-    public static final String TOPIC  = "ahao-topic";
+    public static final String TOPIC  = Constant.DEFAULT_TOPIC;
 
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
@@ -49,7 +48,7 @@ public class RocketMQTemplateTest {
             Message message = MessageBuilder.withPayload("payload-"+i)
                 .setHeader(RocketMQHeaders.TRANSACTION_ID, UUID.randomUUID().toString())
                 .build();
-            this.rocketMQTemplate.sendMessageInTransaction(GROUP_TX, TOPIC, message, null);
+            this.rocketMQTemplate.sendMessageInTransaction(TOPIC, message, null);
         }
         Thread.sleep(5000);
 
