@@ -15,7 +15,7 @@ public enum UserExceptionEnum implements BizExceptionEnum<UserException> {
     }
 
     @Override
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
