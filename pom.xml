@@ -94,6 +94,7 @@
         <module>ahao-storm</module>
         <module>ahao-tend-consistency</module>
         <module>ahao-thrift</module>
+        <module>ahao-unidbg</module>
         <module>ahao-unit-test</module>
         <module>ahao-web</module>
 
