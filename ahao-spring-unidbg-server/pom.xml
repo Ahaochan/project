@@ -11,41 +11,53 @@
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0</version>
 
-    <artifactId>ahao-unidbg</artifactId>
+    <artifactId>ahao-spring-unidbg-server</artifactId>
     <packaging>jar</packaging>
+
+    <properties>
+        <unidbg.version>0.9.7</unidbg.version>
+    </properties>
 
     <dependencies>
         <dependency>
+            <groupId>moe.ahao</groupId>
+            <artifactId>ahao-common-utils</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.github.zhkl0228</groupId>
             <artifactId>unidbg-api</artifactId>
-            <version>0.9.7</version>
+            <version>${unidbg.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.zhkl0228</groupId>
             <artifactId>unidbg-android</artifactId>
-            <version>0.9.7</version>
+            <version>${unidbg.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.zhkl0228</groupId>
             <artifactId>unidbg-kvm</artifactId>
-            <version>0.9.7</version>
+            <version>${unidbg.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.zhkl0228</groupId>
             <artifactId>unidbg-dynarmic</artifactId>
-            <version>0.9.7</version>
+            <version>${unidbg.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.github.zhkl0228</groupId>
             <artifactId>unidbg-hypervisor</artifactId>
-            <version>0.9.7</version>
+            <version>${unidbg.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.github.zhkl0228</groupId>
             <artifactId>unidbg-unicorn2</artifactId>
-            <version>0.9.7</version>
+            <version>${unidbg.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
