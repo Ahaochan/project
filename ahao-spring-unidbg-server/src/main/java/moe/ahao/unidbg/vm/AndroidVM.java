@@ -39,7 +39,7 @@ public abstract class AndroidVM implements Closeable {
         // 获取模拟器的内存操作接口
         memory = emulator.getMemory();
         // 设置系统类库解析
-        memory.setLibraryResolver(new AndroidResolver(29));
+        memory.setLibraryResolver(new AndroidResolver(23));
 
         if (this.initApkFile() == null) {
             vm = emulator.createDalvikVM();
