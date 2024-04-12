@@ -9,6 +9,7 @@ import com.github.unidbg.linux.android.AndroidResolver;
 import com.github.unidbg.linux.android.dvm.*;
 import com.github.unidbg.memory.Memory;
 import com.github.unidbg.virtualmodule.android.AndroidModule;
+import moe.ahao.unidbg.utils.TempFileUtils;
 
 import java.io.Closeable;
 import java.io.File;
@@ -52,8 +53,9 @@ public abstract class AndroidVM implements Closeable {
         new AndroidModule(emulator, vm).register(memory);
     }
 
-    public DalvikModule loadLibrary(String directoryPath, String soFilename, boolean forceCallInit) {
-        DalvikModule dm = vm.loadLibrary(new File(directoryPath, soFilename), forceCallInit);
+    public DalvikModule loadLibrary(String soFilename, boolean forceCallInit) throws IOException {
+        File soFile = TempFileUtils.getTempFile(soFilename);
+        DalvikModule dm = vm.loadLibrary(soFile, forceCallInit);
         dm.callJNI_OnLoad(emulator);
 
         moduleMap.put(soFilename, dm);

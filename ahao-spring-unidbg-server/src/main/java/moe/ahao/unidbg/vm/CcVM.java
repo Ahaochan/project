@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class CcVM extends AndroidVM {
-    public static final String PATH = "ahao-spring-unidbg-server\\src\\main\\resources";
     public static final String SO = "libte2.so";
     public static final String PACKAGE = new String(Base64.getDecoder().decode("Y29tLmNjYi5sb25namlMaWZl"), StandardCharsets.UTF_8);
 
@@ -16,7 +15,7 @@ public class CcVM extends AndroidVM {
         super(PACKAGE, false, true);
 
         // 加载目标SO
-        this.loadLibrary(PATH, SO, true);
+        this.loadLibrary(SO, true);
     }
 
     public String te2(String arg1, String arg2, byte[] arg3, String arg4) {
