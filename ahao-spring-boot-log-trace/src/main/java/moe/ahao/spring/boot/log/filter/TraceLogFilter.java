@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * Web 拦截器
- * 使用方法: 将 {@link #getFilterRegistrationBean(String, int)} 返回的对象注册为 Bean 即可
+ * 使用方法: 将 {@link #buildFilterBean(String, int)} 返回的对象注册为 Bean 即可
  */
 public class TraceLogFilter extends OncePerRequestFilter {
 
@@ -42,7 +42,7 @@ public class TraceLogFilter extends OncePerRequestFilter {
      * @param urlPattern Filter 匹配的 url
      * @param order      Filter 加载顺序
      */
-    public static FilterRegistrationBean getFilterRegistrationBean(String urlPattern, int order) {
+    public static FilterRegistrationBean buildFilterBean(String urlPattern, int order) {
         FilterRegistrationBean<TraceLogFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new TraceLogFilter());
         registration.addUrlPatterns(urlPattern);

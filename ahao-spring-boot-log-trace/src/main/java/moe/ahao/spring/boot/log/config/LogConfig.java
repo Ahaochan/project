@@ -19,7 +19,7 @@ public class LogConfig {
     @Bean
     @ConditionalOnWebApplication
     public FilterRegistrationBean traceLogFilter() {
-        return TraceLogFilter.getFilterRegistrationBean("/*", 1);
+        return TraceLogFilter.buildFilterBean("/*", 1);
     }
 
     @Bean
