@@ -1,6 +1,14 @@
 # 简介
 本项目是本人自用的一套 `Java` 代码库. 每个项目有自带的`Readme`, 点击即可阅读.
 
+# 使用
+```shell
+# 更新git子仓库
+git submodule init
+git submodule update
+```
+
+# 目录
 - 花点心思
   - [ahao-common-utils](https://github.com/Ahaochan/ahao-common-utils)(常用工具类模块)
   - [ahao-spring-boot-balance-datasources](./ahao-spring-boot-balance-datasources)(负载均衡的主从数据源)
