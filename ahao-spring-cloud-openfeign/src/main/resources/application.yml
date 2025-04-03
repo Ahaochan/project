@@ -19,6 +19,7 @@ feign.client.config.default.encoder: # 编码器
 feign.client.config.default.decoder: # 解码器
 feign.client.config.default.contract:
 feign.client.config.default.loggerLevel: full # 日志级别: feign.Logger.Level.FULL
+logging.level.moe.ahao.spring.cloud.openfeign.config.LocalhostFeignApi: DEBUG
 feign.httpclient.enabled: true
 feign.httpclient.max-connections: 200          # Feign的最大连接数
 feign.httpclient.max-connections-per-route: 50 # Feign的单个url最大连接数
