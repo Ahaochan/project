@@ -97,4 +97,22 @@ public class OpenAITest {
         System.out.println(sb);
         Assertions.assertTrue(atomicInteger.get() > 0);
     }
+
+    @Test
+    public void multiAnswer() throws Exception {
+        int n = 3;
+        ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
+            .addSystemMessage("你会直接告诉答案")
+            .addUserMessage("你给我取一个中文名字，只用回答名字就好")
+            .model(model)
+            .n(n)
+            .build();
+        ChatCompletion completion = openAIClient.chat().completions().create(params);
+
+        System.out.println("共有" + completion.choices().size() + "个答案");
+        for (ChatCompletion.Choice choice : completion.choices()) {
+            System.out.println("答案: " + choice.message().content().get().replace("\n", ""));
+        }
+        Assertions.assertEquals(n, completion.choices().size());
+    }
 }
