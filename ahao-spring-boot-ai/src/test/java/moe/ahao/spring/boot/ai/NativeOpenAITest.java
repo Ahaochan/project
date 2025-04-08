@@ -7,21 +7,16 @@ import com.openai.models.chat.completions.ChatCompletion;
 import com.openai.models.chat.completions.ChatCompletionAssistantMessageParam;
 import com.openai.models.chat.completions.ChatCompletionChunk;
 import com.openai.models.chat.completions.ChatCompletionCreateParams;
-import com.openai.models.moderations.Moderation;
-import com.openai.models.moderations.ModerationCreateParams;
-import com.openai.models.moderations.ModerationCreateResponse;
 import moe.ahao.spring.boot.Starter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
-public class OpenAITest {
+public class NativeOpenAITest {
     private static final ChatModel model = ChatModel.of("Qwen/QwQ-32B");
     @Autowired
     private OpenAIClient openAIClient;
