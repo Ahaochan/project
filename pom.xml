@@ -40,6 +40,7 @@
         <module>ahao-spring-boot-dubbo</module>
         <module>ahao-spring-boot-elastic-job</module>
         <module>ahao-spring-boot-elasticsearch</module>
+        <module>ahao-spring-boot-feishu</module>
         <module>ahao-spring-boot-file-download</module>
         <module>ahao-spring-boot-i18n</module>
         <module>ahao-spring-boot-integration</module>
