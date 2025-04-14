@@ -9,6 +9,8 @@ feign.compression.response.useGzipDecoder: false
 ## default全局配置
 feign.client.config.default.connectTimeout: 5000 # 连接超时时间
 feign.client.config.default.readTimeout: 5000    # 读取超时时间
+feign.client.config.default.retryer.max-attempts: 3 # 重试次数
+feign.client.config.default.retryer.period: 1000 # 重试间隔时间
 feign.client.config.default.errorDecoder:        # 错误解码器
 feign.client.config.default.retryer:             # 重试策略
 feign.client.config.default.requestInterceptors: # 拦截器
