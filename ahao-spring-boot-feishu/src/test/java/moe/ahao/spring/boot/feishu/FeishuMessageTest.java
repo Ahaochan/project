@@ -1,6 +1,7 @@
 package moe.ahao.spring.boot.feishu;
 
 import moe.ahao.spring.boot.Starter;
+import moe.ahao.spring.boot.feishu.config.NotifyFeishuProperties;
 import moe.ahao.spring.boot.feishu.dto.MyCardReq;
 import moe.ahao.spring.boot.feishu.feign.FeishuFeignClient;
 import moe.ahao.spring.boot.feishu.feign.dto.FeishuCardTemplateSendReq;
@@ -13,9 +14,10 @@ import java.util.ArrayList;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 public class FeishuMessageTest {
-    public static final String token = "";
     @Autowired
     private FeishuFeignClient feishuFeignClient;
+    @Autowired
+    private NotifyFeishuProperties feishuNotifyProperties;
 
     @Test
     public void cardMessage() throws Exception {
@@ -32,14 +34,15 @@ public class FeishuMessageTest {
             myCardReq.getTableRawArray().add(row);
         }
 
+        NotifyFeishuProperties.FeishuConfig feishuConfig = feishuNotifyProperties.getScene(NotifyFeishuProperties.SceneEnum.SEND_ALARM);
         FeishuCardTemplateSendReq.Template<MyCardReq> template = new FeishuCardTemplateSendReq.Template<>();
-        template.setTemplateId("AAqR5mHQwiW0y");
-        template.setTemplateVersionName("0.0.4");
+        template.setTemplateId(feishuConfig.getTemplateId());
+        template.setTemplateVersionName(feishuConfig.getVersion());
         template.setTemplateVariable(myCardReq);
 
         FeishuCardTemplateSendReq<MyCardReq> req = new FeishuCardTemplateSendReq<>(template);
 
-        String resp = feishuFeignClient.sendMessage(token, req);
+        String resp = feishuFeignClient.sendMessage(feishuConfig.getToken(), req);
         System.out.println(resp);
     }
 }
