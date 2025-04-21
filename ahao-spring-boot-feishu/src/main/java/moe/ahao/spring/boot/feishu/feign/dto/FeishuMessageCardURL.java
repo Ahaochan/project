@@ -1,13 +1,12 @@
 package moe.ahao.spring.boot.feishu.feign.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MessageCardURL {
+public class FeishuMessageCardURL {
     @JsonProperty("url")
     private String url;
     @JsonProperty("android_url")
@@ -17,7 +16,7 @@ public class MessageCardURL {
     @JsonProperty("pc_url")
     private String pcUrl;
 
-    public MessageCardURL(String url) {
+    public FeishuMessageCardURL(String url) {
         this.url = url;
     }
 }

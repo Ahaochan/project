@@ -4,7 +4,7 @@ import moe.ahao.spring.boot.Starter;
 import moe.ahao.spring.boot.feishu.dto.MyCardReq;
 import moe.ahao.spring.boot.feishu.feign.FeishuFeignClient;
 import moe.ahao.spring.boot.feishu.feign.dto.FeishuCardTemplateSendReq;
-import moe.ahao.spring.boot.feishu.feign.dto.MessageCardURL;
+import moe.ahao.spring.boot.feishu.feign.dto.FeishuMessageCardURL;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +23,7 @@ public class FeishuMessageTest {
         myCardReq.setTitle("服务发生异常");
         myCardReq.setAlarmMessage("系统发生了宕机");
         myCardReq.setErrorMessage("日志写入失败，磁盘IO 100%");
-        myCardReq.setDownloadUrl(new MessageCardURL("https://open.feishu.cn"));
+        myCardReq.setDownloadUrl(new FeishuMessageCardURL("https://open.feishu.cn"));
         myCardReq.setTableRawArray(new ArrayList<>());
         for (int i = 0; i < 20; i++) {
             MyCardReq.MyTableRow row = new MyCardReq.MyTableRow();

@@ -2,7 +2,7 @@ package moe.ahao.spring.boot.feishu.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import moe.ahao.spring.boot.feishu.feign.dto.MessageCardURL;
+import moe.ahao.spring.boot.feishu.feign.dto.FeishuMessageCardURL;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class MyCardReq {
     @JsonProperty("error_message")
     private String errorMessage;
     @JsonProperty("download_url")
-    private MessageCardURL downloadUrl;
+    private FeishuMessageCardURL downloadUrl;
     @JsonProperty("table_raw_array")
     private List<MyTableRow> tableRawArray;
 
