@@ -21,9 +21,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
-
 public class SpringAITest {
-    private static final String model = "Qwen/QwQ-32B";
     @Autowired
     private ChatClient.Builder builder;
 
@@ -33,11 +31,6 @@ public class SpringAITest {
             .defaultSystem("你会直接告诉答案")
             .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory()))
             .defaultAdvisors(new SimpleLoggerAdvisor())
-            .defaultOptions(OpenAiChatOptions.builder()
-                .model(model)
-                .temperature(0.7)           // 增加温度会使输出更随机
-                .maxCompletionTokens(2000)  // 模型输出的最大的 token 数
-                .build())
             .build();
 
         ChatResponse chatResponse = chatClient.prompt().user("你给我取一个中文名字，只用回答名字就好").call().chatResponse();
@@ -62,21 +55,15 @@ public class SpringAITest {
         System.out.println("总tokens: " + chatResponse.getMetadata().getUsage().getTotalTokens());
     }
 
-
     @Test
     public void chatEntity() throws Exception {
         ChatClient chatClient = builder
             .defaultSystem("你会直接告诉答案")
             .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory()))
             .defaultAdvisors(new SimpleLoggerAdvisor())
-            .defaultOptions(OpenAiChatOptions.builder()
-                .model(model)
-                .temperature(0.7)           // 增加温度会使输出更随机
-                .maxCompletionTokens(2000)  // 模型输出的最大的 token 数
-                .build())
             .build();
 
-        UserDTO user = chatClient.prompt().user("你给我取一个中文名字，只用回答名字就好").call().entity(new ParameterizedTypeReference<>() {});
+        UserDTO user = chatClient.prompt().user("你给我取一个中文名字，只用回答名字就好").call().entity(new ParameterizedTypeReference<UserDTO>() {});
         System.out.println(user.getName());
     }
 
@@ -86,9 +73,6 @@ public class SpringAITest {
             .defaultSystem("你会直接告诉答案")
             .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory())) // 自带记忆, 不用手动传递assistant
             .defaultAdvisors(new SimpleLoggerAdvisor())
-            .defaultOptions(OpenAiChatOptions.builder()
-                .model(model)
-                .build())
             .build();
 
         String name1 = chatClient.prompt("你给我取一个中文名字，只用回答名字就好").call().content();
@@ -103,11 +87,6 @@ public class SpringAITest {
             .defaultSystem("你会直接告诉答案")
             .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory()))
             .defaultAdvisors(new SimpleLoggerAdvisor())
-            .defaultOptions(OpenAiChatOptions.builder()
-                .model(model)
-                .temperature(0.7)           // 增加温度会使输出更随机
-                .maxCompletionTokens(2000)  // 模型输出的最大的 token 数
-                .build())
             .build();
 
         Flux<String> flux = chatClient.prompt()
@@ -122,21 +101,18 @@ public class SpringAITest {
             () -> done.set(true) // 处理完成事件
         );
         while (!done.get()) {}
-        System.out.println("");
+        System.out.println();
         System.out.println("处理完成");
     }
 
     @Test
     public void multiAnswer() throws Exception {
-        int n = 3;
+        int n = 1; // ds只支持输出一个答案
         ChatClient chatClient = builder
             .defaultSystem("你会直接告诉答案")
             .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory()))
             .defaultAdvisors(new SimpleLoggerAdvisor())
             .defaultOptions(OpenAiChatOptions.builder()
-                .model(model)
-                .temperature(0.7)           // 增加温度会使输出更随机
-                .maxCompletionTokens(2000)  // 模型输出的最大的 token 数
                 .N(n)
                 .build())
             .build();
@@ -151,7 +127,7 @@ public class SpringAITest {
     }
 
     @Data
-    public class UserDTO {
+    public static class UserDTO {
         private String name;
     }
 }

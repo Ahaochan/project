@@ -10,23 +10,27 @@ import com.openai.models.chat.completions.ChatCompletionCreateParams;
 import moe.ahao.spring.boot.Starter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.ai.autoconfigure.openai.OpenAiConnectionProperties;
+import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Starter.class)
 public class NativeOpenAITest {
-    private static final ChatModel model = ChatModel.of("Qwen/QwQ-32B");
     @Autowired
     private OpenAIClient openAIClient;
+    @Value("${spring.ai.openai.chat.options.model}")
+    private String modelName;
 
     @Test
     public void chat() throws Exception {
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
             .addSystemMessage("你会直接告诉答案")
             .addUserMessage("你给我取一个中文名字，只用回答名字就好")
-            .model(model)
+            .model(ChatModel.of(modelName))
             .temperature(0.7)           // 增加温度会使输出更随机
             .maxCompletionTokens(2000)  // 模型输出的最大的 token 数
             .build();
@@ -59,7 +63,7 @@ public class NativeOpenAITest {
             .addUserMessage("你给我取一个中文名字，只用回答名字就好")
             .addMessage(ChatCompletionAssistantMessageParam.builder().content("小明").build())
             .addUserMessage("你刚才给我取的名字是【小明】吗？只回答【true】或者【false】")
-            .model(model)
+            .model(ChatModel.of(modelName))
             .build();
         ChatCompletion completion = openAIClient.chat().completions().create(params);
         String answer = completion.choices().get(0).message().content().get();
@@ -72,7 +76,7 @@ public class NativeOpenAITest {
     public void stream() throws Exception {
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
             .addUserMessage("讲一个100字的小故事，注意控制字数")
-            .model(model)
+            .model(ChatModel.of(modelName))
             .build();
 
         StringBuilder sb = new StringBuilder();
@@ -95,11 +99,11 @@ public class NativeOpenAITest {
 
     @Test
     public void multiAnswer() throws Exception {
-        int n = 3;
+        int n = 1; // ds只支持输出一个答案
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
             .addSystemMessage("你会直接告诉答案")
             .addUserMessage("你给我取一个中文名字，只用回答名字就好")
-            .model(model)
+            .model(ChatModel.of(modelName))
             .n(n)
             .build();
         ChatCompletion completion = openAIClient.chat().completions().create(params);
