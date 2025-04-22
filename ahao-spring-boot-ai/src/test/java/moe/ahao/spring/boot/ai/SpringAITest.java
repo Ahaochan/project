@@ -107,7 +107,7 @@ public class SpringAITest {
 
     @Test
     public void multiAnswer() throws Exception {
-        int n = 1; // ds只支持输出一个答案
+        int n = 3; // ds只支持输出一个答案
         ChatClient chatClient = builder
             .defaultSystem("你会直接告诉答案")
             .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory()))

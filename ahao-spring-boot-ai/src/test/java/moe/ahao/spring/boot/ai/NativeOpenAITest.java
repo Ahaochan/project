@@ -99,7 +99,7 @@ public class NativeOpenAITest {
 
     @Test
     public void multiAnswer() throws Exception {
-        int n = 1; // ds只支持输出一个答案
+        int n = 3; // ds只支持输出一个答案
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
             .addSystemMessage("你会直接告诉答案")
             .addUserMessage("你给我取一个中文名字，只用回答名字就好")
