@@ -16,7 +16,7 @@
 
     <properties>
         <elastic-job.version>2.1.5</elastic-job.version>
-        <apache.curator.version>2.13.0</apache.curator.version>
+        <apache.curator.version>4.2.0</apache.curator.version>
     </properties>
 
     <dependencies>
