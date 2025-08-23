@@ -15,7 +15,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <weixin.version>3.4.0</weixin.version>
+        <weixin.version>4.7.6-20250712.164952</weixin.version>
     </properties>
 
     <dependencies>
